@@ -75,46 +75,69 @@ class CatalogState extends StoreModule {
       'Установлены параметры каталога',
     );
 
-    // Сохранить параметры в адрес страницы
-    let urlSearch = new URLSearchParams(params).toString();
-    const url = window.location.pathname + '?' + urlSearch + window.location.hash;
-    if (replaceHistory) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
-    }
-
-    let apiParams = {
-      limit: params.limit,
-      skip: (params.page - 1) * params.limit,
-      fields: 'items(*,category(_id, title)),count',
-      sort: params.sort,
-      'search[query]': params.query,
+    const updateUrl = (replace) => {
+      const currentParams = this.getState().params;
+      const urlSearch = new URLSearchParams(currentParams).toString();
+      const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+      if (replace) {
+        window.history.replaceState({}, '', url);
+      } else {
+        window.history.pushState({}, '', url);
+      }
     };
 
-    if (params.category && params.category !== '') {
-      apiParams['search[category]']= params.category;
+    // Сохранить параметры в адрес страницы
+    updateUrl(replaceHistory);
+
+    const fetchArticles = async () => {
+      const currentParams = this.getState().params;
+      const apiParams = {
+        limit: currentParams.limit,
+        skip: (currentParams.page - 1) * currentParams.limit,
+        fields: 'items(*,category(_id, title)),count',
+        sort: currentParams.sort,
+        'search[query]': currentParams.query,
+      };
+
+      if (currentParams.category && currentParams.category !== '') {
+        apiParams['search[category]'] = currentParams.category;
+      }
+
+      const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+      return await response.json();
+    };
+
+    // Первичный запрос на сервер
+    let json = await fetchArticles();
+
+    const currentParams = this.getState().params;
+    const skip = (currentParams.page - 1) * currentParams.limit;
+
+    // Сделать новый запрос если смещение больше текущего размера выборки
+    if (json.result.count <= skip && json.result.count > 0) {
+      //Считаю какая должна быть последняя страница
+      const lastPage = Math.max(1, Math.ceil(json.result.count / currentParams.limit));
+
+      // Установка новых параметров
+      this.setState(
+        {
+          ...this.getState(),
+          params: {
+            ...this.getState().params,
+            page: lastPage,
+          },
+        },
+        'При превышении смещения перешли на последнюю страницу',
+      );
+
+      // Замена параметров в адресе страницы
+      updateUrl(true);
+
+      // Повторный запрос на сервер
+      json = await fetchArticles();
     }
 
-    console.log('new URLSearchParams(apiParams)', `${new URLSearchParams(apiParams)}`);
-
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const json = await response.json();
-
-    if (json.result.count <= (params.page - 1) * params.limit) {
-      const lastPage = Math.ceil(json.result.count / params.limit);
-      console.log('При превышении смещения перейти на последнюю страницу', lastPage);
-      /*     this.setState(
-              {
-                ...this.getState(),
-                params:    {...this.getState().params,
-                page: lastPage},
-              },
-              'При превышении смещения перешли на последнюю страницу',
-            );*/
-    }
-
-
+    // Устанавливаем полученные данные
     this.setState(
       {
         ...this.getState(),
@@ -133,19 +156,12 @@ class CatalogState extends StoreModule {
 
     const treeCategories = buildCategoryMapTree(json.result.items || [])
 
-    console.log("treeCategories", treeCategories);
-
     const defaultCategory = {
       "title": "Все",
       "value": ""
     }
 
     const optionsCategory = [defaultCategory, ...flattenCategoryTree(treeCategories)]
-
-    console.log("optionsCategory", optionsCategory);
-
-
-
 
     this.setState(
       {
