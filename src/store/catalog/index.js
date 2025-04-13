@@ -83,6 +83,7 @@ class CatalogState extends StoreModule {
     }
 
     const apiParams = {
+      lang: 'ru',
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
@@ -108,7 +109,7 @@ class CatalogState extends StoreModule {
   }
 
   async categoryLoad() {
-    const res = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const res = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&lang=ru&limit=*`);
     const result = await res.json();
 
     this.setState(
