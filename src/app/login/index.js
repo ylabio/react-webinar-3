@@ -9,7 +9,6 @@ import Spinner from '../../components/spinner';
 import LocaleSelect from '../../containers/locale-select';
 import LoginForm from '../../components/login-form'
 import { useNavigate } from 'react-router-dom'
-import useInit from '../../hooks/use-init';
 
 /**
  * Страница авторизации
@@ -23,14 +22,6 @@ function Login() {
     userAuth: state.user.isAuth,
     error: state.user.error
   }));
-
-  useInit(() => {
-    // Проверка на наличие токена.
-    // Если он есть, то осуществляется подгрузка информации о пользователе
-    if(Boolean(localStorage.getItem('userToken'))) {
-      store.actions.user.loadUserInfo();  
-    }
-  }, []);
 
   const { t } = useTranslate();
 
