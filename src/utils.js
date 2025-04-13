@@ -64,13 +64,13 @@ export function sortCategories(categories = []) {
 }
 
 export function createCategoryStringQuery(categories, id) {
-  const result = [id];
+  let result = id;
 
   function findCategoryChildrenId(catId, categoriesList) {
     for (const element of categoriesList) {
       if (element.parent) {
         if (element.parent._id === catId) {
-          result.push(element._id);
+          result += `,${element._id}`;
           findCategoryChildrenId(element._id, categoriesList);
         }
       }
@@ -79,5 +79,5 @@ export function createCategoryStringQuery(categories, id) {
 
   findCategoryChildrenId(id, categories);
 
-  return result.join(',');
+  return result;
 }
