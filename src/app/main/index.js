@@ -17,13 +17,13 @@ function Main() {
   const store = useStore();
   const select = useSelector(state => ({
     category: state.catalog.params.category,
-    categoryList: state.catalog.categoryList
+    categoryList: state.category.list
   }))
 
   useInit(
       () => {
         store.actions.catalog.initParams();
-        store.actions.catalog.loadCategoryList()
+        store.actions.category.loadCategoryList()
       },
       [],
       true,

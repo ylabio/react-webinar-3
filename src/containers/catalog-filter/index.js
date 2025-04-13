@@ -18,7 +18,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categoryList: state.catalog.categoryList
+    categoryList: state.category.list
   }));
 
   const callbacks = {
@@ -47,7 +47,7 @@ function CatalogFilter() {
         { value: '', title: 'Все'},
          ...sortCategory(select.categoryList)
       ],
-      [store.state.catalog.categoryList]
+      [store.state.category]
     )
   };
 
