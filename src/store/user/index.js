@@ -1,7 +1,7 @@
 import StoreModule from '../module';
 
 /**
- * Детальная информация о товаре для страницы товара
+ * Детальная информация о пользователе
  */
 class UserState extends StoreModule {
   initState() {
