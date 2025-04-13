@@ -12,8 +12,10 @@
 
 .Input_theme_big {
   width: 300px;
+  max-width: 100%;
 }
 
 .Input_theme_small {
   width: 233px;
+  max-width: 100%;
 }
