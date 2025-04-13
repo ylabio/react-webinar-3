@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -16,16 +16,11 @@ function LoginMenu() {
     auth: state.authorization,
   }));
 
+  // useEffect(() => {
+  //   store.actions.authorization.checkUser();
+  // }, []);
+
   const callbacks = {
-    // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    // Обработка перехода на главную
-    onNavigate: useCallback(
-      item => {
-        if (item.key === 1) store.actions.catalog.resetParams();
-      },
-      [store],
-    ),
     handleLogout: useCallback(() => store.actions.authorization.logoutUser(), []),
     handleLogin: useCallback(() => navigate('/login', {state: {back: location.pathname}}), []),
   };

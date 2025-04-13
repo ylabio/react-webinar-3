@@ -28,14 +28,14 @@ class AuthState extends StoreModule {
           userData: result.result.user,
           isLogin: true,
           error: '',
-        });
+        }, 'Успешный loginUser');
       } else {
         this.setState({
           ...this.getState(),
           userData: {},
           isLogin: false,
           error: result.error.message,
-        });
+        }, 'Ошибка loginUser');
       }
     } catch (error) {
       console.error(this.getState());
@@ -43,16 +43,66 @@ class AuthState extends StoreModule {
   }
 
   async logoutUser() {
-    localStorage.removeItem('token');
-    this.setState(
-      {
-        ...this.getState(),
-        userData: {},
-        isLogin: false,
-        error: '',
-      },
-      'Выход из аккаунта logoutUser',
-    );
+    try {
+      const res = await fetch('/api/v1/users/sign', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': localStorage.getItem('token'),
+        },
+      });
+
+      // console.log('res logout---');
+      // console.log(res);
+
+      localStorage.removeItem('token');
+      this.setState(
+        {
+          ...this.getState(),
+          userData: {},
+          isLogin: false,
+          error: '',
+        },
+        'Выход из аккаунта logoutUser',
+      );
+    } catch (error) {
+      console.error(this.getState());
+    }
+  }
+
+  async checkUser() {
+    try {
+      const res = await fetch('/api/v1/users/self?fields=*', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': localStorage.getItem('token'),
+        },
+      });
+
+      const result = await res.json();
+      console.log('result check---');
+      console.log(result);
+
+      if (result.result) {
+        this.setState({
+          ...this.getState(),
+          userData: result.result,
+          isLogin: true,
+          error: '',
+        }, 'Успешный checkUser');
+      } else {
+        localStorage.removeItem('token');
+        this.setState({
+          ...this.getState(),
+          userData: {},
+          isLogin: false,
+          error: '',
+        }, 'Ошибка checkUser');
+      }
+    } catch (error) {
+      console.error(this.getState());
+    }
   }
 }
 
