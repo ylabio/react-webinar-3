@@ -1,7 +1,8 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
+import useTranslate from '../../hooks/use-translate';
 import LoginEntry from '../../containers/login-entry';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
@@ -18,11 +19,13 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const token = localStorage.getItem('token');
-  if (token) {
-    navigate('/');
-  }
-
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [navigate]);
+  
   const select = useSelector(state => ({
     error: state.user.error,
   }));
@@ -30,13 +33,12 @@ function Login() {
   const callbacks = {
     // Аутентификация
     signIn: useCallback((username, password) => {
-      store.actions.user.signIn(username, password);
-      navigate("/");
+      store.actions.user.signIn(username, password, navigate);
     }, [store])
     
   };
 
-  // const { t } = useTranslate();
+  const { t } = useTranslate();
 
   return (
     <>

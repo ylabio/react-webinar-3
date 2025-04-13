@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
@@ -20,14 +20,16 @@ function Profile() {
   const store = useStore();
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
-  if (!token) {
-    navigate('/login');
-  }
+  useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/');
+      }
+  }, [navigate]);
 
   useInit(() => {
     store.actions.user.load();
-  }, [store]);
+  }, []);
 
   const select = useSelector(state => ({
     user: state.user.data,

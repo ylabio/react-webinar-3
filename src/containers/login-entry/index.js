@@ -18,7 +18,7 @@ function LoginEntry() {
 
   useInit(() => {
     store.actions.user.load();
-  }, [select.user]); 
+  }, []); 
 
   const callbacks = {
     // Выход из системы

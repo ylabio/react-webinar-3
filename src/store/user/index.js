@@ -23,7 +23,7 @@ class UserState extends StoreModule {
    * @param password String пароль
    * @return {Promise<void>}
    */
-  async signIn(username, password) {
+  async signIn(username, password, navigate) {
     try {
       const response = await fetch('/api/v1/users/sign', {
         method: 'POST',
@@ -46,7 +46,7 @@ class UserState extends StoreModule {
         waiting: false,
         error: '',
       }, 'Вход выполнен');
-
+      navigate('/');
     } catch (error) {
       this.setState({
         data: {},
@@ -62,7 +62,7 @@ class UserState extends StoreModule {
    */
   async load() {
     const token = localStorage.getItem('token');
-
+    // console.log('Где мой токен', token);
     try {
       const response = await fetch('/api/v1/users/self?fields=*', {
         method: 'GET',
