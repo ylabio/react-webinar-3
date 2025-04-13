@@ -33,3 +33,39 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function formatCategories(categories) {
+  const categoriesMap = new Map();
+  const tree = [];
+
+  //Создание map коллекции всех категорий
+  categories.forEach(category => {
+    categoriesMap.set(category._id, { ...category, children: [] });
+  })
+
+  //Построение дерева на основе map
+  categories.forEach(category => {
+    const node = categoriesMap.get(category._id);
+    if (node.parent) {
+      const parentNode = categoriesMap.get(node.parent._id);
+      parentNode.children.push(node);
+    } else {
+      tree.push(node);
+    }
+  })
+
+  //Форматирование дерева для того, чтобы категории были вида, который можно передать в select
+  const formatTree = (nodes, level = 0) => {
+    let formated = [];
+    nodes.forEach(node => {
+      formated.push({
+        value: node._id,
+        title: `${'- '.repeat(level)} ${node.title}`
+      })
+      formated = formated.concat(formatTree(node.children, level + 1));
+    })
+    return formated;
+  }
+
+  return formatTree(tree);
+}

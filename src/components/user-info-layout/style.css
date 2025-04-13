@@ -1,0 +1,9 @@
+.user-info-layout {
+    background-color: rgba(239, 239, 239, 1);
+    padding-inline: 20px;
+}
+
+.user-info-container {
+    max-width: 1192px;
+    margin: 0 auto;
+}

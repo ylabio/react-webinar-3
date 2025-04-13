@@ -1,0 +1,9 @@
+.Auth-button {
+    color: var(--primary);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: var(--second-font-family);
+    line-height: 22px;
+}

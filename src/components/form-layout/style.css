@@ -1,0 +1,17 @@
+.form-layout {
+    padding-top: 24px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-title {
+    margin-bottom: 24px;
+}
+
+.form button {
+    margin-top: 8px;
+}

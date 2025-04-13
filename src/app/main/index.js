@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,11 +8,16 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import AuthButton from '../../components/auth-button';
+import SideLayout from '../../components/side-layout';
+import UserInfo from '../../containers/user-info';
+import UserInfoLayout from '../../components/user-info-layout';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
+  const [headerTitle, setHeaderTitle] = useState('Магазин');
   const store = useStore();
 
   useInit(
@@ -27,12 +32,17 @@ function Main() {
 
   return (
     <>
-      <Head title={t('title')}>
+      <UserInfoLayout>
+        <UserInfo />
+      </UserInfoLayout>
+
+      <Head title={headerTitle}>
         <LocaleSelect />
       </Head>
+
       <PageLayout>
         <Navigation />
-        <CatalogFilter />
+        <CatalogFilter setHeaderTitle={setHeaderTitle} />
         <CatalogList />
       </PageLayout>
     </>

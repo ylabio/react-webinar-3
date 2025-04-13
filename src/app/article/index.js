@@ -10,6 +10,8 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
+import UserInfoLayout from '../../components/user-info-layout';
+import UserInfo from '../../containers/user-info';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -38,9 +40,14 @@ function Article() {
 
   return (
     <>
+      <UserInfoLayout>
+        <UserInfo />
+      </UserInfoLayout>
+
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>
+
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
