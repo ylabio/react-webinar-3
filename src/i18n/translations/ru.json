@@ -24,5 +24,9 @@
   "basket.articles.one": "товар",
   "basket.articles.few": "товара",
   "basket.articles.many": "товаров",
-  "basket.articles.other": "товара"
+  "basket.articles.other": "товара",
+  "article.manufature":"Страна производитель",
+  "article.category":"Категория",
+  "article.release":"Год выпуска",
+  "article.price": "Цена"
 }

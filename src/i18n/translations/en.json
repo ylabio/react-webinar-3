@@ -24,5 +24,9 @@
   "basket.articles.one": "article",
   "basket.articles.few": "articles",
   "basket.articles.many": "articles",
-  "basket.articles.other": "articles"
+  "basket.articles.other": "articles",
+  "article.manufature":"Manufacturer's country",
+  "article.category":"Category",
+  "article.release":"Release",
+  "article.price": "Price"
 }
