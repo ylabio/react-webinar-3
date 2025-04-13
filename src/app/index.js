@@ -21,7 +21,7 @@ function App() {
 
   useInit(() => {
     store.actions.profile.initParams();
-  }, [store.user]);
+  }, [store.profile]);
 
   const activeModal = useSelector(state => state.modals.name);
 

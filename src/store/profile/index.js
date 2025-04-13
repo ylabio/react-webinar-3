@@ -7,6 +7,7 @@ class ProfileState extends StoreModule {
   initState() {
     return {
       isAuth: false,
+      isClickLogOutBtn: false,
       userInfo: {
         name: '',
         phone: '',
@@ -17,24 +18,25 @@ class ProfileState extends StoreModule {
   }
 
   async initParams() {
-    const dataUser = JSON.parse(localStorage.getItem(LOCAL_USER_KEY));
+    const userToken = localStorage.getItem(LOCAL_USER_KEY);
 
-    if (dataUser !== null && dataUser.token.length) {
-      const res = await getUserData(dataUser.token, dataUser.id);
+    if (userToken !== null) {
+      const res = await getUserData(userToken);
 
       if (res.error) {
-        this.resetState()
+        this.resetState();
+        this.resetLocalStore();
       } else {
         this.setState({
           ...this.getState(false),
           isAuth: true,
-          isUserLeave: false,
+          isClickLogOutBtn: false,
           userInfo: {
             name: res.result.profile.name,
             phone: res.result.profile.phone,
             email: res.result.email,
           },
-          token: dataUser.token,
+          token: userToken,
         });
       }
     } else {
@@ -42,10 +44,15 @@ class ProfileState extends StoreModule {
     }
   }
 
+  resetLocalStore() {
+    localStorage.removeItem(LOCAL_USER_KEY);
+  }
+
   resetState() {
     this.setState({
       ...this.initState(),
       isAuth: false,
+      isClickLogOutBtn: true,
     });
   }
 }

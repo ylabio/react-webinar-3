@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { authUser } from '../../api';
 
@@ -16,20 +17,21 @@ function AuthForm({ t = text => text, onUpdate = () => {} }) {
   const [errorMsq, setErrorMsq] = useState('');
   const [inputType, setInputType] = useState('password');
   const [isSubmit, setIsSubmit] = useState(false);
+  const navigateTo = useNavigate();
 
   const onSubmit = async ()=> {
     setIsSubmit(true);
-    const res = await authUser(login, password);
+    const res = await authUser(login.trim(), password.trim());
     if (res.error) {
       setErrorMsq(res.error.data.issues[0].message);
     } else {
-      setErrorMsq(prev => '');
+      navigateTo(-1)
     }
-    setIsSubmit(false);
     await onUpdate();
+    setIsSubmit(false);
   };
 
-  const disabledBtn = isSubmit || !(password.trim().length && login.trim().length);
+  const disabledBtn = isSubmit || !(password.trim() && login.trim());
 
   const onShowPassword = e => {
     e.stopPropagation();
@@ -37,6 +39,7 @@ function AuthForm({ t = text => text, onUpdate = () => {} }) {
 
     setInputType(prev => typeBtn);
   };
+
   return (
     <div className="AuthForm">
       <h1 className="AuthForm-title">{t('user.authIn')}</h1>
@@ -44,20 +47,20 @@ function AuthForm({ t = text => text, onUpdate = () => {} }) {
         <label>
           <h4>{t('user.login')}</h4>
           <Input
-            value={login.trim()}
+            value={login}
             onChange={setLogin}
             placeholder={t('login.input')}
-            delay={400}
+            delay={100}
             theme={'small'}
           />
         </label>
         <label className={`AuthForm-pass${!!errorMsq ? ' error' : ''}`}>
           <h4>{t('user.pswd')}</h4>
           <Input
-            value={password.trim()}
+            value={password}
             onChange={setPassword}
             placeholder={t('pswd.input')}
-            delay={400}
+            delay={100}
             theme={'small pswd'}
             type={inputType}
           />
