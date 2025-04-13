@@ -30,7 +30,7 @@ function LoginForm({
       const success = await onSubmit(credentials);
       await new Promise(resolve => setTimeout(resolve, 50));
       if (success) {
-        navigate('/');
+        navigate('/profile');
       }
     } catch (error) {
       try {
