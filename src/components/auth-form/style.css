@@ -46,6 +46,7 @@
 }
 
 .AuthForm-pass {
+  position: relative;
   margin-bottom: 24px;
   &.error {
     margin-bottom: 0;
@@ -59,3 +60,11 @@
   margin-bottom:6px;
 }
 
+.AuthForm-btn {
+  position: absolute;
+  right: 4px;
+  top: 36px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+}

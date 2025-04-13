@@ -1,6 +1,6 @@
 import StoreModule from '../module';
 
-import { getUserData } from '../../services';
+import { getUserData } from '../../api';
 import { LOCAL_USER_KEY } from '../../constants';
 
 class UserState extends StoreModule {
@@ -13,7 +13,6 @@ class UserState extends StoreModule {
         email: '',
       },
       token: '',
-      isUserLeave: false,
     };
   }
 
@@ -24,7 +23,7 @@ class UserState extends StoreModule {
       const res = await getUserData(dataUser.token, dataUser.id);
 
       if (res.error) {
-        this.resetState(false);
+        this.resetState()
       } else {
         this.setState({
           ...this.getState(false),
@@ -39,15 +38,14 @@ class UserState extends StoreModule {
         });
       }
     } else {
-      this.resetState(false);
+      this.resetState();
     }
   }
 
-  resetState(isUserLoggedOut = false) {
+  resetState(isUserLoggedOut) {
     this.setState({
       ...this.initState(),
       isAuth: false,
-      isUserLeave: isUserLoggedOut,
     });
   }
 }

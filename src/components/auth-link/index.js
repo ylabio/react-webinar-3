@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 
-import { signOut } from '../../services';
+import { signOut } from '../../api';
 
 import Button from '../button';
 
@@ -12,7 +12,7 @@ import './style.css';
 
 function AuthLink({t=t=>t}) {
   const store = useStore();
-  
+
   const select = useSelector(state => ({
     isUserLogged: state.user.isAuth,
     userName: state.user.userInfo.name,

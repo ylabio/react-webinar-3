@@ -9,8 +9,8 @@ import { PrivateRoute, PublicRoute } from './routes';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
-import Login from './login';
 import Profile from './profile';
+import Login from './login';
 
 /**
  * Приложение
@@ -30,12 +30,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route element={<PrivateRoute />}>
-          <Route path={'/profile'} element={<Profile />} />
-        </Route>
-        <Route element={<PublicRoute />}>
-          <Route path={'/login'} element={<Login />} />
-        </Route>
+        <Route path={'/profile'} element={<PrivateRoute Component={Profile}/>}  />
+        <Route path={'/login'} element={<PublicRoute Component={Login}/>}  />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

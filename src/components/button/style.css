@@ -2,7 +2,7 @@
   background-color: var(--primary);
   color: var(--second-text);
 
-  &:hover {
+  & &:not([disabled]):hover {
     background-color: var(--background);
     border-color: var(--primary);
     color: var(--primary);
@@ -61,4 +61,9 @@
   &:hover {
     color: var(--primary);
   }
+}
+
+:disabled {
+  background: #a996e3;
+  cursor: default;
 }
