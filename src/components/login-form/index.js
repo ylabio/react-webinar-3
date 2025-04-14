@@ -5,8 +5,9 @@ import Input from '../input'
 import Button from '../button'
 import useTranslate from '../../hooks/use-translate'
 import PropTypes from 'prop-types'
+import Spinner from '../spinner'
 
-function LoginForm({ error, onSubmit = () => {}}) {
+function LoginForm({ error, onSubmit = () => {}, spinner = false}) {
   const cn = bem('LoginForm');
   const [signOptions, setSignOptions] = useState({login: '', password: ''})
 
@@ -69,7 +70,9 @@ function LoginForm({ error, onSubmit = () => {}}) {
           <div 
             className={cn('error', error && { message: 'active'} )}>{error}</div>
         </div>
-        <Button {...options.button}/>
+        <Spinner active={spinner}>
+          <Button {...options.button}/>
+        </Spinner>
       </form>
     </div>
   );
@@ -77,7 +80,7 @@ function LoginForm({ error, onSubmit = () => {}}) {
 
 LoginForm.propTypes = {
   error: PropTypes.string,
-  onSubmit: PropTypes.fun
+  onSubmit: PropTypes.func
 }
 
 export default memo(LoginForm);
