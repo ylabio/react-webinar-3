@@ -51,7 +51,7 @@ function CatalogFilter() {
       ],
       [],
     ),
-    filter: getSelectOptions(select.categories),
+    filter: getSelectOptions([{ title: 'Все', _id: '', parent: null }, ...select.categories]),
   };
 
   const { t } = useTranslate();

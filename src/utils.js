@@ -107,7 +107,7 @@ export const saveToLS = (key, value) => localStorage.setItem(key, JSON.stringify
  */
 export const getFullPath = (items, itemId, path = []) => {
   const item = items.find(i => i._id === itemId);
-  if (!item) return '';
+  if (!item) return 'Все';
 
   const newPath = [item.title, ...path];
 

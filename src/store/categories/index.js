@@ -13,7 +13,7 @@ class CategoriesState extends StoreModule {
 
     this.setState({
       ...this.getState(),
-      list: [{ title: 'Все', _id: '', parent: null }, ...json.result.items],
+      list: json.result.items,
     });
   }
 }
