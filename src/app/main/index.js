@@ -20,6 +20,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.load();
     },
     [],
     true,
@@ -29,7 +30,7 @@ function Main() {
 
   const select = useSelector(state => ({
     categoryId: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
   }));
 
   // Находим текущую выбранную категорию

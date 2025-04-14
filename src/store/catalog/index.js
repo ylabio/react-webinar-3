@@ -12,7 +12,6 @@ class CatalogState extends StoreModule {
     return {
       list: [],
       //хранение категорий
-      categories: [],
       params: {
         page: 1,
         limit: 10,
@@ -42,9 +41,6 @@ class CatalogState extends StoreModule {
     /* 1 */
     if (urlParams.has('search[category]')) validParams.category = urlParams.get('search[category]');
 
-    // Загружаем категории при инициализации
-    await this.loadCategories();
-
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -53,30 +49,6 @@ class CatalogState extends StoreModule {
    * Загрузка категорий
    * @return {Promise<void>}
    */
-  async loadCategories() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
-
-    // Строим иерархический список категорий
-    const buildHierarchy = (categories, parentId = null, level = 0) => {
-      return categories
-        .filter(category => {
-          if (parentId === null) return !category.parent;
-          return category.parent?._id === parentId;
-        })
-        .flatMap(category => [
-          { ...category, level },
-          ...buildHierarchy(categories, category._id, level + 1),
-        ]);
-    };
-
-    const hierarchicalCategories = buildHierarchy(json.result.items);
-
-    this.setState({
-      ...this.getState(),
-      categories: hierarchicalCategories,
-    });
-  }
 
   /* ------------------------------------- */
 
