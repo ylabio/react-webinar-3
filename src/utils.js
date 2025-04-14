@@ -54,11 +54,9 @@ export const sortCategory = (categoryList) => {
       const parent = categoryArray.find(item => item._id === category.parent._id)
       parent.children.push(category)
     }
-  })
-  categoryArray.forEach(item => {
-    if (item.parent === null) {
-      rootCategory.push(item)
-    }  
+    if (category.parent === null) {
+      rootCategory.push(category)
+    }
   })
 
   function depthCategory(category, depth = 0) {
