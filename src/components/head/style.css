@@ -1,6 +1,6 @@
 .Head {
   color: var(--primary);
-  padding: 16px 20px;
+  padding: 16px 0;
   border-bottom: 1px solid var(--divider);
 }
 

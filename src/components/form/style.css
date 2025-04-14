@@ -1,0 +1,48 @@
+.Form{
+width: 50%;
+margin-top: 24px;
+display: flex;
+flex-direction: column;
+gap: 24px;
+}
+.Form span{
+  font-family: var(--second-font-family);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.Form-form{
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
+
+.Form-form input{
+margin-top: 8px;
+display: flex;
+flex-direction: column;
+border-radius: 1px;
+border: 1px solid var(--close);
+min-width: 197px;
+height: 40px;
+}
+
+.Form-form button{
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--second-text);
+  width: 86px;
+  height: 40px;
+  transition: 0.3s;
+  &:hover {
+    background-color: var(--background);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  }
+
+  .Form-error {
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--delete);
+    }
