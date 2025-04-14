@@ -1,0 +1,33 @@
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px 0 0;
+}
+
+.LoginForm h2 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    margin-bottom: 25px;
+    font-size: 32px;
+}
+
+.LoginForm label {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.LoginForm Button {
+    margin-top: 25px;
+}
+
+.LoginForm-element {
+  display: flex;
+  flex-direction: column;
+  max-width: 233px;
+  margin-bottom: 20px;
+}
+
+.LoginForm_error_message {
+  padding: 0;
+  height: 20px;
+  color: red;
+}

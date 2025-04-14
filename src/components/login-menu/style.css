@@ -1,0 +1,15 @@
+.LoginMenu {
+  height: 38px;
+  background-color: rgba(239, 239, 239, 1);
+}
+
+.LoginMenu .SideLayout {
+  margin: 0 auto;
+  max-width: 1152px;
+  height: 100%;
+}
+
+.LoginMenu .SideLayout button {
+  padding-right: 0;
+  color: var(--primary);
+}

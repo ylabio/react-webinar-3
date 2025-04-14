@@ -1,5 +1,6 @@
 {
   "title": "Магазин",
+  "title.profile": "Профиль",
   "menu.main": "Главная",
   "basket.title": "Корзина",
   "basket.open": "Перейти",
@@ -11,6 +12,14 @@
   "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
+  "user.logIn": "Вход",
+  "user.logOut": "Выход",
+  "user.name": "Имя",
+  "user.phone": "Телефон",
+  "form.login": "Логин",
+  "form.password": "Пароль",
+  "form.title": "Вход",
+  "form.btn": "Войти",
   "basket.articles": {
     "one": "товар",
     "few": "товара",

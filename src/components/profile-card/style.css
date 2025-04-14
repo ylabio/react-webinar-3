@@ -1,0 +1,20 @@
+.ProfileCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.ProfileCard-item {
+  margin-bottom: 20px;
+}
+
+.ProfileCard-item span {
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.ProfileCard h2 {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  font-size: 32px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
