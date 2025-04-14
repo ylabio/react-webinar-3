@@ -29,13 +29,11 @@ function Profile() {
   useInit(() => {
     store.actions.user.checkAuth();
   }, [store]);
-
-  console.log('Проверка autenticated в Profile', select.autenticated);
   
   useEffect(() => {
-    if (select.autenticated === true) {
+    if (select.autenticated) {
       store.actions.user.load();
-    } else if (select.autenticated === false) {
+    } else {
       navigate('/');
     }
   }, [select.authenticated, navigate, store]);

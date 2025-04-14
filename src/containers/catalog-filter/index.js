@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -10,7 +10,8 @@ import Button from '../../components/button';
 /**
  * Контейнер со всеми фильтрами каталога
  */
-function CatalogFilter() {
+function CatalogFilter({ onCategoryChange }) {
+  
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -28,9 +29,17 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
     // Фильтрация по категориям
-    onFilter: useCallback(category => {
-      store.actions.catalog.setParams({ category, page: 1 }), [store]
-    }),
+    // onFilter: useCallback(categoryId => {
+    //   // console.log('select.categories', select.categories);
+    //   const selectedCategory = select.categories.find(category => {
+    //     console.log(categoryId, category._id);
+    //     return category._id === categoryId
+    //   });
+    //   const category = categoryId;
+    //   // console.log('selectedCategory', selectedCategory);
+    //   store.actions.catalog.setParams({ category, page: 1 });
+    //   setSelectedCategory(selectedCategory ? selectedCategory.title : 'Все');
+    // }, [store, select.categories]),
   };
 
   // Функция для создания вложенной структуры категорий
@@ -79,7 +88,7 @@ function CatalogFilter() {
       <Select
         options={options.categories}
         value={select.category}
-        onChange={callbacks.onFilter}
+        onChange={onCategoryChange}
         size="medium"
       />
       <Select
