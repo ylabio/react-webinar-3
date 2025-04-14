@@ -15,20 +15,22 @@ function UserPanel() {
 
   return (
     <div className="bar">
-      {token && user && user.profile ? (
-        <>
-          <Link to="/profile" style={{ marginRight: '1rem' }}>
-            {user.profile.name || 'Пользователь'}
+      <div className="bar-content">
+        {token && user && user.profile ? (
+          <>
+            <Link to="/profile" style={{ marginRight: '1rem' }}>
+              {user.profile.name || 'Пользователь'}
+            </Link>
+            <button className="logout-btn" onClick={onLogout}>
+              Выход
+            </button>
+          </>
+        ) : (
+          <Link className="login-link" to="/login">
+            Вход
           </Link>
-          <button className="logout-btn" onClick={onLogout}>
-            Выход
-          </button>
-        </>
-      ) : (
-        <Link className="login-link" to="/login">
-          Вход
-        </Link>
-      )}
+        )}
+      </div>
     </div>
   );
 }

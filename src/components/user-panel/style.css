@@ -1,16 +1,20 @@
 .bar {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
+  width: 100%;
   background-color: #efefef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  height: 38px;
+}
+
+.bar-content {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 8px 144px;
-  height: 38px;
+  max-width: 1192px;
+  width: 100%;
+  padding-inline: 20px;
 }
 
 .logout-btn {
