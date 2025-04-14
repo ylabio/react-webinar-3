@@ -39,3 +39,7 @@
     color: var(--primary);
   }
 }
+
+.Button_style_auth {
+  color: var(--primary);
+}

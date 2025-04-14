@@ -7,10 +7,31 @@
   font-family: var(--font-family);
   font-size: 16px;
   height: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .Select:focus-visible {
   outline: none;
+}
+
+.Select-container {
+  position: relative;
+}
+
+.Arrow {
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  width: 12px;
+  height: 10px;
+  background-image: url(../../assets/icon/arrow.svg);
+  background-repeat: no-repeat;
+}
+
+.Select-container:has(.Select:open) .Arrow {
+  transform: rotate(180deg);
 }
 
 .Select option:checked,

@@ -1,0 +1,16 @@
+.AuthBar {
+  height: 38px;
+  background-color: var(--second-background);
+}
+
+.AuthBar-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.AuthBar-container a {
+  padding-right: 12px;
+}

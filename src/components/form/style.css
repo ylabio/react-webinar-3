@@ -1,0 +1,31 @@
+.Form_padding_medium {
+  padding-block: 24px;
+  max-width: 233px;
+}
+
+.Form-title {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.Form-container-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form-container-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form-container-input-label {
+  padding: 25px 0 8px 0;
+  font-size: 0.9rem;
+}
+
+.Form-error {
+  font-size: 0.8rem;
+  color: var(--delete);
+  padding: 15px 0 22px 0;
+}
