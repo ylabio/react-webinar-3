@@ -13,8 +13,8 @@ function LoginMenu() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    name: state.user.name,
-    successfully: state.user.successfully,
+    name: state.session.name,
+    successfully: state.session.successfully,
   }));
 
   const callbacks = {
@@ -23,7 +23,7 @@ function LoginMenu() {
     }, [location.pathname]),
 
     onLogOut: useCallback(() => {
-      store.actions.user.logOut();
+      store.actions.session.logOut();
     }, []),
   };
 

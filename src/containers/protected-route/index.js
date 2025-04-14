@@ -5,8 +5,8 @@ import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ children, redirect }) {
   const select = useSelector(state => ({
-    successfully: state.user.successfully,
-    waiting: state.user.waiting,
+    successfully: state.session.successfully,
+    waiting: state.session.waiting,
   }));
 
   if (!select.successfully && !select.waiting) {

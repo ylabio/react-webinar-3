@@ -17,7 +17,7 @@ function App() {
   const store = useStore();
 
   useInit(async () => {
-    await store.actions.user.reLogIn();
+    await store.actions.session.reLogIn();
   });
 
   const activeModal = useSelector(state => state.modals.name);

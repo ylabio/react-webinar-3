@@ -30,25 +30,26 @@ function Login() {
     onSubmit: useCallback(
       e => {
         e.preventDefault();
-        store.actions.user.logIn(data);
-        const redirect =
-          location.state?.back && location.state.back !== location.pathname // back может не быть если разлогинеться со строницы профиля
-            ? location.state?.back
-            : '/';
-        navigate(redirect);
+        store.actions.session.logIn(data, () => {  //если просто выполним navigate, а не передадим колбеком, то будет редиректить даже при ошибке данных
+          const redirect =
+            location.state?.back && location.state.back !== location.pathname // back может не быть если разлогинеться со строницы профиля
+              ? location.state?.back
+              : '/';
+          navigate(redirect);
+        });
       },
       [data, location.state],
     ),
   };
 
   const select = useSelector(state => ({
-    name: state.user.name,
-    error: state.user.error,
-    successfully: state.user.successfully,
+    name: state.session.name,
+    error: state.session.error,
+    successfully: state.session.successfully,
   }));
 
   useEffect(() => {
-    store.actions.user.deleteError();
+    store.actions.session.deleteError();
   }, []);
 
   return (
