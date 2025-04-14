@@ -11,7 +11,6 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
-      categories: [],
       params: {
         page: 1,
         limit: 10,
@@ -104,17 +103,6 @@ class CatalogState extends StoreModule {
         waiting: false,
       },
       'Загружен список товаров из АПИ',
-    );
-  }
-  async loadCategory() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
-    this.setState(
-      {
-        ...this.getState(),
-        categories: json.result.items,
-      },
-      'Установлены категории',
     );
   }
 }

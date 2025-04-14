@@ -1,6 +1,5 @@
 import { memo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import AuthInfo from '../../containers/auth-info';
 import useTranslate from '../../hooks/use-translate';
 import Head from '../../components/head';
 import LoginForm from '../../components/login-form';
@@ -27,26 +26,16 @@ function Login() {
     waiting: state.session.waiting,
   }));
 
-  useEffect(() => {
-    const { state } = location;
-    if (select.user && !select.waiting) {
-      if (state?.from) {
-        navigate(state?.from);
-      } else {
-        navigate('/profile');
-      }
-    }
-  }, [select.user, select.waiting]);
-
   const callbacks = {
     onSubmit: data => {
       store.actions.session.loginUser(data);
+      const { state } = location;
+      navigate(state?.from);
     },
   };
 
   return (
     <>
-      <AuthInfo />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

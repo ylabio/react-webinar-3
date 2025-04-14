@@ -8,7 +8,7 @@ import Login from './login';
 import Profile from './profile';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
-import PrivateRoute from '../containers/private-route';
+import { Unauthorized, Authorized } from '../containers/protected-rout';
 
 /**
  * Приложение
@@ -25,10 +25,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route path={'/login'} element={<Login />} />
-        <Route element={<PrivateRoute />}>
-          <Route path={'/profile'} element={<Profile />} />
-        </Route>
+        <Route path="/login" element={<Unauthorized component={<Login />} />} />
+        <Route path="/profile" element={<Authorized component={<Profile />} />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}
