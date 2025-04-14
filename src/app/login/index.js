@@ -26,11 +26,13 @@ function Login() {
   const { t } = useTranslate();
 
   useLayoutEffect(() => {
+    callbacks.resetError()
     if(select.userAuth) navigate(-1)
-  },[store.state.user])
+  },[store.state.user.isAuth])
 
   const callbacks = {
-    onSubmit: useCallback(signOptions => store.actions.user.auth(signOptions))
+    onSubmit: useCallback(signOptions => store.actions.user.auth(signOptions)),
+    resetError: useCallback(() => store.actions.user.resetError())
   }
 
   return (

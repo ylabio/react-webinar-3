@@ -20,7 +20,7 @@ function App() {
 
   useInit(
     () => {
-      store.actions.user.loadUserInfo();  
+      store.actions.profile.loadUserInfo();  
     },
     [],
     true,

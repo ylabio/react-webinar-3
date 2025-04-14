@@ -14,16 +14,10 @@ import ProfileCard from '../../components/profile-card'
  * Страница авторизации
  */
 function Profile() {
-  const store = useStore();
-
   const select = useSelector(state => ({
-    user: state.user.data,
-    waiting: state.user.waiting,
+    user: state.profile.data,
+    waiting: state.profile.waiting,
   }));
-
-  useInit(() => {
-    store.actions.user.loadUserInfo();  
-  }, []);
 
   const { t } = useTranslate();
 

@@ -16,7 +16,7 @@ function UserTools() {
 
   const select = useSelector(state => ({
     userAuth: state.user.isAuth,
-    name: state.user.data?.profile?.name
+    name: state.profile.data?.profile?.name
   }));
 
   const callbacks = {

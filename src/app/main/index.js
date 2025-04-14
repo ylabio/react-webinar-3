@@ -21,13 +21,13 @@ function Main() {
   }))
 
   useInit(
-      () => {
-        store.actions.catalog.initParams();
-        store.actions.category.loadCategoryList()
-      },
-      [],
-      true,
-    );
+    () => {
+      store.actions.catalog.initParams();
+      store.actions.category.loadCategoryList()
+    },
+    [],
+    true,
+  );
   
   const { t } = useTranslate();
   
