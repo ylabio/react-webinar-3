@@ -1,6 +1,5 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Input from '../form-input';
 import Button from '../button';
@@ -14,45 +13,15 @@ function LoginForm({
   buttonMessage,
   passwordPlaceholder,
   loginPlaceholder,
+  errors,
+  isSubmitting,
 }) {
   const cn = bem('LoginForm');
-  const [errors, setErrors] = useState([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSubmit = async event => {
-    event.preventDefault();
-    setErrors([]); // Очищаем ошибки перед запросом
-    setIsSubmitting(true);
-    try {
-      const formData = new FormData(event.target);
-      const credentials = Object.fromEntries(formData.entries());
-      const success = await onSubmit(credentials);
-      await new Promise(resolve => setTimeout(resolve, 50));
-      if (success) {
-        navigate('/profile');
-      }
-    } catch (error) {
-      try {
-        const errorMessage = error.message;
-        const jsonString = errorMessage.startsWith('Error: ')
-          ? errorMessage.replace('Error: ', '')
-          : errorMessage;
-        const errorData = JSON.parse(jsonString);
-
-        setErrors(errorData.issues || ['Ошибка авторизации']);
-      } catch (parseError) {
-        setErrors(['Ошибка авторизации']);
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className={cn()}>
       <h1>{header}</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <Input
           placeholder={loginPlaceholder}
           className={cn('input')}
@@ -100,6 +69,13 @@ LoginForm.propTypes = {
   loginLabel: PropTypes.string,
   passwordLabel: PropTypes.string,
   buttonMessage: PropTypes.string,
+  errors: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
+  isSubmitting: PropTypes.bool,
+};
+
+LoginForm.defaultProps = {
+  errors: [],
+  isSubmitting: false,
 };
 
 export default memo(LoginForm);
