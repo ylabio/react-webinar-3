@@ -13,7 +13,7 @@ import LoginMenu from '../login-menu';
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function Main({categoryTitle = ''}) {
   const store = useStore();
 
   useInit(
@@ -30,7 +30,7 @@ function Main() {
   return (
     <>
       <LoginMenu />
-      <Head title={t('title')}>
+      <Head title={t('title') + (categoryTitle ? ' / ' + categoryTitle : '')}>
         <LocaleSelect />
       </Head>
       <PageLayout>

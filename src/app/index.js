@@ -16,6 +16,7 @@ import ProtectedRoute from '../components/protected-route';
 function App() {
   const activeModal = useSelector(state => state.modals.name);
   const store = useStore();
+  const [categoryTitle, setCategoryTitle] = useState('');
 
   const select = useSelector(state => ({
     category: state.catalog.params.category,
@@ -24,18 +25,18 @@ function App() {
 
   useEffect(() => {
     store.actions.authorization.checkUser();
-    document.title = 'Магазин';
   }, []);
 
   useEffect(() => {
-    const categoryTitle = select.categoryList.find(item => item.value === select.category)?.title;
-    document.title = `Магазин${select.category ? ' / ' + categoryTitle : ''}`;
+    const tempTitle = select.categoryList.find(item => item.value === select.category)?.title.replace(" ", "").replace(/-/g, "");
+    setCategoryTitle(tempTitle);
+    document.title = `Магазин${select.category ? ' / ' + tempTitle : ''}`;
   }, [select.categoryList, select.category]);
 
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main />} />
+        <Route path={''} element={<Main categoryTitle={categoryTitle}/>} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<ProtectedRoute anonymous={true}><Login /></ProtectedRoute>} />
         <Route path={'/profile'} element={<ProtectedRoute anonymous={false}><Profile /></ProtectedRoute>} />

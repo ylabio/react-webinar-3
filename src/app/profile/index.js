@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -18,6 +18,10 @@ function Profile() {
 
   useInit(() => {}, []);
 
+  useEffect(() => {
+    document.title = 'Магазин / Профиль';
+  }, []);
+
   const select = useSelector(state => ({
     userData: state.authorization.userData,
   }));
@@ -32,7 +36,7 @@ function Profile() {
   return (
     <>
       <LoginMenu />
-      <Head title="Магазин">
+      <Head title="Магазин / Профиль">
         <LocaleSelect />
       </Head>
       <PageLayout>

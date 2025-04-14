@@ -23,6 +23,10 @@ function Login() {
 
   useInit(() => {}, []);
 
+  useEffect(() => {
+    document.title = 'Магазин / Логин';
+  }, []);
+
   const select = useSelector(state => ({
     auth: state.authorization,
   }));
@@ -49,7 +53,7 @@ function Login() {
   return (
     <>
       <LoginMenu />
-      <Head title="Магазин">
+      <Head title="Магазин / Логин">
         <LocaleSelect />
       </Head>
       <PageLayout>
