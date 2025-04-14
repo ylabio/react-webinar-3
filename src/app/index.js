@@ -8,7 +8,7 @@ import Article from './article';
 import Login from './login';
 import Profile from './profile';
 import UserPanel from '../components/user-panel';
-
+// финал
 function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
