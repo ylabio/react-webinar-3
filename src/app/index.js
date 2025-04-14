@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const categoryTitle = select.categoryList.find(item => item.value === select.category)?.title;
     document.title = `Магазин${select.category ? ' / ' + categoryTitle : ''}`;
-  }, [select.category]);
+  }, [select.categoryList, select.category]);
 
   return (
     <>
