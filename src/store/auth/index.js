@@ -27,7 +27,7 @@ class AuthState extends StoreModule {
     });
   }
 
-  async login(payload, navigate = () => {}) {
+  async login(payload, navigateToPrevPath = () => {}) {
     try {
       const response = await fetch('api/v1/users/sign', {
         method: 'POST',
@@ -53,7 +53,7 @@ class AuthState extends StoreModule {
           isAuth: true,
         });
         this.resetErrorMessage();
-        navigate('/profile');
+        navigateToPrevPath();
       }
     } catch (error) {
       console.log(error);

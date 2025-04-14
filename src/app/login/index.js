@@ -6,7 +6,7 @@ import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import TopBar from '../../containers/top-bar';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import LoginBlock from '../../components/login-block';
 import Spinner from '../../components/spinner';
@@ -14,6 +14,7 @@ import Spinner from '../../components/spinner';
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const [data, setData] = useState({
     login: '',
@@ -37,9 +38,15 @@ function Login() {
     onChange: useCallback((value, name) => {
       setData(prevState => ({ ...prevState, [name]: value.trim() }));
     }, []),
-    onSubmit: useCallback(e => {
+    // Колбек для редиректа на предыдущую страницу
+    navigateToPrevPath: useCallback(() => {
+      const path = state === null ? '/profile' : state.prevPath
+      navigate(path);
+    }, []),
+    onSubmit: useCallback(
+      e => {
         e.preventDefault();
-        store.actions.auth.login(data, navigate);
+        store.actions.auth.login(data, callbacks.navigateToPrevPath);
       },
       [data],
     ),

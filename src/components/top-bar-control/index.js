@@ -5,7 +5,7 @@ import SideLayout from '../side-layout';
 import { Link } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 
-function TopBarControl({ logout, name, token, t }) {
+function TopBarControl({ logout, name, token, t, pathname }) {
   const cn = bem('TopBarControl');
 
   return (
@@ -22,7 +22,7 @@ function TopBarControl({ logout, name, token, t }) {
               </button>
             </>
           ) : (
-            <Link className={cn('action')} to={'/login'}>
+            <Link className={cn('action')} to={'/login'} state={{ prevPath: pathname }}>
               {t('Вход')}
             </Link>
           )}
@@ -37,6 +37,7 @@ TopBarControl.propTypes = {
   token: PropTypes.string,
   t: PropTypes.func,
   logout: PropTypes.func,
+  pathName: PropTypes.string,
 };
 
 export default memo(TopBarControl);

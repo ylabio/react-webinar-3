@@ -3,9 +3,11 @@ import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import TopBarControl from '../../components/top-bar-control';
+import { useLocation } from 'react-router-dom';
 
 function TopBar() {
   const store = useStore();
+  const { pathname } = useLocation();
 
   const select = useSelector(state => ({
     name: state.auth.user?.profile?.name || '',
@@ -21,7 +23,13 @@ function TopBar() {
   const { t } = useTranslate();
 
   return (
-    <TopBarControl logout={callbacks.logoutHandler} name={select.name} token={select.token} t={t} />
+    <TopBarControl
+      logout={callbacks.logoutHandler}
+      name={select.name}
+      token={select.token}
+      t={t}
+      pathname={pathname}
+    />
   );
 }
 
