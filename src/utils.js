@@ -33,3 +33,38 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function depthCategories(categories) {
+  const arr = [];
+  const map = new Map(categories.map(category => [category._id, { ...category, children: [] }]));
+
+  categories.forEach(category => {
+    if (category.parent) {
+      const parent = map.get(category.parent._id);
+      if (parent) {
+        parent.children.push(map.get(category._id));
+      }
+    }
+  });
+
+  function depthCategory(category, depth = 0) {
+    const title = '- '.repeat(depth) + category.title;
+    arr.push({ value: category._id, title });
+    category.children.forEach(child => depthCategory(child, depth + 1));
+  }
+  const rootCategories = [...map.values()].filter(category => !category.parent);
+  rootCategories.forEach(rootCategory => depthCategory(rootCategory));
+
+  return arr;
+}
+
+export function getCookie(name) {
+  let matches = document.cookie.match(
+    new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+export function deleteCookie(name) {
+  document.cookie = name;
+}

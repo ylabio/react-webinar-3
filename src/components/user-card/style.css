@@ -1,0 +1,25 @@
+.UserCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.UserCard-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.UserCard-prop {
+  display: flex;
+  gap: 10px;
+}
+
+.UserCard-label {
+  min-width: 64px;
+}
+
+.UserCard-value {
+  font-weight: bold;
+}
