@@ -13,15 +13,16 @@ import useStore from '../hooks/use-store';
  */
 function App() {
   const store = useStore();
-  const user = useSelector(state => state.user);
+  const session = useSelector(state => state.session);
+  const profile = useSelector(state => state.profile);
   const activeModal = useSelector(state => state.modals.name);
 
   // Загрузка профиля при наличии токена
   useEffect(() => {
-    if (user.token && !user.data) {
-      store.actions.user.loadProfile();
+    if (session.token && !profile.user) {
+      store.actions.profile.loadCurrentUser(session.token);
     }
-  }, [user.token]);
+  }, [session.token, profile.user, store.actions.profile]);
 
   return (
     <>

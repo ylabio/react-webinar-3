@@ -12,35 +12,44 @@ import AuthCard from '../../components/auth-card';
 
 function AuthPage() {
   const store = useStore();
-  const user = useSelector(state => state.user);
+
+  const session = useSelector(state => state.session);
+  const profile = useSelector(state => state.profile);
+
   const navigate = useNavigate();
+
   const { t } = useTranslate();
 
   useEffect(() => {
-    if (user.token && user.data) {
+    if (session.token && profile.user) {
       navigate('/profile');
     }
-  }, [user.token, user.data]);
+  }, [session.token, profile.user]);
 
   const handleLogout = async () => {
-    await store.actions.user.logout();
+    await store.actions.session.logout();
     navigate('/');
   };
 
   const handleSubmit = async (login, password) => {
-    const success = await store.actions.user.auth(login, password);
+    const success = await store.actions.session.login(login, password);
     if (success) {
-      navigate('/');
+      navigate('/profile');
       return null;
-    } else {
-      const err = store.getState().user.error;
-      return err || 'Ошибка авторизации';
     }
+
+    const error = store.getState().session.error;
+    console.log(error);
+
+    return error || 'Ошибка авторизации';
   };
 
   return (
     <>
-      <Head title={t('title')} authField={<AuthField user={user} callback={handleLogout} />}>
+      <Head
+        title={t('title')}
+        authField={<AuthField user={profile.user} token={session.token} callback={handleLogout} />}
+      >
         <LocaleSelect />
       </Head>
       <PageLayout>

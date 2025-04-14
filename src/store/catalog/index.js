@@ -19,7 +19,6 @@ class CatalogState extends StoreModule {
         category: '',
       },
       count: 0,
-      categories: [],
       waiting: false,
     };
   }
@@ -46,7 +45,6 @@ class CatalogState extends StoreModule {
 
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
-    await this.loadCategories();
   }
 
   /**
@@ -59,44 +57,6 @@ class CatalogState extends StoreModule {
     const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
-  }
-
-  /**
-   * Загрузка списка категорий из API
-   * @return {Promise<void>}
-   */
-  async loadCategories() {
-    try {
-      this.setState(
-        {
-          ...this.getState(),
-          waiting: true,
-        },
-        'Начата загрузка категорий',
-      );
-
-      const response = await fetch('/api/v1/categories/?fields=_id,title,parent(_id)&limit=*');
-      const json = await response.json();
-
-      this.setState(
-        {
-          ...this.getState(),
-          categories: json.result.items || [], // Используем json.result.items
-          waiting: false,
-        },
-        'Категории загружены',
-      );
-    } catch (error) {
-      console.error('Ошибка загрузки категорий:', error);
-      this.setState(
-        {
-          ...this.getState(),
-          categories: [],
-          waiting: false,
-        },
-        'Ошибка загрузки категорий',
-      );
-    }
   }
 
   /**

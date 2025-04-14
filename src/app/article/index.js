@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -10,12 +10,18 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
+import AuthField from '../../components/auth-field';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Article() {
   const store = useStore();
+
+  const session = useSelector(state => state.session);
+  const profile = useSelector(state => state.profile);
+
+  const navigate = useNavigate();
 
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -31,6 +37,11 @@ function Article() {
 
   const { t } = useTranslate();
 
+  const handleLogout = async () => {
+    await store.actions.session.logout();
+    navigate('/');
+  };
+
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -38,7 +49,10 @@ function Article() {
 
   return (
     <>
-      <Head title={select.article.title}>
+      <Head
+        title={t('title')}
+        authField={<AuthField user={profile.user} token={session.token} callback={handleLogout} />}
+      >
         <LocaleSelect />
       </Head>
       <PageLayout>

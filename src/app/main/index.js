@@ -11,18 +11,19 @@ import LocaleSelect from '../../containers/locale-select';
 import { useNavigate } from 'react-router-dom';
 import AuthField from '../../components/auth-field';
 import useSelector from '../../hooks/use-selector';
+import useAuth from '../../hooks/use-auth';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
-  const user = useSelector(state => state.user);
+  const session = useSelector(state => state.session);
+  const profile = useSelector(state => state.profile);
 
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.user.loadProfile();
     },
     [],
     true,
@@ -30,7 +31,7 @@ function Main() {
 
   const navigate = useNavigate();
   const handleLogout = async () => {
-    await store.actions.user.logout();
+    await store.actions.session.logout();
     navigate('/');
   };
 
@@ -38,7 +39,10 @@ function Main() {
 
   return (
     <>
-      <Head title={t('title')} authField={<AuthField user={user} callback={handleLogout} />}>
+      <Head
+        title={t('title')}
+        authField={<AuthField user={profile.user} token={session.token} callback={handleLogout} />}
+      >
         <LocaleSelect />
       </Head>
       <PageLayout>

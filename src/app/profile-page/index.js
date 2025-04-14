@@ -9,37 +9,42 @@ import AuthField from '../../components/auth-field';
 import useTranslate from '../../hooks/use-translate';
 import { useNavigate } from 'react-router-dom';
 import UserData from '../../components/user-data';
+import useAuth from '../../hooks/use-auth';
 
 function ProfilePage() {
   const store = useStore();
-  const user = useSelector(state => state.user);
+  const session = useSelector(state => state.session);
+  const profile = useSelector(state => state.profile);
+
+  const isAuthorized = useAuth('/login');
 
   const { t } = useTranslate();
 
   const navigate = useNavigate();
   const handleLogout = async () => {
-    await store.actions.user.logout();
-    navigate('/');
+    await store.actions.session.logout();
+    navigate('/login');
   };
 
   useEffect(() => {
-    if (!user.token) {
-      navigate('/');
-    } else if (!user.data) {
-      store.actions.user.loadProfile();
+    if (isAuthorized && !profile.user) {
+      store.actions.profile.loadCurrentUser(session.token);
     }
-  }, [user.data, user.token]);
+  }, [session.token, profile.user]);
 
-  if (!user.data || !user.data.profile) {
+  if (!profile.user) {
     return null;
   }
 
-  const { email } = user.data;
-  const { name, phone } = user.data.profile;
+  const { email } = profile.user;
+  const { name, phone } = profile.user.profile;
 
   return (
     <>
-      <Head title={t('title')} authField={<AuthField user={user} callback={handleLogout} />}>
+      <Head
+        title={t('title')}
+        authField={<AuthField user={profile.user} token={session.token} callback={handleLogout} />}
+      >
         <LocaleSelect />
       </Head>
       <PageLayout>

@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useEffect } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -6,18 +6,22 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import { categoriesFormat } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
  */
 function CatalogFilter() {
   const store = useStore();
+  useEffect(() => {
+    store.actions.categories.load();
+  }, []);
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
   }));
 
   const callbacks = {
@@ -45,46 +49,7 @@ function CatalogFilter() {
       [],
     ),
     categories: useMemo(() => {
-      // Функция для вычисления уровня вложенности
-      const getCategoryLevel = (category, categories, level = 0) => {
-        if (!category.parent) return level;
-        const parent = categories.find(cat => cat._id === category.parent._id);
-        return parent ? getCategoryLevel(parent, categories, level + 1) : level;
-      };
-
-      // Преобразуем плоский список в древовидную структуру
-      const buildCategoryTree = (categories, parentId = null) => {
-        const tree = [];
-        categories
-          .filter(cat => (parentId === null ? !cat.parent : cat.parent?._id === parentId))
-          .forEach(cat => {
-            const children = buildCategoryTree(categories, cat._id);
-            tree.push({ ...cat, children });
-          });
-        return tree;
-      };
-
-      // Разворачиваем дерево в плоский список с правильным порядком
-      const flattenCategoryTree = (tree, level = 0) => {
-        const flat = [];
-        tree.forEach(node => {
-          flat.push({
-            value: node._id,
-            title: `${'- '.repeat(level)}${node.title}`,
-          });
-          if (node.children && node.children.length > 0) {
-            flat.push(...flattenCategoryTree(node.children, level + 1));
-          }
-        });
-        return flat;
-      };
-
-      // Формируем дерево и разворачиваем его
-      const categoryTree = buildCategoryTree(select.categories);
-      const sortedCategories = flattenCategoryTree(categoryTree);
-
-      const categoryOptions = [{ value: '', title: 'Все' }, ...sortedCategories];
-
+      const categoryOptions = categoriesFormat(select.categories);
       console.log('Sorted category options:', categoryOptions); // Логируем для отладки
       return categoryOptions;
     }, [select.categories]),

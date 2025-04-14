@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 import './style.css';
 
-function AuthField({ user, callback }) {
-  const isAuthorized = Boolean(user.token && user.data);
+function AuthField({ user, token, callback }) {
+  const isAuthorized = Boolean(token && user);
+  console.log(user);
 
   return (
     <div className="Container">
@@ -13,7 +14,7 @@ function AuthField({ user, callback }) {
           <>
             <div className="Sign-in">
               <Link to="/profile">
-                {(user.data.profile?.name || 'Профиль').replace(/№\s?/, '').trim()}
+                {(user?.profile?.name || 'Профиль').replace(/№\s?/, '').trim()}
               </Link>
             </div>
             <button onClick={callback}>Выход</button>
