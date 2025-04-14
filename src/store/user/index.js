@@ -11,7 +11,7 @@ class UserState extends StoreModule {
   }
 
   async getUser() {
-    const token = this.getState().token || localStorage.getItem('token');
+    const token = this.store.getState().session.token || localStorage.getItem('token');
     this.setState({
       waiiting: true,
     });
