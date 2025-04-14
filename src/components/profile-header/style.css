@@ -1,0 +1,35 @@
+.ProfileHeader {
+  background-color: var(--second-background);
+  font-family: var(--second-font-family);
+}
+
+.ProfileHeader-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1152px;
+  width: 100%;
+  height: 38px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ProfileHeader-link {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--primary);
+  transition: color 0.3s ease-in-out;
+}
+
+.ProfileHeader-link_user {
+  margin-right: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--main-text);
+  font-family: var(--font-family);
+}
+
+.ProfileHeader-link:hover {
+  color: var(--primary-select);
+}
