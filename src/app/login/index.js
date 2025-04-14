@@ -14,7 +14,7 @@ function LoginPage() {
 
   useEffect(() => {
     document.title = t('title');
-  }, []);
+  }, [t]);
 
   return (
     <>

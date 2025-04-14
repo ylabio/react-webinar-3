@@ -12,7 +12,7 @@ function ProfilePage() {
   const { t } = useTranslate();
   useEffect(() => {
     document.title = t('title');
-  }, []);
+  }, [t]);
 
   useAuth();
 

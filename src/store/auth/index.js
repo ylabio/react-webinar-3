@@ -112,7 +112,7 @@ class AuthStore extends StoreModule {
         error: null,
         initialized: true,
       });
-
+      await this.store.actions.profile.loadProfile(token);
       return true;
     } catch (error) {
       // 5. Обрабатываем ошибки
@@ -130,47 +130,7 @@ class AuthStore extends StoreModule {
       this.setLoading(false);
     }
   }
-  /*  async login(credentials) {
-    this.setLoading(true);
-    try {
-      const { token, user } = await api.signIn(credentials);
 
-      if (!token) {
-        const error = new Error('Authorization failed');
-        error.errorData = {
-          message: 'Токен не получен',
-          issues: ['Неверные учетные данные'],
-        };
-        throw error;
-      }
-
-      localStorage.setItem('authToken', token);
-      this.setState({
-        ...this.getState(),
-        token,
-        user,
-        error: null,
-        initialized: true,
-      });
-
-      return true;
-    } catch (error) {
-      // Используем errorData если есть, иначе создаем стандартную ошибку
-      const errorData = error.errorData || {
-        message: error.message,
-        issues: ['Ошибка авторизации'],
-      };
-
-      this.setError(errorData.issues);
-      // Пробрасываем ошибку с errorData
-      const newError = new Error(errorData.message);
-      newError.errorData = errorData;
-      throw newError;
-    } finally {
-      this.setLoading(false);
-    }
-  }
- */
   // Выход из системы
   async logout() {
     this.setLoading(true);
@@ -184,35 +144,10 @@ class AuthStore extends StoreModule {
         }
       }
       await this.clearAuth();
+      await this.getStore().profile.clearProfile();
     } catch (error) {
       console.error('Ошибка при выходе:', error);
       this.setError(error.issues || ['Ошибка при выходе']);
-    } finally {
-      this.setLoading(false);
-    }
-  }
-
-  // Загрузка профиля пользователя
-  async loadProfile() {
-    const { token } = this.getState();
-    if (!token) return null;
-
-    this.setLoading(true);
-    try {
-      const user = await api.getProfile(token);
-      this.setState({
-        ...this.getState(),
-        user,
-        loading: false,
-      });
-      return user;
-    } catch (error) {
-      console.error('Ошибка загрузки профиля:', error);
-      this.setState({
-        ...this.getState(),
-        loading: false,
-      });
-      throw error;
     } finally {
       this.setLoading(false);
     }
@@ -232,6 +167,7 @@ class AuthStore extends StoreModule {
 
     try {
       const isValid = await api.checkAuth(token);
+      await this.store.actions.profile.loadProfile(token);
       if (isValid) {
         //await this.loadProfile();
         const user = await api.getProfile(token);

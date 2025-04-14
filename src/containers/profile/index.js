@@ -4,10 +4,9 @@ import ProfileCard from '../../components/profile-card';
 
 function Profile() {
   const select = useSelector(state => ({
-    user: state.auth.user,
+    user: state.profile.profile,
     loading: state.auth.loading,
   }));
-
   if (select.loading) return <div>Loading...</div>;
 
   return (
