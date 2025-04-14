@@ -115,11 +115,48 @@ class CatalogState extends StoreModule {
     this.setState(
       {
         ...this.getState(),
-        categoryList: result.result.items,
+        // categoryList: result.result.items,
+        categoryList: this.flattenTree(this.buildTree(result.result.items)),
         waiting: false,
       },
       'Загружен список Категорий из АПИ',
     );
+  }
+
+  // Функция для построения дерева
+  buildTree(items) {
+    const map = new Map();
+    const tree = [];
+
+    items.forEach(item => {
+      map.set(item._id, { ...item, children: [] });
+    });
+
+    items.forEach(item => {
+      if (item.parent && map.has(item.parent._id)) {
+        map.get(item.parent._id).children.push(map.get(item._id));
+      } else {
+        tree.push(map.get(item._id));
+      }
+    });
+
+    return tree;
+  }
+
+  // Функция для создания плоского массива с учетом вложенности
+  flattenTree(tree, level = 0, result = []) {
+    tree.forEach(item => {
+      result.push({
+        value: item._id,
+        title: '-'.repeat(level * 1) + (level > 0 ? ' ' : '') + item.title,
+      });
+
+      if (item.children.length > 0) {
+        this.flattenTree(item.children, level + 1, result);
+      }
+    });
+
+    return result;
   }
 }
 

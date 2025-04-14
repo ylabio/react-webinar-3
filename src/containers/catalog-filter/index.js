@@ -43,7 +43,8 @@ function CatalogFilter() {
     categories: useMemo(
       () => [
         { value: '', title: 'Все' },
-        ...select.categoryList.map(item => ({ value: item._id, title: item.title })),
+        ...select.categoryList,
+        // ...select.categoryList.map(item => ({ value: item._id, title: item.title })),
       ],
       [select.categoryList],
     ),
