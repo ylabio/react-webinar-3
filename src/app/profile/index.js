@@ -19,32 +19,27 @@ function Profile() {
   const [params, setParams] = useState([]);
 
   const select = useSelector(state => ({
-    user: state.user,
-    authStatus: state.user.authStatus,
+    user: state.session.user,
   }));
 
   const callbacks = {
-    // Редирект на страницу login
-    redirectToLogin: useCallback(() => navigate('/login'), [navigate]),
     // Выход пользователя
     onLogOut: useCallback(() => {
-      store.actions.user.logOut();
+      store.actions.session.logOut();
       navigate('/');
-    }, [store, navigate]),
+    }, [store]),
   };
 
   const { t } = useTranslate();
 
   useEffect(() => {
     if (select.user) {
+      console.log(select.user?.profile?.name)
       setParams([
-        {title: t('name'), value: select.user.user?.profile?.name},
-        {title: t('telephone'), value: select.user.user?.profile?.phone},
-        {title: t('email'), value: select.user.user?.email},
+        {title: t('name'), value: select.user?.profile?.name},
+        {title: t('telephone'), value: select.user?.profile?.phone},
+        {title: t('email'), value: select.user?.email},
       ]);
-    }
-    if (select.user?.authStatus === 'failed') {
-      navigate('/login');
     }
   }, [select.user, t]);
 
@@ -52,7 +47,7 @@ function Profile() {
     <>
       <AuthBar
         buttonTitle={select.user ? t('logOut') : t('logIn')}
-        userTitle={select.user?.user?.username}
+        userTitle={select.user?.username}
         onClickButton={select.user ? callbacks.onLogOut : callbacks.redirectToLogin}
       />
       <Head title={t('title')}>

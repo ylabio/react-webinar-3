@@ -18,7 +18,7 @@ function Login() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.user.user,
+    user: state.session.user,
   }));
 
   const { t } = useTranslate();
@@ -28,7 +28,7 @@ function Login() {
     redirectToLogin: useCallback(() => navigate('/login'), [navigate]),
     // Выход пользователя
     onLogOut: useCallback(() => {
-      store.actions.user.logOut();
+      store.actions.session.logOut();
       navigate('/');
     }, [store, navigate]),
   };

@@ -11,7 +11,7 @@ function ProfileCard({ title, params }) {
       <div className={cn('container')}>
         <div className={cn('container-title')}>
           {params?.map((param, index) => (
-            <div key={`${param.title}${index}`} className={cn('title')}>{param.title}</div>
+            <div key={`${param.title}${index}`} className={cn('title')}>{`${param.title} :`}</div>
           ))}
         </div>
         <div className={cn('container-value')}>

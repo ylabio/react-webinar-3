@@ -1,118 +1,67 @@
 import StoreModule from '../module';
 
 /**
- * Состояние пользователя
+ * Управление списком пользователей
  */
 class User extends StoreModule {
-
+  // Инициализация состояния
   initState() {
-    this.#getUser();
     return {
-      user: null,
-      error: null,
-      authStatus: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
+      list: [],        // Список пользователей
+      loading: false,  // Флаг загрузки
+      error: null,     // Ошибка при запросе
     };
   }
 
-  async logIn(login, password) {
+  // Загрузка пользователей с сервера
+  async loadUsers() {
+    this.setState({ loading: true, error: null }, 'Загрузка пользователей');
+
     try {
-      const response = await fetch('/api/v1/users/sign', {
-        method: 'POST',
+      const token = localStorage.getItem('react-webinar-3_auth_token');
+
+      const response = await fetch('/api/v1/users?fields=*', {
         headers: {
-          'Content-Type': 'application/json',
+          'X-Token': token,
         },
-        body: JSON.stringify({ login, password }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        const errorMessage = data.error.message || 'Ошибка авторизации';
-        throw new Error(errorMessage);
+        throw new Error(data.error?.message || 'Ошибка загрузки пользователей');
       }
 
-      localStorage.setItem('react-webinar-3_auth_token', data.result.token);
-
       this.setState({
-        user: data.result.user,
+        list: data.result,
+        loading: false,
         error: null,
-        authStatus: 'success',
-      },
-      'Авторизация прошла успешно',);
-    } catch(error) {
+      }, 'Пользователи загружены');
+    } catch (error) {
       this.setState({
-        user: null,
+        loading: false,
         error: error.message,
-        authStatus: 'failed',
-      },
-      'Ошибка авторизации',);
+      }, 'Ошибка загрузки пользователей');
     }
   }
 
-  async logOut() {
-    try {
-      const token = localStorage.getItem('react-webinar-3_auth_token');
+  // Получение пользователя по ID
+  getUserById() {}
 
-      const response = await fetch('/api/v1/users/sign', {
-        method: 'DELETE',
-        headers: {
-          'X-Token': token,
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        const errorMessage = 'Ошибка Выхода';
-        throw new Error(errorMessage);
-      }
-
-      localStorage.removeItem('react-webinar-3_auth_token');
-
-      this.setState({
-        user: null,
-        error: null,
-        authStatus: 'idle',
-      },
-      'Выход прошол успешно',); 
-    } catch(error) {
-      console.error(error);
-    }
+  // Очистка списка пользователей
+  clearUsers() {
+    this.setState({
+      list: [],
+      error: null,
+    }, 'Список пользователей очищен');
   }
 
-  async #getUser() {
-    try {
-      const token = localStorage.getItem('react-webinar-3_auth_token');
-
-      const response = await fetch('/api/v1/users/self?fields=*', {
-        method: 'GET',
-        headers: {
-          'X-Token': token,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMessage = 'Ошибка получения данных пользователя';
-        throw new Error(errorMessage);
-      }
-
-      this.setState({
-        user: data.result,
-        error: null,
-        authStatus: 'success',
-      },
-      'Авторизация прошла успешно',);
-    } catch(error) {
-      this.setState({
-        user: null,
-        error: null,
-        authStatus: 'failed',
-      },
-      'Ошибка авторизации',);
-      console.error(error);
-    }
+  // Сброс ошибки
+  clearError() {
+    this.setState({
+      ...this.getState(),
+      error: null,
+    }, 'Ошибка сброшена');
   }
 }
 

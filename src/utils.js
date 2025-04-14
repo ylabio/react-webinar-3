@@ -54,29 +54,34 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
  */
 export function categoriesToSelectOptions(categories) {
   const result = [{ value: '', title: 'Все' }];
-  const categoryMap = {};
+
+  // Строим дерево категорий
+  const tree = {};
+  const roots = [];
 
   categories.forEach(cat => {
-    categoryMap[cat._id] = cat;
+    tree[cat._id] = { ...cat, children: [] };
   });
 
-  function addCategory(categoryId, level = 0) {
-    const category = categoryMap[categoryId];
-    if (!category) return;
+  categories.forEach(cat => {
+    if (cat.parent && cat.parent._id) {
+      tree[cat.parent._id]?.children.push(tree[cat._id]);
+    } else {
+      roots.push(tree[cat._id]);
+    }
+  });
 
+  // Рекурсивное добавление в результат
+  const addToResult = (category, level = 0) => {
     result.push({
       value: category._id,
-      title: `${'–'.repeat(level)}${category.title}`.trim(),
+      title: `${'– '.repeat(level)}${category.title}`,
     });
 
-    categories
-      .filter(cat => cat.parent && cat.parent._id === categoryId)
-      .forEach(child => addCategory(child._id, level + 1));
-  }
+    category.children.forEach(child => addToResult(child, level + 1));
+  };
 
-  categories
-    .filter(cat => cat.parent === null)
-    .forEach(rootCat => addCategory(rootCat._id));
+  roots.forEach(root => addToResult(root));
 
   return result;
 }

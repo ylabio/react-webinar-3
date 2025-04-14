@@ -41,7 +41,5 @@
 }
 
 .Button_style_auth {
-  &:hover {
-    color: var(--primary);
-  }
+  color: var(--primary);
 }

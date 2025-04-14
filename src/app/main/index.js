@@ -23,15 +23,16 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.loadCategories();
     },
     [],
     true,
   );
 
   const select = useSelector(state => ({
-    user: state.user.user,
+    user: state.session.user,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
   }));
 
   const { t } = useTranslate();
@@ -46,8 +47,8 @@ function Main() {
     redirectToLogin: useCallback(() => navigate('/login'), [navigate]),
     // Выход пользователя
     onLogOut: useCallback(() => {
-      store.actions.user.logOut();
-      navigate('/');
+      store.actions.session.logOut();
+      // navigate('/');
     }, [store, navigate]),
   };
 

@@ -29,7 +29,7 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    user: state.user.user,
+    user: state.session.user,
   }));
 
   const { t } = useTranslate();
@@ -41,7 +41,7 @@ function Article() {
     redirectToLogin: useCallback(() => navigate('/login'), [navigate]),
     // Выход пользователя
     onLogOut: useCallback(() => {
-      store.actions.user.logOut();
+      store.actions.session.logOut();
       navigate('/');
     }, [store, navigate]),
   };

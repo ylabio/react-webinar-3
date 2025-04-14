@@ -11,13 +11,14 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    user: state.user.user,
-    error: state.user.error,
+    user: state.session.user,
+    error: state.session.error,
   }));
 
   useEffect((() => {
+    store.actions.session.clearError();
     if (select.user) {
-      navigate('/');
+      navigate(-1);
     }
   }), [select.user]);
 
@@ -46,7 +47,7 @@ function LoginForm() {
   ];
 
   const callbacks = {
-    onLoginIn: useCallback(() => store.actions.user.logIn(login, password), [store, login, password]),
+    onLoginIn: useCallback(() => store.actions.session.logIn(login, password), [store, login, password]),
   };
 
   return (
