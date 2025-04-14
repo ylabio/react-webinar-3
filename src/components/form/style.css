@@ -1,23 +1,23 @@
-.LoginForm{
+.Form{
 width: 50%;
 margin-top: 24px;
 display: flex;
 flex-direction: column;
 gap: 24px;
 }
-.LoginForm span{
+.Form span{
   font-family: var(--second-font-family);
   font-size: 32px;
   font-weight: 700;
 }
 
-.LoginForm-form{
+.Form-form{
 display: flex;
 flex-direction: column;
 gap: 16px;
 }
 
-.LoginForm-form input{
+.Form-form input{
 margin-top: 8px;
 display: flex;
 flex-direction: column;
@@ -27,7 +27,7 @@ min-width: 197px;
 height: 40px;
 }
 
-.LoginForm-form button{
+.Form-form button{
   cursor: pointer;
   background: var(--primary);
   color: var(--second-text);
@@ -41,7 +41,7 @@ height: 40px;
   }
   }
 
-  .LoginForm-error {
+  .Form-error {
     font-family: var(--font-family);
     font-size: 14px;
     color: var(--delete);

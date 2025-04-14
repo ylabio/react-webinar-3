@@ -11,6 +11,7 @@ class AuthState extends StoreModule {
   initState() {
     return {
       auth: localStorage.getItem("TOKEN_KEY") ? true : false,
+      token: localStorage.getItem("TOKEN_KEY") || null,
       waiting: false,
       userName: "",
       errorMessage: [],
@@ -43,6 +44,7 @@ class AuthState extends StoreModule {
           ...this.getState(),
           userInfo: { email, name, phone },
           userName: name,
+          token: json.result.token,
           auth: true,
           waiting: false,
           errorMessage: [],
@@ -84,6 +86,7 @@ class AuthState extends StoreModule {
           ...this.getState(),
           userName: "",
           auth: false,
+          token: null,
           waiting: false,
           errorMessage: "",
         },

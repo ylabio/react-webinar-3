@@ -6,7 +6,7 @@ import useTranslate from '../../hooks/use-translate';
 import Navigation from "../../containers/navigation";
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
-import LoginForm from '../../components/login-form';
+import LoginForm from '../../containers/login-form';
 
 
 function Login() {

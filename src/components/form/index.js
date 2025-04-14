@@ -1,25 +1,16 @@
-import { memo, useCallback, useState } from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function LoginForm(props) {
-  // Внутренний стейт для быстрого отображения ввода
-  const [data, setData] = useState({ login: "", password: "" });
-  const cn = bem("LoginForm");
+function Form(props) {
 
-  // Обработчик изменений в поле
-  const handleChange = ({ target }) => {
-    setData((prevState) => ({
-      ...prevState,
-      [target.name]: target.value,
-    }));
-  };
+  const cn = bem("Form");
 
   const callbacks = {
     onSubmit: (e) => {
       e.preventDefault();
-      props.handleSubmit(data);
+      props.handleSubmit(props.data);
     },
   };
 
@@ -29,11 +20,11 @@ function LoginForm(props) {
       <form className={cn("form")} onSubmit={callbacks.onSubmit}>
         <div>
           <label htmlFor={"login"}>{props.t("login")}</label>
-          <input name="login" type="text" placeholder="Введите логин" onChange={handleChange} />
+          <input name="login" type="text" placeholder="Введите логин" onChange={props.handleChange} />
         </div>
         <div>
           <label htmlFor={"password"}>{props.t("password")}</label>
-          <input name="password" type="password" placeholder="Введите пароль" onChange={handleChange} />
+          <input name="password" type="password" placeholder="Введите пароль" onChange={props.handleChange} />
         </div>
         {props.error &&
           props.error.map((err, i) => {
@@ -51,9 +42,9 @@ function LoginForm(props) {
   );
 }
 
-LoginForm.propTypes = {
+Form.propTypes = {
   t: PropTypes.func,
   handleSubmit: PropTypes.func.isRequired,
 };
 
-export default memo(LoginForm);
+export default memo(Form);
