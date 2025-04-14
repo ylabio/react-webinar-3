@@ -1,6 +1,5 @@
 .Head {
   color: var(--primary);
-  padding: 16px 20px;
   border-bottom: 1px solid var(--divider);
 }
 
@@ -10,6 +9,12 @@
   align-items: center;
   max-width: 1152px;
   margin: 0 auto;
+  height: 72px;
+}
+
+.Head-top {
+  background: var(--divider);
+  height: 50px;
 }
 
 .Head h1 {

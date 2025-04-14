@@ -1,0 +1,20 @@
+.User {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.User h1 {
+  font-family: var(--second-font-family);
+}
+
+.User-info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 16px;
+  align-items: center;
+  font-size: 16px;
+}
+
+.User-info div:nth-child(even) {
+  font-weight: bold;
+}

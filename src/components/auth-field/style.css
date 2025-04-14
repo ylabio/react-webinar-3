@@ -1,0 +1,24 @@
+.Container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1152px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.Auth-field {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.Auth-field button {
+  font-size: 14px;
+  font-weight: 700;
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 0;
+}

@@ -10,8 +10,10 @@ function Input(props) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
-    [props.onChange, props.name],
+    props.timeout === null
+      ? value => props.onChange(value, props.name)
+      : debounce(value => props.onChange(value, props.name), props.timeout || 600),
+    [props.onChange, props.name, props.timeout],
   );
 
   // Обработчик изменений в поле
