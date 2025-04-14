@@ -5,6 +5,7 @@ const request = async (url, method = 'GET', data = null, headers = {}) => {
       'Content-Type': 'application/json',
       ...headers,
     },
+    credentials: 'include',
   };
 
   if (data) {
@@ -91,15 +92,19 @@ export default {
       null,
       withToken({}, token),
     );
-    return response.result?.user;
+    return response.result;
   },
 
   async checkAuth(token) {
     if (!token) return false;
     try {
-      const response = await fetch('/api/v1/users/check-token', {
-        method: 'HEAD',
-        headers: withToken({}, token),
+      const response = await fetch('/api/v1/users/self', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': token,
+        },
+        credentials: 'include',
       });
       return response.ok;
     } catch {

@@ -4,7 +4,7 @@ import api from '../../api/index';
 class AuthStore extends StoreModule {
   initState() {
     return {
-      token: localStorage.getItem('authToken') || null,
+      token: null,
       user: null,
       loading: false,
       error: null,
@@ -203,10 +203,15 @@ class AuthStore extends StoreModule {
       this.setState({
         ...this.getState(),
         user,
+        loading: false,
       });
       return user;
     } catch (error) {
       console.error('Ошибка загрузки профиля:', error);
+      this.setState({
+        ...this.getState(),
+        loading: false,
+      });
       throw error;
     } finally {
       this.setLoading(false);
@@ -219,23 +224,29 @@ class AuthStore extends StoreModule {
     // Если уже инициализировано, пропускаем
     if (this.getState().initialized) return;
 
-    const { token } = this.getState();
+    const token = localStorage.getItem('authToken');
     if (!token) {
-      this.setState({ initialized: true });
+      this.setState({ ...this.getState(), initialized: true });
       return;
     }
 
     try {
       const isValid = await api.checkAuth(token);
       if (isValid) {
-        await this.loadProfile();
+        //await this.loadProfile();
+        const user = await api.getProfile(token);
+        this.setState({
+          token,
+          user,
+          error: null,
+          initialized: true,
+          loading: false,
+        });
       } else {
         await this.clearAuth();
       }
     } catch (error) {
       await this.clearAuth();
-    } finally {
-      this.setState({ initialized: true });
     }
   }
 }

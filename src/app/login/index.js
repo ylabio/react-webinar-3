@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
@@ -15,6 +15,10 @@ function LoginPage() {
   if (token) {
     return <Navigate to="/" replace />;
   }
+
+  useEffect(() => {
+    document.title = t('title');
+  }, []);
 
   return (
     <>
