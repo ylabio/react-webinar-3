@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -7,17 +7,9 @@ import ProfileCard from '../../components/profile-card';
 import LoginMenu from '../../components/login-menu';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
-import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const { t } = useTranslate();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!select.successfully) {
-      navigate('/login');
-    }
-  });
 
   const select = useSelector(state => ({
     name: state.user.name,

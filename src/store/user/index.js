@@ -7,7 +7,7 @@ class UserState extends StoreModule {
       phone: '',
       email: '',
       token: '',
-      waiting: false,
+      waiting: true,
       successfully: false,
       error: '',
     };
@@ -147,7 +147,7 @@ class UserState extends StoreModule {
         window.localStorage.removeItem('token');
         this.setState({
           ...this.getState(),
-          exists: false,
+          successfully: false,
           waiting: false,
         });
       } else {

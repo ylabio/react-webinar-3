@@ -1,4 +1,3 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
@@ -8,6 +7,7 @@ import Login from './login';
 import Profile from './profile';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
+import ProtectedRoute from '../containers/protected-route';
 
 /**
  * Приложение
@@ -28,7 +28,14 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />} />
+        <Route
+          path={'/profile'}
+          element={
+            <ProtectedRoute redirect="/login">
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

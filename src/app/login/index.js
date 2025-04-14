@@ -9,11 +9,13 @@ import useSelector from '../../hooks/use-selector';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import LoginMenu from '../../components/login-menu';
+import { useLocation } from 'react-router-dom';
 
 function Login() {
   const { t } = useTranslate();
   const navigate = useNavigate();
   const store = useStore();
+  const location = useLocation();
 
   const [data, setData] = useState({
     login: '',
@@ -29,8 +31,13 @@ function Login() {
       e => {
         e.preventDefault();
         store.actions.user.logIn(data);
+        const redirect =
+          location.state?.back && location.state.back !== location.pathname // back может не быть если разлогинеться со строницы профиля
+            ? location.state?.back
+            : '/';
+        navigate(redirect);
       },
-      [data],
+      [data, location.state],
     ),
   };
 
@@ -39,12 +46,6 @@ function Login() {
     error: state.user.error,
     successfully: state.user.successfully,
   }));
-
-  useEffect(() => {
-    if (select.successfully) {
-      navigate('/profile');
-    }
-  });
 
   useEffect(() => {
     store.actions.user.deleteError();

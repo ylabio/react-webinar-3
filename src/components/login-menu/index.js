@@ -8,6 +8,7 @@ import './style.css';
 
 function LoginMenu() {
   const { t } = useTranslate();
+  const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
 
@@ -18,8 +19,8 @@ function LoginMenu() {
 
   const callbacks = {
     onLogIn: useCallback(() => {
-      navigate('/login');
-    }, []),
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
 
     onLogOut: useCallback(() => {
       store.actions.user.logOut();
