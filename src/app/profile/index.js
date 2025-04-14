@@ -21,7 +21,9 @@ function Profile() {
   }));
 
   useInit(() => {
-    store.actions.profile.getProfile();
+    if (!select.profileData) {
+      store.actions.profile.getProfile();
+    }
   });
 
   const { t } = useTranslate();
