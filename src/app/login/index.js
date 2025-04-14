@@ -53,6 +53,7 @@ function Login() {
             <p>{t('login.login')}</p>
             <Input
               name="login"
+              noDebounce={true}
               value={form.login}
               onChange={value => handleInputChange(value, 'login')}
               placeholder={t('login.loginPlaceholder') || 'Login'}
@@ -64,6 +65,7 @@ function Login() {
             <Input
               name="password"
               type="password"
+              noDebounce={true}
               value={form.password}
               onChange={value => handleInputChange(value, 'password')}
               placeholder={t('login.passwordPlaceholder') || 'Password'}

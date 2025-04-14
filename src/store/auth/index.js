@@ -29,6 +29,8 @@ export default class AuthState {
     });
 
     try {
+      console.log('login:', login);
+      console.log('password:', password);
       const res = await fetch('/api/v1/users/sign', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
