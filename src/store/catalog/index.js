@@ -11,11 +11,13 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      //хранение категорий
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,8 +38,19 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    /* 1 */
+    if (urlParams.has('search[category]')) validParams.category = urlParams.get('search[category]');
+
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
+
+  /* ------------------------------------- */
+  /**
+   * Загрузка категорий
+   * @return {Promise<void>}
+   */
+
+  /* ------------------------------------- */
 
   /**
    * Сброс параметров к начальным
@@ -71,7 +84,19 @@ class CatalogState extends StoreModule {
     );
 
     // Сохранить параметры в адрес страницы
-    let urlSearch = new URLSearchParams(params).toString();
+    let urlSearch = new URLSearchParams();
+    // Добавляем все параметры в URL
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== '' && value !== undefined && value !== null) {
+        // Для категории используем специальный параметр API
+        if (key === 'category') {
+          if (value) urlSearch.set('search[category]', value);
+        } else {
+          urlSearch.set(key, value);
+        }
+      }
+    });
+
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
@@ -86,6 +111,11 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query,
     };
+
+    // Добавляем параметр категории если он есть
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();

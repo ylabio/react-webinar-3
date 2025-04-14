@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,6 +8,8 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import useSelector from '../../hooks/use-selector';
+import AuthHeaderContainer from '../../containers/auth-header';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -18,6 +20,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.load();
     },
     [],
     true,
@@ -25,9 +28,28 @@ function Main() {
 
   const { t } = useTranslate();
 
+  const select = useSelector(state => ({
+    categoryId: state.catalog.params.category,
+    categories: state.categories.list,
+  }));
+
+  // Находим текущую выбранную категорию
+  const currentCategory = select.categories.find(c => c._id === select.categoryId);
+
+  // Формируем заголовок
+  const headTitle = currentCategory
+    ? `${t('title')} / ${t(`categories.${currentCategory.title}`)}`
+    : t('title');
+
+  // Обновляем title страницы при изменении категории
+  useEffect(() => {
+    document.title = headTitle;
+  }, [headTitle]);
+
   return (
     <>
-      <Head title={t('title')}>
+      <AuthHeaderContainer />
+      <Head title={headTitle}>
         <LocaleSelect />
       </Head>
       <PageLayout>

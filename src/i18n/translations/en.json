@@ -14,5 +14,25 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "categories.All": "All",
+  "categories.Electronics": "Electronics",
+  "categories.Phones": "Phones",
+  "categories.Smartphones": "Smartphones",
+  "categories.Accessories": "Accessories",
+  "categories.Stickers": "Stickers",
+  "categories.Laptops": "Laptops",
+  "categories.TVs": "TVs",
+  "categories.Books": "Books",
+  "categories.Tutorials": "Tutorials",
+  "categories.Fiction": "Fiction",
+  "categories.Comics": "Comics",
+  "categories.Surprise :)": "Surprise :)",
+  "login.title": "Authorization",
+  "login.enter": "Sing in",
+  "login.login": "Login",
+  "login.text": "Enter your username",
+  "login.password": "Password",
+  "password.text": "Enter your Password",
+  "login.button": "Sing in"
 }

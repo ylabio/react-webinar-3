@@ -16,5 +16,25 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "categories.All": "Все",
+  "categories.Electronics": "Электроника",
+  "categories.Phones": "Телефоны",
+  "categories.Smartphones": "Смартфоны",
+  "categories.Accessories": "Аксессуары",
+  "categories.Stickers": "Наклейки",
+  "categories.Laptops": "Ноутбуки",
+  "categories.TVs": "Телевизоры",
+  "categories.Books": "Книги",
+  "categories.Tutorials": "Учебники",
+  "categories.Fiction": "Художественная",
+  "categories.Comics": "Комиксы",
+  "categories.Surprise :)": "Сюрприз :)",
+  "login.title": "Авторизация",
+  "login.enter": "Вход",
+  "login.login": "Логин",
+  "login.text": "Введите логин",
+  "login.password": "Пароль",
+  "password.text": "Введите пароль",
+  "login.button": "Войти"
 }
