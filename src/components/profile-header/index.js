@@ -4,25 +4,26 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-function ProfileHeader({ isAuth, userName = '', onClick = () => {}, links }) {
+function ProfileHeader({ isAuth, userName = '', onClick = () => {}, location }) {
   const cn = bem('ProfileHeader');
 
   return (
     <div className={cn()}>
       <div className={cn('container')}>
         {!isAuth && (
-          <Link to={links.in} className={cn('link')}>
+          <Link to="/login" state={{ from: location }} className={cn('link')}>
             Вход
           </Link>
         )}
         {isAuth && (
           <>
             {
-              <Link to={links.me} className={cn('link')}>
+              <Link to="/profile" className={`${cn('link')} ${cn('link_user')}`}>
                 {userName}
               </Link>
             }
-            <Link to={links.out} className={cn('link')} onClick={onClick}>
+
+            <Link to="/" className={cn('link')} onClick={onClick}>
               Выход
             </Link>
           </>
@@ -36,11 +37,6 @@ ProfileHeader.propTypes = {
   isAuth: PropTypes.bool,
   userName: PropTypes.string,
   onClick: PropTypes.func,
-  links: PropTypes.shape({
-    in: PropTypes.string,
-    me: PropTypes.string,
-    out: PropTypes.string,
-  }).isRequired,
 };
 
 export default memo(ProfileHeader);

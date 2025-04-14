@@ -16,33 +16,28 @@ import ProfileHeader from '../../components/profile-header';
  */
 function Main() {
   const store = useStore();
-  const token = localStorage.getItem('token');
   const [currenCat, setCurrenCat] = useState('');
-  const linksNav = {
-    in: '/login',
-    me: '/profile',
-    out: '/',
-  };
 
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.categories.fetchCategories();
     },
     [],
     true,
   );
 
   const select = useSelector(state => ({
-    userName: state.auth.userName,
-    isAuth: state.auth.isAuth,
+    user: state.user.user,
+    isAuth: state.user.isAuth,
+    token: state.user.token,
     category: state.catalog.params.category,
-    categoryList: state.catalog.categories,
+    categoryList: state.categories.list,
   }));
-
   const callbacks = {
     onLogout: useCallback(
       token => {
-        store.actions.auth.logout(token);
+        store.actions.user.logout(token);
       },
       [store],
     ),
@@ -50,9 +45,6 @@ function Main() {
   const { t } = useTranslate();
 
   useEffect(() => {
-    if (token && !select.isAuth) {
-      store.actions.auth.checkAuth(token);
-    }
     const current = select.categoryList.find(c => c._id === select.category);
     setCurrenCat(current?.title);
     document.title = `${t('title')}${current?.title ? ` / ${current.title}` : ''}`;
@@ -65,9 +57,8 @@ function Main() {
     <>
       <ProfileHeader
         isAuth={select.isAuth}
-        userName={select.userName}
-        onClick={() => callbacks.onLogout(token)}
-        links={linksNav}
+        userName={select.user?.profile.name}
+        onClick={() => callbacks.onLogout(select.token)}
       />
       <Head title={`${t('title')}${currenCat ? ` / ${currenCat}` : ''}`}>
         <LocaleSelect />

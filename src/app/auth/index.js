@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -13,49 +13,46 @@ import ProfileHeader from '../../components/profile-header';
 
 function Auth() {
   const store = useStore();
-  const navigate = useNavigate();
-
   const select = useSelector(state => ({
-    isAuth: state.auth.isAuth,
-    error: state.auth.error,
-    userName: state.auth.userName,
+    isAuth: state.user.isAuth,
+    error: state.user.error,
+    waiting: state.user.waiting,
+    user: state.user.user,
   }));
-  const linksNav = {
-    in: '/login',
-    me: '/profile',
-    out: '/',
-  };
+
   const callbacks = {
     onLogin: useCallback(
       data => {
-        store.actions.auth.login(data, () => {
-          store.actions.catalog.resetParams();
-          navigate('/');
-        });
+        store.actions.user.login(data);
       },
-      [store, navigate],
+      [store],
     ),
-    onRemoveError: useCallback(() => store.actions.auth.removeError(), [store]),
+    onRemoveError: useCallback(() => store.actions.user.removeError(), [store]),
   };
+  useEffect(() => {
+    callbacks.onRemoveError();
+  }, []);
 
   const { t } = useTranslate();
 
   return (
     <>
-      <ProfileHeader isAuth={select.isAuth} userName={select.userName} links={linksNav} />
-      <Head title={t('title')}>
-        <LocaleSelect />
-      </Head>
-      <PageLayout>
-        <Navigation />
-        <AuthForm
-          t={t}
-          onSubmit={callbacks.onLogin}
-          error={select.error}
-          isAuth={select.isAuth}
-          removeError={callbacks.onRemoveError}
-        />
-      </PageLayout>
+      <Spinner active={select.waiting}>
+        <ProfileHeader isAuth={select.isAuth} userName={select.user?.profile.name} />
+        <Head title={t('title')}>
+          <LocaleSelect />
+        </Head>
+        <PageLayout>
+          <Navigation />
+          <AuthForm
+            t={t}
+            onSubmit={callbacks.onLogin}
+            error={select.error}
+            isAuth={select.isAuth}
+            removeError={callbacks.onRemoveError}
+          />
+        </PageLayout>
+      </Spinner>
     </>
   );
 }

@@ -41,7 +41,7 @@ export function formatCategories(categories, parentId = null, level = 0) {
     if ((cat.parent === null && parentId === null) || cat.parent?._id === parentId) {
       result.push({
         value: cat._id,
-        title: `${'—'.repeat(level)} ${cat.title}`,
+        title: `${'— '.repeat(level)}${cat.title}`,
       });
 
       result.push(...formatCategories(categories, cat._id, level + 1));

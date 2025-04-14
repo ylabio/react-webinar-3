@@ -1,16 +1,17 @@
 import StoreModule from '../module';
 
-class AuthState extends StoreModule {
+class UserProfile extends StoreModule {
   initState() {
     return {
-      userName: null,
+      user: null,
       isAuth: false,
       error: null,
       waiting: false,
+      token: null,
     };
   }
 
-  async login({ login, password }, onSuccess) {
+  async login({ login, password }) {
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -30,17 +31,13 @@ class AuthState extends StoreModule {
         throw new Error(json.error.data.issues[0].message || 'Ошибка авторизации');
       }
       localStorage.setItem('token', json.result.token);
-
       this.setState({
         ...this.getState(),
         waiting: false,
-        userName: json.result.user.profile.name,
+        user: json.result.user,
+        token: json.result.token,
         isAuth: true,
       });
-
-      if (typeof onSuccess === 'function') {
-        onSuccess();
-      }
     } catch (error) {
       console.error(error.message);
 
@@ -76,7 +73,8 @@ class AuthState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: false,
-        userName: null,
+        token: null,
+        user: null,
         isAuth: false,
       });
     } catch (error) {
@@ -111,7 +109,8 @@ class AuthState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: false,
-        userName: json.result.profile.name,
+        user: json.result,
+        token: localStorage.getItem('token'),
         isAuth: true,
       });
 
@@ -122,6 +121,7 @@ class AuthState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: false,
+        isAuth: false,
         error: error.message,
       });
     }
@@ -135,4 +135,4 @@ class AuthState extends StoreModule {
   }
 }
 
-export default AuthState;
+export default UserProfile;

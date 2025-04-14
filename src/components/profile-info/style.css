@@ -7,6 +7,7 @@
 
 .ProfileInfo-header {
   font-size: 32px;
+  font-family: var(--second-font-family);
 }
 
 .ProfileInfo-prop-wrapper {

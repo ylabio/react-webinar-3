@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -17,26 +17,16 @@ import ProfileHeader from '../../components/profile-header';
  */
 function Article() {
   const store = useStore();
-  const token = localStorage.getItem('token');
+  const location = useLocation();
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    isAuth: state.auth.isAuth,
-    userName: state.auth.userName,
+    isAuth: state.user.isAuth,
+    token: state.user.token,
+    user: state.user.user,
   }));
-  const linksNav = {
-    in: '/login',
-    me: '/profile',
-    out: '/',
-  };
-
   // Параметры из пути /articles/:id
   const params = useParams();
-  useEffect(() => {
-    if (token && !select.isAuth) {
-      store.actions.auth.checkAuth(token);
-    }
-  }, []);
 
   useInit(() => {
     store.actions.article.load(params.id);
@@ -47,16 +37,16 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onLogout: useCallback(token => store.actions.auth.logout(token), [store]),
+    onLogout: useCallback(token => store.actions.user.logout(token), [store]),
   };
 
   return (
     <>
       <ProfileHeader
         isAuth={select.isAuth}
-        userName={select.userName}
-        onClick={() => callbacks.onLogout(token)}
-        links={linksNav}
+        userName={select.user?.profile.name}
+        onClick={() => callbacks.onLogout(select.token)}
+        location={location}
       />
       <Head title={select.article.title}>
         <LocaleSelect />

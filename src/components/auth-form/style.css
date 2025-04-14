@@ -1,6 +1,7 @@
 .Authform-header {
   padding: 24px 0;
   font-size: 32px;
+  font-family: var(--second-font-family);
 }
 
 .Authform-input-block {

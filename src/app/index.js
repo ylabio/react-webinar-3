@@ -6,27 +6,41 @@ import Basket from './basket';
 import Article from './article';
 import Auth from './auth';
 import Profile from './profile';
-
+import useCheckAuth from '../hooks/use-check-auth';
+import PrivatRoute from '../hoc/privat-route';
+import OnlyPublic from '../hoc/only-public-route';
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  useCheckAuth();
+
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    isAuth: state.auth.isAuth,
+    isAuth: state.user.isAuth,
   }));
 
-  const hasToken = !!localStorage.getItem('token') || select.isAuth;
   return (
     <>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route path={'/login'} element={hasToken ? <Navigate to="/profile" replace /> : <Auth />} />
+        <Route
+          path={'/login'}
+          element={
+            <OnlyPublic>
+              <Auth />
+            </OnlyPublic>
+          }
+        />
         <Route
           path={'/profile'}
-          element={hasToken ? <Profile /> : <Navigate to="/login" replace />}
+          element={
+            <PrivatRoute>
+              <Profile />
+            </PrivatRoute>
+          }
         />
       </Routes>
 

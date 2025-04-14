@@ -12,36 +12,24 @@ import Spinner from '../../components/spinner';
 
 function Profile() {
   const store = useStore();
-  const token = localStorage.getItem('token');
 
-  const [user, setUser] = useState({});
   const [isLoad, setIsLoad] = useState(false);
 
-  const linksNav = {
-    in: '/login',
-    me: '/profile',
-    out: '/',
-  };
-
   const select = useSelector(state => ({
-    userName: state.auth.userName,
-    isAuth: state.auth.isAuth,
-    waiting: state.auth.waiting,
+    user: state.user.user,
+    isAuth: state.user.isAuth,
+    token: state.user.token,
+    waiting: state.user.waiting,
   }));
 
   useEffect(() => {
-    if (token) {
-      const fetchUser = async () => {
-        const data = await store.actions.auth.checkAuth(token);
-        setUser(data);
-        setIsLoad(true);
-      };
-      fetchUser();
+    if (select.isAuth) {
+      setIsLoad(true);
     }
-  }, []);
+  }, [select.isAuth]);
 
   const callbacks = {
-    onLogout: useCallback(token => store.actions.auth.logout(token), [store]),
+    onLogout: useCallback(token => store.actions.user.logout(token), [store]),
   };
 
   const { t } = useTranslate();
@@ -51,16 +39,15 @@ function Profile() {
       <Spinner active={select.waiting}>
         <ProfileHeader
           isAuth={select.isAuth}
-          userName={select.userName}
-          onClick={() => callbacks.onLogout(token)}
-          links={linksNav}
+          userName={select.user?.profile.name}
+          onClick={() => callbacks.onLogout(select.token)}
         />
         <Head title={t('title')}>
           <LocaleSelect />
         </Head>
         <PageLayout>
           <Navigation />
-          {isLoad && <ProfileInfo user={user} />}
+          {isLoad && <ProfileInfo user={select.user} />}
         </PageLayout>
       </Spinner>
     </>

@@ -1,5 +1,6 @@
 .ProfileHeader {
   background-color: var(--second-background);
+  font-family: var(--second-font-family);
 }
 
 .ProfileHeader-container {
@@ -11,19 +12,24 @@
   height: 38px;
   margin-left: auto;
   margin-right: auto;
-  padding-right: 16px;
 }
 
 .ProfileHeader-link {
   font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
   color: var(--primary);
   transition: color 0.3s ease-in-out;
 }
 
-.ProfileHeader-link:hover {
-  color: var(--primary-select);
+.ProfileHeader-link_user {
+  margin-right: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--main-text);
+  font-family: var(--font-family);
 }
 
-.ProfileHeader-link:not(:last-child) {
-  margin-right: 24px;
+.ProfileHeader-link:hover {
+  color: var(--primary-select);
 }

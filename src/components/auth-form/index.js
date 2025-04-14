@@ -1,18 +1,14 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
 import Input from '../input';
 
-function AuthForm({ onSubmit, t, error, removeError }) {
+function AuthForm({ onSubmit, t, error }) {
   const cn = bem('Authform');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    return () => removeError();
-  }, []);
 
   const callbacks = {
     onLogin: value => setLogin(value),
