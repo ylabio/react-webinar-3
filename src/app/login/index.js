@@ -26,6 +26,7 @@ function Login() {
   }));
 
   useEffect(() => {
+    store.actions.auth.setWaiting(false);
     if (select.errorMessage) {
       store.actions.auth.resetErrorMessage();
     }
@@ -34,7 +35,7 @@ function Login() {
   const callbacks = {
     // Колбэк на ввод в элементах формы
     onChange: useCallback((value, name) => {
-      setData(prevState => ({ ...prevState, [name]: value }));
+      setData(prevState => ({ ...prevState, [name]: value.trim() }));
     }, []),
     onSubmit: useCallback(e => {
         e.preventDefault();

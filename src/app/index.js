@@ -7,6 +7,7 @@ import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
+import ProtectedRoute from '../containers/protected-route';
 
 /**
  * Приложение
@@ -15,10 +16,11 @@ import useInit from '../hooks/use-init';
 function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
+  const isAuth = useSelector(state => state.auth.isAuth);
 
   useInit( async () => {
     await store.actions.auth.me();
-  });
+  }, [isAuth]);
 
   return (
     <>
@@ -26,7 +28,9 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path={'/profile'} element={<Profile />} />
+        </Route>
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

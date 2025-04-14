@@ -7,7 +7,8 @@ class AuthState extends StoreModule {
       user: [],
       token: getFromLS('token') || null,
       errorMessage: '',
-      waiting: false,
+      waiting: true,
+      isAuth: false,
     };
   }
 
@@ -28,7 +29,6 @@ class AuthState extends StoreModule {
 
   async login(payload, navigate = () => {}) {
     try {
-      this.setWaiting(true);
       const response = await fetch('api/v1/users/sign', {
         method: 'POST',
         headers: {
@@ -50,6 +50,7 @@ class AuthState extends StoreModule {
           user: json.result.user,
           token,
           waiting: false,
+          isAuth: true,
         });
         this.resetErrorMessage();
         navigate('/profile');
@@ -67,7 +68,6 @@ class AuthState extends StoreModule {
         return;
       }
       this.resetErrorMessage();
-      this.setWaiting(true);
       const response = await fetch('api/v1/users/self?fields=*', {
         headers: {
           'Content-Type': 'application/json',
@@ -76,13 +76,18 @@ class AuthState extends StoreModule {
       });
       const json = await response.json();
       if (json.error) {
+        deleteFromLS('token');
+        this.setState({
+          ...this.initState(),
+          waiting: false,
+        })
         this.setErrorMessage(json.error);
-        this.setWaiting(false);
       } else {
         this.setState({
           ...this.getState(),
           user: json.result,
           token,
+          isAuth: true,
           waiting: false,
         });
       }
@@ -94,7 +99,6 @@ class AuthState extends StoreModule {
 
   async logout() {
     try {
-      this.setWaiting(true);
       const token = getFromLS('token');
       const response = await fetch('api/v1/users/sign', {
         method: 'DELETE',
@@ -110,7 +114,6 @@ class AuthState extends StoreModule {
           ...this.initState(),
         });
       }
-      console.log(json);
     } catch (error) {
       console.log(error);
       this.setWaiting(false);
