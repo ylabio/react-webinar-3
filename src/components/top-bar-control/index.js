@@ -33,8 +33,10 @@ function TopBarControl({ logout, name, token, t }) {
 }
 
 TopBarControl.propTypes = {
-  active: PropTypes.bool.isRequired,
-  children: PropTypes.node,
+  name: PropTypes.string,
+  token: PropTypes.string,
+  t: PropTypes.func,
+  logout: PropTypes.func,
 };
 
 export default memo(TopBarControl);

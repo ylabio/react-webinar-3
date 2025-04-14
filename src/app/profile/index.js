@@ -8,14 +8,21 @@ import useSelector from '../../hooks/use-selector';
 import ProfileDetails from '../../components/profile-details';
 import TopBar from '../../containers/top-bar';
 import Spinner from '../../components/spinner';
+import useInit from '../../hooks/use-init';
+import useStore from '../../hooks/use-store';
 
 function Profile() {
+  const store = useStore();
+
   const select = useSelector(state => ({
     token: state.auth.token,
-    email: state.auth.user.email,
-    profileData: state.auth.user?.profile,
-    waiting: state.auth.waiting,
+    profileData: state.profile.data,
+    waiting: state.profile.waiting,
   }));
+
+  useInit(() => {
+    store.actions.profile.getProfile();
+  });
 
   const { t } = useTranslate();
 
@@ -29,9 +36,9 @@ function Profile() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ProfileDetails
-            name={select.profileData?.name}
-            phone={select.profileData?.phone}
-            email={select.email}
+            name={select.profileData.profile?.name}
+            phone={select.profileData.profile?.phone}
+            email={select.profileData.email}
             t={t}
           />
         </Spinner>
