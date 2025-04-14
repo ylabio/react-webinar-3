@@ -17,9 +17,20 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
   const store = useStore();
 
+  const select = useSelector(state => ({
+    category: state.catalog.params.category,
+    categoryList: state.catalog.categoryList,
+  }));
+
   useEffect(() => {
     store.actions.authorization.checkUser();
+    document.title = 'Магазин';
   }, []);
+
+  useEffect(() => {
+    const categoryTitle = select.categoryList.find(item => item.value === select.category)?.title;
+    document.title = `Магазин${select.category ? ' / ' + categoryTitle : ''}`;
+  }, [select.category]);
 
   return (
     <>
