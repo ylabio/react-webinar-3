@@ -7,6 +7,7 @@ import Article from './article';
 import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
+import ProtectedRoute from '../components/protected-route';
 
 /**
  * Приложение
@@ -25,8 +26,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />} />
+        <Route path={'/login'} element={<ProtectedRoute anonymous={true}><Login /></ProtectedRoute>} />
+        <Route path={'/profile'} element={<ProtectedRoute anonymous={false}><Profile /></ProtectedRoute>} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

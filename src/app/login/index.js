@@ -29,13 +29,6 @@ function Login() {
 
   const { t } = useTranslate();
 
-  useEffect(() => {
-    if (select.auth.isLogin) {
-      const redirectTo = location.state?.back || '/';
-      navigate(redirectTo, { replace: true });
-    }
-  }, [select.auth.isLogin, navigate, location.state]);
-
   const callbacks = {
     onLogin: useCallback(
       evt => {
