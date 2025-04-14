@@ -15,10 +15,10 @@ function UserPanel() {
 
   return (
     <div className="bar">
-      {token && user && user.result && user.result.profile ? (
+      {token && user && user.profile ? (
         <>
           <Link to="/profile" style={{ marginRight: '1rem' }}>
-            {user.result.profile.name || 'Пользователь'}
+            {user.profile.name || 'Пользователь'}
           </Link>
           <button className="logout-btn" onClick={onLogout}>
             Выход

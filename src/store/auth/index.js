@@ -3,18 +3,11 @@ export default class AuthState {
     this.store = store;
     this.name = name;
     this.tokenKey = 'authToken';
-    const token = localStorage.getItem(this.tokenKey);
-
-    this.store.setState({
-      ...this.store.getState(),
-      [this.name]: { ...this.store.getState()[this.name], token },
-    });
-
-    if (token) {
-      this.fetchProfile(); // авто-загрузка профиля
-    }
   }
 
+  /**
+    Начальное состояние модуля
+   */
   initState() {
     const token = localStorage.getItem(this.tokenKey);
     return {
@@ -26,13 +19,14 @@ export default class AuthState {
   }
 
   async login(login, password) {
-    this.store.setState(
-      {
-        ...this.store.getState(),
-        [this.name]: { ...this.store.getState()[this.name], loading: true, error: null },
+    this.store.setState({
+      ...this.store.getState(),
+      [this.name]: {
+        ...this.store.getState()[this.name],
+        loading: true,
+        error: null,
       },
-      'auth: login start',
-    );
+    });
 
     try {
       const res = await fetch('/api/v1/users/sign', {
@@ -48,27 +42,43 @@ export default class AuthState {
       const { token, user } = data.result;
       localStorage.setItem(this.tokenKey, token);
 
-      this.store.setState(
-        {
-          ...this.store.getState(),
-          [this.name]: { token, user, loading: false, error: null },
-        },
-        'auth: login success',
-      );
-
-      await this.fetchProfile();
-    } catch (e) {
-      this.store.setState(
-        {
+      if (!user) {
+        this.store.setState({
           ...this.store.getState(),
           [this.name]: {
             ...this.store.getState()[this.name],
+            token,
             loading: false,
-            error: e.issues?.[0]?.message || 'Ошибка',
+            error: null,
           },
+        });
+
+        await this.fetchProfile();
+        return true;
+      }
+
+      // если user пришёл — сохраняем всё сразу
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          token,
+          user,
+          loading: false,
+          error: null,
         },
-        'auth: login error',
-      );
+      });
+
+      return true;
+    } catch (e) {
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          ...this.store.getState()[this.name],
+          loading: false,
+          error: e.issues?.[0]?.message || 'Ошибка входа: неверный логин или пароль',
+        },
+      });
+      return false;
     }
   }
 
@@ -84,18 +94,18 @@ export default class AuthState {
         },
       });
 
-      if (!res.ok) {
-        throw new Error('Ошибка при выходе');
-      }
+      if (!res.ok) throw new Error('Ошибка при выходе');
 
       localStorage.removeItem(this.tokenKey);
-      this.store.setState(
-        {
-          ...this.store.getState(),
-          [this.name]: { token: null, user: null, loading: false, error: null },
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          token: null,
+          user: null,
+          loading: false,
+          error: null,
         },
-        'auth: logout success',
-      );
+      });
     } catch (e) {
       console.error('Ошибка при выходе:', e);
     }
@@ -105,17 +115,13 @@ export default class AuthState {
     const token = this.store.getState()[this.name].token;
 
     if (!token) {
-      console.error('Токен не найден');
-      this.store.setState(
-        {
-          ...this.store.getState(),
-          [this.name]: {
-            ...this.store.getState()[this.name],
-            error: 'Токен не найден',
-          },
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          ...this.store.getState()[this.name],
+          error: 'Токен не найден',
         },
-        'auth: fetch profile error (no token)',
-      );
+      });
       return;
     }
 
@@ -123,31 +129,26 @@ export default class AuthState {
       const res = await fetch('/api/v1/users/self?fields=*', {
         headers: { 'X-Token': token },
       });
+      if (!res.ok) throw new Error(`Ошибка: ${res.statusText}`);
 
-      if (!res.ok) {
-        throw new Error(`Ошибка запроса: ${res.statusText}`);
-      }
+      const response = await res.json();
+      const user = response.result;
 
-      const user = await res.json();
-      this.store.setState(
-        {
-          ...this.store.getState(),
-          [this.name]: { ...this.store.getState()[this.name], user },
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          ...this.store.getState()[this.name],
+          user,
         },
-        'auth: fetched profile',
-      );
+      });
     } catch (e) {
-      console.error('Ошибка при загрузке профиля:', e);
-      this.store.setState(
-        {
-          ...this.store.getState(),
-          [this.name]: {
-            ...this.store.getState()[this.name],
-            error: e.message || 'Ошибка при загрузке профиля',
-          },
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          ...this.store.getState()[this.name],
+          error: e.message || 'Ошибка загрузки профиля',
         },
-        'auth: fetch profile error',
-      );
+      });
     }
   }
 }

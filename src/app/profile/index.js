@@ -36,11 +36,11 @@ function Profile() {
     );
 
   // Если нет данных профиля
-  if (!user || !user.result?.profile) {
+  if (!user || !user.profile) {
     return <div>{t('profile.noProfile')}</div>;
   }
 
-  const { profile } = user.result;
+  const { profile } = user;
 
   return (
     <div>
@@ -50,7 +50,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <div className="profile-container">
-          <h2>{t('profile.title')}</h2> {/* Переводим заголовок */}
+          <h2>{t('profile.title')}</h2>
           <div className="profile-details">
             <div className="profile-info">
               <p>
@@ -60,7 +60,7 @@ function Profile() {
                 {t('profile.phone')}: <strong>{profile.phone}</strong>
               </p>
               <p>
-                {t('profile.email')}: <strong>{user.result.email}</strong>
+                {t('profile.email')}: <strong>{user.email}</strong>
               </p>
             </div>
           </div>

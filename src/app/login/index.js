@@ -19,31 +19,24 @@ function Login() {
 
   const [form, setForm] = useState({ login: '', password: '' });
 
-  const onChange = (value, name) => {
-    setForm(f => ({ ...f, [name]: value }));
+  const handleInputChange = (value, name) => {
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
   useEffect(() => {
     if (auth.token && auth.user) {
       navigate('/profile');
     }
-  }, [auth.token, auth.user]);
+  }, [auth.token, auth.user, navigate]);
 
   const onSubmit = async e => {
     e.preventDefault();
 
-    await store.actions.auth.login(form.login, form.password);
+    const success = await store.actions.auth.login(form.login, form.password);
 
-    const token = store.getState().auth.token;
-    if (token) {
+    if (success) {
       await store.actions.auth.fetchProfile();
-    }
-
-    const user = store.getState().auth.user;
-    if (user) {
       navigate('/profile');
-    } else {
-      console.error('Профиль не загружен');
     }
   };
 
@@ -61,7 +54,7 @@ function Login() {
             <Input
               name="login"
               value={form.login}
-              onChange={onChange}
+              onChange={value => handleInputChange(value, 'login')}
               placeholder={t('login.loginPlaceholder') || 'Login'}
               theme="small"
             />
@@ -72,13 +65,18 @@ function Login() {
               name="password"
               type="password"
               value={form.password}
-              onChange={onChange}
+              onChange={value => handleInputChange(value, 'password')}
               placeholder={t('login.passwordPlaceholder') || 'Password'}
               theme="small"
             />
           </div>
           <div>{auth.error && <div style={{ color: 'red' }}>{auth.error}</div>}</div>
-          <Button type="submit" title={t('login.button') || 'Войти'} style="primary" />
+          <Button
+            type="submit"
+            title={auth.loading ? t('login.loading') || 'Loading...' : t('login.button') || 'Войти'}
+            style="primary"
+            disabled={auth.loading}
+          />
         </form>
       </PageLayout>
     </div>
