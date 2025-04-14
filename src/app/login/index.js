@@ -1,5 +1,4 @@
 import { memo, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import useTranslate from '../../hooks/use-translate';
@@ -7,14 +6,11 @@ import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import LoginFormContainer from '../../containers/login-form';
 import AuthHeaderContainer from '../../containers/auth-header';
+import useAuth from '../../hooks/use-auth';
 
 function LoginPage() {
   const { t } = useTranslate();
-  const token = localStorage.getItem('authToken');
-
-  if (token) {
-    return <Navigate to="/" replace />;
-  }
+  useAuth(true);
 
   useEffect(() => {
     document.title = t('title');
