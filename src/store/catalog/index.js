@@ -25,6 +25,9 @@ class CatalogState extends StoreModule {
     };
   }
 
+  /**
+   * Загрузка категорий в state
+  */
   async loadCategories() {
     const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
     const json = await response.json();

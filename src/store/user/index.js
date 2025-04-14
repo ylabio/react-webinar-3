@@ -9,6 +9,11 @@ class UserState extends StoreModule {
     };
   }
 
+  /**
+   * Вход пользователя на сайт
+   * @param [user] { login, password }
+   */
+
   async logInUser(user) {
     try {
       const response = await fetch('/api/v1/users/sign', {
@@ -26,6 +31,7 @@ class UserState extends StoreModule {
         name: json.result.user.profile.name,
         phone: json.result.user.profile.phone,
       };
+      //Если все ок, запоминаем токен в localStorage
       localStorage.setItem('token', json.result.token);
       this.setState({
         ...this.getState(),
@@ -41,6 +47,10 @@ class UserState extends StoreModule {
     }  
   }
 
+  /**
+   * Выход пользователя
+   */
+
   async logOutUser() {
     try {
       const response = await fetch('/api/v1/users/sign', {
@@ -54,6 +64,7 @@ class UserState extends StoreModule {
         const errorMessage = json.error.data.issues[0].message;
         throw new Error(errorMessage);
       }
+      // Если все ок, удаляем токен из localStorage
       localStorage.removeItem('token');
       this.setState({
         ...this.getState(),
@@ -67,6 +78,10 @@ class UserState extends StoreModule {
       }, 'Ошибка при выходе пользователя')
     }
   }
+
+  /**
+   * Получение данных пользователя через АПИ, если пользователь не вышел из учетной записи
+   */
 
   async getUserData() {
     const token = localStorage.getItem('token');
@@ -96,6 +111,9 @@ class UserState extends StoreModule {
     }
   }
 
+  /**
+   * Очистка ошибок
+   */
   clearError() {
     this.setState({
       ...this.getState(),

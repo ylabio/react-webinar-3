@@ -1,7 +1,8 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
+import useSelector from '../../hooks/use-selector';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -27,10 +28,27 @@ function Main() {
 
   const { t } = useTranslate();
 
+  const select = useSelector(state => ({
+    categories: state.catalog.categories,
+    category: state.catalog.params.category,
+  }));
+
+  const headTitle = useMemo(() => {
+    if (select.category.length !== 0 && select.categories.length !== 0) {
+      const selectedCategory = select.categories.find((item) => item.value === select.category);
+      const categoryTitle = selectedCategory.title.replaceAll('-', '');
+      const result = `${t('title')} / ${categoryTitle}`;
+      document.title = result;
+      return result;
+    }
+    document.title = t('title');
+    return t('title');
+  }, [select.category, select.categories, t]);
+
   return (
     <>
       <Header />
-      <Head title={t('title')}>
+      <Head title={headTitle}>
         <LocaleSelect />
       </Head>
       <PageLayout>

@@ -35,19 +35,17 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 function getTree(list) {
-  const map = {};
+  const tree = {};
   list.forEach(item => {
-    map[item._id] = { ...item, children: [] };
+    tree[item._id] = { ...item, children: [] };
   });
 
- 
   list.forEach(item => {
     if (item.parent !== null) {
       const parentId = item.parent._id;
-      map[parentId].children.push(map[item._id]);
+      tree[parentId].children.push(tree[item._id]);
     }
   });
-
 
   const addIndentation = (item, level = 0) => {
       const indent = '-'.repeat(level);
@@ -55,31 +53,30 @@ function getTree(list) {
       item.children.forEach(child => addIndentation(child, level + 1));
   };
 
-  Object.values(map).forEach(item => {
+  Object.values(tree).forEach(item => {
     if (item.parent === null) {
       addIndentation(item);
     }
   });
 
-  const result = Object.values(map).filter(item => item.parent === null);
-
-return result;
-}
+  const result = Object.values(tree).filter(item => item.parent === null);
+  return result;
+};
 
 function getFormattedList(list) {
   const formattedList = [];
   const rootItems = Object.values(list).filter((item) => item.parent === null);
 
-  const func = (item) => {
+  const addChildren = (item) => {
     const result = [{ value: item._id, title: item.title }];
     item.children.forEach((child) => {
-      result.push(...func(child));
+      result.push(...addChildren(child));
     });
     return result;
   };
 
   rootItems.forEach((item) => {
-    formattedList.push(...func(item));
+    formattedList.push(...addChildren(item));
   });
   return formattedList;
 };
