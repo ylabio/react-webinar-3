@@ -10,6 +10,7 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
+import LoginMenu from '../login-menu';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -17,7 +18,6 @@ import LocaleSelect from '../../containers/locale-select';
 function Article() {
   const store = useStore();
 
-  // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
@@ -32,12 +32,12 @@ function Article() {
   const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
   return (
     <>
+      <LoginMenu />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

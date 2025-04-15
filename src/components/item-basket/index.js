@@ -7,11 +7,17 @@ import { Link } from 'react-router-dom';
 import Button from '../button';
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket({
+  onRemove = () => {},
+  labelCurr = '₽',
+  labelUnit = 'шт',
+  labelDelete = 'Удалить',
+  ...props
+}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    handleRemove: e => onRemove(props.item._id),
   };
 
   return (
@@ -28,13 +34,13 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>
-          {numberFormat(props.item.amount || 0)} {props.labelUnit}
+          {numberFormat(props.item.amount || 0)} {labelUnit}
         </div>
         <div className={cn('cell')}>
-          {numberFormat(props.item.price)} {props.labelCurr}
+          {numberFormat(props.item.price)} {labelCurr}
         </div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={props.labelDelete} />
+          <Button style="delete" onClick={callbacks.handleRemove} title={labelDelete} />
         </div>
       </div>
     </div>
@@ -56,11 +62,11 @@ ItemBasket.propTypes = {
   labelUnit: PropTypes.string,
 };
 
-ItemBasket.defaultProps = {
-  onRemove: () => {},
-  labelCurr: '₽',
-  labelUnit: 'шт',
-  labelDelete: 'Удалить',
-};
+// ItemBasket.defaultProps = {
+//   onRemove: () => {},
+//   labelCurr: '₽',
+//   labelUnit: 'шт',
+//   labelDelete: 'Удалить',
+// };
 
 export default memo(ItemBasket);

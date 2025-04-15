@@ -13,12 +13,12 @@ Content-Type: application/json
 # Выход - отмена авториазции для удаления токена
 
 DELETE http://query.rest/api/v1/users/sign
-X-Token: 6c17ddecd82fd1701b6b9423ce5606056674bed888598e38dd2624c51c8b1268
+X-Token: b1178ab283942790c7aa39b51232ce3d0db21de35bcc4b48581bcc8c96e61a42
 Content-Type: application/json
 
 ###
 # Свой профиль
 
 GET http://query.rest/api/v1/users/self?fields=*
-X-Token: a3a468091084fb786f9449df5b8d303bbcf25919966a1ab0e48165530f26ee48
+X-Token: 8da4eaa24950a3ce3d385e5c558924aeae7bedbecedc5c26b8ad3dea67664330
 Content-Type: application/json

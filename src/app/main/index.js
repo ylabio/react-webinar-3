@@ -8,16 +8,19 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import LoginMenu from '../login-menu';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
-function Main() {
+function Main({categoryTitle = ''}) {
   const store = useStore();
 
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.catalog.categoryLoad();
+      store.actions.authorization.clearError();
     },
     [],
     true,
@@ -27,7 +30,8 @@ function Main() {
 
   return (
     <>
-      <Head title={t('title')}>
+      <LoginMenu />
+      <Head title={t('title') + (categoryTitle ? ' / ' + categoryTitle : '')}>
         <LocaleSelect />
       </Head>
       <PageLayout>

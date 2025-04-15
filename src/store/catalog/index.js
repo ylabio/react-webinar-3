@@ -11,11 +11,13 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categoryList: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -45,9 +48,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async resetParams(newParams = {}) {
-    // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
-    // Установка параметров и загрузка данных
     await this.setParams(params);
   }
 
@@ -80,12 +81,17 @@ class CatalogState extends StoreModule {
     }
 
     const apiParams = {
+      lang: 'ru',
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
     };
+
+    if (params.category !== '') {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -98,6 +104,57 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
+  }
+
+  async categoryLoad() {
+    const res = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&lang=ru&limit=*`);
+    const result = await res.json();
+
+    this.setState(
+      {
+        ...this.getState(),
+        // categoryList: result.result.items,
+        categoryList: this.flattenTree(this.buildTree(result.result.items)),
+        waiting: false,
+      },
+      'Загружен список Категорий из АПИ',
+    );
+  }
+
+  // Функция для построения дерева
+  buildTree(items) {
+    const map = new Map();
+    const tree = [];
+
+    items.forEach(item => {
+      map.set(item._id, { ...item, children: [] });
+    });
+
+    items.forEach(item => {
+      if (item.parent && map.has(item.parent._id)) {
+        map.get(item.parent._id).children.push(map.get(item._id));
+      } else {
+        tree.push(map.get(item._id));
+      }
+    });
+
+    return tree;
+  }
+
+  // Функция для создания плоского массива с учетом вложенности
+  flattenTree(tree, level = 0, result = []) {
+    tree.forEach(item => {
+      result.push({
+        value: item._id,
+        title: '- '.repeat(level * 1) + item.title,
+      });
+
+      if (item.children.length > 0) {
+        this.flattenTree(item.children, level + 1, result);
+      }
+    });
+
+    return result;
   }
 }
 

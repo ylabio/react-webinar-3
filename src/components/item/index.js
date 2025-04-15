@@ -6,11 +6,11 @@ import { numberFormat } from '../../utils';
 import Button from '../button';
 import './style.css';
 
-function Item(props) {
+function Item({ onAdd = () => {}, labelCurr = '₽', labelAdd = 'Добавить', ...props }) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: e => onAdd(props.item._id),
   };
 
   return (
@@ -21,9 +21,9 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>
-          {numberFormat(props.item.price)} {props.labelCurr}
+          {numberFormat(props.item.price)} {labelCurr}
         </div>
-        <Button style="primary" onClick={callbacks.onAdd} title={props.labelAdd} />
+        <Button style="primary" onClick={callbacks.onAdd} title={labelAdd} />
       </div>
     </div>
   );
@@ -41,10 +41,10 @@ Item.propTypes = {
   labelAdd: PropTypes.string,
 };
 
-Item.defaultProps = {
-  onAdd: () => {},
-  labelCurr: '₽',
-  labelAdd: 'Добавить',
-};
+// Item.defaultProps = {
+//   onAdd: () => {},
+//   labelCurr: '₽',
+//   labelAdd: 'Добавить',
+// };
 
 export default memo(Item);
