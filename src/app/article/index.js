@@ -10,8 +10,8 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
-import NotFound from '../../components/not-found';
-import LoginHeader from '../../components/login-header';
+import NotFound from '../not-found';
+import LoginHeader from '../../containers/login-header-container';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса

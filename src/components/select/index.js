@@ -1,4 +1,3 @@
-// Select.js
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import CustomSelect from '../custom-select';

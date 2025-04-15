@@ -3,7 +3,8 @@ import { memo } from 'react';
 import useStore from '../../hooks/use-store';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
-import LoginHeader from '../../components/login-header';
+import { CategoryProvider } from '../../hooks/use-categories';
+import LoginHeader from '../../containers/login-header-container';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import Navigation from '../../containers/navigation';
@@ -33,15 +34,17 @@ function Main() {
 
   return (
     <>
-      <LoginHeader />
-      <Head title={headTitle}>
-        <LocaleSelect />
-      </Head>
-      <PageLayout>
-        <Navigation />
-        <CatalogFilter />
-        <CatalogList />
-      </PageLayout>
+      <CategoryProvider>
+        <LoginHeader />
+        <Head title={headTitle}>
+          <LocaleSelect />
+        </Head>
+        <PageLayout>
+          <Navigation />
+          <CatalogFilter />
+          <CatalogList />
+        </PageLayout>
+      </CategoryProvider>
     </>
   );
 }

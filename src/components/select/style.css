@@ -8,7 +8,7 @@
 .custom-select__selected {
   border: 1px solid #ccc;
   padding: 8px 12px;
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px;
   background: #fff;
   display: flex;
   justify-content: space-between;

@@ -1,53 +1,41 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useTranslate from '../../hooks/use-translate';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style.css';
 
-function LoginButton() {
-  const { t } = useTranslate();
-  const navigate = useNavigate();
-  
-  const token = localStorage.getItem('token');
-  const profileString = localStorage.getItem('profile');
-  const profile = profileString ? JSON.parse(profileString) : null;
-
-  const handleLogout = async () => {
-    try {
-      
-      await fetch('/api/v1/users/sign', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token,
-        },
-        credentials: 'include',
-      });
-    } catch (error) {
-      console.error('Ошибка при выходе:', error);
-    } finally {
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
-      localStorage.removeItem('profile');
-
-      navigate('/');
-      window.location.reload();
-    }
-  };
-
+function LoginButton({
+  isLoggedIn,
+  username,
+  onLogout,
+  loginText,
+  logoutText,
+}) {
   return (
     <div className="LoginHeader">
-      <Link to="/profile" className="login-username">{profile && profile.name ? profile.name : ''}</Link>
-      {token ? (
-        <button className="login-btn" onClick={handleLogout}>
-          {t('logout.btn')}
+      {isLoggedIn && username && (
+        <Link to="/profile" className="login-username">
+          {username}
+        </Link>
+      )}
+      {isLoggedIn ? (
+        <button className="login-btn" onClick={onLogout}>
+          {logoutText}
         </button>
       ) : (
         <Link to="/login" className="login-btn">
-          {t('login.btn')}
+          {loginText}
         </Link>
       )}
     </div>
   );
 }
+
+LoginButton.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  username: PropTypes.string,
+  onLogout: PropTypes.func.isRequired,
+  loginText: PropTypes.string.isRequired,
+  logoutText: PropTypes.string.isRequired,
+};
 
 export default LoginButton;
