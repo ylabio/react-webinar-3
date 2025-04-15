@@ -1,38 +1,19 @@
 import { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
+import { Link } from 'react-router-dom';
 import './style.css';
 
-function Head({ title, children }) {
-  const store = useStore();
-  const navigate = useNavigate();
-  const { t } = useTranslate();
-  
-  const select = useSelector(state => ({
-    user: state.user.data,
-    token: state.user.token
-  }));
-
-  const callbacks = {
-    signOut: useCallback(async () => {
-      await store.actions.user.signOut();
-      navigate('/');
-    }, [store, navigate])
-  };
-
+function Head({ title, children, username, isAuth, onLogout, t }) {
   return (
     <div className="Head">
       <div className="Head-auth">
         <div className="Head-auth-container">
-          {select.token ? (
+          {isAuth ? (
             <>
               <Link to="/profile" className="Head-username">
-                {select.user?.profile?.name || select.user?.login}
+                {username}
               </Link>
-              <button onClick={callbacks.signOut} className="Head-login">
+              <button onClick={onLogout} className="Head-login">
                 {t('login.logout')}
               </button>
             </>
@@ -54,6 +35,10 @@ function Head({ title, children }) {
 Head.propTypes = {
   title: PropTypes.node,
   children: PropTypes.node,
+  username: PropTypes.string,
+  isAuth: PropTypes.bool,
+  onLogout: PropTypes.func,
+  t: PropTypes.func,
 };
 
 export default memo(Head);

@@ -5,7 +5,7 @@ import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
+import Head from '../../containers/head-container';
 import Navigation from '../../containers/navigation';
 import ProfileCard from '../../components/profile-card';
 import LocaleSelect from '../../containers/locale-select';

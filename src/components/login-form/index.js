@@ -1,50 +1,22 @@
-import { memo, useCallback, useRef, useEffect } from 'react';
+import { memo, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
 import Input from '../input';
 import Button from '../button';
 import './style.css';
 
-function LoginForm({ t }) {
+function LoginForm({ t, error, waiting, onSubmit }) {
   const cn = bem('LoginForm');
-  const store = useStore();
-  const navigate = useNavigate();
   const loginRef = useRef();
   const passwordRef = useRef();
-  
-  const select = useSelector(state => ({
-    error: state.user.error,
-    waiting: state.user.waiting
-  }));
 
-  useEffect(() => {
-    store.actions.user.clearError();
-  }, []);
-
-  const callbacks = {
-    onSubmit: useCallback(async (e) => {
-      e.preventDefault();
-      const login = loginRef.current.value;
-      const password = passwordRef.current.value; 
-      console.log('Trying to auth with:', { 
-        login: loginRef.current.value,
-        password: passwordRef.current.value 
-      });
-      const success = await store.actions.user.signIn(login, password);
-      if (success) {
-        await store.actions.user.load();
-        navigate('/');
-      } else {
-        console.log('Auth failed, current error:', store.getState().user.error);
-      }
-    }, [store])
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(loginRef.current.value, passwordRef.current.value);
   };
 
   return (
-    <form className={cn()} onSubmit={callbacks.onSubmit}>
+    <form className={cn()} onSubmit={handleSubmit}>
       <h2 className={cn('title')}>{t('login.title')}</h2>
       <div className={cn('field')}>
         <label className={cn('label')}>{t('login.username')}</label>
@@ -66,15 +38,15 @@ function LoginForm({ t }) {
           required
         />
       </div>
-      <div className={cn('error', {hidden: !select.error})}>
-        {select.error}
+      <div className={cn('error', {hidden: !error})}>
+        {error}
       </div>
       <div className={cn('button')}>
         <Button
           type="submit"
           style="primary"
           title={t('login.submit')}
-          disabled={select.waiting}
+          disabled={waiting}
         />
       </div>
     </form>
@@ -82,7 +54,10 @@ function LoginForm({ t }) {
 }
 
 LoginForm.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  waiting: PropTypes.bool,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default memo(LoginForm);
