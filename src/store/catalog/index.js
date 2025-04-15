@@ -58,16 +58,17 @@ class CatalogState extends StoreModule {
    * Установка параметров и загрузка списка товаров
    * @param [newParams] {Object} Новые параметры
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
+   * @param [resetPage] {Boolean} Сбросить страницу (true) или оставить на прежней (false)
    * @returns {Promise<void>}
    */
-  async setParams(newParams = {}, replaceHistory = false) {
+  async setParams(newParams = {}, replaceHistory = false, resetPage = false) {
 
     const params = {
       ...this.getState().params,
       ...newParams,
     };
 
-    if (newParams.category) {
+    if (resetPage) {
       params.page = 1;
     }
 

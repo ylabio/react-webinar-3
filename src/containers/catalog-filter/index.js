@@ -28,9 +28,9 @@ function CatalogFilter() {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
-    onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    onSearch: useCallback(query => store.actions.catalog.setParams({ query }, false, true), [store]),
 
-    onFilter: useCallback(category => store.actions.catalog.setParams({category}), [store]),
+    onFilter: useCallback(category => store.actions.catalog.setParams({category}, false, true), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
