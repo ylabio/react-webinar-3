@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import PageLayout from '../../components/page-layout';
@@ -14,6 +14,8 @@ import LoginForm from '../../components/login-form';
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation(); // получаем откуда пришли
+  const from = location.state?.from?.pathname || '/';
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +27,7 @@ function Login() {
 
     try {
       await store.actions.user.login({ login, password });
-      navigate('/');
+      navigate(from);
     } catch (e) {
       setError(e.message);
     }

@@ -4,6 +4,9 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function ProfileCard({ user }) {
+
+    if (!user) return null;
+
     const cn = bem('ProfileCard');
     return (
         <div className={cn()}>

@@ -62,7 +62,7 @@ export function organizeCategories(categories) {
   function traverse(node, level = 0) {
     result.push({
       value: node._id,
-      title: `${'-'.repeat(level)} ${node.title}`,
+      title: `${'- '.repeat(level)} ${node.title}`,
     });
     node.children
       .sort((a, b) => a.title.localeCompare(b.title)) // сортировка по алфавиту

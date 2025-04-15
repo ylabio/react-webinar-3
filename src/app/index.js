@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import useStore from '../hooks/use-store';
 import Main from './main';
@@ -9,22 +9,19 @@ import Profile from './profile';
 import Header from './header';
 import Login from './login';
 
-
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
   const store = useStore();
-
+  const authorized = useSelector(state => state.user.authorized);
   const activeModal = useSelector(state => state.modals.name);
+  const location = useLocation();
 
-  // Автоматическая авторизация при наличии токена
+  // Воcстановление сессии
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      store.actions.user.loadProfile(token);
-    }
+    store.actions.user.restore();
   }, []);
 
   return (
@@ -33,8 +30,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={authorized ? <Navigate to="/profile" replace /> : <Login />} />
+        <Route path="/profile" element={authorized ? <Profile /> : <Navigate to="/login" replace state={{ from: location }} />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

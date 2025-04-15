@@ -4,7 +4,8 @@ class UserState extends StoreModule {
     initState() {
         return {
             token: localStorage.getItem('token') || '',
-            profile: null,
+            user: null,
+            authorized: false,
             waiting: false,
         };
     }
@@ -15,7 +16,7 @@ class UserState extends StoreModule {
         const response = await fetch('/api/v1/users/sign', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ login, password }),
+            body: JSON.stringify({ login, password, remember: true }),
         });
 
         const result = await response.json();
@@ -24,14 +25,18 @@ class UserState extends StoreModule {
             localStorage.setItem('token', result.result.token);
             this.setState({
                 token: result.result.token,
-                profile: result.result.user,
+                user: {
+                    _id: result.result.user._id,
+                    name: result.result.user.profile.name,
+                },
+                authorized: true,
                 waiting: false,
             }, 'Вошли в систему');
 
         } else {
             // Обработка ошибок
             this.setState({ waiting: false });
-            throw result.error || new Error('Auth failed');
+            throw result.error.data.issues[0] || new Error('Auth failed');
         }
     }
 
@@ -45,23 +50,22 @@ class UserState extends StoreModule {
         });
 
         localStorage.removeItem('token');
-        this.setState({ token: '', profile: null }, 'Вышли из системы');
+        this.setState({ token: '', user: null, authorized: false }, 'Вышли из системы');
     }
 
-    async loadProfile() {
+    async restore() {
         const token = this.getState().token;
         if (!token) return;
-
-        const response = await fetch('/api/v1/users/self?fields=*', {
-            headers: { 'X-Token': token },
-        });
-
-        const result = await response.json();
-
+        await this.store.actions.profile.load();
+        const profileData = this.store.getState().profile.profile;
         this.setState({
-            profile: result.result,
-            waiting: false,
-        }, 'Загружен профиль из АПИ');
+            token: token,
+            user: {
+                _id: profileData._id,
+                name: profileData.profile.name,
+            },
+            authorized: true
+        }, 'Восстановили сессию');
     }
 }
 
