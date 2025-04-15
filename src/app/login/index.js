@@ -72,7 +72,17 @@ function Login() {
               theme="small"
             />
           </div>
-          <div>{auth.error && <div style={{ color: 'red' }}>{auth.error}</div>}</div>
+          <div>
+            {auth.error?.issues?.length > 0 && (
+              <div className="login-errors">
+                {auth.error.issues.map((issue, i) => (
+                  <div key={i} style={{ color: '#D43B3B' }}>
+                    {issue.message}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           <Button
             type="submit"
             title={auth.loading ? t('login.loading') || 'Loading...' : t('login.button') || 'Войти'}
