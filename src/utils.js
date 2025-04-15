@@ -34,4 +34,14 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-export const checkResponse = res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`));
+export const checkResponse = async res => {
+  const data = await res.json();
+
+  if (!res.ok) {
+    const error = new Error(`Ошибка ${res.status}`);
+    error.issues = data.error.data.issues || [];
+    throw error;
+  }
+
+  return data;
+};

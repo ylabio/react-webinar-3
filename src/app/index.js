@@ -21,7 +21,7 @@ function App() {
     activeModal: state.modals.name,
     isAuth: state.user.isAuth,
     userName: state.user.user.profile.name,
-    request: state.user.request,
+    isLoading: state.user.isLoading,
   }));
   const { t } = useTranslate();
 

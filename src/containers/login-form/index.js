@@ -22,7 +22,6 @@ const field = [
   },
 ];
 
-// TODO: ошибки
 const LoginForm = () => {
   const store = useStore();
   const navigate = useNavigate();
@@ -33,6 +32,8 @@ const LoginForm = () => {
 
   const select = useSelector(state => ({
     isAuth: state.user.isAuth,
+    isError: state.user.isError,
+    error: state.user.error,
   }));
 
   const callbacks = {
@@ -77,6 +78,12 @@ const LoginForm = () => {
           />
         ))}
       </div>
+
+      <div className="LoginForm-error">
+        {select.isError && t(select.error.map(item => item.message).join('/n'))}
+        &nbsp;
+      </div>
+
       <Button
         type="button"
         style="primary"

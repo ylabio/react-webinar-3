@@ -20,10 +20,10 @@ const ProtectedRoute = ({ element }) => {
 
   const select = useSelector(state => ({
     isAuth: state.user.isAuth,
-    request: state.user.request,
+    isLoading: state.user.isLoading,
   }));
 
-  if (!isRequestSent || select.request) {
+  if (!isRequestSent || select.isLoading) {
     return null;
   }
 

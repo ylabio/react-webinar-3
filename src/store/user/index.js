@@ -7,7 +7,9 @@ class UserState extends StoreModule {
       token: '',
       user: { profile: { name: '' } },
       isAuth: false,
-      request: false,
+      isError: false,
+      isLoading: false,
+      error: [],
     };
   }
 
@@ -15,7 +17,7 @@ class UserState extends StoreModule {
     let response;
     let result;
 
-    this.setState({ ...this.getState(), request: true });
+    this.setState({ ...this.getState(), isLoading: true });
     response = await fetch('/api/v1/users/sign', {
       method: 'POST',
       headers: {
@@ -23,59 +25,85 @@ class UserState extends StoreModule {
       },
       body: JSON.stringify(form),
     });
-    result = (await response.json()).result;
-    localStorage.setItem('token', result.token);
 
-    this.setState(
-      {
-        ...this.getState(),
-        ...result,
-        isAuth: true,
-        request: false,
-      },
-      'Логин',
-    );
+    try {
+      result = await checkResponse(response);
+      localStorage.setItem('token', result.result.token);
+
+      this.setState(
+        {
+          ...this.getState(),
+          ...result.result,
+          isAuth: true,
+          isLoading: false,
+          isError: false,
+          error: [],
+        },
+        'Логин',
+      );
+    } catch (e) {
+      this.setState({
+        ...this.initState(),
+        isLoading: false,
+        isError: true,
+        error: e.issues,
+      });
+    } finally {
+      this.setState(
+        {
+          ...this.getState(),
+          isLoading: false,
+        },
+        'Логин',
+      );
+    }
   }
 
   async checkAuth() {
-    this.setState({ ...this.getState(), request: true });
+    this.setState({ ...this.getState(), isLoading: true });
 
-    let response;
-    let result;
+    try {
+      const response = await fetch(`/api/v1/users/self`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': localStorage.getItem('token'),
+        },
+      });
 
-    response = await fetch(`/api/v1/users/self`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Token': localStorage.getItem('token'),
-      },
-    });
-
-    if (response.status !== 401 && response.status !== 403) {
-      result = await checkResponse(response);
+      const result = await checkResponse(response);
 
       this.setState(
         {
           ...this.getState(),
           user: { ...result.result },
           isAuth: true,
-          request: false,
+          isError: false,
+          error: [],
         },
         'Проверка авторизации',
       );
-    } else {
+    } catch (e) {
+      console.error(e);
       this.setState(
         {
           ...this.initState(),
-          request: false,
         },
         'Проверка авторизации',
+      );
+    } finally {
+      this.setState(
+        {
+          ...this.getState(),
+          isLoading: false,
+        },
+        'Логин',
       );
     }
   }
 
   async logout() {
-    this.setState({ ...this.getState(), request: true });
+    this.setState({ ...this.getState(), isLoading: true });
     const token = localStorage.getItem('token');
     let response;
     let result;
