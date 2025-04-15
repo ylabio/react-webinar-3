@@ -34,52 +34,26 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-function getTree(list) {
-  const tree = {};
-  list.forEach(item => {
-    tree[item._id] = { ...item, children: [] };
-  });
-
-  list.forEach(item => {
-    if (item.parent !== null) {
-      const parentId = item.parent._id;
-      tree[parentId].children.push(tree[item._id]);
-    }
-  });
-
-  const addIndentation = (item, level = 0) => {
-      const indent = '- '.repeat(level);
-      item.title = `${indent}${item.title}`;
-      item.children.forEach(child => addIndentation(child, level + 1));
-  };
-
-  Object.values(tree).forEach(item => {
-    if (item.parent === null) {
-      addIndentation(item);
-    }
-  });
-
-  const result = Object.values(tree).filter(item => item.parent === null);
+const getTree = (list, parent = null, level = 0) => {
+  const result = list
+  .filter((item) => {
+    const parentId = item.parent?._id || null;
+    return parentId === parent})
+  .map((item) => ({ ...item, level, children: getTree(list, item._id, level + 1)}));
   return result;
-};
+}
 
-function getFormattedList(list) {
-  const formattedList = [];
-  const rootItems = Object.values(list).filter((item) => item.parent === null);
-
-  const addChildren = (item) => {
-    const result = [{ value: item._id, title: item.title }];
-    item.children.forEach((child) => {
-      result.push(...addChildren(child));
-    });
-    return result;
-  };
-
-  rootItems.forEach((item) => {
-    formattedList.push(...addChildren(item));
-  });
-  return formattedList;
-};
+const getFormattedList = (tree, formattedList = []) => {
+  const result = tree.reduce((acc, item) => {
+    const indents = '- '.repeat(item.level);
+    const newAcc = [...acc, { value: item._id, title: `${indents}${item.title}` }];
+    if (item.children) {
+      return getFormattedList(item.children, newAcc);
+    }
+    return newAcc;
+  }, formattedList);
+  return result;
+}
 
 export function formatCategories(list) {
   return getFormattedList(getTree(list));
