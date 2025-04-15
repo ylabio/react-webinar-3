@@ -45,7 +45,12 @@ function LoginBlock(props) {
           </div>
           {errorMessage && <div className={cn('error')}>{errorMessage}</div>}
         </div>
-        <Button style={'primary'} type={'submit'} title={t('Войти')} />
+        <Button
+          style={'primary'}
+          type={'submit'}
+          title={t('Войти')}
+          disabled={!data.login || !data.password}
+        />
       </form>
     </div>
   );
