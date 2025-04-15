@@ -1,0 +1,31 @@
+.bar {
+  width: 100%;
+  background-color: #efefef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  height: 38px;
+}
+
+.bar-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1192px;
+  width: 100%;
+  padding-inline: 20px;
+}
+
+.logout-btn {
+  color: var(--primary);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.login-link {
+  font-family: var(--second-font-family);
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}

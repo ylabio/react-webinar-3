@@ -9,6 +9,7 @@ function Input(props) {
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
+  // debounce будет активен только если noDebounce не передан
   const onChangeDebounce = useCallback(
     debounce(value => props.onChange(value, props.name), 600),
     [props.onChange, props.name],
@@ -17,7 +18,13 @@ function Input(props) {
   // Обработчик изменений в поле
   const onChange = event => {
     setValue(event.target.value);
-    onChangeDebounce(event.target.value);
+
+    // Если noDebounce передан как true, вызываем onChange без debounce
+    if (props.noDebounce) {
+      props.onChange(event.target.value, props.name);
+    } else {
+      onChangeDebounce(event.target.value);
+    }
   };
 
   // Обновление стейта, если передан новый value
@@ -42,12 +49,14 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
+  noDebounce: PropTypes.bool,
 };
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
   theme: '',
+  noDebounce: false,
 };
 
 export default memo(Input);

@@ -1,4 +1,5 @@
 import StoreModule from '../module';
+import { memo, useEffect } from 'react';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -11,11 +12,14 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [],
+      categoriesLoading: false,
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,6 +40,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -86,6 +91,10 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query,
     };
+    // Добавляем параметр категории в запрос, если он есть
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -98,6 +107,97 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
+  }
+
+  /**
+   * Загрузка категорий
+   * @return {Promise<void>}
+   */
+  async loadCategories() {
+    this.setState({ ...this.getState(), categoriesLoading: true });
+
+    try {
+      const response = await fetch('/api/v1/categories?fields=items(_id,title,parent)&limit=*');
+      const data = await response.json();
+
+      console.log('>> Сырые категории:', data.result.items);
+
+      const normalized = data.result.items.map(cat => ({
+        ...cat,
+        parent: cat.parent?._id || cat.parent || null,
+      }));
+
+      const formatted = this.formatCategories(normalized);
+
+      this.setState({
+        ...this.getState(),
+        categories: formatted,
+        categoriesLoading: false,
+      });
+    } catch (e) {
+      console.error('Ошибка загрузки категорий:', e);
+      this.setState({
+        ...this.getState(),
+        categories: [{ value: '', title: 'Все', level: 0 }],
+        categoriesLoading: false,
+      });
+    }
+  }
+
+  /**
+   * Форматирование категорий в плоский список с иерархией,
+   * устойчивый к произвольному порядку элементов.
+   */
+  formatCategories(categories) {
+    // 1. Создаем узлы и карту
+    const nodes = categories.map(cat => ({
+      _id: cat._id,
+      title: cat.title,
+      parent: cat.parent?._id || cat.parent || null,
+      children: [],
+      level: -1,
+    }));
+
+    const nodeMap = new Map(nodes.map(node => [node._id, node]));
+
+    // 2. Строим связи (максимум 100 итераций для сложных случаев)
+    for (let i = 0; i < 100; i++) {
+      let linked = false;
+      nodes.forEach(node => {
+        if (
+          node.parent &&
+          nodeMap.has(node.parent) &&
+          !nodeMap.get(node.parent).children.some(c => c._id === node._id)
+        ) {
+          nodeMap.get(node.parent).children.push(node);
+          linked = true;
+        }
+      });
+      if (!linked) break;
+    }
+
+    // 3. Вычисляем уровни и собираем результат
+    const result = [];
+
+    const processNode = (node, level = 0) => {
+      node.level = level;
+      result.push({
+        value: node._id,
+        title: node.title, // Без префикса
+        level,
+      });
+      node.children
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .forEach(child => processNode(child, level + 1));
+    };
+
+    // Обрабатываем корневые и потерянные узлы
+    nodes
+      .filter(node => !node.parent || !nodeMap.has(node.parent))
+      .forEach(root => processNode(root));
+
+    // Добавляем "Все" в начало
+    return [{ value: '', title: 'Все', level: 0 }, ...result];
   }
 }
 

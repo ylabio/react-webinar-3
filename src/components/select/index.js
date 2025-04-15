@@ -6,6 +6,7 @@ import './style.css';
 function Select(props) {
   const cn = bem('Select');
   const { onChange = () => {}, options, value, size, text } = props;
+
   const onSelect = e => {
     onChange(e.target.value);
   };
@@ -13,7 +14,11 @@ function Select(props) {
   return (
     <select className={cn({ size, text: !!text })} value={value} onChange={onSelect}>
       {options.map(item => (
-        <option key={item.value} value={item.value}>
+        <option
+          key={item.value}
+          value={item.value}
+          className={value === item.value ? 'selected-option' : ''}
+        >
           {item.title}
         </option>
       ))}
