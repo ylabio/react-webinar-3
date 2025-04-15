@@ -43,6 +43,7 @@ class ArticleState extends StoreModule {
       this.setState({
         data: {},
         waiting: false,
+        error: e.message,
       });
     }
   }

@@ -1,0 +1,48 @@
+import { memo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useSelector from '../../hooks/use-selector';
+import LoginEntry from '../../containers/login-entry';
+import Head from '../../components/head';
+import LocaleSelect from '../../containers/locale-select';
+import useTranslate from '../../hooks/use-translate';
+import PageLayout from '../../components/page-layout';
+import Navigation from '../../containers/navigation';
+import Spinner from '../../components/spinner';
+import ProfileCard from '../../components/profile-card';
+
+/**
+ * Страница профиля пользователя
+ */
+
+function Profile() {
+  const navigate = useNavigate();
+
+  const select = useSelector(state => ({
+    user: state.user.data,
+    waiting: state.user.waiting,
+    autenticated: state.user.autenticated,
+  }));
+
+  if (!select.autenticated) {
+    navigate('/');
+  }
+
+  const { t } = useTranslate();
+
+  return (
+    <>
+      <LoginEntry />
+      <Head title={t('title')}>
+        <LocaleSelect />
+      </Head>
+      <PageLayout>
+        <Spinner active={select.waiting}>
+          <Navigation />
+          <ProfileCard user={select.user} />
+        </Spinner>
+      </PageLayout>
+    </>
+  );
+}
+
+export default memo(Profile);

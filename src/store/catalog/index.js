@@ -9,6 +9,7 @@ class CatalogState extends StoreModule {
    * @return {Object}
    */
   initState() {
+    console.log("1 - Catalog initState");
     return {
       list: [],
       params: {
@@ -16,8 +17,10 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
+      categories: [],
       waiting: false,
     };
   }
@@ -29,6 +32,8 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+    console.log("2 - Catalog initParams");
+    // ?page=1&limit=10&sort=order&query=
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
@@ -36,6 +41,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -45,6 +51,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async resetParams(newParams = {}) {
+    console.log("3 - Catalog resetParams");
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
@@ -58,6 +65,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
+    console.log("4 - Catalog setParams");
     const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
@@ -82,12 +90,23 @@ class CatalogState extends StoreModule {
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
+      fields: `items(*),count`,
       sort: params.sort,
       'search[query]': params.query,
     };
 
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+
+    if (!response.ok) {
+      console.error('Ошибка при выполнении запроса:', response.statusText);
+      this.setState({ waiting: false });
+      return;
+    }
+
     const json = await response.json();
     this.setState(
       {
@@ -97,6 +116,25 @@ class CatalogState extends StoreModule {
         waiting: false,
       },
       'Загружен список товаров из АПИ',
+    );
+    this.getCategories();
+  }
+
+  /**
+   * Загрузка списка категорий
+   * @returns {Promise<void>}
+   */
+  async getCategories() {
+    console.log("4 - Catalog getCategories");
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+    this.setState(
+      {
+        ...this.getState(),
+        categories: json.result.items,
+        waiting: false,
+      },
+      'Загружен список категорий из АПИ',
     );
   }
 }

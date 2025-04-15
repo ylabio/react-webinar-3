@@ -1,0 +1,32 @@
+.LoginEntry {
+  background-color: var(--second-background);
+}
+
+.LoginEntry-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;  
+  height: 38px;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.LoginEntry-user {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.LoginEntry-btn {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--overlay);
+  }
+}
