@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-function Menu({ items, onNavigate }) {
+function Menu({ items = [], onNavigate = () => {} }) {
   const cn = bem('Menu');
   return (
     <ul className={cn()}>
@@ -22,17 +22,12 @@ function Menu({ items, onNavigate }) {
 Menu.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.number,
-      link: PropTypes.string,
-      title: PropTypes.string,
+      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      link: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
     }),
   ),
   onNavigate: PropTypes.func,
-};
-
-Menu.defaultProps = {
-  items: [],
-  onNavigate: () => {},
 };
 
 export default memo(Menu);

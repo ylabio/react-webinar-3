@@ -1,0 +1,28 @@
+.LoginHeader {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 20px;
+  background-color: var(--top-background);
+}
+
+.login-btn {
+  display: inline-block;
+  color: var(--main-text);
+  font-size: 16px;
+  font-weight: bold; 
+  font-family: var(--second-font-family);
+  padding: 0;
+
+  &:hover{
+    color: var(--primary);
+  }
+}
+
+.login-username{
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  margin-right: 24px;
+}

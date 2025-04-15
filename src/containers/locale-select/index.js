@@ -2,7 +2,7 @@ import { memo, useCallback, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
-import Select from '../../components/select';
+import CustomSelect from '../../components/custom-select';
 
 /**
  * Контейнер для смены языка
@@ -20,7 +20,7 @@ function LocaleSelect() {
     ),
   };
 
-  return <Select onChange={setLang} value={lang} options={options.lang} size="small" text />;
+  return <CustomSelect onChange={setLang} value={lang} options={options.lang} size="small" text />;
 }
 
 export default memo(LocaleSelect);

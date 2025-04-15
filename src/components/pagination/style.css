@@ -3,7 +3,7 @@
   list-style: none;
   justify-content: flex-end;
   padding-block: 24px;
-  margin: 0;
+  margin: 0 6px 0 0;
 }
 
 .Pagination-item {

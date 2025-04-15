@@ -1,40 +1,50 @@
+import React, { useEffect } from 'react';
 import { memo } from 'react';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
-import Navigation from '../../containers/navigation';
-import PageLayout from '../../components/page-layout';
+import useTranslate from '../../hooks/use-translate';
+import { CategoryProvider } from '../../hooks/use-categories';
+import LoginHeader from '../../containers/login-header-container';
 import Head from '../../components/head';
+import PageLayout from '../../components/page-layout';
+import Navigation from '../../containers/navigation';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import useSelector from '../../hooks/use-selector';
 
-/**
- * Главная страница - первичная загрузка каталога
- */
 function Main() {
   const store = useStore();
-
-  useInit(
-    () => {
-      store.actions.catalog.initParams();
-    },
-    [],
-    true,
-  );
+  useInit(() => {
+    store.actions.catalog.initParams();
+  }, [], true);
 
   const { t } = useTranslate();
 
+  const { category, categoryLabel } = useSelector(state => state.catalog.params);
+
+  const headTitle =
+    category && categoryLabel && categoryLabel !== 'Все категории'
+      ? `${t('title')} / ${categoryLabel}`
+      : t('title');
+
+  useEffect(() => {
+    document.title = headTitle;
+  }, [headTitle]);
+
   return (
     <>
-      <Head title={t('title')}>
-        <LocaleSelect />
-      </Head>
-      <PageLayout>
-        <Navigation />
-        <CatalogFilter />
-        <CatalogList />
-      </PageLayout>
+      <CategoryProvider>
+        <LoginHeader />
+        <Head title={headTitle}>
+          <LocaleSelect />
+        </Head>
+        <PageLayout>
+          <Navigation />
+          <CatalogFilter />
+          <CatalogList />
+        </PageLayout>
+      </CategoryProvider>
     </>
   );
 }
