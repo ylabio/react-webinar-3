@@ -1,8 +1,6 @@
-import { memo, useEffect } from 'react';
-import useStore from '../../hooks/use-store';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
-import useInit from '../../hooks/use-init';
 import LoginEntry from '../../containers/login-entry';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
@@ -17,7 +15,6 @@ import ProfileCard from '../../components/profile-card';
  */
 
 function Profile() {
-  const store = useStore();
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
@@ -26,17 +23,9 @@ function Profile() {
     autenticated: state.user.autenticated,
   }));
 
-  useInit(() => {
-    store.actions.user.checkAuth();
-  }, [store]);
-  
-  useEffect(() => {
-    if (select.autenticated) {
-      store.actions.user.load();
-    } else {
-      navigate('/');
-    }
-  }, [select.authenticated, navigate, store]);
+  if (!select.autenticated) {
+    navigate('/');
+  }
 
   const { t } = useTranslate();
 

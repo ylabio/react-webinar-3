@@ -2,14 +2,13 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* align-items: center; */
   gap: 16px;
   transition: background-color 1s;
-  /* padding: 16px; */
   margin-top: 24px;
 }
 
 .LoginForm-title {
+  font-family: var(--second-font-family);
   font-weight: bold;
   font-size: 32px;
 }
@@ -17,7 +16,6 @@
 .LoginForm-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   margin-left: 1px;
   border-radius: 4px;
 }
@@ -28,14 +26,25 @@
   justify-content: flex-start;
 }
 
+.LoginForm-inputs label {
+  margin-bottom: 8px;
+}
+
 .LoginForm-inputs input {
   width: 233px;
   height: 40px;
-  border: solid 1px rgb(0, 0, 0);
+  padding-left: 12px;
+  border-radius: 4px;
+  border: solid 1px var(--close);
+  margin-bottom: 16px;
 }
 
 .LoginForm-error {
-  margin-top: 16px;
+  height: 15px;
   font-size: 12px;
   color: var(--delete);
+}
+
+.LoginForm Button {
+  margin-top: 24px;
 }

@@ -48,9 +48,9 @@ function LoginForm(props) {
             onChange={e => setPassword(e.target.value)}
             required
           />
-          {error &&
-            <label className={cn('error')}>{error}</label>
-          }
+          <span className={cn('error')}>
+            {error || ''}
+          </span>
         </div>
         <Button style="primary" type="submit" title="Войти" />
       </form>

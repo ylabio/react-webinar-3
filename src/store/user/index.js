@@ -9,11 +9,12 @@ class UserState extends StoreModule {
    * @return {Object}
    */
   initState() {
+    console.log('user initState');
     return {
       data: {},
       waiting: false,
       error: '',
-      autenticated: false,
+      // autenticated: true,
     };
   }
 
@@ -25,6 +26,7 @@ class UserState extends StoreModule {
    * @return {Promise<void>}
    */
   async signIn(username, password, navigate) {
+    console.log('user signIn');
     try {
       const response = await fetch('/api/v1/users/sign', {
         method: 'POST',
@@ -63,6 +65,7 @@ class UserState extends StoreModule {
    * @return {Promise<void>}
    */
   async load() {
+    console.log('user load');
     const token = localStorage.getItem('token');
     
     try {
@@ -99,6 +102,7 @@ class UserState extends StoreModule {
    * @returns {Promise<void>}
    */
   async signOut() {
+    console.log('user signOut');
     const token = localStorage.getItem('token');
     try {
       const response = await fetch('/api/v1/users/sign', {
@@ -118,7 +122,6 @@ class UserState extends StoreModule {
         waiting: false,
       }, 'Выход из системы')
       window.location.href = '/';
-
     } catch (error) {
       this.setState({
         data: {},
@@ -131,20 +134,21 @@ class UserState extends StoreModule {
    * Проверка авторизации
    * @returns {Promise<void>}
    */
-  async checkAuth() {
+  checkAuth() {
+    console.log('user checkAuth');
     const token = localStorage.getItem('token');
     try {
       if (token) {
         this.setState({
           autenticated: true,
-        }, 'Пользователь авторизован')
+        }, 'Пользователь авторизован');
       } else {
         this.setState({
           data: {},
-          // waiting: false,
+          waiting: false,
           error: '',
           autenticated: false,
-        }, 'Пользователь не авторизован')
+        }, 'Пользователь не авторизован');
       }
     } catch (error) {
       this.setState({

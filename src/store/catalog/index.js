@@ -9,6 +9,7 @@ class CatalogState extends StoreModule {
    * @return {Object}
    */
   initState() {
+    console.log("1 - Catalog initState");
     return {
       list: [],
       params: {
@@ -31,6 +32,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
+    console.log("2 - Catalog initParams");
     // ?page=1&limit=10&sort=order&query=
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
@@ -49,6 +51,7 @@ class CatalogState extends StoreModule {
    * @return {Promise<void>}
    */
   async resetParams(newParams = {}) {
+    console.log("3 - Catalog resetParams");
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
@@ -62,6 +65,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
+    console.log("4 - Catalog setParams");
     const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
@@ -104,17 +108,33 @@ class CatalogState extends StoreModule {
     }
 
     const json = await response.json();
-    const categoriesResponse = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const categoriesJson = await categoriesResponse.json();
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
-        categories: categoriesJson.result.items,
         waiting: false,
       },
       'Загружен список товаров из АПИ',
+    );
+    this.getCategories();
+  }
+
+  /**
+   * Загрузка списка категорий
+   * @returns {Promise<void>}
+   */
+  async getCategories() {
+    console.log("4 - Catalog getCategories");
+    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const json = await response.json();
+    this.setState(
+      {
+        ...this.getState(),
+        categories: json.result.items,
+        waiting: false,
+      },
+      'Загружен список категорий из АПИ',
     );
   }
 }

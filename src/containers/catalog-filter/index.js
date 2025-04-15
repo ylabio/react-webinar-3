@@ -28,18 +28,6 @@ function CatalogFilter({ onCategoryChange }) {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
-    // Фильтрация по категориям
-    // onFilter: useCallback(categoryId => {
-    //   // console.log('select.categories', select.categories);
-    //   const selectedCategory = select.categories.find(category => {
-    //     console.log(categoryId, category._id);
-    //     return category._id === categoryId
-    //   });
-    //   const category = categoryId;
-    //   // console.log('selectedCategory', selectedCategory);
-    //   store.actions.catalog.setParams({ category, page: 1 });
-    //   setSelectedCategory(selectedCategory ? selectedCategory.title : 'Все');
-    // }, [store, select.categories]),
   };
 
   // Функция для создания вложенной структуры категорий
@@ -49,7 +37,7 @@ function CatalogFilter({ onCategoryChange }) {
       .flatMap(category => [
         { 
           value: category._id, 
-          title: `${'-'.repeat(depth)} ${category.title}` // Добавляем отступы для вложенности
+          title: `${'- '.repeat(depth)} ${category.title}` // Добавляем отступы для вложенности
         },
         ...buildOptions(categories, category._id, depth + 1) // Рекурсивный вызов для дочерних категорий
       ]);

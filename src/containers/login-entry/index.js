@@ -1,12 +1,11 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 // import useTranslate from '../../hooks/use-translate';
 import Spinner from '../../components/spinner';
-import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import { Link } from 'react-router-dom';
+import LoginMenu from '../../components/login-menu';
 
 function LoginEntry() {
   const store = useStore();
@@ -18,11 +17,14 @@ function LoginEntry() {
   }));
 
   useInit(() => {
+    store.actions.user.checkAuth();
+  }, []);
+
+  useEffect(() => {
     if (select.autenticated) {
       store.actions.user.load();
     }
-  }, [select.autenticated]);
-
+  }, [select.autenticated, store]);
 
   const callbacks = {
     // Выход из системы
@@ -30,25 +32,10 @@ function LoginEntry() {
   }
 
   // const { t } = useTranslate();
-  const cn = bem('LoginEntry');
 
   return (
     <Spinner active={select.waiting}>
-      <div className={cn()}>
-        <div className={cn('container')}>
-          {select.user?.profile
-            ?
-              <>
-                <Link to="/profile" className={cn('user')}>{select.user?.profile?.name}</Link>
-                <div className={cn('btn')} onClick={callbacks.signOut}>Выход</div>
-              </>
-            :
-              <>
-                <Link to="/login" className={cn('btn')}>Вход</Link>
-              </>
-            }
-        </div>
-      </div>
+      <LoginMenu user={select.user} onSignOut={callbacks.signOut} />
     </Spinner>
   );
 }
