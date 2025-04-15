@@ -45,7 +45,7 @@ export function formatCategories(categories) {
         const indents = '- '.repeat(level);
         const newAcc = [...acc, { value: item._id, title: `${indents}${item.title}` }];
         const children = categories.filter((child) => child?.parent?._id === item._id);
-        if (children.lenght !== 0) {
+        if (children.length !== 0) {
           return formatItems(children, newAcc, level + 1);
         }
         return newAcc;
