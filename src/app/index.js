@@ -1,6 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
@@ -12,7 +14,14 @@ import Profile from './profile';
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
+
+  useInit(() => {
+    if (store.getState().user.token) {
+      store.actions.user.load();
+    }
+  }, []);
 
   return (
     <>
