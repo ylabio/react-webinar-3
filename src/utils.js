@@ -34,28 +34,24 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
-const getTree = (list, parent = null, level = 0) => {
-  const result = list
-  .filter((item) => {
-    const parentId = item.parent?._id || null;
-    return parentId === parent})
-  .map((item) => ({ ...item, level, children: getTree(list, item._id, level + 1)}));
-  return result;
-}
 
-const getFormattedList = (tree, formattedList = []) => {
-  const result = tree.reduce((acc, item) => {
-    const indents = '- '.repeat(item.level);
-    const newAcc = [...acc, { value: item._id, title: `${indents}${item.title}` }];
-    if (item.children) {
-      return getFormattedList(item.children, newAcc);
+export function formatCategories(categories) {
+    // ищем все корневые узлы
+    const rootItems = categories.filter((item) => item.parent === null);
+
+    //функция, которая будет возвращать отформатированный массив
+    const formatItems = (list, formattedList = [], level = 0) => {
+      const result = list.reduce((acc, item) => {
+        const indents = '- '.repeat(level);
+        const newAcc = [...acc, { value: item._id, title: `${indents}${item.title}` }];
+        const children = categories.filter((child) => child?.parent?._id === item._id);
+        if (children.lenght !== 0) {
+          return formatItems(children, newAcc, level + 1);
+        }
+        return newAcc;
+      }, formattedList);
+      return result;
     }
-    return newAcc;
-  }, formattedList);
-  return result;
-}
-
-export function formatCategories(list) {
-  return getFormattedList(getTree(list));
+    return formatItems(rootItems);
 }
 
