@@ -13,30 +13,13 @@ import ProfileInfo from "../../../components/user/profile-info";
 import AuthInfo from "../../../components/user/auth-info";
 
 function Profile() {
-  const store = useStore();
-  const navigate = useNavigate();
   const { t } = useTranslate();
 
-  useInit(
-    () => {
-      store.actions.user.checkAuth();
-    },
-    [],
-    true,
-  );
 
   const select = useSelector(state => ({
-    auth: state.user.isAuth,
     user: state.user.data,
-    isLoading: state.user.isLoading,
   }));
 
-
-  useEffect(() => {
-    if (select.auth === false) {
-      navigate('/login');
-    }
-  }, [select.auth, navigate]);
 
   return (
     <>

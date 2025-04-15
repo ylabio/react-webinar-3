@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStore from "../../../hooks/use-store";
 import useInit from "../../../hooks/use-init";
@@ -21,22 +21,13 @@ function Login() {
 
   const select = useSelector(state => state.user);
 
-  useInit(() => {
-    store.actions.user.checkAuth();
-  }, []);
-
 
   const handleSubmit = async () => {
     await store.actions.user.login(login, password);
 
-    if (select.isAuth) {
       navigate('/profile');
-    }
   };
 
-  useEffect(() => {
-    if (select.isAuth) navigate('/profile');
-  }, [select.isAuth, navigate]);
 
   return (
     <>
