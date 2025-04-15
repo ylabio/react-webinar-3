@@ -1,48 +1,15 @@
-import { useState, useEffect } from 'react';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import { useNavigate } from 'react-router-dom';
-import Head from '../../components/head';
+import React from 'react';
+import Head from '../head';
 import LocaleSelect from '../../containers/locale-select';
 import useTranslate from '../../hooks/use-translate';
 import Navigation from '../../containers/navigation';
-import PageLayout from '../../components/page-layout';
-import Input from '../../components/input';
-import Button from '../../components/button';
+import PageLayout from '../page-layout';
+import Input from '../input';
+import Button from '../button';
 import './style.css';
 
-function Login() {
-  const store = useStore();
-  const navigate = useNavigate();
-  const auth = useSelector(s => s.auth);
+function LoginForm({ form, handleInputChange, auth, onSubmit }) {
   const { t } = useTranslate();
-
-  const [form, setForm] = useState({ login: '', password: '' });
-
-  const handleInputChange = (value, name) => {
-    setForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  useEffect(() => {
-    if (auth.token && auth.user) {
-      navigate('/profile');
-    }
-  }, [auth.token, auth.user, navigate]);
-
-  useEffect(() => {
-    store.actions.auth.clearError();
-  }, []);
-
-  const onSubmit = async e => {
-    e.preventDefault();
-
-    const success = await store.actions.auth.login(form.login, form.password);
-
-    if (success) {
-      await store.actions.auth.fetchProfile();
-      navigate('/profile');
-    }
-  };
 
   return (
     <div>
@@ -105,4 +72,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginForm;

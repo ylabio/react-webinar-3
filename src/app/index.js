@@ -5,11 +5,11 @@ import useStore from '../hooks/use-store';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
-import Login from './login';
 
 import UserPanel from '../components/user-panel';
 import PrivateRoute from '../containers/private-rote';
 import ProfileContainer from '../containers/profile';
+import LoginContainer from '../containers/login';
 
 function App() {
   const store = useStore();
@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/articles/:id" element={<Article />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginContainer />} />
         <Route
           path="/profile"
           element={
