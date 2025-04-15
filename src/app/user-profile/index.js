@@ -4,33 +4,28 @@ import LocaleSelect from '../../containers/locale-select';
 import PageLayout from '../../components/page-layout';
 import Navigation from '../../containers/navigation';
 import UserProfileCard from '../../components/user-profile-card';
-import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
+import useAuthGuard from "../../hooks/use-auth-guard";
 
 const UserProfile = () => {
   const store = useStore();
-  const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    isAuth: !!state.user.isAuth,
     profile: state.user.profile,
+    token: state.session.token,
   }));
 
-  useEffect(() => {
-    if (!select.isAuth) {
-      navigate('/login', { replace: true });
-    }
-  });
+  useAuthGuard();
 
   const callbacks = {
-    loadProfileData: useCallback(() => {
-      store.actions.user.loadProfile();
+    loadProfileData: useCallback((token) => {
+      store.actions.user.loadProfile(token);
     }, [store]),
   };
 
   useEffect(() => {
-    callbacks.loadProfileData();
+    callbacks.loadProfileData(select.token);
   }, [store]);
 
   const options = {

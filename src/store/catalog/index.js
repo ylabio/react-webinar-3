@@ -1,5 +1,4 @@
 import StoreModule from '../module';
-import {getAllChild} from "../../utils";
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -19,7 +18,6 @@ class CatalogState extends StoreModule {
         query: '',
         category: '',
       },
-      categoryList: [],
       count: 0,
       waiting: false,
     };
@@ -61,8 +59,9 @@ class CatalogState extends StoreModule {
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(newParams = {}, replaceHistory = false) {
+  async setParams(newParams = {}, replaceHistory = false, subcategories = []) {
     const params = { ...this.getState().params, ...newParams };
+
 
     // Установка новых параметров и признака загрузки
     this.setState(
@@ -74,9 +73,8 @@ class CatalogState extends StoreModule {
       'Установлены параметры каталога',
     );
 
-    await this.loadCategories();
-
     // Сохранить параметры в адрес страницы
+
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
     if (replaceHistory) {
@@ -91,7 +89,7 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
-      ...( params.category && { 'search[category]': getAllChild(this.getState().categoryList, params.category) }),
+      ...( params.category && {'search[category]': [params.category, ...subcategories]} ),
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -105,17 +103,6 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
-  }
-
-  async loadCategories() {
-    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const json = await response.json();
-    this.setState(
-      {
-        ...this.getState(),
-        categoryList: json.result.items,
-      }
-    )
   }
 
 }

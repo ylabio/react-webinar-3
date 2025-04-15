@@ -28,7 +28,7 @@ function Main() {
   );
 
   const select = useSelector(state => ({
-    categoryList: state.catalog.categoryList,
+    categoryList: state.categories.list,
     category: state.catalog.params.category,
     waiting: state.catalog.waiting,
   }));
@@ -37,9 +37,11 @@ function Main() {
     if (select.category && !select.waiting) {
       const titlePostFix = select.categoryList.find(
         category => select.category === category._id,
-      ).title;
-      setTitle('Магазин / ' + titlePostFix);
-      document.title = 'Магазин / ' + titlePostFix;
+      )?.title;
+      if (titlePostFix) {
+        setTitle('Магазин / ' + titlePostFix);
+        document.title = 'Магазин / ' + titlePostFix;
+      }
     } else {
       setTitle('Магазин');
       document.title = 'Магазин';

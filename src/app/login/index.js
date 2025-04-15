@@ -17,14 +17,14 @@ const Login = () => {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    isAuth: !!state.user.isAuth,
-    authError: state.user.error,
-    loading: state.user.authWait,
+    token: state.session.token,
+    authError: state.session.error,
+    loading: state.session.authWait,
   }));
 
   const callbacks = {
     onSubmit: useCallback(
-      (email, password) => store.actions.user.login(email, password),
+      (email, password) => store.actions.session.login(email, password),
       [store, email, password],
     ),
     onClick: useCallback(() => {
@@ -35,13 +35,13 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (select.isAuth) {
+    if (select.token) {
       navigate('/', { replace: true });
     }
   });
 
   useEffect(() => {
-    store.actions.user.resetError()
+    store.actions.session.resetError()
   }, [location])
 
   return (

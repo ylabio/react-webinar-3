@@ -4,7 +4,7 @@ import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
-import ProfilePad from "../components/profile-pad";
+import ProfilePad from "../containers/profile-pad";
 import PreHead from "../components/pre-head";
 import Login from "./login";
 import UserProfile from "./user-profile";
@@ -20,7 +20,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    store.actions.user.checkToken();
+    store.actions.session.checkToken();
     // document.title = 'Магазин';
   }, [])
 
