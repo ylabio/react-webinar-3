@@ -7,34 +7,42 @@ import { Link } from 'react-router-dom';
 import Button from '../button';
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket({
+  item = {},
+  link = '',
+  onLink = () => {},
+  onRemove = _id => {},
+  labelCurr = '₽',
+  labelDelete = 'Удалить',
+  labelUnit = 'шт',
+}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemoveCl: e => onRemove(item._id),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
+      {/*<div className={cn('code')}>{item._id}</div>*/}
       <div className={cn('title')}>
-        {props.link ? (
-          <Link to={props.link} onClick={props.onLink}>
-            {props.item.title}
+        {link ? (
+          <Link to={link} onClick={onLink}>
+            {item.title}
           </Link>
         ) : (
-          props.item.title
+          item.title
         )}
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>
-          {numberFormat(props.item.amount || 0)} {props.labelUnit}
+          {numberFormat(item.amount || 0)} {labelUnit}
         </div>
         <div className={cn('cell')}>
-          {numberFormat(props.item.price)} {props.labelCurr}
+          {numberFormat(item.price)} {labelCurr}
         </div>
         <div className={cn('cell')}>
-          <Button style="delete" onClick={callbacks.onRemove} title={props.labelDelete} />
+          <Button style="delete" onClick={callbacks.onRemoveCl} title={labelDelete} />
         </div>
       </div>
     </div>
@@ -54,13 +62,6 @@ ItemBasket.propTypes = {
   labelCurr: PropTypes.string,
   labelDelete: PropTypes.string,
   labelUnit: PropTypes.string,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
-  labelCurr: '₽',
-  labelUnit: 'шт',
-  labelDelete: 'Удалить',
 };
 
 export default memo(ItemBasket);

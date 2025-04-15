@@ -1,9 +1,14 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
+import ProfilePad from "../containers/profile-pad";
+import PreHead from "../components/pre-head";
+import Login from "./login";
+import UserProfile from "./user-profile";
+import useStore from "../hooks/use-store";
 
 /**
  * Приложение
@@ -11,14 +16,31 @@ import Article from './article';
  */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+  const location = useLocation();
+
+  useEffect(() => {
+    store.actions.session.checkToken();
+    // document.title = 'Магазин';
+  }, [])
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      document.title = 'Магазин';
+    }
+  }, [location]);
 
   return (
     <>
+      <PreHead>
+        <ProfilePad />
+      </PreHead>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/profile'} element={<UserProfile />} />
       </Routes>
-
       {activeModal === 'basket' && <Basket />}
     </>
   );

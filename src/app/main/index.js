@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,12 +8,16 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
+  const { t } = useTranslate();
   const store = useStore();
+
+  const [title, setTitle] = useState(t('title'));
 
   useInit(
     () => {
@@ -23,11 +27,30 @@ function Main() {
     true,
   );
 
-  const { t } = useTranslate();
+  const select = useSelector(state => ({
+    categoryList: state.categories.list,
+    category: state.catalog.params.category,
+    waiting: state.catalog.waiting,
+  }));
+
+  useEffect(() => {
+    if (select.category && !select.waiting) {
+      const titlePostFix = select.categoryList.find(
+        category => select.category === category._id,
+      )?.title;
+      if (titlePostFix) {
+        setTitle('Магазин / ' + titlePostFix);
+        document.title = 'Магазин / ' + titlePostFix;
+      }
+    } else {
+      setTitle('Магазин');
+      document.title = 'Магазин';
+    }
+  }, [select.category, select.categoryList, select.waiting]);
 
   return (
     <>
-      <Head title={t('title')}>
+      <Head title={title}>
         <LocaleSelect />
       </Head>
       <PageLayout>

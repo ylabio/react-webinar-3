@@ -6,7 +6,7 @@ import Button from '../button';
 import './style.css';
 
 function ArticleCard(props) {
-  const { article, onAdd = () => {}, t = text => text } = props;
+  const { article, onAdd = _id => {}, t = text => text } = props;
   const cn = bem('ArticleCard');
   return (
     <div className={cn()}>

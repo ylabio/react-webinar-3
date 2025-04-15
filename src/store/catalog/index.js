@@ -16,6 +16,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,6 +37,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -57,8 +59,9 @@ class CatalogState extends StoreModule {
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(newParams = {}, replaceHistory = false) {
+  async setParams(newParams = {}, replaceHistory = false, subcategories = []) {
     const params = { ...this.getState().params, ...newParams };
+
 
     // Установка новых параметров и признака загрузки
     this.setState(
@@ -71,6 +74,7 @@ class CatalogState extends StoreModule {
     );
 
     // Сохранить параметры в адрес страницы
+
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
     if (replaceHistory) {
@@ -85,6 +89,7 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
+      ...( params.category && {'search[category]': [params.category, ...subcategories]} ),
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -99,6 +104,7 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
+
 }
 
 export default CatalogState;

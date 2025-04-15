@@ -2,7 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Head({ title, children }) {
+function Head({ title = '', children = null }) {
   return (
     <div className="Head">
       <div className="Head-container">

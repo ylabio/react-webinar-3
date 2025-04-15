@@ -3,6 +3,7 @@
   border: 1px solid var(--filter-border);
   border-radius: 4px;
   font-family: var(--font-family);
+  font-size: 14px;
   height: 40px;
 }
 
