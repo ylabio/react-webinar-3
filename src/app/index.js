@@ -6,11 +6,11 @@ import Main from './main';
 import Basket from './basket';
 import Article from './article';
 import Login from './login';
-import Profile from './profile';
-import UserPanel from '../components/user-panel';
 
+import UserPanel from '../components/user-panel';
 import PrivateRoute from '../containers/private-rote';
-// финал
+import ProfileContainer from '../containers/profile';
+
 function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
@@ -33,7 +33,7 @@ function App() {
           path="/profile"
           element={
             <PrivateRoute>
-              <Profile />
+              <ProfileContainer />
             </PrivateRoute>
           }
         />
