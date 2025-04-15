@@ -35,7 +35,7 @@ function Login() {
   };
 
   useEffect(() => {
-    if (select.isAuth) navigate('/');
+    if (select.isAuth) navigate('/profile');
   }, [select.isAuth, navigate]);
 
   return (
