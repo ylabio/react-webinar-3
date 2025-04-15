@@ -1,0 +1,22 @@
+.HeaderLink_style_primary {
+  color: var(--primary);
+  font-family: var(--second-font-family);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  &:hover {
+    color: var(--main-text);
+  }
+}
+
+.HeaderLink_style_main {
+  color: var(--main-text);
+  font-family: var(--font-family);
+  font-weight: 400;
+  cursor: pointer;
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+

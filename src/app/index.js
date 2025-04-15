@@ -1,22 +1,50 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
+import Login from './login';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
+import Profile from './profile';
+import useTranslate from '../hooks/use-translate';
+
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
+  const { t } = useTranslate();
   const activeModal = useSelector(state => state.modals.name);
+
+  useInit(
+    () => {
+      store.actions.user.getUserData();
+    },
+    [store],
+    true,
+  );
+
+
+  useEffect(
+    () => {
+      if (location.path !== '/') {
+        document.title = t('title');
+      }
+    },
+    [location, t]
+  )
 
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main />} />
+        <Route path={'/'} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/profile'} element={<Profile />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

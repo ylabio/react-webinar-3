@@ -33,3 +33,25 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+export function formatCategories(categories) {
+    // ищем все корневые узлы
+    const rootItems = categories.filter((item) => item.parent === null);
+
+    //функция, которая будет возвращать отформатированный массив
+    const formatItems = (list, formattedList = [], level = 0) => {
+      const result = list.reduce((acc, item) => {
+        const indents = '- '.repeat(level);
+        const newAcc = [...acc, { value: item._id, title: `${indents}${item.title}` }];
+        const children = categories.filter((child) => child?.parent?._id === item._id);
+        if (children.length !== 0) {
+          return formatItems(children, newAcc, level + 1);
+        }
+        return newAcc;
+      }, formattedList);
+      return result;
+    }
+    return formatItems(rootItems);
+}
+
