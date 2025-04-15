@@ -1,0 +1,8 @@
+.ButtonAuth {
+  color: var(--primary);
+  font-family: var(--second-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  padding: 0;
+}

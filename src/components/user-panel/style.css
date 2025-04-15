@@ -1,0 +1,13 @@
+.UserPanel {
+  background: var(--second-background);
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.UserPanel-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  max-width: 1152px;
+  margin: 0 auto;
+  gap: 24px;
+}

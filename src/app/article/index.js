@@ -1,23 +1,20 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
+import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
+import UserPanel from '../../components/user-panel';
+import UserButton from '../../containers/user-button';
 
-/**
- * Страница товара с первичной загрузкой товара по id из url адреса
- */
 function Article() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
@@ -32,12 +29,14 @@ function Article() {
   const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
   return (
     <>
+      <UserPanel>
+        <UserButton />
+      </UserPanel>
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>
