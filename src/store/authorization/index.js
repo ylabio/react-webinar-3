@@ -119,7 +119,7 @@ class AuthState extends StoreModule {
   }
 
   clearError() {
-    // this.setState({...this.getState(), error: ''});
+    this.setState({...this.getState(), error: ''}, 'Очистка ошибок при возврате на Главную');
   }
 }
 

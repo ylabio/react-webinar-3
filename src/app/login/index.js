@@ -25,7 +25,6 @@ function Login() {
 
   useEffect(() => {
     document.title = 'Магазин / Логин';
-    store.actions.authorization.clearError();
   }, []);
 
   const select = useSelector(state => ({

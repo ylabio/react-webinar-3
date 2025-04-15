@@ -20,6 +20,7 @@ function Main({categoryTitle = ''}) {
     () => {
       store.actions.catalog.initParams();
       store.actions.catalog.categoryLoad();
+      store.actions.authorization.clearError();
     },
     [],
     true,
