@@ -4,7 +4,6 @@ class UserState extends StoreModule {
   initState() {
     return {
       token: localStorage.getItem('token') || null, // Токен из localStorage
-      data: null, // Данные пользователя
       error: null, // Ошибка авторизации
       waiting: false // Состояние загрузки
     };
@@ -41,11 +40,9 @@ class UserState extends StoreModule {
     }
 
     localStorage.setItem('token', data.result.token);
-    this.setState({
-      token: data.result.token,
-      data: data.result.user,
-      waiting: false
-    });
+    this.setState({token: data.result.token});
+    await this.store.actions.profile.load();
+    
     return true;
 
   } catch (e) {
@@ -93,6 +90,8 @@ class UserState extends StoreModule {
         data: null,
         error: null
       });
+
+    this.store.actions.profile.setState({data: null});
     }
   }
 

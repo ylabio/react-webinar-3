@@ -17,34 +17,34 @@ function Profile() {
   const { t } = useTranslate();
   
   const select = useSelector(state => ({
-    user: state.user.data,
-    token: state.user.token,
-    waiting: state.user.waiting
+    profile: state.profile.data,
+    waiting: state.profile.waiting,
+    token: state.user.token
   }));
 
   useInit(async () => {
     //console.log('Данные пользователя:', select.user);
 
-    // есть токен, нет данных пользователя
-    if (select.token && !select.user) {
-      await store.actions.user.load();
+    if (select.token) {
+      if (!select.profile) {
+        // Загружаем профиль если есть токен но нет данных
+        await store.actions.profile.load();
+      }
       
-      // Проверка после загрузки
-      if (!store.getState().user.token || !store.getState().user.data) {
+      // Перенаправляем если после загрузки всё ещё нет данных
+      if (!store.getState().profile.data) {
         navigate('/login');
       }
-    }
-    
-    // нет токена вообще
-    if (!select.token) {
+    } else {
+      // Нет токена - сразу на логин
       navigate('/login');
     }
-    }, [select.token, select.user]); // Зависимости для повторного выполнения
+  }, [select.token, select.profile]);
 
-    // Не рендерим ничего пока идёт проверка
-    if (!select.token || !select.user) {
-      return null;
-    }
+  // Не рендерим ничего пока идёт проверка авторизации
+  if (!select.token || !select.profile) {
+    return null;
+  }
 
   return (
     <>
@@ -57,9 +57,9 @@ function Profile() {
           <ProfileCard
             title={t('profile.title')}
             profile={{
-            name: select.user?.profile?.name || select.user?.login,
-            phone: select.user?.profile?.phone,
-            email: select.user?.email
+              name: select.profile?.profile?.name || select.profile?.login,
+              phone: select.profile?.profile?.phone,
+              email: select.profile?.email
             }}
             t={t}
           />

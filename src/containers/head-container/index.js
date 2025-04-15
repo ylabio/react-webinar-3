@@ -11,8 +11,9 @@ function HeadContainer({ title, children }) {
   const { t } = useTranslate();
   
   const select = useSelector(state => ({
-    user: state.user.data,
-    token: state.user.token
+    token: state.user.token,
+    login: state.user.token ? state.profile.data?.login : null,
+    profile: state.profile.data
   }));
 
   const handleSignOut = async () => {
@@ -24,7 +25,7 @@ function HeadContainer({ title, children }) {
     <Head 
       title={title}
       children={children}
-      username={select.user?.profile?.name || select.user?.login}
+      username={select.profile?.profile?.name || select.profile?.login}
       isAuth={!!select.token}
       onLogout={handleSignOut}
       t={t}
