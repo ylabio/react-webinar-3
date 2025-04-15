@@ -55,7 +55,7 @@ function CatalogFilter() {
           .flatMap(category => [
             {
               value: category._id,
-              title: `${'—'.repeat(depth)} ${category.title}`,
+              title: `${'— '.repeat(depth)} ${category.title}`,
             },
             ...buildHierarchy(categories, category._id, depth + 1),
           ]);
