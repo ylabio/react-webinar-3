@@ -10,6 +10,7 @@ import useInit from '../hooks/use-init';
 import Profile from './profile';
 import useTranslate from '../hooks/use-translate';
 
+
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
@@ -17,7 +18,6 @@ import useTranslate from '../hooks/use-translate';
 function App() {
   const store = useStore();
   const { t } = useTranslate();
-  const location = useLocation();
   const activeModal = useSelector(state => state.modals.name);
 
   useInit(
@@ -27,6 +27,7 @@ function App() {
     [store],
     true,
   );
+
 
   useEffect(
     () => {

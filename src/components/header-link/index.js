@@ -4,10 +4,10 @@ import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-function HeaderLink({ title, link, onClick = () => {}, style = 'primary' }) {
+function HeaderLink({ title, link, onClick = () => {}, style = 'primary', from }) {
   const cn = bem('HeaderLink');
   return (
-    <Link to={link} className={cn({ style })} onClick={onClick}>
+    <Link to={link} className={cn({ style })} onClick={onClick} state={from}>
       {title}
     </Link>
   );

@@ -8,6 +8,7 @@
 .UserInfo-title {
   font-family: var(--second-font-family);
   font-size: 32px;
+  line-height: 40px;
 }
 
 .UserInfo-prop-wrapper {
@@ -18,11 +19,13 @@
 
 .UserInfo-prop {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  line-height: 22px;
 }
 
 .UserInfo-label {
-  width: 200px;
+  min-width: 64px;
+
 }
 
 .UserInfo-value {

@@ -20,7 +20,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.catalog.loadCategories();
+      store.actions.categories.loadCategories();
     },
     [],
     true,
@@ -29,7 +29,7 @@ function Main() {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    categories: state.catalog.categories,
+    categories: state.categories.list,
     category: state.catalog.params.category,
   }));
 

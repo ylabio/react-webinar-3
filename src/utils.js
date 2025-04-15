@@ -48,7 +48,7 @@ function getTree(list) {
   });
 
   const addIndentation = (item, level = 0) => {
-      const indent = '-'.repeat(level);
+      const indent = '- '.repeat(level);
       item.title = `${indent}${item.title}`;
       item.children.forEach(child => addIndentation(child, level + 1));
   };

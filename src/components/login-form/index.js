@@ -23,7 +23,7 @@ function LoginForm({ error, onSubmit = () => {}, t }) {
       <form className={cn('form')} onSubmit={callbacks.handleSubmit}>
         <div className={cn('input-container')}>
           <div>
-            <label htmlFor="login">{t('login.login')}</label>
+            <label htmlFor="login" className={cn('label')}>{t('login.login')}</label>
             <input 
               value={login}
               placeholder={t('login.loginPlaceholder')}
@@ -33,7 +33,7 @@ function LoginForm({ error, onSubmit = () => {}, t }) {
               required />
           </div>
           <div>
-            <label htmlFor="password">{t('login.password')}</label>
+            <label htmlFor="password" className={cn('label')}>{t('login.password')}</label>
             <input
               value={password}
               placeholder={t('login.passwordPlaceholder')}

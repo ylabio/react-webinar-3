@@ -8,26 +8,18 @@ import LocaleSelect from '../../containers/locale-select';
 import Header from '../../containers/header';
 import UserInfo from '../../components/user-info';
 import { useNavigate } from 'react-router-dom';
+import AuthWrapper from '../../containers/auth-wrapper';
 
 /**
  * Страница пользователя
  */
 function Profile() {
-  const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    isLoggedIn: state.user.isLoggedIn,
     userData: state.user.userData
   }));
 
   const { t } = useTranslate();
-
-
-  useEffect(() => {
-    if (!select.isLoggedIn) {
-      navigate('/login');
-    }
-  }, [select.isLoggedIn]);
 
   return (
     <>
@@ -37,7 +29,9 @@ function Profile() {
       </Head>
       <PageLayout>
         <Navigation />
-          {select.userData && <UserInfo info={select.userData} t={t} />}
+          <AuthWrapper>
+            {select.userData && <UserInfo info={select.userData} t={t} />}
+          </AuthWrapper>
       </PageLayout>
     </>
   );

@@ -6,7 +6,6 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
-import { formatCategories } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -17,7 +16,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
     category: state.catalog.params.category,
   }));
 
