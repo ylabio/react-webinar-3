@@ -1,41 +1,27 @@
 import { useEffect } from 'react';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import { useNavigate } from 'react-router-dom';
-import './style.css';
-import Head from '../../components/head';
-import LocaleSelect from '../../containers/locale-select';
+import useRequireAuth from '../../hooks/useRequireAuth';
 import useTranslate from '../../hooks/use-translate';
-import Navigation from '../../containers/navigation';
+import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
+import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
+import { useNavigate } from 'react-router-dom';
 
-function Profile() {
-  const store = useStore();
-  const navigate = useNavigate();
-  const { token, user, loading, error } = useSelector(s => s.auth);
-
+function ProfilePage() {
+  const { token, user, loading, error } = useRequireAuth();
   const { t } = useTranslate();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/login');
-    } else if (!user && !loading) {
-      store.actions.auth.fetchProfile();
-    }
-  }, [token, user, loading, store, navigate]);
-
-  // Если данные пользователя еще загружаются
+  // Если данные еще загружаются
   if (loading) return <div>{t('profile.loading')}</div>;
 
-  // Если произошла ошибка
-  if (error)
-    return (
-      <div>
-        {t('profile.error')} {error}
-      </div>
-    );
+  // Если произошла ошибка или токен невалиден, редиректим на страницу логина
+  if (error || !token) {
+    navigate('/login');
+    return null; // Можно также добавить сообщение об ошибке
+  }
 
-  // Если нет данных профиля
+  // Если нет данных пользователя
   if (!user || !user.profile) {
     return <div>{t('profile.noProfile')}</div>;
   }
@@ -70,4 +56,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default ProfilePage;

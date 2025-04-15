@@ -34,6 +34,10 @@ export default class AuthState {
 
   initState() {
     const token = localStorage.getItem(this.tokenKey);
+    if (token) {
+      this.checkTokenValidity(token); // Проверяем валидность токена
+    }
+
     return {
       token,
       user: null,
@@ -193,6 +197,61 @@ export default class AuthState {
           ...this.store.getState()[this.name],
           loading: false,
           error: normalizedError, // И здесь сохраняем всю ошибку
+        },
+      });
+    }
+  }
+  clearError() {
+    this.store.setState({
+      ...this.store.getState(),
+      [this.name]: {
+        ...this.store.getState()[this.name],
+        error: null,
+      },
+    });
+  }
+  async checkTokenValidity(token) {
+    try {
+      // Делает запрос к API для проверки токена
+      const res = await fetch('/api/v1/users/self?fields=*', {
+        headers: { 'X-Token': token },
+      });
+
+      // Если ответ не ок (т.е. токен невалиден), выбрасываем ошибку
+      if (!res.ok) {
+        throw new Error('Токен невалиден');
+      }
+
+      const data = await res.json();
+
+      // Если ответа нет, выбрасываем ошибку (например, пользователь не найден)
+      if (!data.result) {
+        throw new Error('Токен невалиден');
+      }
+
+      // Если токен валиден, обновляем состояние
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          ...this.store.getState()[this.name],
+          user: data.result, // Загружаем данные пользователя
+          loading: false,
+          error: null,
+        },
+      });
+    } catch (error) {
+      // Если токен невалиден, очищаем его из localStorage
+      localStorage.removeItem(this.tokenKey);
+
+      // Обновляем состояние, чтобы токен был удален
+      this.store.setState({
+        ...this.store.getState(),
+        [this.name]: {
+          ...this.store.getState()[this.name],
+          token: null,
+          user: null,
+          loading: false,
+          error: { message: error.message || 'Неизвестная ошибка' },
         },
       });
     }

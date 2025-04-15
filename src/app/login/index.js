@@ -29,6 +29,10 @@ function Login() {
     }
   }, [auth.token, auth.user, navigate]);
 
+  useEffect(() => {
+    store.actions.auth.clearError();
+  }, []);
+
   const onSubmit = async e => {
     e.preventDefault();
 

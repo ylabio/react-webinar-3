@@ -8,6 +8,8 @@ import Article from './article';
 import Login from './login';
 import Profile from './profile';
 import UserPanel from '../components/user-panel';
+
+import PrivateRoute from '../containers/private-rote';
 // финал
 function App() {
   const store = useStore();
@@ -24,10 +26,17 @@ function App() {
     <>
       <UserPanel />
       <Routes>
-        <Route path={''} element={<Main />} />
-        <Route path={'/articles/:id'} element={<Article />} />
-        <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/articles/:id" element={<Article />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}
