@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -53,7 +53,7 @@ function CatalogFilter() {
         children
       );
     }
-  }, [select.categoryList, select.category, store]);
+  }, [select.categoryList, select.category, store, select.sort, select.query]);
 
   const options = {
     sort: useMemo(
