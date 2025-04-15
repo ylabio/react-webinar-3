@@ -24,7 +24,7 @@ function Item(props) {
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
         <Link to={props.link}>{props.item.title}</Link>
-        {props.item.category.title && <span className={cn('category')}>{props.item.category.title}</span>}
+       {/* {props.item.category.title && <span className={cn('category')}>{props.item.category.title}</span>}*/}
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>

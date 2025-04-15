@@ -61,7 +61,15 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const params = { ...this.getState().params, ...newParams };
+
+    const params = {
+      ...this.getState().params,
+      ...newParams,
+    };
+
+    if (newParams.category) {
+      params.page = 1;
+    }
 
     // Установка новых параметров и признака загрузки
     this.setState(
@@ -108,32 +116,32 @@ class CatalogState extends StoreModule {
     // Первичный запрос на сервер
     let json = await fetchArticles();
 
-    const currentParams = this.getState().params;
-    const skip = (currentParams.page - 1) * currentParams.limit;
+    /*  const currentParams = this.getState().params;
+   const skip = (currentParams.page - 1) * currentParams.limit;
 
-    // Сделать новый запрос если смещение больше текущего размера выборки
-    if (json.result.count <= skip && json.result.count > 0) {
-      //Считаю какая должна быть последняя страница
-      const lastPage = Math.max(1, Math.ceil(json.result.count / currentParams.limit));
+ // Сделать новый запрос если смещение больше текущего размера выборки
+   if (json.result.count <= skip && json.result.count > 0) {
+     //Считаю какая должна быть последняя страница
+     const lastPage = Math.max(1, Math.ceil(json.result.count / currentParams.limit));
 
-      // Установка новых параметров
-      this.setState(
-        {
-          ...this.getState(),
-          params: {
-            ...this.getState().params,
-            page: lastPage,
-          },
-        },
-        'При превышении смещения перешли на последнюю страницу',
-      );
+     // Установка новых параметров
+     this.setState(
+       {
+         ...this.getState(),
+         params: {
+           ...this.getState().params,
+           page: lastPage,
+         },
+       },
+       'При превышении смещения перешли на последнюю страницу',
+     );
 
-      // Замена параметров в адресе страницы
-      updateUrl(true);
+     // Замена параметров в адресе страницы
+     updateUrl(true);
 
-      // Повторный запрос на сервер
-      json = await fetchArticles();
-    }
+     // Повторный запрос на сервер
+     json = await fetchArticles();
+   }*/
 
     // Устанавливаем полученные данные
     this.setState(
