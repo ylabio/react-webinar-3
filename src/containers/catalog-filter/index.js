@@ -1,17 +1,12 @@
-import { memo, useCallback, useMemo, useEffect, useState } from 'react';
-import useTranslate from '../../hooks/use-translate';
+import { useEffect, useCallback, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-
-import Select from '../../components/select';
-import Input from '../../components/input';
-import SideLayout from '../../components/side-layout';
-import Button from '../../components/button';
+import CatalogFilterView from '../../components/catalog-filter-view';
 
 /**
- * Компонент фильтров каталога
+ * Умный компонент фильтров каталога
  */
-function CatalogFilter() {
+function CatalogFilterContainer() {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -24,8 +19,10 @@ function CatalogFilter() {
 
   // Загрузка категорий
   useEffect(() => {
-    store.actions.catalog.loadCategories();
-  }, [store]);
+    if (!select.categories.length) {
+      store.actions.catalog.loadCategories();
+    }
+  }, [select.categories, store]);
 
   const callbacks = {
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
@@ -37,25 +34,6 @@ function CatalogFilter() {
     ),
   };
 
-  const options = {
-    sort: [
-      { value: 'order', title: 'По порядку' },
-      { value: 'title.ru', title: 'По именованию' },
-      { value: '-price', title: 'Сначала дорогие' },
-      { value: 'edition', title: 'Древние' },
-    ],
-  };
-
-  const { t } = useTranslate();
-
-  useEffect(() => {
-    const categoryTitle =
-      select.category === '' || select.category === 'Все'
-        ? 'Магазин'
-        : `Магазин / ${select.category}`;
-    document.title = categoryTitle;
-  }, [select.category]);
-
   // Вычисление текущей категории с учётом вложенности
   const currentCategory = useMemo(() => {
     return select.categories.find(c => c.value === select.category);
@@ -66,42 +44,18 @@ function CatalogFilter() {
     : 'Магазин';
 
   return (
-    <SideLayout padding="medium">
-      {/* Категории с вложенностью */}
-      <Select
-        options={select.categories}
-        value={select.category}
-        onChange={callbacks.onCategoryChange}
-        disabled={select.categoriesLoading}
-        size="medium"
-      />
-
-      {/* Сортировка */}
-      <Select
-        options={options.sort}
-        value={select.sort}
-        onChange={callbacks.onSort}
-        size="medium"
-      />
-
-      {/* Поиск */}
-      <Input
-        value={select.query}
-        onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
-        delay={1000}
-        theme={'big'}
-      />
-
-      {/* Сброс */}
-      <Button
-        style="text"
-        onClick={callbacks.onReset}
-        title={t('filter.reset')}
-        textColor="var(--primary)"
-      />
-    </SideLayout>
+    <CatalogFilterView
+      categories={select.categories}
+      categoriesLoading={select.categoriesLoading}
+      sort={select.sort}
+      query={select.query}
+      category={select.category}
+      onSort={callbacks.onSort}
+      onSearch={callbacks.onSearch}
+      onReset={callbacks.onReset}
+      onCategoryChange={callbacks.onCategoryChange}
+    />
   );
 }
 
-export default memo(CatalogFilter);
+export default CatalogFilterContainer;

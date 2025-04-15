@@ -183,7 +183,7 @@ class CatalogState extends StoreModule {
       node.level = level;
       result.push({
         value: node._id,
-        title: (level ? '- '.repeat(level) : '') + node.title,
+        title: node.title, // Без префикса
         level,
       });
       node.children
