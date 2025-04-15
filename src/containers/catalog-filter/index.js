@@ -56,7 +56,7 @@ function CatalogFilter() {
 
       const flatList = [];
       const traverse = (node, level = 0) => {
-        flatList.push({ value: node._id, title: `${'—'.repeat(level)} ${node.title}` });
+        flatList.push({ value: node._id, title: `${'- '.repeat(level)} ${node.title}` });
         node.children.forEach(child => traverse(child, level + 1));
       };
       roots.forEach(root => traverse(root));
