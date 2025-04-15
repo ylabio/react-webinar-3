@@ -31,40 +31,32 @@ class UserState extends StoreModule {
         body: JSON.stringify({ login, password })
       });
       
-      const json = await response.json();
-  
-      if (response.ok) {
-        console.error('Server error response:', json);
-        localStorage.setItem('token', json.result.token);
-        
-        this.setState({
-          ...this.getState(),
-          token: json.result.token,
-          data: null,
-          waiting: false
-        });
-  
-        return true;
-      } else {
-        // Обработка ошибки в формате сервера
-        let errorMessage = 'Unknown error';
-        if (json.error?.data?.issues?.[0]?.message) {
-          errorMessage = json.error.data.issues[0].message;
-        } else if (json.error) {
-          errorMessage = json.error;
-        }
-        
-        throw new Error(errorMessage);
-      }
-    } catch (e) {
-      this.setState({
-        ...this.getState(),
-        error: e.message,
-        waiting: false
-      });
-      return false;
+      const data = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      const errorMessage = data?.error?.message || 
+                          data?.error?.data?.issues?.[0]?.message || 
+                          `HTTP Error ${response.status}`;
+      throw new Error(errorMessage);
     }
+
+    localStorage.setItem('token', data.result.token);
+    this.setState({
+      token: data.result.token,
+      data: data.result.user,
+      waiting: false
+    });
+    return true;
+
+  } catch (e) {
+    this.setState({
+      error: e.message.includes('Failed to fetch') ? 
+            'Network Error' : e.message,
+      waiting: false
+    });
+    return false;
   }
+}
 
   /**
    * Сброс ошибки авторизации
@@ -122,6 +114,13 @@ class UserState extends StoreModule {
           'Content-Type': 'application/json'
         }
       });
+
+      // проверка статуса ответа
+      if (response.status === 401) {
+        throw new Error('Invalid token');
+      }
+      console.log("Статус:", response.status);
+
       const json = await response.json();
 
       //console.log('Данные пользователя из API:', json.result);

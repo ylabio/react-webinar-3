@@ -23,17 +23,28 @@ function Profile() {
   }));
 
   useInit(async () => {
+    //console.log('Данные пользователя:', select.user);
+
+    // есть токен, нет данных пользователя
+    if (select.token && !select.user) {
+      await store.actions.user.load();
+      
+      // Проверка после загрузки
+      if (!store.getState().user.token || !store.getState().user.data) {
+        navigate('/login');
+      }
+    }
+    
+    // нет токена вообще
     if (!select.token) {
       navigate('/login');
-    } else if (!select.user) {
-      await store.actions.user.load();
-      //console.log('Состояние пользователя после загрузки:', store.getState().user);
     }
-  });
+    }, [select.token, select.user]); // Зависимости для повторного выполнения
 
-  if (!select.token) {
-    return null;
-  }
+    // Не рендерим ничего пока идёт проверка
+    if (!select.token || !select.user) {
+      return null;
+    }
 
   return (
     <>
