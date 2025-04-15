@@ -1,5 +1,4 @@
-import { memo, useState} from 'react';
-import PropTypes from 'prop-types';
+import { memo, useState, useEffect } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -16,10 +15,20 @@ function LoginForm() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
+  // Сбросить issues при открытии формы
+  useEffect(() => {
+    store.actions.auth.setState({
+      ...store.getState().auth,
+      issues: null,
+    });
+    // eslint-disable-next-line
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     store.actions.auth.signIn(login, password);
   };
+
   return (
     <form onSubmit={handleSubmit} className={cn()} >
       <h2 className={cn("caption")}>{t('head.entry')}</h2>
