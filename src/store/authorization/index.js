@@ -7,11 +7,14 @@ class AuthState extends StoreModule {
       userData: {},
       isLogin: false,
       error: '',
+      isLoading: false,
     };
   }
 
   async loginUser(data) {
     try {
+      this.setState({...this.getState(), error: '', isLoading: true});
+
       const res = await fetch('/api/v1/users/sign', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -19,8 +22,6 @@ class AuthState extends StoreModule {
       });
 
       const result = await res.json();
-      console.log('result');
-      console.log(result);
 
       if (result.result) {
         localStorage.setItem('token', result.result.token);
@@ -29,6 +30,7 @@ class AuthState extends StoreModule {
           userData: result.result.user,
           isLogin: true,
           error: '',
+          isLoading: false,
         }, 'Успешный loginUser');
       } else {
         this.setState({
@@ -36,15 +38,25 @@ class AuthState extends StoreModule {
           userData: {},
           isLogin: false,
           error: result.error.data?.issues[0]?.message || result.error.data?.message,
+          isLoading: false,
         }, 'Ошибка loginUser');
       }
+
     } catch (error) {
       console.error(this.getState());
+      this.setState({
+        ...this.getState(),
+        userData: {},
+        isLogin: false,
+        error: 'Произошла ошибка авторизации',
+        isLoading: false,
+      }, 'Ошибка авторизации');
     }
   }
 
   async logoutUser() {
     try {
+      this.setState({...this.getState(), error: '', isLoading: true});
       const res = await fetch('/api/v1/users/sign', {
         method: 'DELETE',
         headers: {
@@ -53,9 +65,6 @@ class AuthState extends StoreModule {
         },
       });
 
-      // console.log('res logout---');
-      // console.log(res);
-
       localStorage.removeItem('token');
       this.setState(
         {
@@ -63,17 +72,26 @@ class AuthState extends StoreModule {
           userData: {},
           isLogin: false,
           error: '',
+          isLoading: false
         },
         'Выход из аккаунта logoutUser',
       );
     } catch (error) {
       console.error(this.getState());
+      this.setState({
+        ...this.getState(),
+        userData: {},
+        isLogin: false,
+        error: 'Произошла ошибка авторизации',
+        isLoading: false,
+      }, 'Ошибка авторизации');
     }
   }
 
   async checkUser() {
     if (localStorage.getItem('token')) {
     try {
+      this.setState({...this.getState(), error: '', isLoading: true});
       const res = await fetch('/api/v1/users/self?fields=*', {
         method: 'GET',
         headers: {
@@ -92,6 +110,7 @@ class AuthState extends StoreModule {
           userData: result.result,
           isLogin: true,
           error: '',
+          isLoading: false
         }, 'Успешный checkUser');
       } else {
         localStorage.removeItem('token');
@@ -100,10 +119,18 @@ class AuthState extends StoreModule {
           userData: {},
           isLogin: false,
           error: '',
+          isLoading: false
         }, 'Ошибка checkUser');
       }
     } catch (error) {
       console.error(this.getState());
+      this.setState({
+        ...this.getState(),
+        userData: {},
+        isLogin: false,
+        error: 'Произошла ошибка авторизации',
+        isLoading: false,
+      }, 'Ошибка авторизации');
     }} else {
       this.setState({
         ...this.getState(),
@@ -115,7 +142,7 @@ class AuthState extends StoreModule {
   }
 
   clearError() {
-    this.setState({...this.getState(), error: ''})
+    this.setState({...this.getState(), error: ''});
   }
 }
 
