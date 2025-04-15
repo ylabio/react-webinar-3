@@ -34,7 +34,7 @@ function LoginMenu() {
         {select.auth.isLogin ? (
           <>
             <Link className={cn('profile')} to="/profile">
-              {select.auth.userData.username}
+              {select.auth.userData.profile.name}
             </Link>
             <Link className={cn('link')} to="/" onClick={callbacks.handleLogout}>
               Выход

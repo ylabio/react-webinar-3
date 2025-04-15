@@ -19,8 +19,8 @@ class AuthState extends StoreModule {
       });
 
       const result = await res.json();
-      // console.log('result');
-      // console.log(result);
+      console.log('result');
+      console.log(result);
 
       if (result.result) {
         localStorage.setItem('token', result.result.token);
@@ -35,7 +35,7 @@ class AuthState extends StoreModule {
           ...this.getState(),
           userData: {},
           isLogin: false,
-          error: result.error.message,
+          error: result.error.data?.issues[0]?.message || result.error.data?.message,
         }, 'Ошибка loginUser');
       }
     } catch (error) {
@@ -112,6 +112,10 @@ class AuthState extends StoreModule {
         error: '',
       }, 'Токен отсутсвует checkUser');
     }
+  }
+
+  clearError() {
+    this.setState({...this.getState(), error: ''})
   }
 }
 

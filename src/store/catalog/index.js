@@ -148,7 +148,7 @@ class CatalogState extends StoreModule {
     tree.forEach(item => {
       result.push({
         value: item._id,
-        title: '-'.repeat(level * 1) + (level > 0 ? ' ' : '') + item.title,
+        title: '- '.repeat(level * 1) + item.title,
       });
 
       if (item.children.length > 0) {

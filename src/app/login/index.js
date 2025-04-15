@@ -25,6 +25,7 @@ function Login() {
 
   useEffect(() => {
     document.title = 'Магазин / Логин';
+    store.actions.authorization.clearError();
   }, []);
 
   const select = useSelector(state => ({
@@ -53,7 +54,7 @@ function Login() {
   return (
     <>
       <LoginMenu />
-      <Head title="Магазин / Логин">
+      <Head title="Магазин">
         <LocaleSelect />
       </Head>
       <PageLayout>
@@ -76,4 +77,4 @@ function Login() {
   );
 }
 
-export default memo(Login);
+export default Login;
