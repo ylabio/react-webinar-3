@@ -37,7 +37,7 @@ function Main() {
 
     const category = select.categories.find(item => item._id === select.category);
 
-    return category ? `${t('title')} / ${category.title}` : t('title');
+    return category ? `${t('title')} / ${category.title.toLowerCase()}` : t('title');
   }, [select.category, select.categories, t]);
 
   useEffect(() => {
