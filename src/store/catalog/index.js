@@ -1,5 +1,6 @@
 import StoreModule from '../module';
 
+
 /**
  * Состояние каталога - параметры фильтра и список товара
  */
@@ -16,6 +17,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -55,10 +58,19 @@ class CatalogState extends StoreModule {
    * Установка параметров и загрузка списка товаров
    * @param [newParams] {Object} Новые параметры
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
+   * @param [resetPage] {Boolean} Сбросить страницу (true) или оставить на прежней (false)
    * @returns {Promise<void>}
    */
-  async setParams(newParams = {}, replaceHistory = false) {
-    const params = { ...this.getState().params, ...newParams };
+  async setParams(newParams = {}, replaceHistory = false, resetPage = false) {
+
+    const params = {
+      ...this.getState().params,
+      ...newParams,
+    };
+
+    if (resetPage) {
+      params.page = 1;
+    }
 
     // Установка новых параметров и признака загрузки
     this.setState(
@@ -70,25 +82,69 @@ class CatalogState extends StoreModule {
       'Установлены параметры каталога',
     );
 
-    // Сохранить параметры в адрес страницы
-    let urlSearch = new URLSearchParams(params).toString();
-    const url = window.location.pathname + '?' + urlSearch + window.location.hash;
-    if (replaceHistory) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
-    }
-
-    const apiParams = {
-      limit: params.limit,
-      skip: (params.page - 1) * params.limit,
-      fields: 'items(*),count',
-      sort: params.sort,
-      'search[query]': params.query,
+    const updateUrl = (replace) => {
+      const currentParams = this.getState().params;
+      const urlSearch = new URLSearchParams(currentParams).toString();
+      const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+      if (replace) {
+        window.history.replaceState({}, '', url);
+      } else {
+        window.history.pushState({}, '', url);
+      }
     };
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const json = await response.json();
+    // Сохранить параметры в адрес страницы
+    updateUrl(replaceHistory);
+
+    const fetchArticles = async () => {
+      const currentParams = this.getState().params;
+      const apiParams = {
+        limit: currentParams.limit,
+        skip: (currentParams.page - 1) * currentParams.limit,
+        fields: 'items(*,category(_id, title)),count',
+        sort: currentParams.sort,
+        'search[query]': currentParams.query,
+      };
+
+      if (currentParams.category && currentParams.category !== '') {
+        apiParams['search[category]'] = currentParams.category;
+      }
+
+      const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+      return await response.json();
+    };
+
+    // Первичный запрос на сервер
+    let json = await fetchArticles();
+
+    /*  const currentParams = this.getState().params;
+   const skip = (currentParams.page - 1) * currentParams.limit;
+
+ // Сделать новый запрос если смещение больше текущего размера выборки
+   if (json.result.count <= skip && json.result.count > 0) {
+     //Считаю какая должна быть последняя страница
+     const lastPage = Math.max(1, Math.ceil(json.result.count / currentParams.limit));
+
+     // Установка новых параметров
+     this.setState(
+       {
+         ...this.getState(),
+         params: {
+           ...this.getState().params,
+           page: lastPage,
+         },
+       },
+       'При превышении смещения перешли на последнюю страницу',
+     );
+
+     // Замена параметров в адресе страницы
+     updateUrl(true);
+
+     // Повторный запрос на сервер
+     json = await fetchArticles();
+   }*/
+
+    // Устанавливаем полученные данные
     this.setState(
       {
         ...this.getState(),

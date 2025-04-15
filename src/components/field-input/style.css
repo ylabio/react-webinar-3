@@ -1,0 +1,46 @@
+.FieldInput {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.FieldInput-label {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: 0;
+  vertical-align: middle;
+
+}
+
+
+
+.FieldInput-item {
+  padding: 8px 12px;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+  height: 40px;
+
+
+
+
+  font-family: Golos Text;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: 0;
+  vertical-align: middle;
+
+}
+
+.FieldInput-item:focus {
+  outline: none;
+}
+
+.FieldInput-item_theme_big {
+  width: 300px;
+}
+
+.FieldInput-item_theme_small {
+  width: 233px;
+}

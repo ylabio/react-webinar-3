@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.SideLayout_gap_small {
+  gap: 8px;
+}
+
 .SideLayout_gap_big {
   gap: 24px;
 }
