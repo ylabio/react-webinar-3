@@ -1,4 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
+import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -16,7 +17,29 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.categories.list,
   }));
+
+  useInit(() => {
+    store.actions.categories.load();
+  }, []);
+
+  // построении иерархического списка категорий
+  const buildCategoryOptions = useCallback((categories, parentId = null, level = 0) => {
+    return categories
+      .filter(category => 
+        (parentId === null && !category.parent) || 
+        (category.parent && category.parent._id === parentId)
+      )
+      .flatMap(category => [
+        { 
+          value: category._id, 
+          title: `${Array(level).fill('-').join(' ')} ${category.title}`.trim(),
+        },
+        ...buildCategoryOptions(categories, category._id, level + 1)
+      ]);
+  }, []);
 
   const callbacks = {
     // Сортировка
@@ -25,6 +48,8 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // по категориям
+    onCategoryChange: useCallback(category => { store.actions.catalog.setParams({ category, page: 1 }); }, [store]),
   };
 
   const options = {
@@ -37,12 +62,25 @@ function CatalogFilter() {
       ],
       [],
     ),
+    categories: useMemo(
+      () => [
+      { value: '', title: 'Все' },
+      ...buildCategoryOptions(select.categories)
+      ], 
+      [select.categories, buildCategoryOptions]
+    ),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.category}
+        onChange={callbacks.onCategoryChange}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}

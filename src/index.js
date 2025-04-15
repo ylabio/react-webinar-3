@@ -7,7 +7,6 @@ import Store from './store';
 import 'theme.css';
 
 const store = new Store();
-
 const root = createRoot(document.getElementById('root'));
 
 // Первый рендер приложения
