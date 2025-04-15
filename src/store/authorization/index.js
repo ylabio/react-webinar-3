@@ -13,7 +13,7 @@ class AuthState extends StoreModule {
 
   async loginUser(data) {
     try {
-      this.setState({...this.getState(), error: '', isLoading: true});
+      this.setState({...this.getState(), isLoading: true});
 
       const res = await fetch('/api/v1/users/sign', {
         method: 'POST',
@@ -43,20 +43,13 @@ class AuthState extends StoreModule {
       }
 
     } catch (error) {
-      console.error(this.getState());
-      this.setState({
-        ...this.getState(),
-        userData: {},
-        isLogin: false,
-        error: 'Произошла ошибка авторизации',
-        isLoading: false,
-      }, 'Ошибка авторизации');
+      console.error('Ошибка авторизации');
     }
   }
 
   async logoutUser() {
     try {
-      this.setState({...this.getState(), error: '', isLoading: true});
+      this.setState({...this.getState(), isLoading: true});
       const res = await fetch('/api/v1/users/sign', {
         method: 'DELETE',
         headers: {
@@ -77,21 +70,14 @@ class AuthState extends StoreModule {
         'Выход из аккаунта logoutUser',
       );
     } catch (error) {
-      console.error(this.getState());
-      this.setState({
-        ...this.getState(),
-        userData: {},
-        isLogin: false,
-        error: 'Произошла ошибка авторизации',
-        isLoading: false,
-      }, 'Ошибка авторизации');
+      console.error('Ошибка авторизации');
     }
   }
 
   async checkUser() {
     if (localStorage.getItem('token')) {
     try {
-      this.setState({...this.getState(), error: '', isLoading: true});
+      this.setState({...this.getState(), isLoading: true});
       const res = await fetch('/api/v1/users/self?fields=*', {
         method: 'GET',
         headers: {
@@ -101,8 +87,6 @@ class AuthState extends StoreModule {
       });
 
       const result = await res.json();
-      console.log('result check---');
-      console.log(result);
 
       if (result.result) {
         this.setState({
@@ -123,14 +107,7 @@ class AuthState extends StoreModule {
         }, 'Ошибка checkUser');
       }
     } catch (error) {
-      console.error(this.getState());
-      this.setState({
-        ...this.getState(),
-        userData: {},
-        isLogin: false,
-        error: 'Произошла ошибка авторизации',
-        isLoading: false,
-      }, 'Ошибка авторизации');
+      console.error('Ошибка авторизации');
     }} else {
       this.setState({
         ...this.getState(),
@@ -142,7 +119,7 @@ class AuthState extends StoreModule {
   }
 
   clearError() {
-    this.setState({...this.getState(), error: ''});
+    // this.setState({...this.getState(), error: ''});
   }
 }
 
