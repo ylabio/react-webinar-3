@@ -67,6 +67,16 @@ class UserState extends StoreModule {
   }
 
   /**
+   * Сброс ошибки авторизации
+   */
+  clearError() {
+    this.setState({
+      ...this.getState(),
+      error: null,
+    }, 'Сброс ошибки входа');
+  }
+
+  /**
    * Выход пользователя
    */
   async signOut() {

@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef } from 'react';
+import { memo, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,10 @@ function LoginForm({ t }) {
     error: state.user.error,
     waiting: state.user.waiting
   }));
+
+  useEffect(() => {
+    store.actions.user.clearError();
+  }, []);
 
   const callbacks = {
     onSubmit: useCallback(async (e) => {

@@ -32,7 +32,7 @@
   .LoginForm-error {
     color: var(--delete);
     font-size: 14px;
-    min-height: 20px; /* Фиксируем высоту для сохранения места */
+    min-height: 20px;
   }
 
   .LoginForm-error.hidden {
@@ -44,5 +44,5 @@
   }
 
   .LoginForm-button {
-    margin-top: 8px; /* 24px между ошибкой и кнопкой */
+    margin-top: 8px; 
   }
