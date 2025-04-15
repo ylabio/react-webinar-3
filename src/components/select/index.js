@@ -6,6 +6,7 @@ import './style.css';
 function Select(props) {
   const cn = bem('Select');
   const { onChange = () => {}, options, value, size, text } = props;
+
   const onSelect = e => {
     onChange(e.target.value);
   };
