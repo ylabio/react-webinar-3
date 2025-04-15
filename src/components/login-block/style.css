@@ -1,0 +1,45 @@
+.LoginBlock-title {
+  font-family: var(--second-font-family), 'sans-serif';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: var(--main-text);
+  margin-bottom: 24px;
+}
+
+.LoginBlock-form {
+  width: 233px;
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+}
+
+.LoginBlock-label {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: var(--main-text);
+}
+
+.LoginBlock-inputs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.LoginBlock-input__container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.LoginBlock-error {
+  position: absolute;
+  bottom: -30px;
+  left: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--delete);
+}
+

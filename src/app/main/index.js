@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -8,6 +8,9 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import TopBar from '../../containers/top-bar';
+import useSelector from '../../hooks/use-selector';
+import { getFullPath } from '../../utils';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -23,11 +26,31 @@ function Main() {
     true,
   );
 
+  const select = useSelector(state => ({
+    categoryId: state.catalog.params.category,
+    categories: state.categories.list,
+  }));
+
+  const pathCategory = useMemo(
+    () => getFullPath(select.categories, select.categoryId),
+    [select.categories, select.categoryId],
+  );
+
+  const headTitle = useMemo(
+    () => (pathCategory === 'Все' ? 'title' : pathCategory),
+    [pathCategory],
+  );
+
+  useEffect(() => {
+    document.title = t(headTitle);
+  }, [headTitle]);
+
   const { t } = useTranslate();
 
   return (
     <>
-      <Head title={t('title')}>
+      <TopBar />
+      <Head title={t(headTitle)}>
         <LocaleSelect />
       </Head>
       <PageLayout>

@@ -1,0 +1,29 @@
+.TopBarControl {
+  background: var(--second-background);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.TopBarControl-content {
+  margin: 0 auto;
+  max-width: 1152px;
+}
+
+.TopBarControl-action {
+  display: inline-block;
+  font-family: var(--second-font-family), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 157%;
+  text-align: center;
+  color: var(--primary);
+  padding: 8px;
+  margin-left: 16px;
+}
+
+.TopBarControl-name {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
+}

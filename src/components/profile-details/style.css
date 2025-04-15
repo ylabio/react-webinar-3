@@ -1,0 +1,20 @@
+.ProfileDetails-title {
+  font-family: var(--second-font-family), 'sans-serif';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 125%;
+  color: var(--main-text);
+  margin-bottom: 24px;
+}
+
+.ProfileDetails-text, .ProfileDetails-text__bold {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--main-text);
+  margin-bottom: 12px;
+}
+
+.ProfileDetails-text__bold {
+  font-weight: 700;
+}
