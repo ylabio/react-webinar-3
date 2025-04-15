@@ -13,7 +13,7 @@ class AuthState extends StoreModule {
 
   async loginUser(data) {
     try {
-      this.setState({...this.getState(), isLoading: true});
+      // this.setState({...this.getState(), isLoading: true});
 
       const res = await fetch('/api/v1/users/sign', {
         method: 'POST',

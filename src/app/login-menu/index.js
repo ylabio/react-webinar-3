@@ -16,10 +16,6 @@ function LoginMenu() {
     auth: state.authorization,
   }));
 
-  // useEffect(() => {
-  //   store.actions.authorization.checkUser();
-  // }, []);
-
   const callbacks = {
     handleLogout: useCallback(() => store.actions.authorization.logoutUser(), []),
     handleLogin: useCallback(() => navigate('/login', {state: {back: location.pathname}}), []),

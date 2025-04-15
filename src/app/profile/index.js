@@ -13,14 +13,14 @@ import ProfileCard from '../../components/profile-card';
 function Profile() {
   const store = useStore();
 
-  useInit(() => {}, []);
+  useInit(() => {store.actions.profile.profileLoad()}, []);
 
   useEffect(() => {
     document.title = 'Магазин / Профиль';
   }, []);
 
   const select = useSelector(state => ({
-    userData: state.authorization.userData,
+    userData: state.profile.userData,
   }));
 
   const { t } = useTranslate();

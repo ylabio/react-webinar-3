@@ -18,7 +18,6 @@ import LoginMenu from '../login-menu';
 function Article() {
   const store = useStore();
 
-  // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
@@ -33,7 +32,6 @@ function Article() {
   const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
