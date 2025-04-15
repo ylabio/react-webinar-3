@@ -5,24 +5,26 @@ import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import { useNavigate } from 'react-router-dom';
 import ButtonUser from '../../components/button-user';
+import { formatProfileName } from '../../utils';
 
-function UserPanel() {
+function UserButton() {
   const store = useStore();
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    token: state.user.token,
-    profileName: state.user.result?.profile?.name || '',
+    token: state.authentication.token,
+    profileName: state.user.user?.profile?.name || '',
   }));
 
   const handleProfileClick = () => {
     if (select.token) {
+      store.actions.user.fetchUserProfile();
       navigate('/profile');
     }
   };
 
   const handleLogout = () => {
-    store.actions.user.logout();
+    store.actions.authentication.logout();
     navigate('/');
   };
 
@@ -30,7 +32,10 @@ function UserPanel() {
     <>
       {select.token ? (
         <>
-          <ButtonUser handleProfileClick={handleProfileClick} profileName={select.profileName} />
+          <ButtonUser
+            handleProfileClick={handleProfileClick}
+            profileName={formatProfileName(select.profileName)}
+          />
           <ButtonAuth onLogout={handleLogout} />
         </>
       ) : (
@@ -40,4 +45,4 @@ function UserPanel() {
   );
 }
 
-export default memo(UserPanel);
+export default memo(UserButton);

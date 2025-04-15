@@ -64,7 +64,9 @@ const UserLogin = ({ onSubmit, error, clearError }) => {
           />
         </div>
 
-        {error && <p className="UserLogin-error">{error}</p>}
+        <div className="UserLogin-error-placeholder">
+          {error && <p className="UserLogin-error">{error}</p>}
+        </div>
 
         <Button title="Войти" style="primary" type="submit" />
       </form>

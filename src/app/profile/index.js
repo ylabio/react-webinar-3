@@ -1,8 +1,5 @@
-import { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
+import { memo } from 'react';
 import useSelector from '../../hooks/use-selector';
-import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
 import Navigation from '../../containers/navigation';
 import UserProfile from '../../components/user-profile';
@@ -11,39 +8,29 @@ import LocaleSelect from '../../containers/locale-select';
 import UserPanel from '../../components/user-panel';
 import UserButton from '../../containers/user-button';
 import Spinner from '../../components/spinner';
-import usePageTitle from '../../hooks/use-pageTitle';
+import useTranslate from '../../hooks/use-translate';
 
 function Profile() {
-  const store = useStore();
-  const navigate = useNavigate();
-  const pageTitle = usePageTitle({ defaultTitle: 'title' });
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    token: state.user.token,
-    result: state.user.result,
-    waiting: state.user.waiting,
+    token: state.authentication.token,
+    user: state.user.user,
+    waiting: state.authentication.waiting,
   }));
-
-  useInit(() => {
-    if (!select.token) {
-      navigate('/login');
-    } else {
-      store.actions.user.fetchUserProfile();
-    }
-  }, [select.token, navigate]);
 
   return (
     <>
       <UserPanel>
         <UserButton />
       </UserPanel>
-      <Head title={pageTitle}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>
         <Navigation />
         <Spinner waiting={select.waiting}>
-          <UserProfile user={select.result} />
+          <UserProfile user={select.user} />
         </Spinner>
       </PageLayout>
     </>

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -6,6 +6,7 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import { formatCategories } from '../../utils';
 
 function CatalogFilter() {
   const store = useStore();
@@ -14,14 +15,17 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
   }));
 
   const callbacks = {
-    onSort: sort => store.actions.catalog.setParams({ sort }),
-    onSearch: query => store.actions.catalog.setParams({ query, page: 1 }),
-    onReset: () => store.actions.catalog.resetParams(),
-    onCategoryChange: category => store.actions.catalog.setParams({ category }),
+    onCategoryChange: useCallback(
+      category => store.actions.catalog.setParams({ category, page: 1 }),
+      [store],
+    ),
+    onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
+    onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
   const options = {
@@ -31,6 +35,10 @@ function CatalogFilter() {
       { value: '-price', title: 'Сначала дорогие' },
       { value: 'edition', title: 'Древние' },
     ],
+    categories: useMemo(
+      () => [{ value: '', title: 'Все' }, ...formatCategories(select.categories)],
+      [select.categories],
+    ),
   };
 
   const { t } = useTranslate();
@@ -38,7 +46,7 @@ function CatalogFilter() {
   return (
     <SideLayout padding="medium">
       <Select
-        options={select.categories}
+        options={options.categories}
         value={select.category}
         onChange={callbacks.onCategoryChange}
         size="medium"

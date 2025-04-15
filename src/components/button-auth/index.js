@@ -1,19 +1,27 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './style.css';
 
 function ButtonAuth({ onLogout }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLoginClick = () => {
+    navigate('/login', { state: { from: location }, replace: true });
+  };
+
   return onLogout ? (
     <button onClick={onLogout} className="ButtonAuth">
       Выход
     </button>
   ) : (
-    <Link to="/login" className="ButtonAuth">
+    <button onClick={handleLoginClick} className="ButtonAuth">
       Вход
-    </Link>
+    </button>
   );
 }
+
 ButtonAuth.propTypes = {
   onLogout: PropTypes.func,
 };

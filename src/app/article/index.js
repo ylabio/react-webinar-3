@@ -12,15 +12,9 @@ import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import UserPanel from '../../components/user-panel';
 import UserButton from '../../containers/user-button';
-import usePageTitle from '../../hooks/use-pageTitle';
 
-/**
- * Страница товара с первичной загрузкой товара по id из url адреса
- */
 function Article() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(() => {
@@ -34,11 +28,7 @@ function Article() {
 
   const { t } = useTranslate();
 
-  const pageTitle = usePageTitle({
-    customTitle: select.article.title,
-  });
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
@@ -47,7 +37,7 @@ function Article() {
       <UserPanel>
         <UserButton />
       </UserPanel>
-      <Head title={pageTitle}>
+      <Head title={select.article.title}>
         <LocaleSelect />
       </Head>
       <PageLayout>
