@@ -62,11 +62,9 @@ function LoginForm({ t }) {
           required
         />
       </div>
-      {select.error && (
-        <div className={cn('error')}>
-          {select.error}
-        </div>
-      )}
+      <div className={cn('error', {hidden: !select.error})}>
+        {select.error}
+      </div>
       <div className={cn('button')}>
         <Button
           type="submit"

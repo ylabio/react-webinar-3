@@ -35,7 +35,7 @@ function CatalogFilter() {
       .flatMap(category => [
         { 
           value: category._id, 
-          title: `${'—'.repeat(level)} ${category.title}`.trim(),
+          title: `${Array(level).fill('-').join(' ')} ${category.title}`.trim(),
         },
         ...buildCategoryOptions(categories, category._id, level + 1)
       ]);
