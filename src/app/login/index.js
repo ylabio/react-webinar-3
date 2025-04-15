@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -17,19 +17,22 @@ function Login() {
   const store = useStore();
   const { t } = useTranslate();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const select = useSelector(state => ({
     isLoggedIn: state.auth.isLoggedIn,
     error: state.auth.error,
   }));
 
+  const prevPath = useMemo(() => {
+    return location.state?.from || '/';
+  }, []);
+
   useEffect(() => {
     if (select.isLoggedIn) {
-      const newPath = location.state?.from?.pathname || '/';
-      console.log(newPath);
-      navigate(newPath);
+      navigate(prevPath);
     }
-  }, [select.isLoggedIn])
+  }, [select.isLoggedIn, location])
 
   
   const callbacks = {

@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-function HeaderLink({ title, link, onClick = () => {}, style = 'primary', from }) {
+function HeaderLink({ title, link, onClick = () => {}, style = 'primary', from={} }) {
   const cn = bem('HeaderLink');
   return (
     <Link to={link} className={cn({ style })} onClick={onClick} state={from}>
@@ -18,6 +18,9 @@ HeaderLink.propTypes = {
   link: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.string,
+  from: PropTypes.shape({
+    from: PropTypes.string,
+  })
 };
 
 export default memo(HeaderLink);

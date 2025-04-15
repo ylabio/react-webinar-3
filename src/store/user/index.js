@@ -3,8 +3,8 @@ import StoreModule from '../module';
 class UserState extends StoreModule {
   initState() {
     return {
-      userData: null,
-      waiting: true,
+      userData: {},
+      waiting: false,
     };
   }
 
@@ -17,6 +17,10 @@ class UserState extends StoreModule {
     const token = localStorage.getItem('token');
     if (token) {
       try {
+        this.setState({
+          ...this.getState(),
+          waiting: true,
+        })
         const response = await fetch('/api/v1/users/self?fields=*', {
           method: 'GET',
           headers: {

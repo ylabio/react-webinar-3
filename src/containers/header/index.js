@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -20,6 +20,12 @@ function Header () {
     userData: state.user.userData,
     waiting: state.user.waiting,
   }));
+
+  useEffect(() => {
+    if (select.isLoggedIn) {
+      store.actions.user.getUserData();
+    }
+  }, [select.isLoggedIn]);
 
 
   const callbacks = {
@@ -57,7 +63,7 @@ function Header () {
           type="link"
           link='/login'
           onClick={callbacks.onClear}
-          from={{ from: location}}
+          from={{ from: location.pathname }}
           />
         }
     </HeaderLayout>
