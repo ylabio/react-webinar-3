@@ -15,11 +15,6 @@ function ProfilePage() {
 
   if (loading) return <div>{t('profile.loading')}</div>;
 
-  if (error || !token) {
-    navigate('/login');
-    return null;
-  }
-
   if (!user || !user.profile) {
     return <div>{t('profile.noProfile')}</div>;
   }
