@@ -27,5 +27,6 @@
   "login.button": "Log In",
   "login.title": "Enter",
   "store": "Store",
-  "store_all": "All"
+  "store_all": "All",
+  "profile.noProfile": "No profile data available"
 }

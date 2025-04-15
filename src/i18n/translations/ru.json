@@ -29,5 +29,6 @@
   "login.button": "Войти",
   "login.title": "Вход",
   "store": "Магазин",
-  "store_all": "Все"
+  "store_all": "Все",
+  "profile.noProfile": "Нет данных профиля"
 }

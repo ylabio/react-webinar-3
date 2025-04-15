@@ -6,22 +6,20 @@ import PageLayout from '../../components/page-layout';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import { useNavigate } from 'react-router-dom';
+import './style.css';
 
 function ProfilePage() {
   const { token, user, loading, error } = useRequireAuth();
   const { t } = useTranslate();
   const navigate = useNavigate();
 
-  // Если данные еще загружаются
   if (loading) return <div>{t('profile.loading')}</div>;
 
-  // Если произошла ошибка или токен невалиден, редиректим на страницу логина
   if (error || !token) {
     navigate('/login');
-    return null; // Можно также добавить сообщение об ошибке
+    return null;
   }
 
-  // Если нет данных пользователя
   if (!user || !user.profile) {
     return <div>{t('profile.noProfile')}</div>;
   }
@@ -35,20 +33,19 @@ function ProfilePage() {
       </Head>
       <PageLayout>
         <Navigation />
-        <div className="profile-container">
-          <h2>{t('profile.title')}</h2>
-          <div className="profile-details">
-            <div className="profile-info">
-              <p>
-                {t('profile.name')}: <strong>{profile.name}</strong>
-              </p>
-              <p>
-                {t('profile.phone')}: <strong>{profile.phone}</strong>
-              </p>
-              <p>
-                {t('profile.email')}: <strong>{user.email}</strong>
-              </p>
-            </div>
+        <h2 className="ProfileTitle">{t('profile.title')}</h2>
+        <div className="ProfileLayout">
+          <div className="ProfileLayout-prop ">
+            <div className="ProfileLayout-label">{t('profile.name')}:</div>
+            <div className="ProfileLayout-value">{profile.name}</div>
+          </div>
+          <div className="ProfileLayout-prop">
+            <div className="ProfileLayout-label">{t('profile.phone')}:</div>
+            <div className="ProfileLayout-value">{profile.phone}</div>
+          </div>
+          <div className="ProfileLayout-prop">
+            <div className="ProfileLayout-label">{t('profile.email')}:</div>
+            <div className="ProfileLayout-value">{user.email}</div>
           </div>
         </div>
       </PageLayout>
