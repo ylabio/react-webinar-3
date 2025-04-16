@@ -1,0 +1,36 @@
+.ProfileCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 23px 0;
+}
+
+.ProfileCard-title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  font-family: var(--second-font-family);
+}
+
+.ProfileCard-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ProfileCard-prop {
+  display: flex;
+  gap: 8px;
+}
+
+.ProfileCard-label {
+  min-width: 64px;
+}
+
+.ProfileCard-value {
+  font-weight: bold;
+}
+
+.ProfileCard-prop_size_big .ProfileCard-label {
+  width: fit-content;
+}

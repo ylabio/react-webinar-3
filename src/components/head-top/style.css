@@ -1,0 +1,26 @@
+.HeadTop {
+  color: var(--primary);
+  padding: 8px 0;
+  background-color: var(--second-background);
+}
+
+.HeadTop-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.HeadTop-link {
+  font-weight: 400;
+}
+.HeadTop-link_primary {
+  padding: 0;
+  font-family: var(--second-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 22px;
+}

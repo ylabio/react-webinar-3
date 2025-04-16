@@ -16,12 +16,15 @@ function Input(props) {
 
   // Обработчик изменений в поле
   const onChange = event => {
-    setValue(event.target.value);
-    onChangeDebounce(event.target.value);
+    const newValue = event.target.value;
+    setValue(newValue);
+    onChangeDebounce(newValue);
   };
 
   // Обновление стейта, если передан новый value
-  useLayoutEffect(() => setValue(props.value), [props.value]);
+  useLayoutEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
 
   const cn = bem('Input');
   return (

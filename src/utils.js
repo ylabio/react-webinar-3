@@ -33,3 +33,25 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Форматирует дерево категорий в плоский список для Select
+ * @param {Array} categories - Дерево категорий
+ * @returns {Array} Плоский список категорий с отступами
+ */
+export const formatCategories = (categories = [], level = 0) => {
+  return categories.reduce((acc, category) => {
+    // Добавляем текущую категорию
+    acc.push({
+      value: category._id,
+      title: `${'- '.repeat(level)}${category.title}`,
+    });
+
+    // добавляем дочерние категории
+    if (category.children?.length) {
+      acc.push(...formatCategories(category.children, level + 1));
+    }
+
+    return acc;
+  }, []);
+};
