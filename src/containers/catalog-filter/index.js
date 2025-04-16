@@ -6,6 +6,7 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import Button from '../../components/button';
+import { formatCategories } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -45,30 +46,10 @@ function CatalogFilter() {
       ],
       [],
     ),
-    categories: useMemo(() => {
-      const build = (items, level = 0) => {
-        return items.reduce((acc, item) => {
-          acc.push({
-            value: item._id,
-            title: `${'-'.repeat(level)} ${item.title}`,
-          });
-
-          if (item.children) {
-            acc.push(...build(item.children, level + 1));
-          }
-
-          return acc;
-        }, []);
-      };
-
-      return [
-        {
-          value: '',
-          title: 'Все',
-        },
-        ...build(select.categories),
-      ];
-    }, [select.categories]),
+    categories: useMemo(
+      () => [{ value: '', title: 'Все' }, ...formatCategories(select.categories)],
+      [select.categories],
+    ),
   };
 
   const { t } = useTranslate();

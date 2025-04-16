@@ -1,30 +1,16 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import Input from '../input';
 import Button from '../button';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
+
 import './style.css';
-import { useNavigate } from 'react-router-dom';
 
-function AuthForm() {
+function AuthForm({ error, handleSubmit }) {
   const cn = bem('Auth');
-  const store = useStore();
-  const navigate = useNavigate();
 
-  const select = useSelector(state => ({
-    error: state.auth.error,
-  }));
-
-  const callbacks = {
-    //Авторизация
-    signIn: useCallback((login, password) => store.actions.auth.signIn(login, password), [store]),
-  };
-
-  // login: 'test_1', password: '123456',
   const [formData, setFormData] = useState({
-    login: '',
-    password: '',
+    login: 'test_1',
+    password: '123456',
   });
 
   const handleChange = name => value => {
@@ -34,18 +20,15 @@ function AuthForm() {
     }));
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const data = await callbacks.signIn(formData.login, formData.password);
-    if (data?.success) {
-      navigate('/', { replace: true });
-    }
+  const handleClick = event => {
+    event.preventDefault();
+    handleSubmit(formData.login, formData.password);
   };
 
   return (
     <div className={cn()}>
       <h3 className={cn('title')}>Вход</h3>
-      <form className={cn('form')} onSubmit={handleSubmit}>
+      <form className={cn('form')} onSubmit={event => handleClick(event)}>
         <div className={cn('field')}>
           <span className={cn('label')}>Логин</span>
           <Input
@@ -67,12 +50,7 @@ function AuthForm() {
           />
         </div>
         <div className={cn('errors')}>
-          {select.error &&
-            select.error.map((err, index) => (
-              <span key={index} className={cn('error')}>
-                {err.message}
-              </span>
-            ))}
+          <span className={cn('error')}>{error}</span>
         </div>
         <Button title="Войти" style="primary" type="submit" />
       </form>

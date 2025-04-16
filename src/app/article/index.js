@@ -11,12 +11,14 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import HeadTop from '../../components/head-top';
+import useAuth from '../../hooks/use-auth';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Article() {
   const store = useStore();
+  const { token, user, signOut } = useAuth();
 
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -39,7 +41,7 @@ function Article() {
 
   return (
     <>
-      <HeadTop />
+      <HeadTop username={user?.username} token={token} signOut={signOut} />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

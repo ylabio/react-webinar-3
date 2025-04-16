@@ -2,33 +2,29 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-block: 24px;
+  padding: 23px 0;
 }
 
 .ProfileCard-title {
   font-weight: 700;
   font-size: 32px;
+  line-height: 40px;
+  font-family: var(--second-font-family);
 }
 
 .ProfileCard-prop-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .ProfileCard-prop {
   display: flex;
-  gap: 10px;
-}
-
-.ProfileCard-prop_size_big {
-  font-family: var(--second-font-family);
-  font-size: 24px;
-  font-weight: bold;
+  gap: 8px;
 }
 
 .ProfileCard-label {
-  width: 200px;
+  min-width: 64px;
 }
 
 .ProfileCard-value {

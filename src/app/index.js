@@ -5,33 +5,24 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
-import useInit from '../hooks/use-init';
-import useStore from '../hooks/use-store';
+import { ProtectedRoute } from '../routes/protected-route';
 
-/**
- * Приложение
- * Маршрутизация по страницам и модалкам
- */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
-
-  const store = useStore();
-
-  useInit(
-    () => {
-      store.actions.auth.checkAuth();
-    },
-    [],
-    // true,
-  );
-
   return (
     <>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />} />
+        <Route
+          path={'/profile'}
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

@@ -1,34 +1,22 @@
-import { memo, useCallback } from 'react';
-import './style.css';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../button';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
 
-function HeadTop() {
-  const store = useStore();
+import './style.css';
 
-  const select = useSelector(state => ({
-    token: state.auth.token,
-    user: state.auth.user,
-  }));
-
-  const callbacks = {
-    // Выход
-    signOut: useCallback(() => store.actions.auth.signOut(), [store]),
-  };
-
+function HeadTop({ username, token, signOut }) {
   return (
     <div className="HeadTop">
       <div className="HeadTop-container">
-        {select.token ? (
+        {token ? (
           <>
-            {select.user?.profile?.name && (
+            {username && (
               <Link to={'/profile'} className="HeadTop-link">
-                {select.user.profile.name}
+                {username}
               </Link>
             )}
-            <Button to={'/'} style="text" onClick={callbacks.signOut} title="Выход" />
+            <button type="button" className="HeadTop-link_primary" onClick={signOut}>
+              Выход
+            </button>
           </>
         ) : (
           <Link to={'/login'} className="HeadTop-link_primary">

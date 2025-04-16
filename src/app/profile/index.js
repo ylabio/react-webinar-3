@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
@@ -6,28 +6,28 @@ import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import HeadTop from '../../components/head-top';
 import ProfileCard from '../../components/profile-card';
-import { useNavigate } from 'react-router-dom';
+import useInit from '../../hooks/use-init';
+import useStore from '../../hooks/use-store';
+import useAuth from '../../hooks/use-auth';
 import useSelector from '../../hooks/use-selector';
 
 function Profile() {
   const { t } = useTranslate();
-  const navigate = useNavigate();
+
+  const store = useStore();
+  const { isAuth, token, signOut } = useAuth();
 
   const select = useSelector(state => ({
-    token: state.auth.token,
-    user: state.auth.user,
-    waiting: state.auth.waiting,
+    user: state.profile.user,
   }));
 
-  useEffect(() => {
-    if (!select.token) {
-      navigate('/login');
-    }
-  }, [select.token]);
+  useInit(() => {
+    store.actions.profile.loadProfile(token);
+  }, [isAuth, token]);
 
   return (
     <>
-      <HeadTop />
+      <HeadTop username={select.user?.username} token={token} signOut={signOut} />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>
