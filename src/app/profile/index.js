@@ -8,9 +8,6 @@ import Head from '../../components/head';
 import ProfileList from '../../components/profile-list';
 import LocaleSelect from '../../containers/locale-select';
 
-/**
- * Главная страница - первичная загрузка каталога
- */
 function Profile() {
   const store = useStore();
 
