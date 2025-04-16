@@ -28,8 +28,7 @@ class AuthState extends StoreModule {
         throw new Error(json.error.message);
       }
 
-      // Сохраняем токен и данные пользователя
-      localStorage.setItem('token', json.result.token); // Для автоматического входа
+      localStorage.setItem('token', json.result.token);
       this.setState({
         ...this.getState(),
         user: json.result.user,
@@ -37,12 +36,14 @@ class AuthState extends StoreModule {
         waiting: false,
       });
 
+      return true; // Успех!
     } catch (error) {
       this.setState({
         ...this.getState(),
         issues: error.message,
         waiting: false,
       });
+      return false; // Ошибка
     }
   }
 

@@ -1,4 +1,5 @@
 import { memo, useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -8,6 +9,18 @@ import Input from '../../components/input';
 import './style.css';
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get('from') || '/'; // Путь по умолчанию
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await store.actions.auth.signIn(login, password);
+    if (success) {
+      navigate(from); // Редирект после успешной авторизации
+    }
+  };
+
   const { t } = useTranslate();
   const cn = bem('LoginForm');
   const store = useStore();
@@ -23,11 +36,6 @@ function LoginForm() {
     });
     // eslint-disable-next-line
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    store.actions.auth.signIn(login, password);
-  };
 
   return (
     <form onSubmit={handleSubmit} className={cn()} >

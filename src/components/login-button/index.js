@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
@@ -9,6 +9,7 @@ function LoginButton() {
   const store = useStore();
   const { user } = useSelector(state => state.auth);
   const { t } = useTranslate();
+  const location = useLocation();
 
   return (
     <div className="LoginButton">
@@ -21,7 +22,9 @@ function LoginButton() {
             </button>
           </>
         ) : (
-          <Link to="/login">{t('head.entry')}</Link>
+          <Link to={`/login?from=${encodeURIComponent(location.pathname)}`}>
+            {t('head.entry')}
+          </Link>
         )}
       </div>
     </div>
