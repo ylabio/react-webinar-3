@@ -1,0 +1,35 @@
+.ProfileCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px;
+}
+
+.ProfileCard-prop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ProfileCard-prop {
+  display: flex;
+  gap: 10px;
+}
+
+.ProfileCard-prop_size_big {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ProfileCard-label {
+  width: 80px;
+}
+
+.ProfileCard-value {
+  font-weight: bold;
+}
+
+.ProfileCard-prop_size_big .ProfileCard-label {
+  width: fit-content;
+}

@@ -1,4 +1,6 @@
+import { check } from 'prettier';
 import StoreModule from '../module';
+import { checkResponse, formatCategories } from '../../utils';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -19,6 +21,8 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
+      selectedCategoryId: 'all',
+      categories: [],
     };
   }
 
@@ -87,6 +91,10 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
+    if (params.category && params.category !== 'all') {
+      apiParams['search[category]'] = params.category;
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
     this.setState(
@@ -97,6 +105,34 @@ class CatalogState extends StoreModule {
         waiting: false,
       },
       'Загружен список товаров из АПИ',
+    );
+
+    this.setSelectedCategory(params.category ?? 'all');
+  }
+
+  async getFilter() {
+    const searchParams = new URLSearchParams({ fields: '_id,title,parent(_id)', limit: '*' });
+    const response = await fetch(`/api/v1/categories?${searchParams}`);
+    const result = await checkResponse(response);
+
+    const categories = formatCategories(result.result.items);
+
+    this.setState(
+      {
+        ...this.getState(),
+        categories,
+      },
+      'Загружен список фильтров из АПИ',
+    );
+  }
+
+  setSelectedCategory(id) {
+    this.setState(
+      {
+        ...this.getState(),
+        selectedCategoryId: id,
+      },
+      'Выбрана категория',
     );
   }
 }

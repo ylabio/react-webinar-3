@@ -1,0 +1,36 @@
+.Auth-Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--second-background);
+}
+
+.Auth-Button-wrapper {
+  padding: 8px 0px;
+  width: 100%;
+  max-width: 1152px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 24px;
+}
+
+.Auth-User-name {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Auth-Button {
+  background-color: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-family: 'Montserrat Alternates';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  border-radius: 0;
+  padding: 0;
+}
