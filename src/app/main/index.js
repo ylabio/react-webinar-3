@@ -8,12 +8,21 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
+  const select = useSelector(state => ({
+    categories: state.catalog.categories,
+    selectedCategoryId: state.catalog.selectedCategoryId,
+  }));
+
+  const selectedCategory = select.categories.find(({ _id }) => _id === select.selectedCategoryId);
+
+  document.title = selectedCategory?.title ?? document.title;
 
   useInit(
     () => {
@@ -27,7 +36,7 @@ function Main() {
 
   return (
     <>
-      <Head title={t('title')}>
+      <Head title={t(selectedCategory?.title) ?? t('title')}>
         <LocaleSelect />
       </Head>
       <PageLayout>
