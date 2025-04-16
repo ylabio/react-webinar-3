@@ -1,33 +1,47 @@
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import useTranslate from '../../hooks/use-translate';
-import useSelector from '../../hooks/use-selector';
 import './style.css';
 
-function ProfileList() {
-  const { t } = useTranslate();
+function ProfileList({ name, phone, email, isLoading, t }) {
   const cn = bem('ProfileList');
-  const { data, loading } = useSelector(state => state.profile);
-  const { user } = useSelector(state => state.auth); // Или только из profile.data
 
-  // Если данные грузятся
-  if (loading) return <div>{t('loading')}</div>;
+  if (isLoading) {
+    return <div className={cn('loading')}>{t('loading')}</div>;
+  }
 
   return (
     <section className={cn()}>
-      <h2 className={cn("caption")}>{t('profile')}</h2>
-      <dl className={cn("list")}>
+      <h2 className={cn('caption')}>{t('profile')}</h2>
+      <dl className={cn('list')}>
         <dt>{t('profile.name')}:</dt>
-        <dd>{user?.profile?.name || data?.name || 'N/A'}</dd> {/* Берём из auth или profile */}
+        <dd>{name || 'N/A'}</dd>
 
         <dt>{t('profile.phone')}:</dt>
-        <dd>{data?.phone || 'N/A'}</dd>
+        <dd>{phone || 'N/A'}</dd>
 
         <dt>Email:</dt>
-        <dd>{user?.email || data?.email || 'N/A'}</dd>
+        <dd>{email || 'N/A'}</dd>
       </dl>
     </section>
   );
 }
+
+ProfileList.propTypes = {
+  name: PropTypes.string,
+  phone: PropTypes.string,
+  email: PropTypes.string,
+  isLoading: PropTypes.bool,
+  t: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+ProfileList.defaultProps = {
+  name: '',
+  phone: '',
+  email: '',
+  isLoading: false,
+  className: '',
+};
 
 export default memo(ProfileList);
