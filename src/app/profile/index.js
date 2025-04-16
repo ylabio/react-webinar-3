@@ -14,6 +14,7 @@ function Profile() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.profile.loadProfile();
     },
     [],
     true,
