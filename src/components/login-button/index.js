@@ -1,31 +1,32 @@
 import { memo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import useTranslate from '../../hooks/use-translate';
-import useSelector from '../../hooks/use-selector';
-import useStore from '../../hooks/use-store';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style.css';
 
-function LoginButton() {
-  const store = useStore();
-  const { user, waiting } = useSelector(state => state.auth); // Добавляем waiting
-  const { t } = useTranslate();
-  const location = useLocation();
-
+function LoginButton({
+  isAuth,
+  userName,
+  isLoading,
+  loginPath,
+  onLogout,
+  t
+}) {
   return (
     <div className="LoginButton">
       <div className="LoginButton-container">
-        {user ? (
+        {isAuth ? (
           <>
-            <Link to="/profile">{user.profile.name}</Link>
+            <Link to="/profile">{userName}</Link>
             <button
-              onClick={() => store.actions.auth.signOut()}
-              disabled={waiting} // Отключаем кнопку при выходе
+              onClick={onLogout}
+              disabled={isLoading}
+              aria-busy={isLoading}
             >
-              {waiting ? t('loading') : t('head.exit')}
+              {isLoading ? t('loading') : t('head.exit')}
             </button>
           </>
         ) : (
-          <Link to={`/login?from=${encodeURIComponent(location.pathname)}`}>
+          <Link to={loginPath}>
             {t('head.entry')}
           </Link>
         )}
@@ -33,4 +34,19 @@ function LoginButton() {
     </div>
   );
 }
+
+LoginButton.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+  userName: PropTypes.string,
+  isLoading: PropTypes.bool,
+  loginPath: PropTypes.string.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+};
+
+LoginButton.defaultProps = {
+  userName: '',
+  isLoading: false,
+};
+
 export default memo(LoginButton);
