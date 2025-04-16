@@ -7,6 +7,7 @@ class AuthState extends StoreModule {
       token: null,     // Токен из API
       issues: null,    // Ошибки авторизации
       waiting: false,  // Загрузка (спиннер)
+      isAuthChecked: false,
     };
   }
 
@@ -52,16 +53,31 @@ class AuthState extends StoreModule {
    */
   async signOut() {
     const token = this.getState().token;
-    if (!token) return;
+
+    // Сразу сбрасываем состояние, чтобы избежать "зависания"
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
 
     try {
-      await fetch('/api/v1/users/sign', {
-        method: 'DELETE',
-        headers: { 'X-Token': token },
-      });
+      if (token) {
+        await fetch('/api/v1/users/sign', {
+          method: 'DELETE',
+          headers: { 'X-Token': token },
+        });
+      }
+    } catch (error) {
+      console.error("Ошибка при выходе:", error);
+      // Продолжаем сброс, даже если запрос не удался
     } finally {
       localStorage.removeItem('token');
-      this.setState(this.initState()); // Сброс состояния
+      // Полный сброс состояния
+      this.setState({
+        ...this.initState(),
+        isAuthChecked: true, // Важно: отмечаем проверку как завершённую
+        waiting: false,
+      });
     }
   }
 
@@ -70,7 +86,10 @@ class AuthState extends StoreModule {
    */
   async checkAuth() {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token) {
+      this.setState({ ...this.getState(), isAuthChecked: true });
+      return;
+    }
 
     try {
       const response = await fetch('/api/v1/users/self?fields=*', {
@@ -78,18 +97,17 @@ class AuthState extends StoreModule {
       });
       const json = await response.json();
 
-      if (json.error) {
-        throw new Error(json.error.message);
-      }
+      if (json.error) throw new Error(json.error.message);
 
       this.setState({
         ...this.getState(),
         user: json.result,
         token: token,
+        isAuthChecked: true,
       });
-
     } catch (error) {
       localStorage.removeItem('token');
+      this.setState({ ...this.initState(), isAuthChecked: true });
     }
   }
 }

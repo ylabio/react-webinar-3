@@ -15,12 +15,17 @@ import Profile from './profile';
  */
 function App() {
   const store = useStore();
+  const { isAuthChecked } = useSelector(state => state.auth);
 
   useEffect(() => {
     store.actions.auth.checkAuth();
   }, []);
 
   const activeModal = useSelector(state => state.modals.name);
+
+  if (!isAuthChecked) {
+    return <div>Загрузка приложения...</div>;
+  }
 
   return (
     <>

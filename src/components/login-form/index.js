@@ -9,15 +9,19 @@ import Input from '../../components/input';
 import './style.css';
 
 function LoginForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const from = searchParams.get('from') || '/'; // Путь по умолчанию
+  const from = searchParams.get('from') || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Устанавливаем локальное состояние
     const success = await store.actions.auth.signIn(login, password);
+    setIsSubmitting(false); // Сбрасываем после завершения
+
     if (success) {
-      navigate(from); // Редирект после успешной авторизации
+      navigate(from);
     }
   };
 
@@ -34,7 +38,6 @@ function LoginForm() {
       ...store.getState().auth,
       issues: null,
     });
-    // eslint-disable-next-line
   }, []);
 
   return (
@@ -46,12 +49,17 @@ function LoginForm() {
           theme={'small'} />
       </label>
       <label>
-      <span>{t('loginForm.passwordLabel')}</span>
+        <span>{t('loginForm.passwordLabel')}</span>
         <Input value={password} onChange={setPassword} type="password" placeholder={t('loginForm.passwordPlaceholder')} delay={1000}
           theme={'small'} />
       </label>
       {issues && <div className={cn("error")}>{issues}</div>}
-      <Button type="submit" disabled={waiting} style="primary" title={waiting ? t('login.load') : t('login')}/>
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        style="primary"
+        title={isSubmitting ? t('login.load') : t('login')}
+      />
     </form>
   );
 }

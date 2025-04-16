@@ -7,7 +7,7 @@ import './style.css';
 
 function LoginButton() {
   const store = useStore();
-  const { user } = useSelector(state => state.auth);
+  const { user, waiting } = useSelector(state => state.auth); // Добавляем waiting
   const { t } = useTranslate();
   const location = useLocation();
 
@@ -17,8 +17,11 @@ function LoginButton() {
         {user ? (
           <>
             <Link to="/profile">{user.profile.name}</Link>
-            <button onClick={() => store.actions.auth.signOut()}>
-              {t('head.exit')}
+            <button
+              onClick={() => store.actions.auth.signOut()}
+              disabled={waiting} // Отключаем кнопку при выходе
+            >
+              {waiting ? t('loading') : t('head.exit')}
             </button>
           </>
         ) : (
