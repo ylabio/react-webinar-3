@@ -1,10 +1,14 @@
 .SideLayout {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: flex-start;
   padding: 0;
   gap: 16px;
   align-items: center;
+}
+
+.SideLayout-item {
+  max-width: 100%;
 }
 
 .SideLayout_gap_big {

@@ -11,11 +11,13 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [], // Добавляем список категорий
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '', // Добавляем параметр категории
       },
       count: 0,
       waiting: false,
@@ -36,19 +38,36 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
+
+    // Загружаем категории при инициализации
+    await this.loadCategories();
+
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
-  /**
+    /**
    * Сброс параметров к начальным
    * @param [newParams] {Object} Новые параметры
    * @return {Promise<void>}
+   * Загрузка списка категорий
    */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
+  }
+  /**
+   * Загрузка списка категорий
+   */
+  async loadCategories() {
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      categories: json.result.items || [],
+    });
   }
 
   /**
@@ -87,6 +106,11 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
+    // Добавляем параметр категории, если он выбран
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
     this.setState(
@@ -98,6 +122,11 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
+  }
+
+  getCategoryTitle(categoryId) {
+    if (!categoryId) return null;
+    return this.getState().categories.find(c => c._id === categoryId)?.title || null;
   }
 }
 

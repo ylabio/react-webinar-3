@@ -14,5 +14,16 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "head.entry": "Entry",
+  "head.exit": "Exit",
+  "login": "Login",
+  "login.load": "Loading...",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "loginForm.loginLabel": "login",
+  "loginForm.loginPlaceholder": "Entry login",
+  "loginForm.passwordLabel": "Password",
+  "loginForm.passwordPlaceholder": "Entry password"
 }

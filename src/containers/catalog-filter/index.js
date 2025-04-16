@@ -16,6 +16,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const callbacks = {
@@ -23,6 +25,11 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    // Фильтр по категории
+    onCategoryChange: useCallback(
+      category => store.actions.catalog.setParams({ category, page: 1 }),
+      [store]
+    ),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
@@ -37,12 +44,40 @@ function CatalogFilter() {
       ],
       [],
     ),
+    // Формируем список категорий с учетом иерархии
+    categories: useMemo(() => {
+      const buildHierarchy = (categories, parentId = null, depth = 0) => {
+        return categories
+          .filter(category => {
+            if (parentId === null) return !category.parent;
+            return category.parent?._id === parentId;
+          })
+          .flatMap(category => [
+            {
+              value: category._id,
+              title: `${'— '.repeat(depth)} ${category.title}`,
+            },
+            ...buildHierarchy(categories, category._id, depth + 1),
+          ]);
+      };
+
+      return [
+        { value: '', title: 'Все' },
+        ...buildHierarchy(select.categories),
+      ];
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
+      <Select
+        options={options.categories}
+        value={select.category}
+        onChange={callbacks.onCategoryChange}
+        size="medium"
+      />
       <Select
         options={options.sort}
         value={select.sort}
