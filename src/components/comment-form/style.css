@@ -1,0 +1,30 @@
+.CommentForm{
+    width: 100%;
+}
+.CommentForm h3{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+}
+
+.CommentForm-area{
+ padding: 16px 0;
+ font-style: var(--font-family);
+}
+
+.CommentForm-area textarea{
+    width: 100%;
+    height: 88px;
+    resize: none;
+    border: 1px solid #d3d3d3;
+    &:focus{
+        outline: none;
+    }
+    
+}
+
+.CommentForm-actions{
+    display: flex;
+    gap:  16px;
+}

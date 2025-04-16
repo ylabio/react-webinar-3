@@ -1,0 +1,23 @@
+.PleaseLogin{
+    font-weight: 400;
+    font-size: 16px;
+    font-family: var(--font-family);    
+}
+
+.PleaseLogin a{
+    color: var(--primary);
+    &:visited{
+        text-decoration: none;
+        color: var(--primary);
+    };
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.PleaseLogin span{
+    color: var(--main-text);
+    &:hover{
+        color: var(--main-text);
+    }
+}

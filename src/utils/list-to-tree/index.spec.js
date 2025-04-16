@@ -148,4 +148,23 @@ describe('listToTree', () => {
       },
     ]);
   });
+
+  test('test 4', ()=>{
+    const list = [
+      { _id: 3, text: '1fsdlkfjslkfjsdklfjslkfjlk', parent: { _id: 1, _type :'article' } },
+      { _id: 9, text: '2sdfsdfsdfsdfsdfsdfsdfsdf', parent: { _id: 2, _type: 'comment' } },
+      { _id: 2, text: '1sdfsdfsdfsdfsdffdsfd', parent: {_id:1, _type :'article'} },
+      { _id: 8, text: '3Книsdfsdfsdfsdfsdfsdfssdfsdfsdfsdfsdfsdfsги', parent: {_id: 9, _type: 'comment'} },
+    
+    ];
+
+    expect(listToTree(list)).toEqual([
+      {_id: 2, text: '1sdfsdfsdfsdfsdffdsfd', parent: {_id:1, _type :'article'} , children: [
+        { _id: 9, text: '2sdfsdfsdfsdfsdfsdfsdfsdf', parent: { _id: 2 , _type :'comment'}, children:[
+          { _id: 8, text: '3Книsdfsdfsdfsdfsdfsdfssdfsdfsdfsdfsdfsdfsги', parent: {_id: 9, _type :'comment'}, children:[] }
+        ]},
+      ]},
+      {_id: 3, text: '1fsdlkfjslkfjsdklfjslkfjlk', parent: { _id: 1, _type :'article'} , children: []},
+    ])
+  })
 });
