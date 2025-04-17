@@ -24,7 +24,6 @@ class CategoriesState extends StoreModule {
     const res = await this.services.api.request({
       url: `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`,
     });
-
     // Товар загружен успешно
     this.setState(
       {
@@ -32,6 +31,7 @@ class CategoriesState extends StoreModule {
         list: res.data.result.items,
         waiting: false,
       },
+
       'Категории загружены',
     );
   }
