@@ -10,6 +10,8 @@ import modalsActions from '../../store-redux/modals/actions';
 
 function Navigation() {
   const store = useStore();
+  const { t, lang } = useTranslate();
+
   const dispatch = useDispatch();
 
   const select = useSelector(state => ({
@@ -34,10 +36,9 @@ function Navigation() {
   };
 
   // Функция для локализации текстов
-  const { t } = useTranslate();
 
   const options = {
-    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t]),
+    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t, lang]),
   };
 
   return (

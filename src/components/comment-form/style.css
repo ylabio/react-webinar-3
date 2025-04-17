@@ -1,0 +1,26 @@
+.CommentForm {
+  padding: 8px 0 24px 0;
+}
+
+.CommentForm-text {
+  width: 100%;
+  min-height: 88px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  border: 1px solid var(--filter-border);
+  resize: none;
+  outline: 0px none transparent;
+}
+
+.CommentForm-title {
+  padding-bottom: 16px;
+  font-weight: 700;
+}
+
+.CommentForm-buttons {
+  display: flex;
+  gap: 16px;
+  padding-top: 16px;
+}
