@@ -39,9 +39,4 @@ CommentForm.propTypes = {
   isReply: PropTypes.bool,
 };
 
-CommentForm.defaultProps = {
-  onCancel: null,
-  isReply: false,
-};
-
 export default memo(CommentForm);
