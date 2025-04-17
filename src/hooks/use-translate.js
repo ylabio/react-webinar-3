@@ -13,6 +13,7 @@ export default function useTranslate() {
     const unsubscribe = i18n.subscribe(() => {
       setLang(i18n._currentLang);
     });
+      return unsubscribe;
   }, [i18n]);
 
   return {
