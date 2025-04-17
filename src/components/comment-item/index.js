@@ -2,6 +2,7 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
 
 function CommentItem({
   comment,
@@ -13,7 +14,8 @@ function CommentItem({
   user,
 }) {
   const isReplying = activeFormTargetId === comment._id;
-
+  const navigate = useNavigate();
+  const handleLoginRedirect = () => navigate('/login');
   const handleReplyClick = () => {
     onReply(comment._id);
   };
@@ -46,7 +48,7 @@ function CommentItem({
           <button
             className="comment-item__reply"
             style={{ padding: 0, color: 'var(--primary)' }}
-            onClick={isAuthorized ? handleReplyClick : undefined}
+            onClick={isAuthorized ? handleReplyClick : handleLoginRedirect}
           >
             Ответить
           </button>
