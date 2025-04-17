@@ -36,10 +36,7 @@ class I18nService {
   }
 
   subscribe(observer) {
-    console.log('observer', observer);
-
     this._observers.push(observer);
-    console.log('observers', this._observers);
   }
 
   unsubscribe(observer) {
