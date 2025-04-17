@@ -17,6 +17,7 @@
     width: 100%;
     height: 88px;
     resize: none;
+    font-family: var(--font-family);
     border: 1px solid #d3d3d3;
     &:focus{
         outline: none;
