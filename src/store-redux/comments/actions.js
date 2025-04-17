@@ -6,14 +6,14 @@ export default {
    */
   load: id => {
     return async (dispatch, getState, services) => {
-      // Сброс текущего товара и установка признака ожидания загрузки
+      // Сброс комментариев и установка признака ожидания загрузки
       dispatch({ type: 'comments/load-start' });
 
       try {
         const res = await services.api.request({
           url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`,
         });
-        // Товар загружен успешно
+        // Комментарии загружены успешно
         dispatch({ type: 'comments/load-success', payload: { data: res.data.result } });
       } catch (e) {
         //Ошибка загрузки
@@ -21,4 +21,27 @@ export default {
       }
     };
   },
+
+  post: ({text, parentId, parentType}) => {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: 'comments/create-start' })
+
+      try {
+        const res = await services.api.request({
+          url: `/api/v1/comments?lang=ru&fields=%2A`,
+          method: 'POST',
+          body: JSON.stringify({
+            "_id": "",
+            "text": text,
+            'parent': {"_id": parentId, "_type": parentType}
+          })
+        });
+        // Комментарий загружен успешно
+        dispatch({ type: 'comments/create-success' });
+      } catch (e) {
+        //Ошибка загрузки
+        dispatch({ type: 'comments/create-error' });
+      }
+    }
+  }
 };

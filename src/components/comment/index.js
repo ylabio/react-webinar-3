@@ -8,7 +8,7 @@ function Comment({ comment, onAnswer = () => {}}) {
   
   const cn = bem('Comment');
   return (
-    <div className={cn()} style={{marginLeft: 1 * comment.level}}>
+    <div className={cn()}>
       <div className={cn('header')}>
         <h3 className={cn('title')}>{comment.author}</h3>
         <time className={cn('date')} dateTime={comment.dateCreate}>{dateFormat(comment.dateCreate)}</time>
@@ -27,9 +27,9 @@ Comment.propTypes = {
     text: PropTypes.string,
     dateCreate: PropTypes.string,
     author: PropTypes.string,
-    level: PropTypes.number
   }),
   t: PropTypes.func,
+  onAnswer: PropTypes.func,
 };
 
 export default memo(Comment);
