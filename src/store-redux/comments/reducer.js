@@ -14,9 +14,8 @@ function reducer(state = initialState, action) {
 
         case 'comments/load-success':
             const commentsTree = listToTree(action.payload.comments.items);
-            const flatComments = treeToList(commentsTree[0].children, (item, level) => ({ ...item, level }))
 
-            return { ...state, comments: flatComments, waiting: false };
+            return { ...state, comments: commentsTree[0].children, waiting: false };
 
         case 'comments/load-error':
             return { ...state, comments: [], waiting: false };

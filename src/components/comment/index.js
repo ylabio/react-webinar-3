@@ -5,7 +5,7 @@ import Button from '../button';
 import { formatDate } from '../../utils/format-date';
 import CommentList from '../comment-list';
 
-function Comment({ commentId, username, dateCreate, text, level, replyToCommentId, onClick, checkAuth }) {
+function Comment({ commentId, username, dateCreate, text, level, replyToCommentId, onClick, checkAuth, children }) {
     const marginLeft = level * 40;
 
     return (
@@ -18,6 +18,21 @@ function Comment({ commentId, username, dateCreate, text, level, replyToCommentI
                 <p className='Comment-body-text'>{text}</p>
             </div>
             <Button style={'text'} title={'Ответить'} className={'comment-btn'} onClick={() => onClick(commentId)} />
+
+            {children.length > 0 && children.map(comment => (
+                <Comment
+                    key={comment.id || comment._id}
+                    username={comment.author.name}
+                    dateCreate={comment.dateCreate}
+                    text={comment.text}
+                    level={level + 1}
+                    children={comment.children}
+                    onClick={() => onClick(comment.id || comment._id)}
+                    replyToCommentId={replyToCommentId}
+                    checkAuth={checkAuth}
+                    commentId={comment.id || comment._id}
+                />
+            ))}
             {replyToCommentId === commentId && checkAuth()}
         </div>
     )
@@ -33,6 +48,7 @@ Comment.propTypes = {
     replyToCommentId: PropTypes.string,
     handleReplyComment: PropTypes.func,
     checkAuth: PropTypes.func,
+    children: PropTypes.array,
 }
 
 export default React.memo(Comment)

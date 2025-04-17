@@ -14,7 +14,7 @@ function CommentList({ commentsList, replyToCommentId, handleReplyComment, check
                         username={comment.author.name}
                         dateCreate={comment.dateCreate}
                         text={comment.text}
-                        level={comment.level}
+                        level={0} //Начальный уровень
                         children={comment.children}
                         onClick={() => handleReplyComment(comment.id || comment._id)}
                         replyToCommentId={replyToCommentId}
