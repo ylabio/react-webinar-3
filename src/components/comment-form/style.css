@@ -1,0 +1,23 @@
+.Comment-form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-block: 18px;
+}
+
+.Comment-form-title{
+    font-size: 16px;
+}
+
+.Comment-form-field{
+    border: 1px solid var(--filter-border);
+    border-radius: 4px;
+    height: 80px;
+    resize: none;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.Comment-form-field:focus{
+    outline: 1px solid var(--primary);
+}

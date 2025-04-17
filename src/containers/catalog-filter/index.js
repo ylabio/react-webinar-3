@@ -60,7 +60,6 @@ function CatalogFilter() {
       [select.categories],
     ),
   };
-
   const { t } = useTranslate();
 
   return (

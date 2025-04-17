@@ -1,0 +1,38 @@
+.Comment{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Comment-head{
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+}
+
+.Comment-head-author{
+    font-weight: 600;
+}
+
+.Comment-head-date{
+    color: var(--close);
+}
+
+.Comment-body{
+    font-size: 14px;
+}
+
+.Comment-body p{
+    margin: 0;
+    padding: 0;
+}
+
+.comment-btn{
+    color: var(--primary);
+    font-size: 12px;
+}
+
+.reply{
+    padding-left: 40px;
+}
