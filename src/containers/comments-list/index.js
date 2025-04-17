@@ -8,10 +8,13 @@ import Spinner from '../../components/spinner';
 import useSelector from '../../hooks/use-selector';
 import commentsActions from '../../store-redux/comments/actions';
 import listToTree from '../../utils/list-to-tree';
+import useTranslate from '../../hooks/use-translate';
 
 function CommentsList({ articleId }) {
   const dispatch = useDispatch();
   const [activeFormTargetId, setActiveFormTargetId] = useState(null);
+
+  const { t, lang } = useTranslate();
 
   const select = useSelectorRedux(
     state => ({

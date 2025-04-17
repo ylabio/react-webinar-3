@@ -8,7 +8,14 @@ class APIService {
     this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'Accept-Language': services.i18n._locale,
     };
+
+    services.i18n.subscribe(this._onLangChange.bind(this));
+  }
+
+  _onLangChange(newLang) {
+    this.defaultHeaders['Accept-Language'] = newLang;
   }
 
   /**
