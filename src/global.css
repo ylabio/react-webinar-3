@@ -13,6 +13,7 @@
   --odd-item: #6B4ACB08;
   --close: #878787;
   --filter-border: #D3D3D3;
+  --date: #666666;
 
   --font-family: 'Golos Text';
   --second-font-family: 'Montserrat Alternates';
@@ -43,7 +44,7 @@ button {
   background-color: transparent;
 }
 
-h1, h2, h4 {
+h1, h2, h3, h4 {
   margin: 0;
 }
 

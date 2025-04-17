@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
+import CommentsList from '../../components/comments-list'
 
 function Article() {
   const store = useStore();
@@ -56,6 +57,7 @@ function Article() {
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
         </Spinner>
+        <CommentsList />
       </PageLayout>
     </>
   );
