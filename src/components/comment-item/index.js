@@ -1,0 +1,89 @@
+import { memo } from 'react';
+import PropTypes from 'prop-types';
+import CommentForm from '../comment-form';
+import './style.css';
+
+function CommentItem({
+  comment,
+  onReply,
+  onCancel,
+  onSend,
+  activeFormTargetId,
+  isAuthorized,
+  user,
+}) {
+  const isReplying = activeFormTargetId === comment._id;
+
+  const handleReplyClick = () => {
+    onReply(comment._id);
+  };
+
+  const handleSubmitReply = text => {
+    onSend(text, { _id: comment._id, _type: 'comment' });
+  };
+
+  return (
+    <div className="comment-item" key={String(comment._id)}>
+      <div className="comment">
+        <div className="comment-item__info">
+          <strong>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
+          <span style={{ fontSize: '0.85em', color: '#888' }}>
+            {new Date(comment.dateCreate)
+              .toLocaleString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              })
+              .replace(' г.', '')
+              .replace(',', ' в')}{' '}
+          </span>
+        </div>
+
+        <div className="comment-item__text">{comment.text}</div>
+        {!isReplying && (
+          <button
+            className="comment-item__reply"
+            style={{ padding: 0, color: 'var(--primary)' }}
+            onClick={isAuthorized ? handleReplyClick : undefined}
+          >
+            Ответить
+          </button>
+        )}
+      </div>
+      {isReplying && (
+        <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true} />
+      )}
+
+      {Array.isArray(comment.children) && comment.children.length > 0 && (
+        <div className="comment-item__children">
+          {comment.children.map(child => (
+            <CommentItem
+              key={String(child._id)}
+              comment={child}
+              onReply={onReply}
+              onCancel={onCancel}
+              onSend={onSend}
+              activeFormTargetId={activeFormTargetId}
+              isAuthorized={isAuthorized}
+              user={user}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+CommentItem.propTypes = {
+  comment: PropTypes.object.isRequired,
+  onReply: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSend: PropTypes.func.isRequired,
+  activeFormTargetId: PropTypes.string,
+  isAuthorized: PropTypes.bool,
+  user: PropTypes.object,
+};
+
+export default memo(CommentItem);

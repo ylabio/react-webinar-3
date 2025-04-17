@@ -1,0 +1,27 @@
+.comment {
+  padding: 8px 0;
+}
+.comment-item__children {
+  margin-left: 1rem;
+}
+
+.comment-item__info {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.comment-item__info span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+}
+.comment-item__text {
+  font-weight: 400;
+  color: #000000;
+  font-size: 18px;
+  padding: 6px 0;
+}
+
+.comment-item__reply button {
+  color:var(--primary)
+}
