@@ -13,6 +13,7 @@ const CommentForm = ({
   parentCommentId = null,
   isAuth,
   depth = 0,
+  t,
 }) => {
   const cn = bem('CommentForm');
 
@@ -43,8 +44,9 @@ const CommentForm = ({
       {isAuth ? (
         <Form
           onSubmit={handleSubmit}
-          title={parentCommentId ? 'Новый ответ' : 'Новый комментарий'}
-          submitTitle={'Отправить'}
+          title={parentCommentId ? t('comments.new-reply') : t('comments.new-comment')}
+          submitTitle={t('comments.send')}
+          resetTitle={t('comments.cancel')}
           resetButton={!!parentCommentId}
           onReset={onReset}
           margin="medium"
@@ -56,10 +58,10 @@ const CommentForm = ({
         <div className={cn('hint')}>
           <Button
             style="text-primary"
-            title={'Войдите'}
+            title={t('comments.sign-in')}
             onClick={() => navigate('/login', { state: { back: location.pathname } })}
           />
-          , чтобы иметь возможность комментировать
+          , {t('comments.sign-in-hint')}
         </div>
       )}
     </div>

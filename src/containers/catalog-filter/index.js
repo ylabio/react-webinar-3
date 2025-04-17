@@ -1,13 +1,13 @@
 import { memo, useCallback, useMemo } from 'react';
-import useTranslate from '../../hooks/use-translate';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import Select from '../../components/select';
-import Input from '../../components/input';
-import SideLayout from '../../components/side-layout';
-import treeToList from '../../utils/tree-to-list';
-import listToTree from '../../utils/list-to-tree';
 import Button from '../../components/button';
+import Input from '../../components/input';
+import Select from '../../components/select';
+import SideLayout from '../../components/side-layout';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
+import listToTree from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list';
 
 function CatalogFilter() {
   const store = useStore();
@@ -37,31 +37,31 @@ function CatalogFilter() {
     ),
   };
 
+  const { t, lang } = useTranslate();
+
   const options = {
     // Варианты сортировок
     sort: useMemo(
       () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
+        { value: 'order', title: t('filter.order') },
+        { value: 'title.ru', title: t('filter.title') },
+        { value: '-price', title: t('filter.price') },
+        { value: 'edition', title: t('filter.edition') },
       ],
-      [],
+      [lang],
     ),
     // Категории для фильтра
     categories: useMemo(
       () => [
-        { value: '', title: 'Все' },
+        { value: '', title: t('filter.category.all') },
         ...treeToList(listToTree(select.categories), (item, level) => ({
           value: item._id,
           title: '- '.repeat(level) + item.title,
         })),
       ],
-      [select.categories],
+      [select.categories, lang],
     ),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -80,7 +80,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
+        placeholder={t('filter.search')}
         delay={1000}
         theme={'big'}
       />

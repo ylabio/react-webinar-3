@@ -1,16 +1,16 @@
 import { memo } from 'react';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
-import Navigation from '../../containers/navigation';
+import HeadLayout from '../../components/head-layout';
+import PageLayout from '../../components/page-layout';
+import ProfileCard from '../../components/profile-card';
 import Spinner from '../../components/spinner';
 import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
 import TopHead from '../../containers/top-head';
-import ProfileCard from '../../components/profile-card';
-import HeadLayout from '../../components/head-layout';
+import useInit from '../../hooks/use-init';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
 
 function Profile() {
   const store = useStore();
@@ -37,7 +37,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ProfileCard data={select.profile} />
+          <ProfileCard data={select.profile} t={t} />
         </Spinner>
       </PageLayout>
     </>

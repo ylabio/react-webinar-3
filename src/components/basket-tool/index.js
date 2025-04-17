@@ -1,8 +1,7 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import numberFormat from '../../utils/number-format';
+import PropTypes from 'prop-types';
 import Cart from '../../assets/icon/cart.svg';
+import numberFormat from '../../utils/number-format';
 import './style.css';
 
 function BasketTool(props) {
@@ -30,4 +29,4 @@ BasketTool.propTypes = {
   t: PropTypes.func,
 };
 
-export default memo(BasketTool);
+export default BasketTool;

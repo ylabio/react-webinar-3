@@ -5,21 +5,22 @@ import dateFormat from '../../utils/date-format';
 import Button from '../button';
 import './style.css';
 
-function CommentItem({ comment, onReply, rootCommentId, depth = 0 }) {
+function CommentItem({ comment, onReply, rootCommentId, depth = 0, locale }) {
   const cn = bem('CommentItem');
   const { author, text, dateCreate, _id } = comment;
+  const { t, lang } = locale;
 
   return (
     <div className={cn()} style={{ paddingLeft: 40 * depth }}>
       <div className={cn('wrapper')}>
         <div className={cn('header')}>
           <div className={cn('author')}>{author?.profile?.name}</div>
-          <div className={cn('date')}>{dateFormat(dateCreate)}</div>
+          <div className={cn('date')}>{dateFormat(dateCreate, lang)}</div>
         </div>
         <div className={cn('text')}>{text}</div>
         <Button
           style="text-primary"
-          title={'Ответить'}
+          title={t('comments.reply')}
           fontSize="small"
           onClick={() => onReply(_id, rootCommentId, depth + 1)}
         />

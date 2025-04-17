@@ -58,25 +58,27 @@ function CommentsList({ articleId }) {
 
   if (!select.comments.length)
     return (
-      <CommentsLayout title="Комментарии" count={select.count}>
+      <CommentsLayout title={t('comments.title')} count={select.count}>
         <CommentForm
           articleId={articleId}
           onSubmit={callbacks.handleSubmitComment}
           onReset={callbacks.handleResetForm}
           isAuth={exists}
+          t={t}
         />
       </CommentsLayout>
     );
 
   return (
     <Spinner active={select.waiting}>
-      <CommentsLayout title="Комментарии" count={select.count}>
+      <CommentsLayout title={t('comments.title')} count={select.count}>
         {filteredComments[0].children.map(comment => (
           <Fragment key={comment._id}>
             <CommentChain
               comment={comment}
               onReply={callbacks.handleReply}
               rootCommentId={comment._id}
+              locale={{ t, lang }}
             />
             {rootCommentId === comment._id && (
               <CommentForm
@@ -85,6 +87,7 @@ function CommentsList({ articleId }) {
                 onReset={callbacks.handleResetForm}
                 isAuth={exists}
                 depth={depth}
+                t={t}
               />
             )}
           </Fragment>
@@ -97,6 +100,7 @@ function CommentsList({ articleId }) {
             onReset={callbacks.handleResetForm}
             isAuth={exists}
             depth={depth}
+            t={t}
           />
         )}
       </CommentsLayout>

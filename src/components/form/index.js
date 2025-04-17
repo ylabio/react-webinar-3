@@ -9,6 +9,7 @@ function Form({
   onSubmit,
   children,
   submitTitle,
+  resetTitle = 'Отмена',
   resetButton = false,
   onReset,
   margin = 'big',
@@ -22,7 +23,9 @@ function Form({
       {children}
       <div className={cn('buttons', { margin })}>
         <Button style="primary" type="submit" title={submitTitle} />
-        {resetButton && <Button style="outline" type="button" title="Отмена" onClick={onReset} />}
+        {resetButton && (
+          <Button style="outline" type="button" title={resetTitle} onClick={onReset} />
+        )}
       </div>
     </form>
   );

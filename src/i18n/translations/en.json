@@ -13,8 +13,27 @@
     "one": "article",
     "other": "articles"
   },
+
+  "article.madeIn": "Made in:",
+  "article.category": "Category:",
+  "article.edition": "Edition:",
+  "article.price": "Price",
   "article.add": "Add",
+
   "filter.reset": "Reset",
+  "filter.search": "Search",
+  "filter.order": "By order",
+  "filter.price": "Expensive first",
+  "filter.title": "By title",
+  "filter.edition": "Old first",
+  "filter.category.all": "All",
+
+  "profile.title": "Profile",
+  "profile.loading": "Loading...",
+  "profile.name": "Name:",
+  "profile.phone": "Phone:",
+  "profile.email": "Email:",
+
   "auth.title": "Sign In",
   "auth.login": "Login",
   "auth.password": "Password",
@@ -22,5 +41,14 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+
+  "comments.title": "Comments",
+  "comments.reply": "Reply",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel",
+  "comments.new-comment": "New comment",
+  "comments.new-reply": "New reply",
+  "comments.sign-in": "Sign in",
+  "comments.sign-in-hint": "to leave a comment"
 }

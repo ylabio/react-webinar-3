@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import CommentItem from '../comment-item';
 
-function CommentChain({ comment, onReply, rootCommentId, depth = 0 }) {
+function CommentChain({ comment, onReply, rootCommentId, depth = 0, locale }) {
   const cn = bem('CommentChain');
 
   return (
@@ -13,6 +13,7 @@ function CommentChain({ comment, onReply, rootCommentId, depth = 0 }) {
         onReply={onReply}
         rootCommentId={rootCommentId}
         depth={depth}
+        locale={locale}
       />
       {comment.children?.length > 0 &&
         comment.children?.map(childComment => (
@@ -22,6 +23,7 @@ function CommentChain({ comment, onReply, rootCommentId, depth = 0 }) {
             onReply={onReply}
             rootCommentId={rootCommentId}
             depth={depth + 1}
+            locale={locale}
           />
         ))}
     </div>
