@@ -1,19 +1,21 @@
 import { memo, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import shallowequal from 'shallowequal';
+import ArticleCard from '../../components/article-card';
+import Head from '../../components/head';
+import HeadLayout from '../../components/head-layout';
+import PageLayout from '../../components/page-layout';
+import Spinner from '../../components/spinner';
+import CommentsList from '../../containers/comments-list';
+import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
+import TopHead from '../../containers/top-head';
+import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import Navigation from '../../containers/navigation';
-import Spinner from '../../components/spinner';
-import ArticleCard from '../../components/article-card';
-import LocaleSelect from '../../containers/locale-select';
-import TopHead from '../../containers/top-head';
-import { useDispatch, useSelector } from 'react-redux';
-import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
-import HeadLayout from '../../components/head-layout';
+import commentsActions from '../../store-redux/comments/actions';
 
 function Article() {
   const store = useStore();
@@ -23,9 +25,11 @@ function Article() {
 
   const params = useParams();
 
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
+  useInit(async () => {
+    await Promise.all([
+      dispatch(articleActions.load(params.id)),
+      dispatch(commentsActions.load(params.id)),
+    ]);
   }, [params.id]);
 
   const select = useSelector(
@@ -56,6 +60,7 @@ function Article() {
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
         </Spinner>
+        <CommentsList articleId={params.id} />
       </PageLayout>
     </>
   );

@@ -1,0 +1,70 @@
+import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
+import { memo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Button from '../button';
+import Form from '../form';
+import './style.css';
+
+const CommentForm = ({ onSubmit, onReset, articleId, parentCommentId = null, isAuth }) => {
+  const cn = bem('CommentForm');
+
+  const [text, setText] = useState('');
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const commentData = {
+      text,
+      parent: {
+        _id: parentCommentId || articleId,
+        _type: parentCommentId ? 'comment' : 'article',
+      },
+    };
+    onSubmit(commentData);
+    setText('');
+  };
+
+  const handleTextChange = e => {
+    setText(e.target.value);
+  };
+
+  return (
+    <div className={cn()}>
+      {isAuth ? (
+        <Form
+          onSubmit={handleSubmit}
+          title={parentCommentId ? 'Новый ответ' : 'Новый комментарий'}
+          submitTitle={'Отправить'}
+          resetButton={!!parentCommentId}
+          onReset={onReset}
+          margin="medium"
+          titleSize="medium"
+        >
+          <textarea name="comment" value={text} onChange={handleTextChange} required />
+        </Form>
+      ) : (
+        <div className={cn('hint')}>
+          <Button
+            style="text-primary"
+            title={'Войдите'}
+            onClick={() => navigate('/login', { state: { back: location.pathname } })}
+          />
+          , чтобы иметь возможность комментировать
+        </div>
+      )}
+    </div>
+  );
+};
+
+CommentForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  articleId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  parentCommentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isAuth: PropTypes.bool.isRequired,
+};
+
+export default memo(CommentForm);
