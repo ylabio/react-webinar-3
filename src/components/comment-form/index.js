@@ -6,7 +6,14 @@ import Button from '../button';
 import Form from '../form';
 import './style.css';
 
-const CommentForm = ({ onSubmit, onReset, articleId, parentCommentId = null, isAuth }) => {
+const CommentForm = ({
+  onSubmit,
+  onReset,
+  articleId,
+  parentCommentId = null,
+  isAuth,
+  depth = 0,
+}) => {
   const cn = bem('CommentForm');
 
   const [text, setText] = useState('');
@@ -32,7 +39,7 @@ const CommentForm = ({ onSubmit, onReset, articleId, parentCommentId = null, isA
   };
 
   return (
-    <div className={cn()}>
+    <div className={cn()} style={{ paddingLeft: 40 * depth }}>
       {isAuth ? (
         <Form
           onSubmit={handleSubmit}

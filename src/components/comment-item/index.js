@@ -3,22 +3,11 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import dateFormat from '../../utils/date-format';
 import Button from '../button';
-import CommentForm from '../comment-form';
 import './style.css';
 
-function CommentItem({
-  comment,
-  onReply,
-  isAuth,
-  depth = 0,
-  activeFormTargetId,
-  handleSubmitComment,
-  handleResetForm,
-}) {
+function CommentItem({ comment, onReply, rootCommentId, depth = 0 }) {
   const cn = bem('CommentItem');
   const { author, text, dateCreate, _id } = comment;
-
-  const isReplyFormVisible = activeFormTargetId === _id;
 
   return (
     <div className={cn()} style={{ paddingLeft: 40 * depth }}>
@@ -32,18 +21,9 @@ function CommentItem({
           style="text-primary"
           title={'Ответить'}
           fontSize="small"
-          onClick={() => onReply(_id)}
+          onClick={() => onReply(_id, rootCommentId, depth + 1)}
         />
       </div>
-
-      {isReplyFormVisible && (
-        <CommentForm
-          parentCommentId={_id}
-          onSubmit={handleSubmitComment}
-          onReset={handleResetForm}
-          isAuth={isAuth}
-        />
-      )}
     </div>
   );
 }
@@ -60,11 +40,9 @@ CommentItem.propTypes = {
       }),
     ),
   }).isRequired,
-  isAuth: PropTypes.bool.isRequired,
-  handleSubmitComment: PropTypes.func.isRequired,
-  handleResetForm: PropTypes.func.isRequired,
+  rootCommentId: PropTypes.string,
+  onReply: PropTypes.func,
   depth: PropTypes.number,
-  activeFormTargetId: PropTypes.string,
 };
 
 export default memo(CommentItem);
