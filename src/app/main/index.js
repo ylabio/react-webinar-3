@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import useServices from '../../hooks/use-services';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -13,16 +14,18 @@ import HeadLayout from '../../components/head-layout';
 
 function Main() {
   const store = useStore();
+  const { I18n } = useServices();
+  const currentLang = I18n.getLang();
 
   useInit(
     async () => {
       await Promise.all([store.actions.catalog.initParams(), store.actions.categories.load()]);
     },
-    [],
+    [currentLang],
     true,
   );
 
-  const { t } = useTranslate();
+  const t = useTranslate();
 
   return (
     <>

@@ -19,11 +19,16 @@ class APIService {
    * @param options
    * @returns {Promise<{}>}
    */
+
   async request({ url, method = 'GET', headers = {}, ...options }) {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
+
+    // Получаем текущий язык непосредственно перед запросом
+    const lang = this.services.I18n.getLang();
+
     const res = await fetch(url, {
       method,
-      headers: { ...this.defaultHeaders, ...headers },
+      headers: { ...this.defaultHeaders, ...headers, 'X-Lang': lang },
       ...options,
     });
     return { data: await res.json(), status: res.status, headers: res.headers };
@@ -34,6 +39,7 @@ class APIService {
    * @param name {String} Название заголовка
    * @param value {String|null} Значение заголовка
    */
+
   setHeader(name, value = null) {
     if (value) {
       this.defaultHeaders[name] = value;
