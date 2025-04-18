@@ -1,0 +1,28 @@
+.Comments {
+  margin-top: 16px;
+}
+
+.Comments-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: var(--main-text);
+}
+
+.Comments-auth-message {
+  text-align: left;
+  color: var(--main-text);
+}
+
+.Comments-auth-link {
+  color: var(--primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.Comments-list {
+  margin-bottom: 24px;
+}

@@ -1,0 +1,37 @@
+.Comment {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.Comment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.Comment-author {
+  font-weight: bold;
+  color: var(--main-text);
+}
+
+.Comment-date {
+  color: var(--close);
+  font-size: 12px;
+}
+
+.Comment-text {
+  color: var(--main-text);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.Comment-actions button {
+  color: var(--primary);
+  font-size: 12px;
+}
+
+.Comments-replies {
+  margin-left: 40px;
+}
