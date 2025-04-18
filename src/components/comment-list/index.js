@@ -46,8 +46,8 @@ function CommentList({
             <CommentForm
               onSubmit={text => onSubmit(text, node._id, 'comment')}
               onCancel={() => onReply(null)}
-              title="Ответ на комментарий"
-              placeholder={`Ответ для ${node.author?.profile?.name || 'пользователя'}`}
+              title="Новый ответ"
+              placeholder={`Мой ответ для ${node.author?.profile?.name || 'пользователя'}`}
             />
           </div>
         )}

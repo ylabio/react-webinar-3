@@ -1,6 +1,6 @@
 .CommentForm {
   width: 100%;
-  margin-top: 16px;
+  margin: 24px 0;
 }
 
 .CommentForm h3 {
@@ -11,7 +11,7 @@
 }
 
 .CommentForm-area {
-  padding: 16px 0;
+  padding: 10px 0;
   font-family: var(--font-family);
 }
 
@@ -33,5 +33,24 @@
 
 .CommentForm-actions {
   display: flex;
-  gap: 16px;
+  gap: 8px;
+}
+
+.Button_style_secondary {
+  width: 99px;
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #6b4acb;
+  background-color: transparent;
+  color: #6b4acb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Button_style_secondary:hover {
+  background-color: rgba(107, 74, 203, 0.1);
+  color: black;
 }
