@@ -1,0 +1,71 @@
+.Comments-title {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 133%;
+  color: #1a2028;
+  text-transform: capitalize;
+  margin-bottom: 24px;
+}
+
+.Comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.Comments-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 6px;
+  font-family: var(--second-font-family);
+  line-height: 133%;
+  font-size: 14px;
+  color: #1a2028;
+  padding: 0;
+}
+
+.Comments-item_header {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  > h4 {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 150%;
+    color: #000;
+  }
+
+  > div {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: #666;
+  }
+}
+
+.Comments-item_text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 143%;
+  color: #000;
+}
+
+.Comments-button {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+  color: #6b4acb;
+  padding: 0;
+  width: 78px;
+  margin: 0;
+  border: 0;
+}

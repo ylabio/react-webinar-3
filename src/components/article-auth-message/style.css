@@ -1,0 +1,11 @@
+.ArticleAuthMessage {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: #1a2028;
+}
+
+.ArticleAuthMessage-link {
+  color: #6b4acb;
+}

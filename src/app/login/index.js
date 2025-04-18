@@ -34,7 +34,6 @@ function Login() {
     login: '',
     password: '',
   });
-
   const callbacks = {
     // Колбэк на ввод в элементах формы
     onChange: useCallback((value, name) => {

@@ -39,3 +39,9 @@
     color: var(--primary);
   }
 }
+
+:disabled {
+  pointer-events: none;
+  background: #a996e3;
+  cursor: default;
+}
