@@ -20,12 +20,11 @@ function CatalogList() {
     waiting: state.catalog.waiting,
   }));
 
+  const { t } = useTranslate();
+
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Пагинация
     onPaginate: useCallback(page => store.actions.catalog.setParams({ page }), [store]),
-    // генератор ссылки для пагинатора
     makePaginatorLink: useCallback(
       page => {
         return `?${new URLSearchParams({
@@ -39,8 +38,6 @@ function CatalogList() {
     ),
   };
 
-  const { t } = useTranslate();
-
   const renders = {
     item: useCallback(
       item => (
@@ -51,7 +48,7 @@ function CatalogList() {
           labelAdd={t('article.add')}
         />
       ),
-      [callbacks.addToBasket, t],
+      [callbacks.addToBasket, t], // теперь t в зависимостях
     ),
   };
 

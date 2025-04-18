@@ -21,11 +21,12 @@ function Article() {
   const store = useStore();
   const dispatch = useDispatch();
   const params = useParams();
+  const { locale, t } = useTranslate();
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
     dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, locale]);
 
   const select = useSelector(
     state => ({
@@ -34,8 +35,6 @@ function Article() {
     }),
     shallowequal,
   );
-
-  const { t } = useTranslate();
 
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
