@@ -1,0 +1,11 @@
+.CommentLogin {
+   margin-block: 24px;
+   line-height: 22px;
+   font-weight: 400;
+ }
+ 
+ .CommentLogin-link {
+   color: var(--primary);
+ }
+ 
+ 

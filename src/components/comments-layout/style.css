@@ -1,0 +1,7 @@
+.CommentsLayout-title {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  margin: 0 0 24px;
+}
