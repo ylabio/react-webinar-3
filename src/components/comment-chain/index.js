@@ -1,9 +1,20 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import React, { memo } from 'react';
+import CommentForm from '../comment-form';
 import CommentItem from '../comment-item';
 
-function CommentChain({ comment, onReply, rootCommentId, depth = 0, locale }) {
+function CommentChain({
+  comment,
+  onReply,
+  handleSubmitComment,
+  handleResetForm,
+  replyTargetId,
+  rootCommentId,
+  depth = 0,
+  exists,
+  locale,
+}) {
   const cn = bem('CommentChain');
 
   return (
@@ -23,8 +34,22 @@ function CommentChain({ comment, onReply, rootCommentId, depth = 0, locale }) {
           rootCommentId={rootCommentId}
           depth={depth + 1}
           locale={locale}
+          replyTargetId={replyTargetId}
+          handleSubmitComment={handleSubmitComment}
+          handleResetForm={handleResetForm}
+          exists={exists}
         />
       ))}
+      {rootCommentId === comment._id && (
+        <CommentForm
+          parentCommentId={replyTargetId}
+          onSubmit={handleSubmitComment}
+          onReset={handleResetForm}
+          isAuth={exists}
+          depth={depth + 1}
+          t={locale.t}
+        />
+      )}
     </div>
   );
 }
@@ -44,6 +69,14 @@ CommentChain.propTypes = {
   rootCommentId: PropTypes.string,
   onReply: PropTypes.func.isRequired,
   depth: PropTypes.number,
+  handleSubmitComment: PropTypes.func,
+  handleResetForm: PropTypes.func,
+  replyTargetId: PropTypes.string,
+  exists: PropTypes.bool,
+  locale: PropTypes.shape({
+    t: PropTypes.func,
+    lang: PropTypes.string,
+  }),
 };
 
 export default memo(CommentChain);
