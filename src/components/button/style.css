@@ -39,3 +39,9 @@
     color: var(--primary);
   }
 }
+
+.Button_style_text_comments {
+  padding: 6px 0 0 0;
+  border: none;
+  color: var(--primary);
+}
