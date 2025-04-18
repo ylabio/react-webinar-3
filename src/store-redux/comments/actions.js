@@ -28,7 +28,7 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?lang=ru&fields=%2A`,
+          url: `/api/v1/comments`,
           method: 'POST',
           body: JSON.stringify({
             "_id": "",

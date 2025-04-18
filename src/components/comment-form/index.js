@@ -17,7 +17,13 @@ function CommentForm({ title, onSubmit, submitTitle, onCancel, onChange, value }
         onChange={e => onChange(e.target.value)}></textarea>
       <div className={cn('actions')}>
         <Button style="primary" type="submit" title={submitTitle} />
-        <Button onClick={onCancel} type="button" style={'outline'} title='Отмена'></Button>
+        {value && <Button 
+                    onClick={onCancel} 
+                    type="button" 
+                    style={'outline'}
+                    title='Отмена'>
+                  </Button>}
+        
       </div>
     </form>
   );

@@ -56,9 +56,12 @@ function CommentsList() {
 
   const callbacks = {
     onSubmit: useCallback((e) => {
-      e.preventDefault()      
+      e.preventDefault()
       dispatch(commentsActions.post(newComment))
-    }),
+      setNewComment({ text: '', parentId: params.id, parentType: 'article' });
+      setCurrentComment(params.id)
+      dispatch(commentsActions.load(params.id))
+    }, [newComment, params.id, dispatch]),
     onChange: useCallback((value) => {
       setNewComment(prev => ({...prev, text: value}))
     }),
@@ -86,31 +89,32 @@ function CommentsList() {
             <Comment 
               comment={comment} 
               onAnswer={() => callbacks.onAnswer(comment.id) } />
-            {select.exist 
-              ? currentComment === comment.id && <CommentForm 
-              title={'ответ'} 
-              submitTitle={'Отправить'} 
-              onSubmit={callbacks.onSubmit}
-              onChange={callbacks.onChange}
-              onCancel={callbacks.onCancel}
-            />
-              : currentComment === comment.id && <LoginMessage />
-          }
+              {currentComment === comment.id && (select.exist 
+                ? <CommentForm 
+                    title={'ответ'} 
+                    submitTitle={'Отправить'} 
+                    value={newComment.text}
+                    onSubmit={callbacks.onSubmit}
+                    onChange={callbacks.onChange}
+                    onCancel={callbacks.onCancel}
+                  />
+                : <LoginMessage />
+              )}
           </li>
         )
       )}
       </ul>}
-      {select.exist 
-        ? currentComment === params.id && <CommentForm 
-        title={'комментарий'} 
-        submitTitle={'Отправить'} 
-        value={newComment.text}
-        onSubmit={callbacks.onSubmit}
-        onChange={callbacks.onChange}
-        onCancel={callbacks.onCancel}
-      />
-      : currentComment === params.id && <LoginMessage />
-      }
+      {currentComment === params.id && (select.exist 
+        ? <CommentForm 
+            title={'комментарий'} 
+            submitTitle={'Отправить'} 
+            value={newComment.text}
+            onSubmit={callbacks.onSubmit}
+            onChange={callbacks.onChange}
+            onCancel={callbacks.onCancel}
+          />
+        : <LoginMessage />
+      )}
     </div>
   );
 }
