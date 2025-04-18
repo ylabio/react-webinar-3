@@ -24,5 +24,14 @@
   "auth.login-placeholder": "Введите логин",
   "auth.password-placeholder": "Введите пароль",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comments.header": "Комментарии",
+  "comments.singIn": "Войдите",
+  "comments.singIn-desc": ", чтобы иметь возможность комментировать",
+  "comments.answer": "Ответить",
+  "comments.send": "Отпаравить",
+  "comments.cancel": "Отмена",
+  "comments.title": "Новый комментарий",
+  "comments.answer-title": "Новый ответ",
+  "comments.error": "Ошибка, попробуйте отправить повторно"
 }

@@ -22,5 +22,14 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comments.header": "Comments",
+  "comments.singIn": "Sign in",
+  "comments.singIn-desc": ", to be able to comment",
+  "comments.answer": "Answer",
+  "comments.send": "Send",
+  "comments.cancel": "Cancel",
+  "comments.title": "New comment",
+  "comments.answer-title": "New answer",
+  "comments.error": "Error, please try sending again"
 }

@@ -1,0 +1,9 @@
+.CommentsPrompt {
+  margin-bottom: 24px;
+  .CommentsPrompt-link {
+    color: var(--primary);
+    &:hover {
+      color: var(--primary-select);
+    }
+  }
+}

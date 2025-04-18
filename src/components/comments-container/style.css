@@ -1,0 +1,7 @@
+.CommentsConatiner {
+  color: var(--main-text);
+  .CommentsConatiner-header {
+    margin-bottom: 24px;
+    font-family: var(--second-font-family);
+  }
+}

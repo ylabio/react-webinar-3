@@ -39,3 +39,13 @@
     color: var(--primary);
   }
 }
+
+.Button_style_text-primary {
+  padding: 0;
+  border: none;
+  color: var(--primary);
+
+  &:hover {
+    color: var(--primary-select);
+  }
+}
