@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CommentItem from '../../components/comments-item';
 import CommentForm from '../../components/comment-form';
 import CommentsLink from '../comments-link';
+import useTranslate from '../../hooks/use-translate';
 function CommentsList({
   comment,
   children,
@@ -14,6 +15,8 @@ function CommentsList({
   depth = 0,
   userId,
 }) {
+  const { t } = useTranslate();
+
   return (
     <CommentItem
       comment={comment}
@@ -25,7 +28,7 @@ function CommentsList({
       {replyFormId === comment._id &&
         (isAuth ? (
           <CommentForm
-            title="Новый ответ"
+            title={t('comments.new-reply')}
             onSubmit={text => onSubmitReply(text, comment._id)}
             onCancel={onCancelReply}
           />

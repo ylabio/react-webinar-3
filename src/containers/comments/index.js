@@ -8,8 +8,10 @@ import commentActions from '../../store-redux/comment/action';
 import CommentsLink from '../../components/comments-link';
 import Spinner from '../../components/spinner';
 import useSelector from '../../hooks/use-selector';
+import useTranslate from '../../hooks/use-translate';
 
 function Comments({ articleId }) {
+  const { t } = useTranslate();
   const dispatch = useDispatch();
   const [replyFormId, setReplyFormId] = useState(null);
 
@@ -71,13 +73,13 @@ function Comments({ articleId }) {
       </CommentsList>
     ));
   return (
-    <CommentsLayout head={`Комментарии (${count})`}>
+    <CommentsLayout head={`${t('comments.head')} (${count})`}>
       <Spinner active={waiting}>
         {renderCommentsTree(comments)}
         {/* новый коммент */}
         {isAuth && replyFormId === null && (
           <CommentForm
-            title="Новый комментарий"
+            title={t('comments.new-comment')}
             onSubmit={handleSubmitNew}
             onCancel={() => setReplyFormId(null)}
           />

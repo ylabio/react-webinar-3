@@ -3,11 +3,13 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import DateFormat from '../../utils/date-format';
+import useTranslate from '../../hooks/use-translate';
 import './style.css';
 
 function CommentItem({ comment, onReplyClick, currentUserId, children, depth = 0 }) {
   const cn = bem('CommentItem');
   const indent = depth * 40;
+  const { t } = useTranslate();
   const isCurrentUser = currentUserId === comment.author?._id;
 
   return (
@@ -22,7 +24,11 @@ function CommentItem({ comment, onReplyClick, currentUserId, children, depth = 0
         <div className={cn('comment')}>{comment.text}</div>
         {!comment.isDeleted && (
           <div className={cn('button')}>
-            <Button style="text" onClick={() => onReplyClick(comment._id)} title="Ответить" />
+            <Button
+              style="text"
+              onClick={() => onReplyClick(comment._id)}
+              title={t('comments.reply')}
+            />
           </div>
         )}
       </div>

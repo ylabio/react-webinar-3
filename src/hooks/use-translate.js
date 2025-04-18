@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import useServices from './use-services';
-import { useSyncExternalStore } from 'react';
 
 /**
  * Хук возвращает функцию для локализации текстов, код языка и функцию его смены
