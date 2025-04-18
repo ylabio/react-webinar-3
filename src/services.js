@@ -37,9 +37,6 @@ class Services {
     return this._store;
   }
 
-  /**
-   * Redux store
-   */
   get redux() {
     if (!this._redux) {
       this._redux = createStoreRedux(this, this.config.redux);
