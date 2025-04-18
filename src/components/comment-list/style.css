@@ -1,0 +1,27 @@
+.Comments {
+  margin-top: 40px;
+}
+
+.Comments h2 {
+  padding: 0;
+  margin-bottom: 24px;
+  font-size: 24px;
+  line-height: 32px;
+  font-family: var(--second-font-family);
+}
+
+.CommentsList {
+  border-radius: 10px;
+  overflow: hidden;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.CommentsList-thread {
+  margin-bottom: 16px;
+}
+
+.CommentsList-reply-form {
+  margin-top: 16px;
+}

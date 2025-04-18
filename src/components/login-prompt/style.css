@@ -1,0 +1,23 @@
+.LoginPrompt {
+  font-weight: 400;
+  font-size: 16px;
+  font-family: var(--font-family);
+  margin: 16px 0;
+}
+
+.LoginPrompt a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.LoginPrompt a:visited {
+  color: var(--primary);
+}
+
+.LoginPrompt a:hover {
+  text-decoration: underline;
+}
+
+.LoginPrompt span {
+  color: var(--main-text);
+}
