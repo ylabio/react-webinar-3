@@ -1,7 +1,7 @@
 import isPlainObject from '../is-plain-object';
 
 /**
- * Возвращает объект, в котором не будет свойств, совпадающих со вторым объектом
+ * Возвращает объект, в котором не будет свойств, совпадающих со вторым объектом 123
  * @param objectSrc {Object} Исходный объект
  * @param objectExc {Object} Объект-маска, вырезаемый из objectSrc
  * @returns {Object} Новый объект
