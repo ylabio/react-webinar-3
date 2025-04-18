@@ -1,3 +1,6 @@
+import ru from './i18n/translations/ru.json';
+import en from './i18n/translations/en.json';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
@@ -17,6 +20,13 @@ const config = {
   },
   api: {
     baseUrl: '',
+  },
+  i18n: {
+    locale: 'ru',
+    dictionary: {
+      ru,
+      en,
+    },
   },
 };
 

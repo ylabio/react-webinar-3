@@ -7,16 +7,13 @@ import { cn as bem } from '@bem-react/classname';
 
 function CommentsForm({
   onSubmit = () => {},
-  submitTitle,
-  title,
-  cancelTitle,
+  t,
   style,
   option,
   onClick = () => {},
   onChange = () => {},
   value,
   success,
-  error,
 }) {
   const cn = bem('CommentsForm');
 
@@ -24,24 +21,22 @@ function CommentsForm({
     <div className={cn()}>
       <Form
         onSubmit={onSubmit}
-        submitTitle={submitTitle}
-        title={title}
-        cancelTitle={cancelTitle}
+        submitTitle={t('comments.send')}
+        title={t('comments.answer-title')}
+        cancelTitle={t('comments.cancel')}
         style={style}
         option={option}
         onClick={onClick}
       >
         <Textarea value={value} onChange={onChange} />
-        {!success && <span className={cn('error')}>{error}</span>}
+        {!success && <span className={cn('error')}>{t('comments.error')}</span>}
       </Form>
     </div>
   );
 }
 
 CommentsForm.propTypes = {
-  submitTitle: PropTypes.string,
-  title: PropTypes.string,
-  cancelTitle: PropTypes.string,
+  t: PropTypes.func,
   style: PropTypes.string,
   value: PropTypes.string,
   option: PropTypes.string,

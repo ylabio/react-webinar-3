@@ -35,6 +35,9 @@ Form.propTypes = {
   onSubmit: PropTypes.func,
   title: PropTypes.string,
   submitTitle: PropTypes.string,
+  style: PropTypes.string,
+  option: PropTypes.string,
+  cancelTitle: PropTypes.string,
 };
 
 export default memo(Form);

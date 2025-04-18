@@ -15,9 +15,12 @@ import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
 import Comments from '../../containers/comments';
+import useServices from '../../hooks/use-services';
 
 function Article() {
   const store = useStore();
+  const services = useServices();
+  const locale = services.i18n?.getLocale();
 
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
@@ -27,7 +30,7 @@ function Article() {
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, locale]);
 
   const select = useSelector(
     state => ({

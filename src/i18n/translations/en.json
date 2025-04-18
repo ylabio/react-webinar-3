@@ -14,6 +14,10 @@
     "other": "articles"
   },
   "article.add": "Add",
+  "card.country": "Country of manufacture:",
+  "card.сategory": "Category:",
+  "card.year": "Year of manufacture:",
+  "card.price": "Price:",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",
@@ -31,5 +35,9 @@
   "comments.cancel": "Cancel",
   "comments.title": "New comment",
   "comments.answer-title": "New answer",
-  "comments.error": "Error, please try sending again"
+  "comments.error": "Error, please try sending again",
+  "profile.profile": "Profile",
+  "profile.name": "Name:",
+  "profile.tel": "Phone:",
+  "profile.email": "Email:"
 }
