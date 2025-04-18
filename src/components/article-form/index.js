@@ -17,7 +17,7 @@ function ArticleForm({
       <h4>{title}</h4>
       {children}
       <div className="ArticleForm-actions">
-        <Button style="primary" type="submit" title={'Отправить'} isDisabled={!props.commentLen} />
+        <Button style="primary" type="submit" title={'Отправить'} isDisabled={props.isDisabledBtn} />
         {isOpenInComments && (
           <Button style="outline" type="button" title={'Отмена'} onClick={onCloseForm} />
         )}
@@ -28,12 +28,10 @@ function ArticleForm({
 
 ArticleForm.propTypes = {
   title: PropTypes.string,
-  placeholderText: PropTypes.string,
   onCloseForm: PropTypes.func,
-  onChange: PropTypes.func,
   onSubmit: PropTypes.func,
-  commentLen: PropTypes.number,
   isOpenInComments: PropTypes.bool,
+  isDisabledBtn: PropTypes.bool,
 };
 
 export default ArticleForm;

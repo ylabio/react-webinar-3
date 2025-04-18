@@ -1,30 +1,29 @@
-import {useCallback, useLayoutEffect, useState} from "react";
-import debounce from "lodash.debounce";
+import { useCallback, useLayoutEffect, useState } from 'react';
+import debounce from 'lodash.debounce';
 
-function Textarea({placeholderText = '', ...props }) {
+import './style.css';
+
+
+function Textarea({ placeholderText = '', ...props }) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
     debounce(value => {
-      return props.onChange(value.trim());
+      return props.onChange(value);
     }, 600),
     [props.onChange],
   );
 
-  // Обработчик изменений в поле
   const onChangeHandler = event => {
+    event.preventDefault();
     setValue(prev => event.target.value);
-
-    onChangeDebounce( event.target.value);
+    onChangeDebounce(event.target.value);
   };
 
-  // Обновление стейта, если передан новый value
   useLayoutEffect(() => setValue(props.value), [props.value]);
   return (
     <textarea
-      className="ArticleForm-text"
-      cols="30"
-      rows="10"
+      className="Textarea"
       value={value}
       placeholder={placeholderText ? `Ответ для ${placeholderText}` : ''}
       onChange={onChangeHandler}

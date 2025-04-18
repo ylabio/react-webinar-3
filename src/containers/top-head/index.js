@@ -1,4 +1,6 @@
 import { memo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
 import SideLayout from '../../components/side-layout';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
@@ -6,12 +8,15 @@ import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import Button from '../../components/button';
 
+import userCommentAction from '../../store-redux/user-comment/actions'
+
+
 function TopHead() {
   const { t } = useTranslate();
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
-
+  const dispatch = useDispatch();
   const select = useSelector(state => ({
     user: state.session.user,
     exists: state.session.exists,
@@ -26,12 +31,19 @@ function TopHead() {
     // Отмена авторизации
     onSignOut: useCallback(() => {
       store.actions.session.signOut();
+      dispatch(userCommentAction.resetUserCommentStore())
     }, []),
   };
 
   return (
     <SideLayout side="end" padding="small" gap="big">
-      {select.exists ? <Link to="/profile" style={{fontSize: '16px'}}>{select.user.profile.name}</Link> : ''}
+      {select.exists ? (
+        <Link to="/profile" style={{ fontSize: '16px' }}>
+          {select.user.profile.name}
+        </Link>
+      ) : (
+        ''
+      )}
       {select.exists ? (
         <Button style="text" onClick={callbacks.onSignOut} title={t('session.signOut')} />
       ) : (

@@ -1,15 +1,15 @@
 export function getLastCommentChildrenId(id, itemsList) {
   const item = itemsList.find(item => item._id === id);
-  let lastItem = {};
-  const findLastIdTree = (itemId, list) => {
-    lastItem = list.find(item => item._id === itemId);
-    if (lastItem.children.length > 0) {
-      findLastIdTree(lastItem.children[lastItem.children.length - 1]._id, list);
-    }
-  };
+  
+  if (!item) {
+    return { lastItemId: id, lastChildFromTree: id };
+  }
 
-  if (item.children.length > 0)
-    findLastIdTree(item.children[item.children.length - 1]._id, itemsList);
-  else lastItem = { ...item };
-  return { lastItemId: item._id, lastChild: lastItem._id };
+  let lastItem = item;
+
+  while (lastItem.children && lastItem.children.length > 0) {
+    lastItem = lastItem.children[lastItem.children.length - 1];
+  }
+
+  return { lastItemId: item._id, lastChildFromTree: lastItem._id };
 }

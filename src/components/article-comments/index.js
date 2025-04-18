@@ -10,10 +10,11 @@ function ArticleComments({
   children,
   commentsCount = 0,
   lastCommentId = '',
-  onOpenForm = (x, y, i) => {},
   items = [],
+  onChangeCommentData = (x, y, i) => {},
 }) {
   const cn = bem('Comments');
+
   return (
     <div>
       <h4 className={cn('title')}>Комментарии ({commentsCount})</h4>
@@ -31,7 +32,7 @@ function ArticleComments({
                 <div className={cn('item', { text: true })}>{text}</div>
                 <button
                   className={cn('button')}
-                  onClick={() => onOpenForm(author.profile.name, _id, items)}
+                  onClick={() => onChangeCommentData(_id, 'comment', author.profile.name)}
                 >
                   Ответить
                 </button>
@@ -64,7 +65,7 @@ ArticleComments.propTypes = {
   children: PropTypes.node,
   lastCommentId: PropTypes.string,
   articleId: PropTypes.string,
-  onOpenForm: PropTypes.func,
+  onChangeCommentData: PropTypes.func,
 };
 
 export default ArticleComments;

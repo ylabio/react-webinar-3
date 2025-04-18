@@ -11,6 +11,7 @@ import useSelector from '../../hooks/use-selector';
 
 import articleActions from '../../store-redux/article/actions';
 import commentsActions from '../../store-redux/comments/actions';
+import userCommentsAction from '../../store-redux/user-comment/actions';
 
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -42,147 +43,135 @@ function Article() {
     dispatch(articleActions.load(params.id));
   }, [params.id]);
 
-  const selectArticle = useSelectorRedux(
-    state => ({
-      article: state.article.data,
-      waiting: state.article.waiting,
-    }),
-    shallowequal,
-  );
-
-  const selectComments = useSelectorRedux(
-    state => ({
-      comments: state.comments.data,
-      waiting: state.comments.waiting,
-    }),
-    shallowequal,
-  );
-
   const selectUser = useSelector(state => ({
     isUserAuth: state.session.exists,
     userId: state.session.user._id,
-    token: state.session.token
+    token: state.session.token,
   }));
 
+  const { article, comments, userComment, ...state } = useSelectorRedux(
+    state => ({ ...state }),
+    shallowequal,
+  );
+
+  useInit(() => {
+    dispatch(userCommentsAction.init(selectUser.userId, selectUser.token, params.id));
+  }, [selectUser.token]);
+
   const { t } = useTranslate();
-
-  const [userFormData, setUserFormData] = useState({
-    parentId: '',
-    isOpenInComments: false,
-    parentAuthor: '',
-    lastId: '',
-  });
-
-  const [comment, setComment] = useState('');
+  const [isFormOpenInComments, setIsFormOpenInComments] = useState(false);
+  const [authorNickname, setAuthorNickname] = useState('');
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onOpenCommentForm: useCallback(
-      (author, id, listItems) => {
-        const { lastItemId, lastChild } = getLastCommentChildrenId(id, listItems);
-        return setUserFormData(prevData => ({
-          parentId: lastItemId,
-          lastId: lastChild,
-          isOpenInComments: true,
-          parentAuthor: author,
-        }));
+    onCloseFormInComments: useCallback(() => {
+      setIsFormOpenInComments(false);
+      setAuthorNickname('');
+      dispatch(userCommentsAction.setCommentsId(params.id, '', 'article'));
+      callbacks.onChangeCommentMessage('')
+    }, []),
+    onChangeCommentData: useCallback(
+      (parentId, typeComment, authorNick = '') => {
+        const { lastItemId, lastChildFromTree } = getLastCommentChildrenId(
+          parentId,
+          comments.data.items,
+        );
+
+        dispatch(userCommentsAction.setCommentsId(lastItemId, lastChildFromTree, typeComment));
+        setAuthorNickname(authorNick);
+        setIsFormOpenInComments(true);
+        callbacks.onChangeCommentMessage('')
       },
-      [userFormData],
+      [comments.data.items],
     ),
-    onCloseCommentForm: useCallback(() => {
-      setUserFormData(prevData => ({
-        parentAuthor: '',
-        parentId: '',
-        lastId: '',
-        isOpenInComments: false,
-      }));
-      setComment('');
-    }, [userFormData]),
-    onChangeMessage: useCallback(
-      value => {
-        setComment(prevtext => value.trim());
-      },
-      [comment],
-    ),
-    onSubmit: useCallback( async (e) => {
+    onChangeCommentMessage: useCallback(value => {
+      dispatch(userCommentsAction.setUserMessage(value));
+    }, []),
+    onSubmit: useCallback(
+      e => {
         e.preventDefault();
         const data = {
-          _id: selectUser.userId,
-          text: comment,
+          _id: userComment.userId,
+          text: userComment.userComment.trim(),
           parent: {
-            _id: userFormData.parentId || selectArticle.article._id,
-            _type: userFormData.isOpenInComments ? 'comment' : 'article',
+           ...userComment.parent
           },
-          token: selectUser.token,
-          articleId: selectArticle.article._id,
+          token: userComment.userToken,
         };
-        dispatch(commentsActions.addComment(data))
-        callbacks.onCloseCommentForm();
+
+        dispatch(commentsActions.addComment(data));
+        
+        if (!article.waiting) {
+          callbacks.onCloseFormInComments();
+        }
       },
-      [comment],
+      [userComment],
     ),
   };
-
+  
+  
   const options = {
     comments: useMemo(
       () => [
-        ...textsTreeToList(listToTree(selectComments.comments.items || []), (item, count) => ({
+        ...textsTreeToList(listToTree(comments.data.items || []), (item, count) => ({
           ...item,
           paddingL: `${Math.floor(40 * count)}px`,
         })),
       ],
-      [selectComments.comments],
+      [comments.data.items],
     ),
   };
+  const disabledBtn = article.waiting || !userComment.userComment.trim();
 
   return (
     <>
       <HeadLayout>
         <TopHead />
       </HeadLayout>
-      <Head title={selectArticle.article.title}>
+      <Head title={article.data.title}>
         <LocaleSelect />
       </Head>
       <PageLayout>
         <Navigation />
-        <Spinner active={selectArticle.waiting}>
-          <ArticleCard article={selectArticle.article} onAdd={callbacks.addToBasket} t={t} />
-          <Spinner active={selectComments.waiting}>
+        <Spinner active={article.waiting}>
+          <ArticleCard article={article.data} onAdd={callbacks.addToBasket} t={t} />
+          <Spinner active={comments.waiting}>
             <ArticleComments
               items={options.comments}
-              commentsCount={selectComments.comments.count}
-              lastCommentId={userFormData.lastId}
-              onOpenForm={callbacks.onOpenCommentForm}
+              commentsCount={comments.data.count}
+              lastCommentId={userComment.lastIdFromCommentTree}
+              onChangeCommentData={callbacks.onChangeCommentData}
             >
               {selectUser.isUserAuth ? (
                 <ArticleForm
                   title={'Новый ответ'}
-                  placeholderText={userFormData.parentAuthor}
-                  onCloseForm={callbacks.onCloseCommentForm}
-                  isOpenInComments={userFormData.isOpenInComments}
+                  onCloseForm={callbacks.onCloseFormInComments}
+                  isOpenInComments={isFormOpenInComments}
                   onSubmit={callbacks.onSubmit}
-                  commentLen={comment.length}
+                  isDisabledBtn={disabledBtn}
                 >
                   <Textarea
-                    value={userFormData.text}
-                    onChange={callbacks.onChangeMessage}
-                    placeholderText={userFormData.parentAuthor}
+                    value={userComment.userComment}
+                    onChange={callbacks.onChangeCommentMessage}
+                    placeholderText={authorNickname}
                   />
                 </ArticleForm>
               ) : (
                 <ArticleAuthMessage />
               )}
             </ArticleComments>
-            {!userFormData.isOpenInComments &&
+            {!isFormOpenInComments &&
               (selectUser.isUserAuth ? (
                 <ArticleForm
                   title={'Новый комментарий'}
                   onSubmit={callbacks.onSubmit}
-                  onChange={callbacks.onChangeMessage}
-                  commentLen={comment.length}
+                  isDisabledBtn={disabledBtn}
                 >
-                  <Textarea value={userFormData.text} onChange={callbacks.onChangeMessage} />
+                  <Textarea
+                    value={userComment.userComment}
+                    onChange={callbacks.onChangeCommentMessage}
+                  />
                 </ArticleForm>
               ) : (
                 <ArticleAuthMessage />
