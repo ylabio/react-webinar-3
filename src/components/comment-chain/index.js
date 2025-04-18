@@ -14,6 +14,7 @@ function CommentChain({
   depth = 0,
   exists,
   locale,
+  depthLimit = 10,
 }) {
   const cn = bem('CommentChain');
 
@@ -32,12 +33,13 @@ function CommentChain({
           comment={childComment}
           onReply={onReply}
           rootCommentId={rootCommentId}
-          depth={depth + 1}
+          depth={depth <= depthLimit ? depth + 1 : depth}
           locale={locale}
           replyTargetId={replyTargetId}
           handleSubmitComment={handleSubmitComment}
           handleResetForm={handleResetForm}
           exists={exists}
+          depthLimit={depthLimit}
         />
       ))}
       {rootCommentId === comment._id && (
@@ -46,7 +48,7 @@ function CommentChain({
           onSubmit={handleSubmitComment}
           onReset={handleResetForm}
           isAuth={exists}
-          depth={depth + 1}
+          depth={depth <= depthLimit ? depth + 1 : depth}
           t={locale.t}
         />
       )}
@@ -73,6 +75,7 @@ CommentChain.propTypes = {
   handleResetForm: PropTypes.func,
   replyTargetId: PropTypes.string,
   exists: PropTypes.bool,
+  depthLimit: PropTypes.number,
   locale: PropTypes.shape({
     t: PropTypes.func,
     lang: PropTypes.string,

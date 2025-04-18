@@ -75,6 +75,7 @@ function CommentsList({ articleId }) {
             handleSubmitComment={callbacks.handleSubmitComment}
             handleResetForm={callbacks.handleResetForm}
             exists={exists}
+            depthLimit={10}
             t={t}
           />
         ))}
