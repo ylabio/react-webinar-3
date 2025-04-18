@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
+import Comments from "../../containers/comments";
+
 
 function Article() {
   const store = useStore();
@@ -56,6 +58,7 @@ function Article() {
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
         </Spinner>
+        <Comments />
       </PageLayout>
     </>
   );
