@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import dateFormat from '../../utils/date-format'
 
-function Comment({ comment, onAnswer = () => {}}) {
+function Comment({ comment, onAnswer = () => {}, t}) {
   
   const cn = bem('Comment');
   return (
@@ -16,7 +16,12 @@ function Comment({ comment, onAnswer = () => {}}) {
       <div className={cn('text')}>
         <p>{comment.text}</p>
       </div>
-      <button className={cn('action')} onClick={onAnswer}>Ответить</button>
+      <button 
+        className={cn('action')} 
+        onClick={onAnswer}
+      >
+        {t('comments.answer')}
+      </button>
     </div>
   );
 }

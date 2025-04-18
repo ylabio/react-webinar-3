@@ -12,6 +12,7 @@ import shallowequal from 'shallowequal';
 import useSelector from '../../hooks/use-selector'
 import LoginMessage from '../login-message'
 import CommentForm from '../comment-form'
+import useTranslate from '../../hooks/use-translate'
 
 
 function CommentsList() {
@@ -20,6 +21,7 @@ function CommentsList() {
   const params = useParams();
   const [newComment, setNewComment] = useState({text: '', parentId: params.id, parentType: 'article'})
   const [currentComment, setCurrentComment] = useState(params.id)
+  const { t } =useTranslate()
 
   useInit(() => {
     dispatch(commentsActions.load(params.id))
@@ -78,7 +80,7 @@ function CommentsList() {
   const cn = bem('CommentsList');
   return (
     <div className={cn()}>
-      <h2>Комментарии ({selectRedux.comments.count})</h2>
+      <h2>{t('comments.title')} ({selectRedux.comments.count})</h2>
       {<ul className={cn('list')}>
         {options.comments.map(comment => (
           <li 
@@ -88,11 +90,14 @@ function CommentsList() {
           >
             <Comment 
               comment={comment} 
-              onAnswer={() => callbacks.onAnswer(comment.id) } />
+              onAnswer={() => callbacks.onAnswer(comment.id)}
+              t={t}  
+            />
               {currentComment === comment.id && (select.exist 
                 ? <CommentForm 
-                    title={'ответ'} 
-                    submitTitle={'Отправить'} 
+                    title={t('comments.formAnswer')} 
+                    submitTitle={t('comments.submit')} 
+                    cancelTitle={t('comments.cancel')}
                     value={newComment.text}
                     onSubmit={callbacks.onSubmit}
                     onChange={callbacks.onChange}
@@ -106,8 +111,9 @@ function CommentsList() {
       </ul>}
       {currentComment === params.id && (select.exist 
         ? <CommentForm 
-            title={'комментарий'} 
-            submitTitle={'Отправить'} 
+            title={t('comments.formComment')} 
+            submitTitle={t('comments.submit')} 
+            cancelTitle={t('comments.cancel')}
             value={newComment.text}
             onSubmit={callbacks.onSubmit}
             onChange={callbacks.onChange}

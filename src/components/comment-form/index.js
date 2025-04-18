@@ -4,12 +4,12 @@ import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
 
-function CommentForm({ title, onSubmit, submitTitle, onCancel, onChange, value }) {
+function CommentForm({ title, onSubmit, submitTitle, cancelTitle, onCancel, onChange, value }) {
   const cn = bem('CommentForm');
 
   return (
     <form className={cn()} onSubmit={onSubmit}>
-      <h3 className={cn('title')}>Новый {title}</h3>
+      <h3 className={cn('title')}>{title}</h3>
       <textarea 
         className={cn('text')} 
         name='text' id='text' 
@@ -21,7 +21,7 @@ function CommentForm({ title, onSubmit, submitTitle, onCancel, onChange, value }
                     onClick={onCancel} 
                     type="button" 
                     style={'outline'}
-                    title='Отмена'>
+                    title={cancelTitle}>
                   </Button>}
         
       </div>
@@ -35,6 +35,7 @@ CommentForm.propTypes = {
   onChange: PropTypes.func,
   title: PropTypes.string,
   submitTitle: PropTypes.string,
+  cancelTitle: PropTypes.string,
   value: PropTypes.string
 };
 
