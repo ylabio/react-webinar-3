@@ -6,10 +6,10 @@ import { formatDate } from '../../utils/format-date';
 import CommentList from '../comment-list';
 
 function Comment({ commentId, username, dateCreate, text, level, replyToCommentId, onClick, checkAuth, children }) {
-    const marginLeft = level * 40;
+    const marginL = level * 40;
 
     return (
-        <div style={{ marginLeft: marginLeft }} className={`Comment`}>
+        <div style={{ marginLeft: marginL }} className={`Comment`}>
             <div className='Comment-head'>
                 <span className='Comment-head-author'>{username}</span>
                 <span className='Comment-head-date'>{formatDate(dateCreate)}</span>
