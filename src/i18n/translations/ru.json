@@ -52,5 +52,6 @@
   "comments.new-comment": "Новый комментарий",
   "comments.new-reply": "Новый ответ",
   "comments.sign-in": "Войдите",
-  "comments.sign-in-hint": "чтобы иметь возможность комментировать"
+  "comments.sign-in-hint": "чтобы иметь возможность комментировать",
+  "comments.empty-comment": "Текст комментария не может быть пустым"
 }

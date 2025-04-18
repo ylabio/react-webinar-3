@@ -50,5 +50,6 @@
   "comments.new-comment": "New comment",
   "comments.new-reply": "New reply",
   "comments.sign-in": "Sign in",
-  "comments.sign-in-hint": "to leave a comment"
+  "comments.sign-in-hint": "to leave a comment",
+  "comments.empty-comment": "Comment is empty"
 }

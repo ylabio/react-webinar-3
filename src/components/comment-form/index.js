@@ -18,12 +18,22 @@ const CommentForm = ({
   const cn = bem('CommentForm');
 
   const [text, setText] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleSubmit = e => {
     e.preventDefault();
+    const trimmedText = text.trim();
+
+    if (trimmedText === '') {
+      setError(t('comments.empty-comment'));
+      return;
+    }
+
+    setError('');
+
     const commentData = {
       text,
       parent: {
@@ -31,6 +41,7 @@ const CommentForm = ({
         _type: parentCommentId ? 'comment' : 'article',
       },
     };
+
     onSubmit(commentData);
     setText('');
   };
@@ -53,6 +64,7 @@ const CommentForm = ({
           titleSize="medium"
         >
           <textarea name="comment" value={text} onChange={handleTextChange} required />
+          {error && <div className={cn('error')}>{error}</div>}
         </Form>
       ) : (
         <div className={cn('hint')}>

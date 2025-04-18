@@ -24,3 +24,7 @@
   display: flex;
   font-size: 16px;
 }
+
+.CommentForm-error {
+  color: var(--delete);
+}

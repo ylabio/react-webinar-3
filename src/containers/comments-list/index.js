@@ -85,7 +85,6 @@ function CommentsList({ articleId }) {
             onSubmit={callbacks.handleSubmitComment}
             onReset={callbacks.handleResetForm}
             isAuth={exists}
-            // depth={depth}
             t={t}
           />
         )}
