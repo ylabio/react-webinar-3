@@ -1,6 +1,7 @@
 import APIService from './api';
 import Store from './store';
 import createStoreRedux from './store-redux';
+import I18n from './services/I18n';
 
 class Services {
   constructor(config) {
@@ -8,7 +9,26 @@ class Services {
   }
 
   /**
-   * Сервис АПИ
+   * Сервис мультиязычности
+   * @returns {I18n}
+   */
+  get i18n() {
+    if (!this._i18n) {
+      this._i18n = new I18n('ru'); // язык по умолчанию
+
+      // Установить заголовок в API при инициализации
+      this.api.setHeader('Accept-Language', this._i18n.getLocale());
+
+      // При смене языка — обновить заголовок
+      this._i18n.onChange(lang => {
+        this.api.setHeader('Accept-Language', lang);
+      });
+    }
+    return this._i18n;
+  }
+
+  /**
+   * Сервис API
    * @returns {APIService}
    */
   get api() {
@@ -19,7 +39,7 @@ class Services {
   }
 
   /**
-   * Сервис Store
+   * Кастомный store
    * @returns {Store}
    */
   get store() {
