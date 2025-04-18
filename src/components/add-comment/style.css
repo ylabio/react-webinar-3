@@ -1,0 +1,30 @@
+.AddComment {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.AddComment-title {
+  font-family: var(--second-font-family), sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 133%;
+}
+
+.AddComment-text__bold {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 137%;
+}
+
+.AddComment-textarea {
+  resize: none;
+  width: 100%;
+  padding: 8px 12px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+}

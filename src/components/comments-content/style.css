@@ -1,0 +1,23 @@
+.CommentsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block: 16px;
+}
+
+.CommentsContent-title {
+  font-family: var(--second-font-family), sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 133%;
+}
+
+.CommentsContent-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+}
+
+.CommentsContent-link {
+  color: var(--primary);
+}
