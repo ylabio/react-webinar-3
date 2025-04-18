@@ -15,17 +15,16 @@ function CommentChain({ comment, onReply, rootCommentId, depth = 0, locale }) {
         depth={depth}
         locale={locale}
       />
-      {comment.children?.length > 0 &&
-        comment.children?.map(childComment => (
-          <CommentChain
-            key={childComment._id}
-            comment={childComment}
-            onReply={onReply}
-            rootCommentId={rootCommentId}
-            depth={depth + 1}
-            locale={locale}
-          />
-        ))}
+      {comment.children?.map(childComment => (
+        <CommentChain
+          key={childComment._id}
+          comment={childComment}
+          onReply={onReply}
+          rootCommentId={rootCommentId}
+          depth={depth + 1}
+          locale={locale}
+        />
+      ))}
     </div>
   );
 }
