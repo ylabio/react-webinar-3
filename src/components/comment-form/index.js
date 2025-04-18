@@ -1,17 +1,15 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Button from '../button';
 
-function CommentForm({ onSubmit, onCancel, title, placeholder }) {
+function CommentForm({ onSubmit, onCancel, title, placeholder, value, onChange }) {
   const cn = bem('CommentForm');
-  const [text, setText] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (text.trim()) {
-      onSubmit(text);
-      setText('');
+    if (value.trim()) {
+      onSubmit(value);
     }
   };
 
@@ -20,16 +18,11 @@ function CommentForm({ onSubmit, onCancel, title, placeholder }) {
       <form onSubmit={handleSubmit}>
         <h3>{title}</h3>
         <div className={cn('area')}>
-          <textarea
-            value={text}
-            onChange={e => setText(e.target.value)}
-            placeholder={placeholder}
-            required
-          />
+          <textarea value={value} onChange={onChange} placeholder={placeholder} required />
         </div>
         <div className={cn('actions')}>
           <Button type="submit" style="primary" title="Отправить" />
-          {onCancel && <Button type="button" style="secondary" onClick={onCancel} title="Отмена" />}
+          {onCancel && <Button type="button" style="outline" onClick={onCancel} title="Отмена" />}
         </div>
       </form>
     </div>

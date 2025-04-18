@@ -13,6 +13,8 @@ function CommentList({
   onSubmit,
   articleId,
   showLoginForComment,
+  replyText,
+  onReplyTextChange,
 }) {
   const cn = bem('CommentsList');
 
@@ -48,6 +50,8 @@ function CommentList({
               onCancel={() => onReply(null)}
               title="Новый ответ"
               placeholder={`Мой ответ для ${node.author?.profile?.name || 'пользователя'}`}
+              value={replyText}
+              onChange={onReplyTextChange}
             />
           </div>
         )}

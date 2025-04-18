@@ -1,60 +1,34 @@
-import { memo, useState, useEffect } from 'react';
+import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useInit from '../../hooks/use-init';
-import commentActions from '../../store-redux/comments/actions';
+import useAuth from '../../hooks/use-auth';
+import useComments from '../../hooks/use-comments';
 import CommentList from '../../components/comment-list';
 import CommentForm from '../../components/comment-form';
-import useStore from '../../hooks/use-store';
 import Spinner from '../../components/spinner';
+import commentActions from '../../store-redux/comments/actions';
 
 function CommentsBlock() {
-  const { id: articleId } = useParams();
   const dispatch = useDispatch();
-  const store = useStore();
-
+  const { id: articleId } = useParams();
+  const isAuth = useAuth(); // Получаем статус авторизации
   const { items: comments, waiting } = useSelector(state => state.comments);
-  const [isAuth, setIsAuth] = useState(false);
-  const [replyTo, setReplyTo] = useState(null);
-  const [showLoginForComment, setShowLoginForComment] = useState(null);
 
-  useEffect(() => {
-    const updateAuthStatus = () => {
-      setIsAuth(store.getState().session?.exists || false);
-    };
-    updateAuthStatus();
-    const unsubscribe = store.subscribe(updateAuthStatus);
-    return () => unsubscribe();
-  }, [store]);
+  const {
+    replyTo,
+    showLoginForComment,
+    commentText,
+    replyText,
+    setCommentText,
+    setReplyText,
+    handleSubmit,
+    handleReplyClick,
+  } = useComments(articleId, isAuth); // Передаем isAuth в хук
 
   useInit(() => {
     dispatch(commentActions.load(articleId));
   }, [articleId]);
-
-  const handleSubmit = async (text, parentId, parentType) => {
-    const success = await dispatch(commentActions.add(text, parentId, parentType));
-    if (success) {
-      setReplyTo(null);
-      dispatch(commentActions.load(articleId));
-    }
-  };
-
-  const handleReplyClick = commentId => {
-    if (isAuth) {
-      setReplyTo(commentId);
-      setShowLoginForComment(null);
-    } else {
-      setShowLoginForComment(commentId);
-      setReplyTo(null);
-    }
-  };
-
-  useEffect(() => {
-    if (!isAuth) {
-      setReplyTo(null);
-      setShowLoginForComment(null);
-    }
-  }, [isAuth]);
 
   return (
     <Spinner active={waiting}>
@@ -66,6 +40,8 @@ function CommentsBlock() {
         onSubmit={handleSubmit}
         articleId={articleId}
         showLoginForComment={showLoginForComment}
+        replyText={replyText}
+        onReplyTextChange={e => setReplyText(e.target.value)}
       />
 
       {isAuth && !replyTo && (
@@ -73,6 +49,8 @@ function CommentsBlock() {
           onSubmit={text => handleSubmit(text, articleId, 'article')}
           title="Новый комментарий"
           placeholder="Ваш комментарий..."
+          value={commentText}
+          onChange={e => setCommentText(e.target.value)}
         />
       )}
     </Spinner>
