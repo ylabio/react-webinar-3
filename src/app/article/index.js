@@ -46,6 +46,13 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addComment: useCallback(async (text, parentId, parentType) => {
+      try {
+        await dispatch(commentsActions.addComment(text, parentId, parentType));
+      } catch (e) {
+        throw e;
+      }
+    }, [dispatch]),
   };
 
   return (
@@ -61,7 +68,12 @@ function Article() {
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
           <Spinner active={select.commentsWaiting}>
-            <CommentsList items={select.comments} />
+            <CommentsList 
+              items={select.comments} 
+              articleId={params.id}
+              onAddComment={callbacks.addComment}
+              t={t}
+            />
           </Spinner>
         </Spinner>
       </PageLayout>
