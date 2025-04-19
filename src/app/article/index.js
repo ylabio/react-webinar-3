@@ -143,7 +143,7 @@ function Article() {
               lang={lang}
               items={options.comments}
               commentsCount={comments.data.count}
-              lastCommentId={userComment.lastIdFromCommentTree}
+              lastCommentId={userComment.parent._id}
               onChangeCommentData={callbacks.onChangeCommentData}
             >
               {selectUser.isUserAuth ? (
