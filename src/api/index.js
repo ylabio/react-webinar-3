@@ -9,8 +9,18 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     };
+    this.unsubscribe = this.services.i18n.subscribe((locale) => {
+      this.updateLanguageHeader(locale);
+    });
+
+    this.updateLanguageHeader(this.services.i18n.getLocale());
+
+  }
+  updateLanguageHeader(locale) {
+    this.defaultHeaders['Accept-Language'] = locale || 'ru';
   }
 
+  
   /**
    * HTTP запрос
    * @param url

@@ -1,7 +1,18 @@
 .Form-title {
-  margin-bottom: 24px;
+  font-family: 'Golos Text';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
 }
-
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .Form button {
-  margin-top: 24px;
+}
+.Form-footer {
+  display: flex;
+  gap: 16px;
 }

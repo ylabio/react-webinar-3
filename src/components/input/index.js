@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
-  const { onChange = () => {}, type = 'text', theme = '' } = props;
+  const { onChange = () => {}, type = 'text', theme = '', style = {} } = props;
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
@@ -26,8 +26,9 @@ function Input(props) {
 
   const cn = bem('Input');
   return (
-    <input
+    <textarea
       className={cn({ theme: theme })}
+      style={style}
       value={value}
       type={type}
       placeholder={props.placeholder}
@@ -43,6 +44,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default memo(Input);
