@@ -38,10 +38,13 @@ function Article() {
 
   const params = useParams();
 
+  const { t, lang } = useTranslate();
+
+
   useInit(() => {
     dispatch(commentsActions.load(params.id));
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const selectUser = useSelector(state => ({
     isUserAuth: state.session.exists,
@@ -58,7 +61,6 @@ function Article() {
     dispatch(userCommentsAction.init(selectUser.userId, selectUser.token, params.id));
   }, [selectUser.token]);
 
-  const { t } = useTranslate();
   const [isFormOpenInComments, setIsFormOpenInComments] = useState(false);
   const [authorNickname, setAuthorNickname] = useState('');
 
@@ -122,6 +124,7 @@ function Article() {
       [comments.data.items],
     ),
   };
+  
   const disabledBtn = article.waiting || !userComment.userComment.trim();
 
   return (

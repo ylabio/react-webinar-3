@@ -1,3 +1,4 @@
+import list from '../../components/list';
 import StoreModule from '../module';
 
 /**
@@ -49,6 +50,33 @@ class BasketState extends StoreModule {
       },
       'Добавление в корзину',
     );
+  }
+
+  // Обновляем язык названий товаров
+  async getUpdateLangTitle(_id) {
+    const res = await this.services.api.request({ url: `/api/v1/articles/${_id}?fields=title` });
+    return res.data.result.title;
+  }
+
+  async updateBasketListAnotherLang() {
+    const currentList = this.getState().list;
+
+    if (currentList.length) {
+      const listTitlesPromises = currentList.map(item => this.getUpdateLangTitle(item._id));
+      const updatedTitles = await Promise.all(listTitlesPromises);
+
+      const newItemsList = currentList.map((item, index) => {
+        return {
+          ...item,
+          title: updatedTitles[index],
+        };
+      });
+
+      this.setState({
+        ...this.getState(),
+        list: newItemsList,
+      });
+    }
   }
 
   /**
