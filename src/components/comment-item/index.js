@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
 import './style.css';
 import {useNavigate} from 'react-router-dom';
+import AuthHint from "../auth-hint";
 
 function CommentItem({
                        comment,
@@ -16,7 +17,6 @@ function CommentItem({
                      }) {
   const isReplying = activeFormTargetId === comment._id;
   const navigate = useNavigate();
-  const handleLoginRedirect = () => navigate('/login');
   const handleReplyClick = () => {
     onReply(comment._id);
   };
@@ -56,16 +56,24 @@ function CommentItem({
           <button
             className="comment-item__reply"
             style={{padding: 0, color: 'var(--primary)'}}
-            onClick={isAuthorized ? handleReplyClick : handleLoginRedirect}
+            onClick={() => {
+              if (isAuthorized) {
+                handleReplyClick();
+              } else {
+                onReply(comment._id);
+              }
+            }}
           >
             Ответить
           </button>
         )}
       </div>
-      {isReplying && (
+      {isReplying && isAuthorized && (
         <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
       )}
-
+      {!isAuthorized && isReplying && (
+        <AuthHint/>
+      )}
       {level < MAX_INDENT_LEVEL && Array.isArray(comment.children) && comment.children.length > 0 && (
         <>
           {comment.children.map(child => (

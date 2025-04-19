@@ -1,17 +1,17 @@
 import { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import CommentItem from '../../components/comment-item';
 import CommentForm from '../../components/comment-form';
 import commentsActions from '../../store-redux/comments/actions';
 import useStore from '../../hooks/use-store';
+import AuthHint from "../../components/auth-hint";
 
 function CommentsSection({ articleId }) {
   const dispatch = useDispatch();
   const store = useStore();
-  const navigate = useNavigate();
+
 
   const [isAuthorized, setIsAuthorized] = useState(store.getState().session.exists);
   const [user, setUser] = useState(store.getState().profile.data);
@@ -47,7 +47,7 @@ function CommentsSection({ articleId }) {
   const handleReply = id => dispatch(commentsActions.setFormTarget(id));
   const handleCancel = () => dispatch(commentsActions.resetFormTarget());
   const handleSend = (text, parent) => dispatch(commentsActions.create(text, parent));
-  const handleLoginRedirect = () => navigate('/login');
+
   const waiting = useSelector(state => state.comments.waiting);
   return (
     <div className="comments">
@@ -78,15 +78,7 @@ function CommentsSection({ articleId }) {
           <CommentForm onSubmit={text => handleSend(text, { _id: articleId, _type: 'article' })} />
         )
       ) : (
-        <p>
-          <span
-            onClick={handleLoginRedirect}
-            style={{ cursor: 'pointer', color: 'var(--primary)' }}
-          >
-            Войдите
-          </span>
-          , чтобы иметь возможность комментировать
-        </p>
+        <AuthHint/>
       )}
     </div>
   );
