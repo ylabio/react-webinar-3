@@ -23,3 +23,45 @@
     text-decoration: underline;
   }
 }
+
+.Smart-Comments {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Smart-Comment {
+  padding-left: 40px;
+}
+
+.Comment {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.Comment-userName {
+  font-weight: 700;
+
+  &[data-mine-comment='isMine'] {
+    color: #4b5563;
+  }
+}
+
+.Comment-date {
+  color: #666666;
+}
+
+.Comment-text {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.Comment-answer {
+  color: var(--primary);
+  padding: 0;
+}

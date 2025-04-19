@@ -1,6 +1,7 @@
 // Начальное состояние
 export const initialState = {
-  data: {},
+  data: [],
+  authors: {},
   waiting: false, // признак ожидания загрузки
 };
 
@@ -15,6 +16,23 @@ function reducer(state = initialState, action) {
 
     case 'comments/load-error':
       return { ...state, data: {}, waiting: false }; //@todo текст ошибки сохранять?
+
+    case 'comments/load-author-start': {
+      return { ...state, authors: {}, waiting: true };
+    }
+
+    case 'comments/load-author-success': {
+      const newstate = {
+        ...state,
+        authors: { ...state.authors, [action.payload.id]: action.payload.data },
+        waiting: false,
+      };
+      console.log(newstate);
+      return newstate;
+    }
+    case 'comments/load-author-error': {
+      return { ...state, data: {}, waiting: false };
+    }
 
     default:
       // Нет изменений

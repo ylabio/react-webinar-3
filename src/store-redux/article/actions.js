@@ -20,6 +20,7 @@ export default {
         dispatch({ type: 'article/load-success', payload: { data: res.data.result } });
       } catch (e) {
         //Ошибка загрузки
+        console.error(e);
         dispatch({ type: 'article/load-error' });
       }
     };

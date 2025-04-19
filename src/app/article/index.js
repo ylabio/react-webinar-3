@@ -10,10 +10,13 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/actions';
 import HeadLayout from '../../components/head-layout';
+import Comments from '../../containers/comments';
+import useSelector from '../../hooks/use-selector';
 
 function Article() {
   const store = useStore();
@@ -24,17 +27,25 @@ function Article() {
   const params = useParams();
 
   useInit(() => {
-    //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
+    dispatch(commentsActions.loadAll(params.id));
   }, [params.id]);
 
-  const select = useSelector(
+  const select = useReduxSelector(
     state => ({
       article: state.article.data,
       waiting: state.article.waiting,
+      comments: state.comments.data,
     }),
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
+
+  const profile = useSelector(state => ({
+    isAuth: state.session.exists,
+    userId: state.session.user._id,
+  }));
+
+  console.log(profile);
 
   const { t } = useTranslate();
 
@@ -55,6 +66,7 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+          <Comments isAuth={profile.isAuth} comments={select.comments} userId={profile.userId} />
         </Spinner>
       </PageLayout>
     </>
