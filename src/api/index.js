@@ -6,9 +6,15 @@ class APIService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config;
-    this.defaultHeaders = {
-      'Content-Type': 'application/json',
-    };
+    this.defaultHeaders = config.headers;
+  }
+
+  /**
+   * Установка языка для заголовков API
+   * @param {string} lang Код языка (например 'ru', 'en')
+   */
+  setLanguage(lang) {
+    this.defaultHeaders['Accept-Language'] = lang;
   }
 
   /**

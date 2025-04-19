@@ -1,0 +1,15 @@
+.CommentForm {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.CommentForm-title {
+  margin: 0;
+  font-size: 16px;
+}
+.CommentForm-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

@@ -1,3 +1,5 @@
+import * as translations from './i18n/translations';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
@@ -17,6 +19,15 @@ const config = {
   },
   api: {
     baseUrl: '',
+    headers: {
+      'Accept-Language': 'ru',
+      'Content-Type': 'application/json',
+    },
+  },
+  i18n: {
+    defaultLang: 'ru',
+    supportedLangs: ['ru', 'en'],
+    translations,
   },
 };
 

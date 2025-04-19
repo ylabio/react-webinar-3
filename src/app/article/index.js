@@ -1,22 +1,28 @@
 import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
+
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
+import shallowequal from 'shallowequal';
+
 import Navigation from '../../containers/navigation';
-import Spinner from '../../components/spinner';
-import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-import { useDispatch, useSelector } from 'react-redux';
-import shallowequal from 'shallowequal';
+import Comments from '../../containers/comments';
+
 import articleActions from '../../store-redux/article/actions';
+
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import Spinner from '../../components/spinner';
+import ArticleCard from '../../components/article-card';
 import HeadLayout from '../../components/head-layout';
 
 function Article() {
   const store = useStore();
+  const { t, lang } = useTranslate();
 
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
@@ -26,9 +32,9 @@ function Article() {
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
-  const select = useSelector(
+  const select = useSelectorRedux(
     state => ({
       article: state.article.data,
       waiting: state.article.waiting,
@@ -36,7 +42,6 @@ function Article() {
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -55,6 +60,7 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+          <Comments id={params.id} />
         </Spinner>
       </PageLayout>
     </>
