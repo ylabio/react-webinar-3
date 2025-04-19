@@ -18,7 +18,7 @@ export default function useTranslate() {
     i18n.getLang
   );
 
-  const t = useCallback((text, number) => i18n.translate(text, number, lang), [lang]);
+  const t = useCallback((text, number) => i18n.translate(text, number), [lang]);
 
   return {
     t,

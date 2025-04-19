@@ -9,7 +9,6 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     };
-    this._lastRequests = [];
   }
 
   /**

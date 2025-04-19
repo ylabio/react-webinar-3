@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -17,6 +17,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import HeadLayout from '../../components/head-layout';
 import CommentList from '../../components/comments-tree';
 import useSelectorStore from '../../hooks/use-selector';
+import useServices from '../../hooks/use-services';
 
 function Article() {
   const store = useStore();
@@ -29,6 +30,8 @@ function Article() {
 
   // Параметры из пути /articles/:id
   const params = useParams();
+
+
 
   useInit(() => {
     //store.actions.article.load(params.id);
@@ -51,6 +54,18 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
+
+  // Подписка на изменения языка
+  const services = useServices();
+  useEffect(() => {
+    const unsubscribe = services.i18n.subscribe(() => {
+      // Повторно загружаем статью и комментарии на новом языке
+      dispatch(articleActions.load(params.id));
+      dispatch(commentsActions.load(params.id));
+    });
+
+    return () => unsubscribe(); // отписка при размонтировании
+  }, [params.id, dispatch, services.i18n]);
 
   return (
     <>

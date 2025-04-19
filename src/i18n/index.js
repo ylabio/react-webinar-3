@@ -30,6 +30,6 @@ export default class I18n {
     };
 
     translate = (text, number) => {
-        return translateSimple(this.lang, text, number); // твоя старая функция
+        return translateSimple(this.lang, text, number);
     };
 }
