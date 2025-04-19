@@ -1,0 +1,22 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.CommentForm-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.CommentForm-textarea {
+  font-family: var(--font-family);
+  padding: 8px 12px;
+  color: var(--main-text);
+  &::placeholder {
+    color: var(--main-text);
+  }
+  &:focus {
+    outline: none;
+  }
+}

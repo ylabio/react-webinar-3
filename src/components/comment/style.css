@@ -1,0 +1,16 @@
+.Comment {
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.Comment-title {
+    font-family: var(--second-font-family);
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.Comment-link-login {
+    color: var(--primary);
+}
