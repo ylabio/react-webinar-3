@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentLogin({ location }) {
+function CommentLogin({ location, t }) {
   const cn = bem('CommentLogin');
 
   return (
     <div className={cn()}>
       <Link to="/login" state={{ back: location.pathname }} className={cn('link')}>
-        Войдите
+        {t('comment.login')}
       </Link>
-      , чтобы иметь возможность комментировать.
+      , {t('comment.able.comment')}.
     </div>
   );
 }

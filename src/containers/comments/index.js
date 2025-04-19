@@ -11,10 +11,12 @@ import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
 import CommentsLayout from '../../components/comments-layout';
 import { useLocation } from 'react-router-dom';
+import useTranslate from '../../hooks/use-translate';
 
 function Comments({ articleId }) {
   const dispatch = useDispatchRedux();
   const location = useLocation();
+  const { t } = useTranslate();
   const exists = useSelector(state => state.session.exists);
   const select = useSelectorRedux(state => ({
     waiting: state.comments.waiting,
@@ -59,7 +61,7 @@ function Comments({ articleId }) {
   );
 
   return (
-    <CommentsLayout count={select.count}>
+    <CommentsLayout count={select.count} t={t}>
       <Spinner active={select.waiting}>
         <CommentsList
           comments={commentsFormat}
@@ -70,17 +72,17 @@ function Comments({ articleId }) {
           location={location}
           resetParent={callbacks.onResetParent}
           articleId={articleId}
+          t={t}
         />
       </Spinner>
-      {!exists && parent._id === articleId && (
-        <CommentLogin location={location} />
-      )}
+      {!exists && parent._id === articleId && <CommentLogin location={location} t={t} />}
       {exists && parent._id === articleId && (
         <CommentForm
           cancel={false}
           onSubmit={callbacks.onSubmit}
-          title={'комментарий'}
-          placeholder={'Текст'}
+          title={t('comment.newComment')}
+          placeholder={t('comment.placeholder')}
+          t={t}
         />
       )}
     </CommentsLayout>

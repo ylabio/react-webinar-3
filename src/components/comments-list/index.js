@@ -14,6 +14,7 @@ function CommentsList({
   setParent = () => {},
   location,
   resetParent,
+  t,
 }) {
   const cn = bem('CommentsList');
   return (
@@ -28,6 +29,7 @@ function CommentsList({
                 name={comment.author.profile.name}
                 text={comment.text}
                 setParent={setParent}
+                t={t}
               />
               {parent._id === comment._id && exists && (
                 <CommentForm
@@ -35,12 +37,13 @@ function CommentsList({
                   onSubmit={onSubmit}
                   onCancel={resetParent}
                   id={comment._id}
-                  title={'Ответ'}
-                  placeholder={`Мой ответ для ${comment.author.profile.name}`}
+                  title={t('comment.newReply')}
+                  placeholder={`${t('comment.placeholderReply')} ${comment.author.profile.name}`}
+                  t={t}
                 />
               )}
               {parent._id === comment._id && !exists && (
-                <CommentLogin isShowClose={true} location={location} onCancel={resetParent} />
+                <CommentLogin isShowClose={true} location={location} onCancel={resetParent} t={t} />
               )}
             </li>
           ))}

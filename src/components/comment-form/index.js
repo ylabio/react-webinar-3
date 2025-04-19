@@ -4,7 +4,15 @@ import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
 
-function CommentForm({ onSubmit = () => {}, cancel, title, id, onCancel = () => {}, placeholder }) {
+function CommentForm({
+  onSubmit = () => {},
+  cancel,
+  title,
+  id,
+  onCancel = () => {},
+  placeholder,
+  t,
+}) {
   const cn = bem('CommentForm');
 
   const [text, setText] = useState('');
@@ -24,7 +32,9 @@ function CommentForm({ onSubmit = () => {}, cancel, title, id, onCancel = () => 
 
   return (
     <form className={cn()} onSubmit={callbacks.onSubmit}>
-      <h3 className={cn('title')}>Новый {title}</h3>
+      <h3 className={cn('title')}>
+        {t('comment.new')} {title}
+      </h3>
       <textarea
         onChange={callbacks.onChange}
         value={text}
@@ -34,13 +44,13 @@ function CommentForm({ onSubmit = () => {}, cancel, title, id, onCancel = () => 
         required
       ></textarea>
       <div className={cn('buttons')}>
-        <Button type="submit" style={'primary'} title="Отправить" />
+        <Button type="submit" style={'primary'} title={t('comment.send')} />
         {cancel && (
           <Button
             onClick={onCancel}
             className={cn('cancel')}
             style={'cancel'}
-            title="Отмена"
+            title={t('comment.cancel')}
           ></Button>
         )}
       </div>

@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Comment({ setParent = () => {}, id, dateCreate, name, text }) {
+function Comment({ setParent = () => {}, id, dateCreate, name, text, t }) {
   const cn = bem('Comment');
 
   const date = new Date(dateCreate);
 
   const dateFromDate = {
     date: date.getDate(),
-    month: date.toLocaleString('default', { month: 'long' }),
+    month: date.toLocaleString(t('comment.locale'), { month: 'long' }),
     year: date.getFullYear(),
     hours: date.getHours(),
     minutes: date.getMinutes(),
@@ -27,14 +27,14 @@ function Comment({ setParent = () => {}, id, dateCreate, name, text }) {
         <h3 className={cn('username')}>{name}</h3>
         <span className={cn('date')}>{`${dateFromDate.date} ${
           dateFromDate.month
-        } ${dateFromDate.year} в ${dateFromDate.hours}:${
+        } ${dateFromDate.year} ${t('comment.at')} ${dateFromDate.hours}:${
           dateFromDate.minutes > 10 ? dateFromDate.minutes : '0' + dateFromDate.minutes
         }`}</span>
       </div>
       <p className={cn('text')}>{text}</p>
       <div className={cn('reply')}>
         <button onClick={callbacks.setParent} className={cn('action')}>
-          Ответить
+          {t('comment.reply')}
         </button>
       </div>
     </div>
