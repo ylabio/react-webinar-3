@@ -33,7 +33,8 @@ function Article() {
       ]);
     },
     [params.id],
-    true,
+
+    { watchLanguage: true, backForward: true },
   );
 
   const select = useSelector(

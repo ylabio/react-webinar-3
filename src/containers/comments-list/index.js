@@ -2,17 +2,20 @@ import { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import CommentsTree from '../../components/comments-tree';
 import CommentsTitle from '../../components/comments-title';
-import buildHierarchy from '../../utils/buildHierarchy';
-import flattenTree from '../../utils/flattenTree';
 import CommentNew from '../../components/comment-new';
 import CommentLogin from '../../components/comment-login';
 import { useDispatch } from 'react-redux';
 import commentsActions from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
+import listToTree from '../../utils/list-to-tree';
 
 function CommentsList({ comments, commentsCount, articleId }) {
-  const tree = buildHierarchy(comments);
-  const hierarchicalComments = flattenTree(tree);
+  const tree = listToTree(comments, {
+    rootKey: item => item.parent?._type === 'article',
+    parentKey: 'parent._id',
+    levelKey: 'level',
+  });
+
   const dispatch = useDispatch();
   const [activeCommentId, setActiveCommentId] = useState(null);
 
@@ -43,7 +46,7 @@ function CommentsList({ comments, commentsCount, articleId }) {
     <>
       <CommentsTitle commentsCount={commentsCount} />
       <CommentsTree
-        comments={hierarchicalComments}
+        comments={tree}
         onReply={id => setActiveCommentId(id)}
         activeCommentId={activeCommentId}
         resetActiveComment={resetActiveComment}

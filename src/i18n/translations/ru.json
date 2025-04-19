@@ -24,5 +24,14 @@
   "auth.login-placeholder": "Введите логин",
   "auth.password-placeholder": "Введите пароль",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comments.reply": "Ответить",
+  "comments.send": "Отправить",
+  "comments.reset": "Отмена",
+  "comments.title": "Комментарии ",
+  "comments.date": "ru-RU",
+  "comments.title-form-global": "Новый комментарий",
+  "comments.title-form": "Новый ответ",
+  "comments.unauth-first": "Войдите ",
+  "comments.unauth-second": ", чтобы иметь возможность комментировать"
 }

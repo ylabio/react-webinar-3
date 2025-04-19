@@ -3,9 +3,11 @@ import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
 import PropTypes from 'prop-types';
+import useTranslate from '../../hooks/use-translate';
 
 function CommentNew({ status, onSubmit, onCancel }) {
   const cn = bem('CommentNew');
+  const { t } = useTranslate();
   const [commentText, setCommentText] = useState('');
 
   const handleSubmit = e => {
@@ -18,7 +20,7 @@ function CommentNew({ status, onSubmit, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className={cn()}>
       <label htmlFor="new-comment" className={cn('label')}>
-        {status === 'global' ? 'Новый комментарий' : 'Новый ответ'}
+        {status === 'global' ? t('comments.title-form-global') : t('comments.title-form')}
       </label>
       <textarea
         className={cn('textarea')}
@@ -27,10 +29,10 @@ function CommentNew({ status, onSubmit, onCancel }) {
         onChange={e => setCommentText(e.target.value)}
       />
       <div className={cn('action')}>
-        <Button title="Отправить" style="primary" type="submit" />
+        <Button title={t('comments.send')} style="primary" type="submit" />
         {status !== 'global' && (
           <Button
-            title="Отмена"
+            title={t('comments.reset')}
             style="primary"
             type="button"
             onClick={() => {

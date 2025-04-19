@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useTranslate from '../../hooks/use-translate';
 import './style.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function CommentLogin() {
   const cn = bem('CommentLogin');
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslate();
 
   return (
     <div className={cn()}>
@@ -16,9 +18,9 @@ function CommentLogin() {
           navigate('/login', { state: { back: location.pathname } });
         }}
       >
-        Войдите
+        {t('comments.unauth-first')}
       </button>
-      <span>, чтобы иметь возможность комментировать</span>
+      <span>{t('comments.unauth-second')}</span>
     </div>
   );
   1;
