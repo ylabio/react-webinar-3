@@ -34,8 +34,9 @@
 .Button_style_text {
   padding: 0;
   border: none;
+  color: var(--primary);
 
   &:hover {
-    color: var(--primary);
+    opacity: 0.6;
   }
 }
