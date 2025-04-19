@@ -8,7 +8,12 @@ class APIService {
     this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'X-Lang': services.i18n.getLang(),
     };
+
+    this.services.i18n.subscribe((lang) => {
+      return this.setHeader('X-Lang', lang);
+    });
   }
 
   /**
