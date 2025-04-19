@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 16px;
   max-height: 182px;
+  margin-bottom: 1rem;
 }
 .comment-form span {
   font-weight: 700;

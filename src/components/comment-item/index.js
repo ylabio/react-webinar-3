@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
 import './style.css';
@@ -17,6 +17,14 @@ function CommentItem({
                      }) {
   const isReplying = activeFormTargetId === comment._id;
   const navigate = useNavigate();
+  const replyRef = useRef(null);
+
+  useEffect(() => {
+    if (isReplying && replyRef.current) {
+      replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [isReplying]);
+
   const handleReplyClick = () => {
     onReply(comment._id);
   };
@@ -24,19 +32,24 @@ function CommentItem({
   const handleSubmitReply = text => {
     onSend(text, {_id: comment._id, _type: 'comment'});
   };
+
   const MAX_INDENT_LEVEL = 4;
-  console.log(user._id)
+
   return (
-    <div className="comment-item"
-         style={{
-           marginLeft: level > 0 ? '40px' : '0px',
-           // border: '1px dashed red',
-         }} key={String(comment._id)}>
+    <div
+      className="comment-item"
+      style={{
+        marginLeft: level > 0 ? '40px' : '0px',
+      }}
+      key={String(comment._id)}
+    >
       <div className="comment">
         <div className="comment-item__info">
           <strong style={{
             color: comment.author?._id === user?._id ? '#666' : undefined,
-          }}>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
+          }}>
+            {comment.author?.profile?.name || 'Аноним'}
+          </strong>{' '}
           <span>
             {new Date(comment.dateCreate)
               .toLocaleString('ru-RU', {
@@ -52,6 +65,7 @@ function CommentItem({
         </div>
 
         <div className="comment-item__text">{comment.text}</div>
+
         {!isReplying && (
           <button
             className="comment-item__reply"
@@ -68,18 +82,17 @@ function CommentItem({
           </button>
         )}
       </div>
-      {isReplying && isAuthorized && (
-        <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
-      )}
-      {!isAuthorized && isReplying && (
-        <div style={{marginLeft: level > 0 ? '40px' : '0px'}}>
+
+      {isReplying && (
+        <div ref={replyRef} style={{ marginLeft: level > 0 ? '40px' : '0px' }}>
           {isAuthorized ? (
-            <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
+            <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true} />
           ) : (
-            <AuthHint/>
+            <AuthHint />
           )}
         </div>
       )}
+
       {level < MAX_INDENT_LEVEL && Array.isArray(comment.children) && comment.children.length > 0 && (
         <>
           {comment.children.map(child => (
