@@ -2,7 +2,6 @@ import {memo, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
 import './style.css';
-import {useNavigate} from 'react-router-dom';
 import AuthHint from "../auth-hint";
 
 function CommentItem({
@@ -15,7 +14,7 @@ function CommentItem({
                        user,
                        level
                      }) {
-  const isReplying = activeFormTargetId === comment._id;;
+  const isReplying = activeFormTargetId === comment._id;
   const replyRef = useRef(null);
 
   useEffect(() => {
