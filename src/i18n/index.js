@@ -20,7 +20,7 @@ class I18nService {
     this.currentLang = newLang;
 
     this.changeApiHeaders();
-    this.callSubcriber();
+    this.callSubscriber();
 
     return this.currentLang;
   }
@@ -53,7 +53,7 @@ class I18nService {
     this.subscribers = this.subscribers.filter(subscriber => subscriber !== callback);
   }
 
-  callSubcriber() {
+  callSubscriber() {
     this.subscribers.forEach(call => call());
   }
 

@@ -28,7 +28,7 @@ function ArticleComments({
             const { text, paddingL, author, dateCreate, _id } = item;
 
             return (
-              <li key={`${text}${idx}`} className={cn('item')} style={{ paddingLeft: paddingL }}>
+              <li key={`${text}-${idx}-${_id}`} className={cn('item')} style={{ paddingLeft: paddingL }}>
                 <div className={cn('item', { header: true })}>
                   <h4>{author.profile.name}</h4>
                   <div>{dateFormat(dateCreate, lang)}</div>

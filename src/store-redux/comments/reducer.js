@@ -16,12 +16,12 @@ function reducer(state = initialState, action) {
     case 'texts/load-error':
       return { ...state, data: {}, waiting: false }; //@todo текст ошибки сохранять?
 
-    case 'texts/send-success':
+    case 'texts/send-start':
       return {
         ...state,
         waiting: true,
       };
-      case 'texts/create-success':
+      case 'texts/send-success':
       return {
         ...state,
         data: { ...state.data, items: [...state.data.items, action.payload.data], count: state.data.count + 1 },

@@ -54,6 +54,7 @@ function Article() {
   );
 
   useInit(() => {
+    dispatch(userCommentsAction.resetUserCommentStore())
     dispatch(userCommentsAction.init(selectUser.userId, selectUser.token, params.id));
   }, [selectUser.token]);
 

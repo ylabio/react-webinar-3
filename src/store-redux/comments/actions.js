@@ -23,7 +23,7 @@ export default {
   },
   addComment: data => {
     return async (dispatch, getState, services) => {
-      dispatch({ type: 'texts/send-success' });
+      dispatch({ type: 'texts/send-start' });
       const token = localStorage.getItem('token');
       try {
         const res = await services.api.request({
@@ -35,7 +35,7 @@ export default {
             parent: { ...data.parent },
           }),
         });
-        dispatch({ type: 'texts/create-success', payload: { data: res.data.result } });
+        dispatch({ type: 'texts/send-success', payload: { data: res.data.result } });
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: 'texts/send-error' });
