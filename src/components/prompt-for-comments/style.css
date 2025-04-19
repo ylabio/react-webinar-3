@@ -1,0 +1,11 @@
+.PromptForComments {
+  margin-bottom: 24px;
+
+  &-link {
+    color: var(--primary);
+
+    &:hover {
+      color: var(--primary-select);
+    }
+  }
+}
