@@ -9,6 +9,7 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     };
+    this._lastRequests = [];
   }
 
   /**
@@ -21,6 +22,7 @@ class APIService {
    */
   async request({ url, method = 'GET', headers = {}, ...options }) {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
+
     const res = await fetch(url, {
       method,
       headers: { ...this.defaultHeaders, ...headers },
@@ -41,6 +43,7 @@ class APIService {
       delete this.defaultHeaders[name];
     }
   }
+
 }
 
 export default APIService;
