@@ -1,6 +1,12 @@
 {
   "title": "Shop",
   "menu.main": "Main",
+  "filter.all": "All",
+  "sort.order": "By order",
+  "sort.name": "By name",
+  "sort.expensive": "Price: High to Low",
+  "sort.old": "Oldies",
+  "search": "Search",
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",
@@ -28,5 +34,15 @@
   "comment.send": "Send",
   "comment.cancel": "Cancel",
   "comment.title": "Comments",
-  "comment.reply": "Reply"
+  "comment.reply": "Reply",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.mail": "Email",
+  "article.price": "Price",
+  "article.country": "Country of origin",
+  "article.category": "Category",
+  "article.releaseYear": "Release year",
+  "comment.authHint.link": "Sign in",
+  "comment.authHint.text": ", then you’ll be able to comment."
 }
