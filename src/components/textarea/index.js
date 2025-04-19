@@ -3,13 +3,14 @@ import Button from '../button';
 import './style.css';
 
 const Textarea = ({
-  postComment = () => {},
+  // postComment = () => {},
   title = '',
   parentType = 'comment',
   onPost = () => {},
   onCancel = () => {},
   postCommentText = '',
   setPostCommentText = () => {},
+  t = z => {},
 }) => {
 
   const callbacks = {
@@ -23,8 +24,8 @@ const Textarea = ({
       <h4>{title}</h4>
       <textarea value={postCommentText} onChange={callbacks.onChange} />
       <div className="textarea-c-buttons">
-        <Button style="primary" title="Отправить" onClick={onPost} />
-        {parentType === 'comment' && <Button style="outline" title="Отмена" onClick={onCancel} />}
+        <Button style="primary" title={t('comments.button-send')} onClick={onPost} />
+        {parentType === 'comment' && <Button style="outline" title={t('comments.button-cancel')} onClick={onCancel} />}
       </div>
     </div>
   );

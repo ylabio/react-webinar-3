@@ -17,13 +17,13 @@ const CommentList = ({
   setActiveReplyId = () => {},
   sessionUserId = null,
   goToLogin = () => {},
+  t = (z) => {},
+  lang = 'ru',
 }) => {
-
-
 
   return (
     <>
-      <div className="comList-title">Комментарии ({commentCount})</div>
+      <div className="comList-title">{t('comments.title')} ({commentCount})</div>
       <div>
         {commentTree.map(comment => (
           <CommentItem
@@ -37,22 +37,25 @@ const CommentList = ({
             onPost={onPost}
             sessionUserId={sessionUserId}
             goToLogin={goToLogin}
+            t={t}
+            lang={lang}
           />
         ))}
       </div>
       {!activeReplyId && isAuth &&
         <Textarea
           onPost={onPost}
-          title="Новый комментарий"
+          title={t('comments.new-comment-title')}
           parentType="article"
           postCommentText={postCommentText}
           setPostCommentText={setPostCommentText}
+          t={t}
         />
       }
       {!activeReplyId && !isAuth &&
         <div className={'com-item-unAuth'}>
-          <Button style={'text'} title={'Войдите'} onClick={goToLogin} />, чтобы иметь
-          возможность комментировать
+          <Button style={'text'} title={t('comments.unAuth-btn')} onClick={goToLogin} />
+          {t('comments.unAuth-text')}
         </div>
       }
     </>

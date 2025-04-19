@@ -4,12 +4,14 @@ import buildCommentTree from "../../utils/buildCommentTree";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import commentsActions from "../../store-redux/comments/actions";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector as useSelectorRedux} from "react-redux";
 import shallowequal from "shallowequal";
 import Spinner from "../../components/spinner";
-import { default as useSelectorStore } from "../../hooks/use-selector";
+import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 
 const Comments = () => {
+  const { t, lang } = useTranslate();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +25,7 @@ const Comments = () => {
     dispatch(commentsActions.load(params.id));
   }, [params.id]);
 
-  const select = useSelector(
+  const select = useSelectorRedux(
     state => ({
       comments: state.comments.data,
       commentCount: state.comments.count,
@@ -33,7 +35,7 @@ const Comments = () => {
     shallowequal,
   );
 
-  const sessionUserId = useSelectorStore((state) => state.session?.user._id);
+  const sessionUserId = useSelector((state) => state.session?.user._id);
 
   const options = {
     commentTree: useMemo(() => buildCommentTree(select.comments), [select.comments]),
@@ -71,6 +73,8 @@ const Comments = () => {
         setActiveReplyId={setActiveReplyId}
         sessionUserId={sessionUserId}
         goToLogin={callbacks.goToLogin}
+        t={t}
+        lang={lang}
       />
     </Spinner>
   );

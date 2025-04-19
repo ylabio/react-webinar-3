@@ -1,4 +1,4 @@
-export default function (isoString) {
+export default function (isoString, locale = 'ru') {
   const date = new Date(isoString);
 
   const options = {
@@ -9,9 +9,12 @@ export default function (isoString) {
     minute: '2-digit',
   };
 
-  // Локаль "ru-RU" для русского языка
-  const formatted = new Intl.DateTimeFormat('ru-RU', options).format(date);
+  const formatted = new Intl.DateTimeFormat(locale, options).format(date);
 
-  // По умолчанию между датой и временем запятая, заменим на "в"
-  return formatted.replace(',', ' в').replace('г.', '');
+  return locale === 'ru'
+    ? formatted.replace('г.', '')
+    : formatted.replace(',', '')
+    ;
 }
+
+//.replace(',', ' в').replace('г.', '')

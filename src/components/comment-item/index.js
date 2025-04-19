@@ -14,6 +14,8 @@ const CommentItem = ({
   onPost = () => {},
   sessionUserId = null,
   goToLogin = () => {},
+  t = z => {},
+  lang = 'ru',
 }) => {
 
   const callbacks = {
@@ -36,12 +38,12 @@ const CommentItem = ({
           >
             {comment?.author?.profile?.name}
           </div>
-          <div className="com-item-head-date">{formatDate(comment?.dateCreate)}</div>
+          <div className="com-item-head-date">{formatDate(comment?.dateCreate, lang)}</div>
         </div>
 
         <div className="com-item-body">{comment?.text}</div>
 
-        <Button style="text-com" onClick={callbacks.onReply} title={'Ответить'} />
+        <Button style="text-com" onClick={callbacks.onReply} title={t('comments.reply')} />
       </div>
 
       <div className="com-item-children">
@@ -59,6 +61,8 @@ const CommentItem = ({
                 onPost={onPost}
                 sessionUserId={sessionUserId}
                 goToLogin={goToLogin}
+                t={t}
+                lang={lang}
               />
             ))}
           </>
@@ -67,16 +71,17 @@ const CommentItem = ({
           <Textarea
             onCancel={callbacks.onActiveReplyReset}
             parentType="comment"
-            title="Новый ответ"
+            title={t('comments.new-reply-title')}
             postCommentText={postCommentText}
             setPostCommentText={setPostCommentText}
             onPost={onPost}
+            t={t}
           />
         )}
         {activeReplyId === comment._id && !isAuth && (
           <div className={'com-item-unAuth'}>
-            <Button style={'text'} title={'Войдите'} onClick={goToLogin} />, чтобы иметь
-            возможность комментировать
+            <Button style={'text'} title={t('comments.unAuth-btn')} onClick={goToLogin} />
+            {t('comments.unAuth-text')}
           </div>
         )}
       </div>

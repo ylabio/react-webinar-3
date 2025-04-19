@@ -16,6 +16,32 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+
+  "article.madeIn": "Страна производитель",
+  "article.category": "Категория",
+  "article.edition": "Год выпуска",
+  "article.price": "Цена",
+
+  "comments.title": "Комментарии",
+  "comments.reply": "Ответить",
+  "comments.new-comment-title": "Новый комментарий",
+  "comments.unAuth-btn": "Войдите",
+  "comments.unAuth-text": ", чтобы иметь возможность комментировать",
+  "comments.new-reply-title": "Новый ответ",
+  "comments.button-send": "Отправить",
+  "comments.button-cancel": "Отмена",
+
+  "filter.sort.order": "По порядку",
+  "filter.sort.title": "По именованию",
+  "filter.sort.price": "Сначала дорогие",
+  "filter.sort.edition": "Древние",
+  "filter.categories-all": "Все",
+  "filter.search": "Поиск",
+
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
