@@ -11,7 +11,6 @@ import TopHead from '../../containers/top-head';
 import HeadLayout from '../../components/head-layout';
 import useLocale from '../../hooks/use-locale';
 
-
 function Main() {
   const store = useStore();
 

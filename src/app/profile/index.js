@@ -12,6 +12,7 @@ import ProfileCard from '../../components/profile-card';
 import HeadLayout from '../../components/head-layout';
 import useLocale from '../../hooks/use-locale';
 
+
 function Profile() {
   const store = useStore();
 

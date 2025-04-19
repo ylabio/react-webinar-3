@@ -9,6 +9,7 @@ import listToTree from '../../utils/list-to-tree';
 import Button from '../../components/button';
 import useLocale from '../../hooks/use-locale';
 
+
 function CatalogFilter() {
   const store = useStore();
   const { t, locale } = useLocale()

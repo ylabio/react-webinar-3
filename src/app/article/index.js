@@ -17,6 +17,7 @@ import HeadLayout from '../../components/head-layout';
 import ArticleComments from '../../containers/article-comments';
 import useLocale from '../../hooks/use-locale';
 
+
 function Article() {
   const store = useStore();
   const dispatch = useDispatch();

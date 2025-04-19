@@ -15,6 +15,7 @@ import HeadLayout from '../../components/head-layout';
 import Form from '../../components/form';
 import useLocale from '../../hooks/use-locale';
 
+
 function Login() {
   const { t } = useLocale()
   const location = useLocation();

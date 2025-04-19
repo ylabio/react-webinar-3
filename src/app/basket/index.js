@@ -10,6 +10,7 @@ import modalsActions from '../../store-redux/modals/actions';
 import useLocale from '../../hooks/use-locale';
 
 
+
 function Basket() {
   const store = useStore();
   const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '../button';
 import './style.css';
-import useLocale from '../../hooks/use-locale';
+
 
 function ItemBasket(props) {
   const { onRemove = () => {}, labelCurr = '₽', labelUnit = 'шт', labelDelete = 'Удалить' } = props;
