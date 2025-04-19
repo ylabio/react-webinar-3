@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -9,6 +9,7 @@ import Spinner from '../../components/spinner';
 
 function CatalogList() {
   const store = useStore();
+  const { t, lang } = useTranslate();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -20,44 +21,44 @@ function CatalogList() {
     waiting: state.catalog.waiting,
   }));
 
+  const { page, limit, sort, query } = select;
+
+  useEffect(() => {
+    store.actions.catalog.setParams({ page, limit, sort, query });
+  }, [store.actions.catalog, page, limit, sort, query, lang]);
+
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Пагинация
-    onPaginate: useCallback(page => store.actions.catalog.setParams({ page }), [store]),
-    // генератор ссылки для пагинатора
+    addToBasket: useCallback(
+      _id => store.actions.basket.addToBasket(_id),
+      [store]
+    ),
+    onPaginate: useCallback(
+      newPage => store.actions.catalog.setParams({ page: newPage }),
+      [store]
+    ),
     makePaginatorLink: useCallback(
-      page => {
-        return `?${new URLSearchParams({
-          page,
-          limit: select.limit,
-          sort: select.sort,
-          query: select.query,
-        })}`;
-      },
-      [select.limit, select.sort, select.query],
+      p =>
+        `?${new URLSearchParams({ page: p, limit, sort, query })}`,
+      [limit, sort, query]
     ),
   };
 
-  const { t } = useTranslate();
-
-  const renders = {
-    item: useCallback(
-      item => (
-        <Item
-          item={item}
-          onAdd={callbacks.addToBasket}
-          link={`/articles/${item._id}`}
-          labelAdd={t('article.add')}
-        />
-      ),
-      [callbacks.addToBasket, t],
+  const renderItem = useCallback(
+    item => (
+      <Item
+        item={item}
+        onAdd={callbacks.addToBasket}
+        link={`/articles/${item._id}`}
+        labelAdd={t('article.add')}
+        lang={lang}
+      />
     ),
-  };
+    [callbacks.addToBasket, t, lang]
+  );
 
   return (
     <Spinner active={select.waiting}>
-      <List list={select.list} renderItem={renders.item} />
+      <List list={select.list} renderItem={renderItem} />
       <Pagination
         count={select.count}
         page={select.page}

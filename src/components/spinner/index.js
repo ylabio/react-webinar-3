@@ -4,14 +4,18 @@ import './style.css';
 
 function Spinner({ active, children }) {
   if (active) {
-    return <div className="Spinner">{children}</div>;
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
   } else {
     return children;
   }
 }
 
 Spinner.propTypes = {
-  active: PropTypes.bool.isRequired,
+  active: PropTypes.bool,
   children: PropTypes.node,
 };
 

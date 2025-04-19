@@ -1,64 +1,71 @@
-import { memo, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import Navigation from '../../containers/navigation';
-import Spinner from '../../components/spinner';
-import ArticleCard from '../../components/article-card';
-import LocaleSelect from '../../containers/locale-select';
-import TopHead from '../../containers/top-head';
-import { useDispatch, useSelector } from 'react-redux';
-import shallowequal from 'shallowequal';
-import articleActions from '../../store-redux/article/actions';
-import HeadLayout from '../../components/head-layout';
+import React, { memo, useCallback } from 'react'
+import { useParams } from 'react-router-dom'
+import useStore from '../../hooks/use-store'
+import useTranslate from '../../hooks/use-translate'
+import { useArticle } from '../../hooks/use-article'
+import { useComments } from '../../hooks/use-comments'
+import PageLayout from '../../components/page-layout'
+import Head from '../../components/head'
+import Spinner from '../../components/spinner'
+import ArticleCard from '../../components/article-card'
+import LocaleSelect from '../../containers/locale-select'
+import TopHead from '../../containers/top-head'
+import Navigation from '../../containers/navigation'
+import HeadLayout from '../../components/head-layout'
+import CommentsSection from '../../components/comments-section'
 
 function Article() {
-  const store = useStore();
+  const store = useStore()
+  const { t, lang } = useTranslate()
+  const { id } = useParams()
+  const { article, waiting: artLoading } = useArticle(id)
+  const {
+    comments, waiting: comLoading,
+    replyTo, text, setText,
+    onReplyClick, onSubmit
+  } = useComments(id)
 
-  const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
-
-  const params = useParams();
-
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
-  }, [params.id]);
-
-  const select = useSelector(
-    state => ({
-      article: state.article.data,
-      waiting: state.article.waiting,
-    }),
-    shallowequal,
-  ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
-  const { t } = useTranslate();
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-  };
+  const isAuth = Boolean(localStorage.getItem('token'))
+  const addToBasket = useCallback(
+    id => store.actions.basket.addToBasket(id),
+    [store]
+  )
 
   return (
     <>
       <HeadLayout>
-        <TopHead />
+        <TopHead/>
       </HeadLayout>
-      <Head title={select.article.title}>
-        <LocaleSelect />
+      <Head title={article.title}>
+        <LocaleSelect/>
       </Head>
       <PageLayout>
         <Navigation />
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+        <Spinner active={artLoading}>
+          <ArticleCard
+            article={article}
+            onAdd={addToBasket}
+            t={t} lang={lang}
+          />
+
+          <div className="comments-container">
+            <h2>{t('comments.heading')} ({comments.length})</h2>
+            <Spinner active={comLoading}>
+              <CommentsSection
+                comments={comments}
+                replyTo={replyTo}
+                text={text}
+                onTextChange={setText}
+                onReplyClick={onReplyClick}
+                onSubmit={onSubmit}
+                isAuthorized={isAuth}
+              />
+            </Spinner>
+          </div>
         </Spinner>
       </PageLayout>
     </>
-  );
+  )
 }
 
-export default memo(Article);
+export default memo(Article)

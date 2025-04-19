@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 import { useDispatch, useStore as useStoreRedux } from 'react-redux';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useInit from '../../hooks/use-init';
+
 import useTranslate from '../../hooks/use-translate';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
@@ -21,11 +21,10 @@ function Basket() {
   }));
 
   const callbacks = {
-    // Удаление из корзины
+    
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
-    // Закрытие любой модалки
+    
     closeModal: useCallback(() => {
-      //store.actions.modals.close();
       dispatch(modalsActions.close());
     }, [store]),
   };

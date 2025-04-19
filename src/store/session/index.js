@@ -80,6 +80,7 @@ class SessionState extends StoreModule {
       });
       // Удаляем токен
       window.localStorage.removeItem('token');
+      window.location.reload()
       // Удаляем заголовок
       this.services.api.setHeader(this.config.tokenHeader, null);
     } catch (error) {

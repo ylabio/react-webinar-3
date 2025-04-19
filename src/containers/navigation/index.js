@@ -34,10 +34,10 @@ function Navigation() {
   };
 
   // Функция для локализации текстов
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   const options = {
-    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t]),
+    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t, lang]),
   };
 
   return (
@@ -48,6 +48,7 @@ function Navigation() {
         amount={select.amount}
         sum={select.sum}
         t={t}
+        lang={lang}
       />
     </SideLayout>
   );
