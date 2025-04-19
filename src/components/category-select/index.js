@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomSelect from '../custom-select';
+import CustomSelect from '../select';
 import Spinner from '../spinner';
 import { useCategories } from '../../hooks/use-categories';
 
