@@ -14,7 +14,6 @@ export default {
                     url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`,
                 });
                 // Комментарии загружены
-
                 dispatch({ type: 'comments/load-success', payload: { comments: res.data.result } });
             } catch (e) {
                 //Ошибка загрузки

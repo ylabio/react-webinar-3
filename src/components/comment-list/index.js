@@ -3,26 +3,31 @@ import './style.css';
 import PropTypes from 'prop-types';
 import Comment from '../comment';
 
-function CommentList({ commentsList, replyToCommentId, handleReplyComment, checkAuth }) {
+function CommentList({ commentsList, replyToCommentId, handleReplyComment, checkAuth, t }) {
+
+    const renderComments = (comments, level = 0) => {
+        return comments.map((comment) => (
+            <React.Fragment key={comment.id || comment._id}>
+                <Comment
+                    commentId={comment.id || comment._id}
+                    username={comment.author.profile.name}
+                    dateCreate={comment.dateCreate}
+                    text={comment.text}
+                    level={level}
+                    onClick={handleReplyComment}
+                    replyToCommentId={replyToCommentId}
+                    checkAuth={checkAuth}
+                    t={t}
+                />
+                {comment.children && comment.children.length > 0 && renderComments(comment.children, level + 1)}
+                {replyToCommentId === comment.id || replyToCommentId === comment._id && checkAuth(level)}
+            </React.Fragment>
+        ));
+    };
 
     return (
         <div className='Comments-list'>
-            {
-                commentsList.map(comment => (
-                    <Comment
-                        key={comment.id || comment._id}
-                        username={comment.author.name}
-                        dateCreate={comment.dateCreate}
-                        text={comment.text}
-                        level={0} //Начальный уровень
-                        children={comment.children}
-                        onClick={() => handleReplyComment(comment.id || comment._id)}
-                        replyToCommentId={replyToCommentId}
-                        checkAuth={checkAuth}
-                        commentId={comment.id || comment._id}
-                    />
-                ))
-            }
+            {renderComments(commentsList)}
             {!replyToCommentId && checkAuth()}
         </div>
     )
@@ -33,6 +38,7 @@ CommentList.propTypes = {
     replyToCommentId: PropTypes.string,
     handleReplyComment: PropTypes.func,
     checkAuth: PropTypes.func,
+    t: PropTypes.func,
 }
 
 export default React.memo(CommentList);

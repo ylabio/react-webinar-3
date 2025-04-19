@@ -3,6 +3,7 @@ import treeToList from "../../utils/tree-to-list";
 
 const initialState = {
     comments: [],
+    commentsCount: 0,
     waiting: false,
     sendCommentStatus: null,
 }
@@ -13,9 +14,10 @@ function reducer(state = initialState, action) {
             return { ...state, comments: [], waiting: true };
 
         case 'comments/load-success':
+            const commentsCount = action.payload.comments.count;
             const commentsTree = listToTree(action.payload.comments.items);
 
-            return { ...state, comments: commentsTree[0].children, waiting: false };
+            return { ...state, comments: commentsTree[0].children, commentsCount, waiting: false };
 
         case 'comments/load-error':
             return { ...state, comments: [], waiting: false };
