@@ -1,0 +1,80 @@
+.ItemComment {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: 7px;
+  width: 100%;
+}
+.ItemComment-level-1 {
+  margin-left: 0;
+}
+.ItemComment-level-2 {
+  margin-left: 40px;
+  width: calc(100% - 40px);
+}
+.ItemComment-level-3 {
+  margin-left: 80px;
+  width: calc(100% - 80px);
+}
+.ItemComment-level-4 {
+  margin-left: 120px;
+  width: calc(100% - 120px);
+}
+.ItemComment-level-5 {
+  margin-left: 160px;
+  width: calc(100% - 160px);
+}
+.ItemComment-level-6 {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+}
+.ItemComment-level-7 {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+.ItemComment-level-8 {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+}
+.ItemComment-level-9 {
+  margin-left: 320px;
+  width: calc(100% - 320px);
+}
+.ItemComment-level-10 {
+  margin-left: 360px;
+  width: calc(100% - 360px);
+}
+
+.ItemComment-header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.ItemComment-user {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.ItemComment-datetime {
+  font-size: 12px;
+  color: #666666;
+}
+
+.ItemComment-text {
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+.ItemComment-answer {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Montserrat Alternates', sans-serif;
+  cursor: pointer;
+}
+
+.ItemComment-login {
+  margin-top: 30px;
+}
+

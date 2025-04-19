@@ -1,0 +1,37 @@
+.FormComment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.FormComment-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.FormComment-textarea {
+  margin-top: 8px;
+  width: 100%;
+  font-size: 14px;
+  resize: none;
+  border-color: rgba(211, 211, 211, 1);
+  border-radius: 5px;
+}
+
+.FormComment-actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.FormComment-login {
+  margin-top: 30px;
+}
+
+.FormComment-login > a {
+  color: var(--primary);
+  cursor: pointer;
+}

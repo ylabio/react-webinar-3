@@ -22,5 +22,11 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comment.title": "Comments",
+  "comment.btn.answer": "Answer",
+  "comment.newComment": "New Comment",
+  "comment.newAnswer": "New Answer",
+  "comment.btn.send": "Send",
+  "comment.btn.cancel": "Cancel"
 }

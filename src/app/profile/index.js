@@ -14,17 +14,16 @@ import HeadLayout from '../../components/head-layout';
 
 function Profile() {
   const store = useStore();
+  const { t, lang } = useTranslate();
 
   useInit(() => {
     store.actions.profile.load();
-  }, []);
+  }, [lang]);
 
   const select = useSelector(state => ({
     profile: state.profile.data,
     waiting: state.profile.waiting,
   }));
-
-  const { t } = useTranslate();
 
   return (
     <>
