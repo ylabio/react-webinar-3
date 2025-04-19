@@ -161,7 +161,7 @@ function Article() {
                   />
                 </ArticleForm>
               ) : (
-                <ArticleAuthMessage />
+                <ArticleAuthMessage t={t}/>
               )}
             </ArticleComments>
             {!userComment.isOpenFormInComments &&
@@ -178,7 +178,7 @@ function Article() {
                   />
                 </ArticleForm>
               ) : (
-                <ArticleAuthMessage />
+                <ArticleAuthMessage t={t} />
               ))}
           </Spinner>
         </Spinner>

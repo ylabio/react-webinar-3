@@ -13,6 +13,8 @@
     "one": "article",
     "other": "articles"
   },
+  "auth.message-link": "Log in",
+  "auth.message-text": " to be able to comment",
   "answer.for": "Answer for",
   "answer.reply": "reply",
   "article.add": "Add",
@@ -43,6 +45,4 @@
   "user.profile": "Profile",
   "user.name": "Name",
   "user.phone": "Phone"
-
-
 }
