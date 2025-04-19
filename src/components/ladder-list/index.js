@@ -2,11 +2,11 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function List({ list, renderItem = item => {} }) {
+function LadderList({ list, renderItem = item => {} }) {
   return (
-    <ul className="List">
+    <ul className="LadderList">
       {list.map(item => (
-        <li key={item._id} className="List-item">
+        <li style={{'--level': item.level}} key={item.value} className="LadderList-item">
           {renderItem(item)}
         </li>
       ))}
@@ -14,13 +14,14 @@ function List({ list, renderItem = item => {} }) {
   );
 }
 
-List.propTypes = {
+LadderList.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      level: PropTypes.number,
     }),
   ).isRequired,
   renderItem: PropTypes.func.isRequired,
 };
 
-export default memo(List);
+export default memo(LadderList);

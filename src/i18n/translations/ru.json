@@ -29,5 +29,6 @@
   "comment.newComment": "Новый комментарий",
   "comment.send": "Отправить",
   "comment.cancel": "Отмена",
-  "comment.title": "Комментарии"
+  "comment.title": "Комментарии",
+  "comment.reply": "Ответить"
 }

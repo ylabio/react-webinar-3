@@ -27,5 +27,6 @@
   "comment.newComment": "New comment",
   "comment.send": "Send",
   "comment.cancel": "Cancel",
-  "comment.title": "Comments"
+  "comment.title": "Comments",
+  "comment.reply": "Reply"
 }

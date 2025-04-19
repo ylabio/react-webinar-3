@@ -1,0 +1,38 @@
+.CommentsBox {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+}
+
+.CommentsBox-title {
+  padding-bottom: 24px;
+  margin-top: 0;
+  font-size: 32px;
+  font-family: var(--second-font-family);
+  line-height: 40px;
+}
+
+.CommentsBox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.CommentsBox-item {
+  padding-left: calc(var(--level, 0) * 40px);
+}
+
+
+.CommentsBox-alert {
+
+  a {
+    color: var(--primary);
+  }
+
+  a:hover {
+    opacity: 0.6;
+  }
+}

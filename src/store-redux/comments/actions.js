@@ -1,0 +1,58 @@
+export default {
+  /**
+   * Загрузка комментариев по товару
+   * @param id
+   * @return {Function}
+   */
+  load: id => {
+    return async (dispatch, getState, services) => {
+      // Сброс текущего товара и установка признака ожидания загрузки
+      dispatch({ type: 'comments/load-start' });
+
+      try {
+        const res = await services.api.request({
+          url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`,
+        });
+        // Товар загружен успешно
+        dispatch({ type: 'comments/load-success', payload: { data: res.data.result.items, count: res.data.result.count } });
+      } catch (e) {
+        //Ошибка загрузки
+        dispatch({ type: 'comments/load-error' });
+      }
+    };
+  },
+
+  /**
+   * Загрузка комментариев по товару
+   * @param id
+   * @return {Function}
+   */
+  addComment: (parent, text, token, callback) => {
+
+    return async (dispatch, getState, services) => {
+      // Сброс текущего товара и установка признака ожидания загрузки
+      //dispatch({ type: 'comments/load-start' });
+
+      try {
+        const res = await services.api.request({
+          url: `/api/v1/comments`,
+          method: 'POST',
+          headers: {"X-Token": token},
+          body: JSON.stringify(
+
+        {
+          "text": text,
+          "parent": {...parent}
+        })
+        }).then(()=>{
+          callback()
+        });
+        // Товар загружен успешно
+       // dispatch({ type: 'comments/load-success', payload: { data: res.data.result.items, count: res.data.result.count } });
+      } catch (e) {
+        //Ошибка загрузки
+        dispatch({ type: 'comments/load-error' });
+      }
+    };
+  },
+};

@@ -1,0 +1,42 @@
+.CommentAction {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+
+  label {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0;
+  }
+
+  textarea {
+    height: fit-content;
+    min-height: 88px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #D3D3D3;
+    resize: none;
+  }
+
+  a {
+    color: var(--primary);
+  }
+
+  a:hover {
+    opacity: 0.6;
+  }
+
+}
+
+.CommentAction-controls {
+  display: flex;
+  gap: 16px;
+}
+
+.CommentAction_type_alert {
+  flex-direction: row;
+  gap: 0;
+}
