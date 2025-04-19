@@ -1,8 +1,9 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import debounce from 'lodash.debounce';
 
 import './style.css';
-
 
 function Textarea({ placeholderText = '', ...props }) {
   const [value, setValue] = useState(props.value);
@@ -21,14 +22,20 @@ function Textarea({ placeholderText = '', ...props }) {
   };
 
   useLayoutEffect(() => setValue(props.value), [props.value]);
+
   return (
     <textarea
       className="Textarea"
       value={value}
-      placeholder={placeholderText ? `Ответ для ${placeholderText}` : ''}
+      placeholder={placeholderText ? placeholderText : ''}
       onChange={onChangeHandler}
     ></textarea>
   );
 }
+
+Textarea.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+};
 
 export default Textarea;

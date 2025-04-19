@@ -1,6 +1,6 @@
 import { cn as bem } from '@bem-react/classname';
 
-import PropTypes from 'prop-types';
+import PropTypes, {string} from "prop-types";
 
 import { dateFormat } from '../../utils/date-format';
 
@@ -12,12 +12,16 @@ function ArticleComments({
   lastCommentId = '',
   items = [],
   onChangeCommentData = (x, y, i) => {},
+  t = text => text,
+  lang = 'ru'
 }) {
   const cn = bem('Comments');
 
   return (
     <div>
-      <h4 className={cn('title')}>Комментарии ({commentsCount})</h4>
+      <h4 className={cn('title')}>
+        {t('comments')} ({commentsCount})
+      </h4>
       {!!commentsCount && (
         <ul className={cn('list')}>
           {items.map((item, idx) => {
@@ -27,15 +31,15 @@ function ArticleComments({
               <li key={`${text}${idx}`} className={cn('item')} style={{ paddingLeft: paddingL }}>
                 <div className={cn('item', { header: true })}>
                   <h4>{author.profile.name}</h4>
-                  <div>{dateFormat(dateCreate, 'ru-RU')}</div>
+                  <div>{dateFormat(dateCreate, lang)}</div>
                 </div>
                 <div className={cn('item', { text: true })}>{text}</div>
-                <button
-                  className={cn('button')}
+                <a
+                  className={cn('link')}
                   onClick={() => onChangeCommentData(_id, 'comment', author.profile.name)}
                 >
-                  Ответить
-                </button>
+                  {t("answer.reply")}
+                </a>
                 {lastCommentId === _id && children}
               </li>
             );
@@ -65,6 +69,8 @@ ArticleComments.propTypes = {
   children: PropTypes.node,
   lastCommentId: PropTypes.string,
   articleId: PropTypes.string,
+  t:PropTypes.func,
+  lang: PropTypes.string,
   onChangeCommentData: PropTypes.func,
 };
 

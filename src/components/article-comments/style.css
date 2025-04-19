@@ -58,14 +58,15 @@
   color: #000;
 }
 
-.Comments-button {
+.Comments-link {
   font-family: var(--second-font-family);
   font-weight: 700;
   font-size: 12px;
   line-height: 150%;
   color: #6b4acb;
   padding: 0;
-  width: 78px;
   margin: 0;
   border: 0;
+  text-decoration: none;
+  cursor: pointer;
 }

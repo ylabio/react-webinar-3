@@ -5,8 +5,9 @@ class I18nService {
     this.api = services.api;
     this.currentLang = config.defaultLang || 'ru';
     this.translations = translations;
-    this.changeApiHeaders();
     this.subscribers = [];
+
+    this.changeApiHeaders();
   }
 
   getCurrentLang() {

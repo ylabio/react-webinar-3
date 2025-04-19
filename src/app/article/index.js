@@ -33,13 +33,9 @@ import { getLastCommentChildrenId } from '../../utils/get-last-comment-children-
 
 function Article() {
   const store = useStore();
-
   const dispatch = useDispatch();
-
   const params = useParams();
-
   const { t, lang } = useTranslate();
-
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -71,7 +67,7 @@ function Article() {
       setIsFormOpenInComments(false);
       setAuthorNickname('');
       dispatch(userCommentsAction.setCommentsId(params.id, '', 'article'));
-      callbacks.onChangeCommentMessage('')
+      callbacks.onChangeCommentMessage('');
     }, []),
     onChangeCommentData: useCallback(
       (parentId, typeComment, authorNick = '') => {
@@ -83,7 +79,7 @@ function Article() {
         dispatch(userCommentsAction.setCommentsId(lastItemId, lastChildFromTree, typeComment));
         setAuthorNickname(authorNick);
         setIsFormOpenInComments(true);
-        callbacks.onChangeCommentMessage('')
+        callbacks.onChangeCommentMessage('');
       },
       [comments.data.items],
     ),
@@ -97,13 +93,13 @@ function Article() {
           _id: userComment.userId,
           text: userComment.userComment.trim(),
           parent: {
-           ...userComment.parent
+            ...userComment.parent,
           },
           token: userComment.userToken,
         };
 
         dispatch(commentsActions.addComment(data));
-        
+
         if (!article.waiting) {
           callbacks.onCloseFormInComments();
         }
@@ -111,8 +107,7 @@ function Article() {
       [userComment],
     ),
   };
-  
-  
+
   const options = {
     comments: useMemo(
       () => [
@@ -124,7 +119,7 @@ function Article() {
       [comments.data.items],
     ),
   };
-  
+
   const disabledBtn = article.waiting || !userComment.userComment.trim();
 
   return (
@@ -141,6 +136,8 @@ function Article() {
           <ArticleCard article={article.data} onAdd={callbacks.addToBasket} t={t} />
           <Spinner active={comments.waiting}>
             <ArticleComments
+              t={t}
+              lang={lang}
               items={options.comments}
               commentsCount={comments.data.count}
               lastCommentId={userComment.lastIdFromCommentTree}
@@ -148,7 +145,8 @@ function Article() {
             >
               {selectUser.isUserAuth ? (
                 <ArticleForm
-                  title={'Новый ответ'}
+                  t={t}
+                  title={t('comments.new-answer')}
                   onCloseForm={callbacks.onCloseFormInComments}
                   isOpenInComments={isFormOpenInComments}
                   onSubmit={callbacks.onSubmit}
@@ -157,7 +155,7 @@ function Article() {
                   <Textarea
                     value={userComment.userComment}
                     onChange={callbacks.onChangeCommentMessage}
-                    placeholderText={authorNickname}
+                    placeholderText={`${t('answer.for')} ${authorNickname}`}
                   />
                 </ArticleForm>
               ) : (
@@ -167,7 +165,8 @@ function Article() {
             {!isFormOpenInComments &&
               (selectUser.isUserAuth ? (
                 <ArticleForm
-                  title={'Новый комментарий'}
+                  t={t}
+                  title={t('comments.new')}
                   onSubmit={callbacks.onSubmit}
                   isDisabledBtn={disabledBtn}
                 >

@@ -13,7 +13,13 @@
     "one": "article",
     "other": "articles"
   },
+  "answer.for": "Answer for",
+  "answer.reply": "reply",
   "article.add": "Add",
+  "article.country": "Manufacturer Country",
+  "article.category": "Category",
+  "article.year": "Year",
+  "article.price": "Price",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",
@@ -22,5 +28,21 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "categories.all": "All",
+  "search": "Search",
+  "search.filter-order": "By order",
+  "search.filter-name": "By name",
+  "search.filter-expensive": "First expensive ",
+  "search.filter-ancient": "Ancient",
+  "comments": "Comments",
+  "comments.new": "New comment",
+  "comments.new-answer": "New answer",
+  "comments.btn-send": "Send",
+  "comments.btn-cancel": "Cancel",
+  "user.profile": "Profile",
+  "user.name": "Name",
+  "user.phone": "Phone"
+
+
 }
