@@ -1,0 +1,13 @@
+.CommentLogin {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.CommentLogin-link {
+  color: var(--primary);
+  font-family: var(--main-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+}

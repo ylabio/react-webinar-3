@@ -85,7 +85,7 @@ class SessionState extends StoreModule {
     } catch (error) {
       console.error(error);
     }
-    this.setState({ ...this.initState(), waiting: false });
+    this.setState({ ...this.initState(), waiting: false, exists: false });
   }
 
   /**

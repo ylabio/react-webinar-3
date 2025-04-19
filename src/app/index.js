@@ -1,4 +1,3 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
 import useStore from '../hooks/use-store';
@@ -17,6 +16,7 @@ import { useSelector as useSelectorRedux } from 'react-redux';
  */
 function App() {
   const store = useStore();
+
   useInit(async () => {
     await store.actions.session.remind();
   });

@@ -1,0 +1,37 @@
+.CommentItem {
+  margin-bottom: 16px;
+}
+
+.CommentItem-info {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.CommentItem-user {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  margin-left: 2px;
+}
+.CommentItem-user_authenticated {
+  color: rgb(75, 85, 99);
+}
+.CommentItem-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  overflow-wrap: break-word;
+}
+.CommentItem-description {
+  margin-bottom: 6px;
+}
+.CommentItem-date {
+  color: rgb(102, 102, 102);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.CommentItem-button {
+  padding: 0;
+  color: rgb(107, 74, 203);
+}

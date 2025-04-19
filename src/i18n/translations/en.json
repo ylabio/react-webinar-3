@@ -22,5 +22,14 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comments.reply": "Answer",
+  "comments.send": "Send",
+  "comments.reset": "Cancel",
+  "comments.title": "Comments ",
+  "comments.date": "en-EN",
+  "comments.title-form-global": "New comment",
+  "comments.title-form": "New answer",
+  "comments.unauth-first": "Login ",
+  "comments.unauth-second": ", to be able to comment"
 }

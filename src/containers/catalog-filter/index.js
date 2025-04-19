@@ -49,16 +49,16 @@ function CatalogFilter() {
       [],
     ),
     // Категории для фильтра
-    categories: useMemo(
-      () => [
+    categories: useMemo(() => {
+      const tree = listToTree(select.categories, { rootKey: 'parent' }); // Преобразуем список в дерево
+      return [
         { value: '', title: 'Все' },
-        ...treeToList(listToTree(select.categories), (item, level) => ({
+        ...treeToList(tree, (item, level) => ({
           value: item._id,
           title: '- '.repeat(level) + item.title,
         })),
-      ],
-      [select.categories],
-    ),
+      ];
+    }, [select.categories]),
   };
 
   const { t } = useTranslate();
