@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: flex-start;
   font-size: 12px;
+  max-width: 1152px;
 }
 
 .Comment-info {
@@ -20,6 +21,12 @@
 }
 
 .Comment-main {
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+}
+
+.Comment-main p {
   margin: 0;
   font-size: 14px;
 }

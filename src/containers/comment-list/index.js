@@ -1,4 +1,4 @@
-import { memo, useMemo, useCallback, useState } from 'react';
+import { memo, useMemo, useCallback, useState, useRef, useEffect } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import Spinner from '../../components/spinner';
 import Comment from '../../components/comment';
@@ -8,7 +8,6 @@ import shallowequal from 'shallowequal';
 import CommentInput from '../../components/comment-input';
 import Form from '../../components/form';
 import CommentsLayout from '../../components/comments-layout';
-import useSelector from '../../hooks/use-selector';
 import commentsActions from '../../store-redux/comments/actions';
 import InputWrapper from '../input-wrapper';
 
@@ -18,6 +17,8 @@ function CommentList() {
 
   const [text, setText] = useState('');
 
+  const lastCommentRef = useRef(null);
+
   const select = useSelectorRedux(
     state => ({
       comments: state.comments.items,
@@ -25,13 +26,22 @@ function CommentList() {
       waitingComments: state.comments.waiting,
       article: state.article,
       activeCommentId: state.comments.activeCommentId,
+      lastCommentId: state.comments.lastCommentId,
     }),
     shallowequal,
   );
 
+  useEffect(() => {
+    if (lastCommentRef.current) {
+      lastCommentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [select.lastCommentId]);
+
   const callbacks = {
     // Установка айди активного комментария
-    setActiveComment: useCallback(id => dispatch(commentsActions.setActiveComment(id)), [select.activeCommentId]),
+    setActiveComment: useCallback(
+      id => dispatch(commentsActions.setActiveComment(id)),
+    [select.activeCommentId]),
     //Сброс активного комментария
     resetActiveComment: useCallback(() => {
       dispatch(commentsActions.resetActiveComment());
@@ -72,11 +82,25 @@ function CommentList() {
         {commentList.map((item) => {
           const padding = item.level * 40;
           return (
-            <div key={item._id} style={{ paddingLeft: `${padding}px`}}>
-              <Comment item={item} onClick={callbacks.setActiveComment} buttonTitle={t('comments.answer')} />
+            <div
+              key={item._id}
+              style={{ paddingLeft: `${padding}px`}}
+              ref={item._id === select.lastCommentId ? lastCommentRef : null}
+            >
+              <Comment
+                item={item}
+                onClick={callbacks.setActiveComment}
+                buttonTitle={t('comments.answer')}
+              />
                 {select.activeCommentId === item._id &&
                   <InputWrapper>
-                    <Form title={t('comments.newAnswer')} submitTitle={t('comments.submit')} onCancel={callbacks.resetActiveComment} onSubmit={(e) => callbacks.onSubmit(e, item._id, 'comment')} cancelTitle={t('comments.cancel')}>
+                    <Form
+                      title={t('comments.newAnswer')}
+                      submitTitle={t('comments.submit')}
+                      onCancel={callbacks.resetActiveComment}
+                      onSubmit={(e) => callbacks.onSubmit(e, item._id, 'comment')}
+                      cancelTitle={t('comments.cancel')}
+                    >
                     <CommentInput onChange={callbacks.onChange} value={text} padding={padding}/>
                     </Form>
                   </InputWrapper>
@@ -88,7 +112,11 @@ function CommentList() {
     </CommentsLayout>
       {!select.activeCommentId &&
         <InputWrapper>
-          <Form title={t('comments.newComment')} submitTitle={t('comments.submit')} onSubmit={(e) => callbacks.onSubmit(e, select.article.data._id)} >
+          <Form
+            title={t('comments.newComment')}
+            submitTitle={t('comments.submit')}
+            onSubmit={(e) => callbacks.onSubmit(e, select.article.data._id)}
+          >
             <CommentInput onChange={callbacks.onChange} value={text}/>
           </Form>
         </InputWrapper>

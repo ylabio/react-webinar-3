@@ -13,7 +13,11 @@ function Comment({ onClick = () => {}, item = {}, buttonTitle}) {
         <h4 className={cn('profile')}>{item.author?.profile.name}</h4>
         <span className={cn('date')}>{dateFormat(item.dateCreate)}</span>
       </div>
-      <p className={cn('main')}>{item.text}</p>
+      <div className={cn('main')}>
+        <p>
+        {item.text}
+        </p>
+      </div>
       <button className={cn('button')} onClick={() => onClick(item._id)}>{buttonTitle}</button>
     </div>
   );

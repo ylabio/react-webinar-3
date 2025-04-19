@@ -5,6 +5,7 @@ export const initialState = {
   count: 0,
   activeCommentId: null,
   waiting: false, // признак ожидания загрузки
+  lastCommentId: null,
   error: '',
 };
 
@@ -27,7 +28,7 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true };
 
     case 'comments/send-success':
-      return { ...state, items: [...state.items, action.payload], count: state.count + 1, waiting: false };
+      return { ...state, items: [...state.items, action.payload], count: state.count + 1, waiting: false, lastCommentId: action.payload._id };
     
     case 'comments/send-error':
       return { ...state, waiting: false, error: 'Ошибка'};
