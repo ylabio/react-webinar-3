@@ -8,6 +8,7 @@ import * as translations from './translations';
  * @returns {String} Переведенный текст
  */
 export default function translate(lang, text, plural) {
+  console.log(text);
   let result = translations[lang] && text in translations[lang] ? translations[lang][text] : text;
 
   if (typeof plural !== 'undefined') {

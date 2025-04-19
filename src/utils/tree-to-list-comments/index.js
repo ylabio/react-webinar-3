@@ -4,6 +4,7 @@ export default function treeToListComments(tree, level = 0, result = []) {
   }
   for (const item of tree) {
     result.push({
+      _id: item._id,
       text : item.text,
       dateCreate: item.dateCreate,
       author: item.author.profile.name,

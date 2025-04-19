@@ -45,7 +45,7 @@ function Article() {
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -54,20 +54,34 @@ function Article() {
     onChange: useCallback(value => setArticleComment(value), [setArticleComment]),
     // Добавить комментарий
     onAddComment: useCallback(() => {
-      dispatch(commentsActions.addComment(articleComment, params.id, "article"));
-      dispatch(commentsActions.loadComments(params.id));
+      dispatch(commentsActions.addComment(articleComment, params.id, "article", params.id));
+      setTimeout(() => {
+        dispatch(commentsActions.loadComments(params.id));
+      }, 500);
+    
+      setArticleComment('');
+    }, [dispatch, articleComment, params.id]),
+    // Добавить ответ
+    onAddAnswer: useCallback((id) => {
+      console.log(9);
+      dispatch(commentsActions.addComment(articleComment, id, "comment", params.id));
+      setTimeout(() => {
+        dispatch(commentsActions.loadComments(params.id));
+      }, 500);
+    
       setArticleComment('');
     }, [dispatch, articleComment, params.id]),
   };
   
   useEffect(() => {
     if (select.comments.items) {
-      setCommentsList(treeToListComments(listToTree(select.comments.items)[0].children));
+      setCommentsList(treeToListComments(listToTree(select.comments.items)[0].children))
     }
-  }, [select.comments]);
+  }, [select.comments.count]);
+
   useEffect(() => {
-    console.log(articleComment);
-  }, [articleComment]);
+    dispatch(articleActions.load(params.id));
+  }, [lang]);
 
   const user = useSelectorPrev(state => ({user: state.session.user}))
 
@@ -91,6 +105,7 @@ function Article() {
             value={articleComment}
             onChange={callbacks.onChange}
             onClick={callbacks.onAddComment}
+            onClickAnswer={callbacks.onAddAnswer}
           />
         </Spinner>
       </PageLayout>

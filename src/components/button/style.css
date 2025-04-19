@@ -45,3 +45,14 @@
   border: none;
   color: var(--primary);
 }
+
+.Button_style_cancel {
+  margin-left: 16px;
+  border-color: var(--primary);
+  color: var(--primary);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--background);
+  }
+}

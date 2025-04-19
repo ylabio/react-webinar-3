@@ -1,49 +1,85 @@
-import { memo } from "react";
+import { memo, useEffect, useState, useCallback } from "react";
 import CommentsForm from "../comments-form";
 import Button from "../button";
 import dataFormate from "../../utils/date-format";
-import { Link } from "react-router-dom";
+import { useCommentReplies } from "../../hooks/use-comment-replies";
+import CommentItem from "../comment-item";
+import { Link, useNavigate } from "react-router-dom";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentsList({ t = text => text, value, count, user, list = [], onChange = () => {}, onClick }) {
+function CommentsList({ 
+  t = text => text, 
+  value, 
+  count, 
+  user, 
+  list = [], 
+  onChange = () => {}, 
+  onClick,
+  onClickAnswer 
+}) {
   const cn = bem('CommentsList');
+  const navigate = useNavigate();
+  const { replyTo, replyIndex, handleReplyClick, resetReply } = useCommentReplies();
+
+  const handleReply = (item, index) => {
+    if (!user?._id) {
+      navigate('/login');
+    } else {
+      handleReplyClick(item, index, list);
+      onChange('');
+    }
+  };
+
+  const handleSubmitReply = () => {
+    if (!value.trim()) return;
+    
+    onClickAnswer(replyTo);
+    resetReply();
+    onChange('');
+  };
+
+  const handleCancelReply = () => {
+    resetReply();
+    onChange('');
+  };
 
   return (
     <div className={cn()}>
       <div className={cn('container')}>
         <div className={cn('title')}>{`${t('article.comments')} (${count})`}</div>
-        {list.map((item) =>(
-          <div
-            key={`comment-${item._id || item.dateCreate}`}
-            className={cn('comments-container')}
-            style={{ paddingLeft: `${item.depth * 40}px` }}
-          >
-            <div className={cn('comments-container-name')}>
-              <div className={cn('name')}>{item.author}</div>
-              <div className={cn('date')}>{dataFormate(item.dateCreate)}</div>
-            </div>
-            <div className={cn('text')}>{item.text}</div>
-            <Button style={'text_comments'} title={t('article.answer')}></Button>
-          </div>
+        
+        {list.map((item, index) => (
+          <CommentItem
+            key={`comment-${item._id}`}
+            comment={item}
+            onReply={() => handleReply(item, index)}
+            showReplyForm={index === replyIndex - 1}
+            onFormChange={onChange}
+            onFormSubmit={handleSubmitReply}
+            onFormCancel={handleCancelReply}
+            formValue={value}
+            t={t}
+          />
         ))}
-        {Object.keys(user).length === 0 ?
+        
+        {!user?._id ? (
           <div className={cn('link')}>
-            <Link to={'/login'}>{t('article.login.part1')}</Link>
+            <Link to="/login">{t('article.login.part1')}</Link>
             {t('article.login.part2')}
           </div>
-          :
+        ) : !replyTo && (
           <CommentsForm
             title={t('article.new-comment')}
-            titleButton={t('article.send')}
+            titleButtonSend={t('article.send')}
             onChange={onChange}
             onClick={onClick}
             value={value}
           />
-        }
+        )}
       </div>
     </div>
-  )
+  );
 }
 
 export default memo(CommentsList);
