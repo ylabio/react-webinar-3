@@ -29,5 +29,7 @@
   "comment.replyPlaceholder": "Write your reply...",
   "comment.reply": "Reply",
   "comment.cancel": "Cancel",
-  "comment.error": "Error submitting comment"
+  "comment.error": "Error submitting comment",
+  "comment.signIn": "Sign in",
+  "comment.toComment": "to be able to comment"
 }

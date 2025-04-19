@@ -1,9 +1,6 @@
 .Comment {
   margin-bottom: 15px;
   padding: 15px;
-  border-radius: 4px;
-  background-color: var(--second-background);
-  position: relative;
 }
 
 .Comment-level-1 {
@@ -14,12 +11,17 @@
   margin-left: 60px;
 }
 
+.Comment-level-3 {
+  margin-left: 90px;
+}
+
 .Comment-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 0.9em;
 }
+
 .Comment-author {
   font-weight: bold;
 }
@@ -43,17 +45,14 @@
   text-decoration: underline;
 }
 
-.CommentForm {
+.Comment-reply-form {
   margin-top: 15px;
-  padding: 15px;
-  background: var(--background);
-  border: 1px solid var(--filter-border);
-  border-radius: 4px;
 }
 
 .CommentForm {
   animation: fadeIn 0.3s ease-in-out;
 }
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }

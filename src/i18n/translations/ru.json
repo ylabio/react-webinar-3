@@ -31,5 +31,7 @@
   "comment.replyPlaceholder": "Напишите ваш ответ...",
   "comment.reply": "Ответить",
   "comment.cancel": "Отмена",
-  "comment.error": "Ошибка при отправке комментария"
+  "comment.error": "Ошибка при отправке комментария",
+  "comment.signIn": "Войдите,",
+  "comment.toComment": "чтобы иметь возможность комментировать"
 }
