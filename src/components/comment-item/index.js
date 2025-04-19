@@ -1,18 +1,19 @@
-import { memo } from 'react';
+import {memo} from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
 import './style.css';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function CommentItem({
-  comment,
-  onReply,
-  onCancel,
-  onSend,
-  activeFormTargetId,
-  isAuthorized,
-  user,
-}) {
+                       comment,
+                       onReply,
+                       onCancel,
+                       onSend,
+                       activeFormTargetId,
+                       isAuthorized,
+                       user,
+                       level = 0
+                     }) {
   const isReplying = activeFormTargetId === comment._id;
   const navigate = useNavigate();
   const handleLoginRedirect = () => navigate('/login');
@@ -21,15 +22,15 @@ function CommentItem({
   };
 
   const handleSubmitReply = text => {
-    onSend(text, { _id: comment._id, _type: 'comment' });
+    onSend(text, {_id: comment._id, _type: 'comment'});
   };
 
   return (
-    <div className="comment-item" key={String(comment._id)}>
+    <div className="comment-item" style={{marginLeft: `${Math.min(level, 4) * 40}px`}} key={String(comment._id)}>
       <div className="comment">
         <div className="comment-item__info">
           <strong>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
-          <span style={{ fontSize: '0.85em', color: '#888' }}>
+          <span style={{fontSize: '0.85em', color: '#888'}}>
             {new Date(comment.dateCreate)
               .toLocaleString('ru-RU', {
                 day: 'numeric',
@@ -47,7 +48,7 @@ function CommentItem({
         {!isReplying && (
           <button
             className="comment-item__reply"
-            style={{ padding: 0, color: 'var(--primary)' }}
+            style={{padding: 0, color: 'var(--primary)'}}
             onClick={isAuthorized ? handleReplyClick : handleLoginRedirect}
           >
             Ответить
@@ -55,7 +56,7 @@ function CommentItem({
         )}
       </div>
       {isReplying && (
-        <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true} />
+        <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
       )}
 
       {Array.isArray(comment.children) && comment.children.length > 0 && (
@@ -70,6 +71,7 @@ function CommentItem({
               activeFormTargetId={activeFormTargetId}
               isAuthorized={isAuthorized}
               user={user}
+              level={level + 1}
             />
           ))}
         </div>
@@ -86,6 +88,7 @@ CommentItem.propTypes = {
   activeFormTargetId: PropTypes.string,
   isAuthorized: PropTypes.bool,
   user: PropTypes.object,
+  level: PropTypes.number,
 };
 
 export default memo(CommentItem);
