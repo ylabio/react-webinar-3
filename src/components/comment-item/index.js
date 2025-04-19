@@ -29,7 +29,7 @@ function CommentItem({
   return (
     <div className="comment-item"
          style={{
-           marginLeft: `${Math.min(level, 4) * 40}px`,
+           marginLeft: level > 0 ? '40px' : '0px',
            // border: '1px dashed red',
          }} key={String(comment._id)}>
       <div className="comment">
@@ -72,7 +72,13 @@ function CommentItem({
         <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
       )}
       {!isAuthorized && isReplying && (
-        <AuthHint/>
+        <div style={{marginLeft: level > 0 ? '40px' : '0px'}}>
+          {isAuthorized ? (
+            <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
+          ) : (
+            <AuthHint/>
+          )}
+        </div>
       )}
       {level < MAX_INDENT_LEVEL && Array.isArray(comment.children) && comment.children.length > 0 && (
         <>
