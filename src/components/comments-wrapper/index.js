@@ -9,6 +9,14 @@ import CommentForm from '../comment-form';
 import useSelector from '../../hooks/use-selector';
 import { Link } from 'react-router-dom';
 
+function LinkToLogin() {
+  return (
+    <span className="loginToAllowComment">
+      <Link to={`/login`}>Войдите</Link>, чтобы иметь возможность комментировать
+    </span>
+  );
+}
+
 function CommentsWrapper(props) {
   const isLogin = useSelector(state => state.session.exists);
   const [commentIdFormVisible, setCommentIdFormVisible] = useState('');
@@ -28,6 +36,7 @@ function CommentsWrapper(props) {
           <CommentItem
             key={comment._id}
             isLogin={isLogin}
+            LinkToLogin={LinkToLogin}
             setCommentIdFormVisible={setCommentIdFormVisible}
             commentIdFormVisible={commentIdFormVisible}
             comment={comment}
@@ -40,9 +49,7 @@ function CommentsWrapper(props) {
           <CommentForm _id={_id} _type={_type} setCommentIdFormVisible={setCommentIdFormVisible} />
         )
       ) : (
-        <span className="loginToAllowComment">
-          <Link to={`/login`}>Войдите</Link>, чтобы иметь возможность комментировать
-        </span>
+        <LinkToLogin></LinkToLogin>
       )}
     </div>
   );

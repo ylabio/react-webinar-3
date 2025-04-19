@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 
 function CommentItem(props) {
   const {
+    LinkToLogin,
     treeLevel = 0,
     commentIdFormVisible = '',
     setCommentIdFormVisible = () => {},
     isLogin,
   } = props;
-  const { author, dateCreate, text, children, _id } = props.comment;
+  const { author, dateCreate, text, children, _id,  } = props.comment;
   const cn = bem('CommentItem');
   const maxlevel = 5; //максимальный уровень вложенности
   if (!props.comment) return null;
@@ -38,9 +39,7 @@ function CommentItem(props) {
               title={`Новый ответ`}
             />
           ) : (
-            <span className="loginToAllowComment">
-              <Link to={`/login`}>Войдите</Link>, чтобы иметь возможность комментировать
-            </span>
+            <LinkToLogin/>
           ))}
       </div>
       {children.length > 0 &&
@@ -52,6 +51,7 @@ function CommentItem(props) {
             commentIdFormVisible={commentIdFormVisible}
             comment={children}
             treeLevel={treeLevel + 1}
+            LinkToLogin={LinkToLogin}
           />
         ))}
     </>
