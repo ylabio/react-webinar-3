@@ -65,6 +65,7 @@ function CommentsSection({ articleId }) {
             activeFormTargetId={activeFormTargetId}
             isAuthorized={isAuthorized}
             user={user}
+            level={0}
           />
         ))
       )}

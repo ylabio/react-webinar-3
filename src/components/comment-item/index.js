@@ -12,7 +12,7 @@ function CommentItem({
                        activeFormTargetId,
                        isAuthorized,
                        user,
-                       level = 0
+                       level
                      }) {
   const isReplying = activeFormTargetId === comment._id;
   const navigate = useNavigate();
@@ -24,9 +24,13 @@ function CommentItem({
   const handleSubmitReply = text => {
     onSend(text, {_id: comment._id, _type: 'comment'});
   };
-
+  const MAX_INDENT_LEVEL = 4;
   return (
-    <div className="comment-item" style={{marginLeft: `${Math.min(level, 4) * 40}px`}} key={String(comment._id)}>
+    <div className="comment-item"
+         style={{
+           marginLeft: `${Math.min(level, 4) * 40}px`,
+           // border: '1px dashed red',
+         }} key={String(comment._id)}>
       <div className="comment">
         <div className="comment-item__info">
           <strong>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
@@ -59,8 +63,8 @@ function CommentItem({
         <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
       )}
 
-      {Array.isArray(comment.children) && comment.children.length > 0 && (
-        <div className="comment-item__children">
+      {level < MAX_INDENT_LEVEL && Array.isArray(comment.children) && comment.children.length > 0 && (
+        <>
           {comment.children.map(child => (
             <CommentItem
               key={String(child._id)}
@@ -74,7 +78,7 @@ function CommentItem({
               level={level + 1}
             />
           ))}
-        </div>
+        </>
       )}
     </div>
   );
