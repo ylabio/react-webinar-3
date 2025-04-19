@@ -85,12 +85,15 @@ class SessionState extends StoreModule {
     } catch (error) {
       console.error(error);
     }
-    this.setState({ ...this.initState(), waiting: false });
     this.services.store.setState({
       ...this.services.store.getState(),
       session: { ...this.initState(), waiting: false },
-      profile: { data: {} }
-    }, 'Выход');
+      profile: { data: {} },
+      comments: {
+        ...this.services.store.getState().comments,
+        activeFormTargetId: null
+      }
+    }, 'Выход и сброс формы ответа');
   }
 
   /**

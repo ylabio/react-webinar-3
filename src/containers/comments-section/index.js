@@ -21,6 +21,7 @@ function CommentsSection({ articleId }) {
       setIsAuthorized(state.session.exists);
       setUser(state.profile.data);
     });
+
     if (store.getState().session.exists && !store.getState().profile.data._id) {
       store.actions.profile.load();
     }

@@ -15,8 +15,7 @@ function CommentItem({
                        user,
                        level
                      }) {
-  const isReplying = activeFormTargetId === comment._id;
-  const navigate = useNavigate();
+  const isReplying = activeFormTargetId === comment._id;;
   const replyRef = useRef(null);
 
   useEffect(() => {
@@ -24,6 +23,11 @@ function CommentItem({
       replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [isReplying]);
+  useEffect(() => {
+    if (isReplying && !isAuthorized) {
+      onCancel();
+    }
+  }, [isAuthorized, isReplying, onCancel]);
 
   const handleReplyClick = () => {
     onReply(comment._id);
@@ -34,6 +38,7 @@ function CommentItem({
   };
 
   const MAX_INDENT_LEVEL = 4;
+  const isOwnComment = !!user?._id && comment.author?._id === user._id;
 
   return (
     <div
@@ -46,7 +51,7 @@ function CommentItem({
       <div className="comment">
         <div className="comment-item__info">
           <strong style={{
-            color: comment.author?._id === user?._id ? '#666' : undefined,
+            color: isOwnComment ? '#666' : undefined,
           }}>
             {comment.author?.profile?.name || 'Аноним'}
           </strong>{' '}
