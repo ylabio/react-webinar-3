@@ -8,17 +8,17 @@ import shallowequal from 'shallowequal';
 import useSelectorStore from '../../hooks/use-selector';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
-import useTranslate from '../../hooks/use-translate';
 import CommentAction from '../../components/comment-action';
 import LadderList from '../../components/ladder-list';
 import CommentsLayout from '../../components/comments-layout';
 import CommentItem from '../../components/comment-item';
 import Spinner from '../../components/spinner';
+import useLocale from '../../hooks/use-locale';
 
 function ArticleComments() {
   const cn = bem('ArticleComments');
 
-  const {t} = useTranslate();
+  const { t, locale } = useLocale()
   const select = useSelector(
     state => ({
       article: state.article.data,
@@ -86,11 +86,13 @@ function ArticleComments() {
       item => (
         <>
           <CommentItem
+            active={addComment === item.value}
             comment={item}
             my={selectStore.user._id === item.authorId}
             onStartReply={() => callbacks.addToAnswer(item.value)}
             onCancelReply={() => callbacks.cancelToAnswer()}
             t={t}
+            locale={locale}
           />
           {addComment === item.value &&
             renders.action({
@@ -123,7 +125,7 @@ function ArticleComments() {
   };
 
   return (
-    <Spinner active={select.waiting}>    <CommentsLayout title={`Комментарии (${select.commentsCount})`}>
+    <Spinner active={select.waiting}>    <CommentsLayout title={`${t('comment.title')} (${select.commentsCount})`}>
       {comments && <LadderList list={comments} renderItem={renders.item}/>}
       {addComment === '' && renders.action({
         isReply: false,

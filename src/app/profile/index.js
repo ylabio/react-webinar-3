@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -11,6 +10,7 @@ import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import ProfileCard from '../../components/profile-card';
 import HeadLayout from '../../components/head-layout';
+import useLocale from '../../hooks/use-locale';
 
 function Profile() {
   const store = useStore();
@@ -24,7 +24,7 @@ function Profile() {
     waiting: state.profile.waiting,
   }));
 
-  const { t } = useTranslate();
+  const { t } = useLocale()
 
   return (
     <>
@@ -37,7 +37,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ProfileCard data={select.profile} />
+          <ProfileCard data={select.profile} t={t} />
         </Spinner>
       </PageLayout>
     </>

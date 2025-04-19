@@ -2,11 +2,11 @@
  * Форматирование даты в читаемый вид
  * Преобразует строку даты в формат вида "12 апреля 2025 в 14:30" с учётом указанной локали
  * @param dateString {String} Строка даты в формате, распознаваемом конструктором Date.
- * @param [locale] {String} Локаль (код языка), по умолчанию 'ru-RU'.
+ * @param [locale] {String} Локаль (код языка), по умолчанию 'ru'.
  * @returns {String} Отформатированная строка даты.
  * @example formatPrettyDate('2025-04-12T14:30:00') // "12 апреля 2025 в 14:30"
  */
-export function formatPrettyDate(dateString, locale = 'ru-RU') {
+export function formatPrettyDate(dateString, locale = 'ru') {
   const date = new Date(dateString);
 
   const datePart = new Intl.DateTimeFormat(locale, {

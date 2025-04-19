@@ -1,7 +1,6 @@
 import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -16,20 +15,22 @@ import articleActions from '../../store-redux/article/actions';
 import commentsActions from '../../store-redux/comments/actions';
 import HeadLayout from '../../components/head-layout';
 import ArticleComments from '../../containers/article-comments';
+import useLocale from '../../hooks/use-locale';
 
 function Article() {
   const store = useStore();
-
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
+
+  const { t, locale} = useLocale()
 
   const params = useParams();
 
   useInit(() => {
     //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
+    dispatch(articleActions.load(params.id, locale));
     dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, locale]);
 
   const select = useSelector(
     state => ({
@@ -38,8 +39,6 @@ function Article() {
     }),
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину

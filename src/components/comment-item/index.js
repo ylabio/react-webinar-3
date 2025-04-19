@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -9,26 +9,26 @@ import { formatPrettyDate } from '../../utils/format-pretty-date';
 function CommentItem(props) {
 
   const {
+    active = false,
     comment,
     my = false,
     onStartReply = () => {},
     onCancelReply = () => {},
     t = text => text,
+    locale = 'ru'
   } = props;
 
-  const [isReplying, setIsReplying] = useState(false);
   const cn = bem('CommentItem');
 
-  const formattedDate = formatPrettyDate(comment.dateCreate);
+  const formattedDate = formatPrettyDate(comment.dateCreate, locale);
 
   const handleToggleReply = useCallback(() => {
-    if (isReplying) {
+    if (active) {
       onCancelReply();
     } else {
       onStartReply();
     }
-    setIsReplying(!isReplying);
-  }, [isReplying, onStartReply, onCancelReply]);
+  }, [active, onStartReply, onCancelReply]);
 
   return (
     <div className={cn()}>

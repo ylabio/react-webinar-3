@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '../button';
 import './style.css';
+import useLocale from '../../hooks/use-locale';
 
 function ItemBasket(props) {
   const { onRemove = () => {}, labelCurr = '₽', labelUnit = 'шт', labelDelete = 'Удалить' } = props;
@@ -20,10 +21,10 @@ function ItemBasket(props) {
       <div className={cn('title')}>
         {props.link ? (
           <Link to={props.link} onClick={props.onLink}>
-            {props.item.title}
+            {props.item.title[props.locale]}
           </Link>
         ) : (
-          props.item.title
+          props.item.title[props.locale]
         )}
       </div>
       <div className={cn('right')}>

@@ -31,7 +31,7 @@ function CommentAction(props) {
   if (!auth) {
     return (
       <div className={cn({type: 'alert'})}>
-        <Link to={link} state={{back: backLink}}>Войдите</Link>, чтобы иметь возможность комментировать
+        <Link to={link} state={{back: backLink}}>{t('comment.authHint.link')}</Link>{t('comment.authHint.text')}
       </div>
     );
   }
