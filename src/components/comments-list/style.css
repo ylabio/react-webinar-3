@@ -1,0 +1,56 @@
+.CommentsList {
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.CommentsList-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: var(--second-font-family);
+}
+
+.CommentsList-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Comment {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.Comment_level_1 {
+  margin-left: 20px;
+}
+
+.Comment_level_2 {
+  margin-left: 40px;
+}
+
+.Comment_level_3 {
+  margin-left: 60px;
+}
+
+.Comment-header {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.Comment-author {
+  font-weight: bold;
+}
+
+.Comment-date {
+  color: var(--overlay);
+}
+
+.Comment-children {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
