@@ -14,24 +14,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
+import commentsActions from '../../store-redux/comments/actions';
+import CommentsList from '../../containers/comments-list';
 
 function Article() {
   const store = useStore();
 
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
+  const { id } = useParams();
 
-  const params = useParams();
-
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  useInit(
+    async () => {
+      await Promise.all([
+        dispatch(articleActions.load(id)),
+        dispatch(commentsActions.load(id)),
+      ]);
+    },
+    [id],
+    { watchLanguage: true },
+  );
 
   const select = useSelector(
     state => ({
       article: state.article.data,
-      waiting: state.article.waiting,
+      waiting: state.article.waiting || state.comments.waiting,
+      comments: state.comments?.data?.items || [],
+      commentsCount: state.comments?.data?.count || 0,
     }),
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
@@ -55,6 +63,11 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+          <CommentsList
+            comments={select.comments}
+            commentsCount={select.commentsCount}
+            articleId={select.article?._id}
+          />
         </Spinner>
       </PageLayout>
     </>

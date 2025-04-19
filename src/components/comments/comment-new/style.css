@@ -1,0 +1,27 @@
+.CommentNew {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.CommentNew-label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.CommentNew-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  resize: none;
+  outline: none;
+  min-height: 88px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.CommentNew-action {
+  display: flex;
+  gap: 16px;
+}
