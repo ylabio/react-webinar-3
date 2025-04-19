@@ -23,6 +23,7 @@
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
   "session.signOut": "Sign Out",
+  "comment.title": "Comments",
   "comment.placeholder": "Write your comment...",
   "comment.submit": "Submit",
   "comment.replyPlaceholder": "Write your reply...",

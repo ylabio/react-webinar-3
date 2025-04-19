@@ -25,6 +25,7 @@
   "auth.password-placeholder": "Введите пароль",
   "session.signIn": "Вход",
   "session.signOut": "Выход",
+  "comment.title": "Комментарии",
   "comment.placeholder": "Напишите ваш комментарий...",
   "comment.submit": "Отправить",
   "comment.replyPlaceholder": "Напишите ваш ответ...",
