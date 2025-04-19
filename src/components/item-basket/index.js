@@ -7,24 +7,33 @@ import Button from '../button';
 import './style.css';
 
 function ItemBasket(props) {
-  const { onRemove = () => {}, labelCurr = '₽', labelUnit = 'шт', labelDelete = 'Удалить' } = props;
+  const { onRemove, onNavigate, labelCurr, labelUnit, labelDelete } = props;
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => onRemove(props.item._id),
+    onRemove: e => {
+      e.preventDefault();
+      e.stopPropagation();
+      onRemove(props.item._id);
+    },
+    onLinkClick: e => {
+      e.stopPropagation();
+      if (onNavigate) {
+        onNavigate();
+      }
+    }
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {props.link ? (
-          <Link to={props.link} onClick={props.onLink}>
-            {props.item.title}
-          </Link>
-        ) : (
-          props.item.title
-        )}
+        <Link 
+          to={`/articles/${props.item._id}`}
+          onClick={callbacks.onLinkClick}
+          className={cn('link')}
+        >
+          {props.item.title}
+        </Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>
@@ -48,9 +57,8 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
-  link: PropTypes.string,
-  onLink: PropTypes.func,
   onRemove: PropTypes.func,
+  onNavigate: PropTypes.func,
   labelCurr: PropTypes.string,
   labelDelete: PropTypes.string,
   labelUnit: PropTypes.string,

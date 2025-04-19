@@ -9,6 +9,17 @@
   }
 }
 
+.Button_style_primaryRevers {
+  background-color: var(--second-text);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--second-text);
+  }
+}
+
 .Button_style_delete {
   background-color: var(--delete);
   color: var(--second-text);
@@ -37,5 +48,15 @@
 
   &:hover {
     color: var(--primary);
+  }
+}
+
+.Button_style_textRevers {
+  padding: 0;
+  border: none;
+  color: var(--primary);
+
+  &:hover {
+    color: inherit;
   }
 }

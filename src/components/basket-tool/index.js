@@ -6,16 +6,16 @@ import Cart from '../../assets/icon/cart.svg';
 import './style.css';
 
 function BasketTool(props) {
-  const { sum = 0, amount = 0, onOpen = () => {}, t = text => text } = props;
-
+  const { sum = 0, amount = 0, onOpen = () => {}, t, lang } = props;
   const cn = bem('BasketTool');
+
   return (
     <div className={cn()}>
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {amount
-            ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
+            ? `${amount} ${t('basket.articles', { count: amount })} / ${numberFormat(sum)} ₽`
             : t('basket.empty')}
         </span>
       </button>
@@ -27,7 +27,8 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  t: PropTypes.func,
+  t: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 export default memo(BasketTool);
