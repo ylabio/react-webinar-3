@@ -99,7 +99,7 @@ function Comments({}) {
   };
 
   return (
-    <CommentsContainer title={t('comments.header')} count={options.comments.length}>
+    <CommentsContainer t={t} count={options.comments.length}>
       <Spinner active={selectRedux.waiting}>
         {options.comments.map(comment => (
           <div key={comment.id} style={{ paddingLeft: comment.padding }}>
@@ -114,16 +114,13 @@ function Comments({}) {
             {select.exists && activeReplyId === comment.id && (
               <CommentsForm
                 onSubmit={callbacks.onSubmit}
-                submitTitle={t('comments.send')}
-                title={t('comments.answer-title')}
-                cancelTitle={t('comments.cancel')}
-                error={t('comments.error')}
                 style="small"
                 option="cancel"
                 onClick={callbacks.onCancel}
                 value={newComment ? newComment.text : newComment}
                 onChange={callbacks.onChange}
                 success={selectRedux.success}
+                t={t}
               />
             )}
             {!select.exists && activeReplyId === comment.id && (
@@ -146,13 +143,11 @@ function Comments({}) {
       {select.exists && !activeReplyId && (
         <CommentsForm
           onSubmit={callbacks.onSubmit}
-          submitTitle={t('comments.send')}
-          title={t('comments.title')}
-          error={t('comments.error')}
           style="small"
           value={newComment.text}
           onChange={callbacks.onChange}
           success={selectRedux.success}
+          t={t}
         />
       )}
     </CommentsContainer>

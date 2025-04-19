@@ -16,6 +16,10 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+  "card.country": "Страна производитель:",
+  "card.сategory": "Категория:",
+  "card.year": "Год выпуска:",
+  "card.price": "Цена:",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
@@ -33,5 +37,9 @@
   "comments.cancel": "Отмена",
   "comments.title": "Новый комментарий",
   "comments.answer-title": "Новый ответ",
-  "comments.error": "Ошибка, попробуйте отправить повторно"
+  "comments.error": "Ошибка, попробуйте отправить повторно",
+  "profile.profile": "Профиль",
+  "profile.name": "Имя:",
+  "profile.tel": "Телефон:",
+  "profile.email": "Email:"
 }

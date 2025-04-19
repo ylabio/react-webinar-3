@@ -3,23 +3,22 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentsContainer({ children, title = '', count = 0 }) {
+function CommentsContainer({ children, t, count = '0' }) {
   const cn = bem('CommentsContainer');
 
   return (
     <div className={cn()}>
       <h2 className={cn('header')}>
-        {title} ({count})
+        {t('comments.header')} ({count})
       </h2>
       {children}
     </div>
   );
 }
 
-CommentsContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string,
-  count: PropTypes.number,
-};
-
+// CommentsConatiner.propTypes = {
+//   count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+//   t: PropTypes.func,
+//   children: PropTypes.node,
+// };
 export default memo(CommentsContainer);
