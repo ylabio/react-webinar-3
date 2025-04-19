@@ -22,7 +22,8 @@ class Store {
      * locale: LocaleState,
      * categories: CategoriesState,
      * session: SessionState,
-     * profile: ProfileState
+     * profile: ProfileState,
+     * comments: CommentsState,
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
@@ -55,6 +56,7 @@ class Store {
    * categories: Object,
    * session: Object,
    * profile: Object,
+   * comments: Object,
    * }}
    */
   getState() {

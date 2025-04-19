@@ -1,0 +1,64 @@
+.CommentCard {
+
+}
+
+.CommentList-comments {
+    font-family: var(--second-font-family);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin-top: 16px;
+  }
+
+.CommentCard-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.CommentCard-username {
+    font-weight: 700;
+}
+
+.CommentCard-date {
+    color: var(--date-text);
+}
+
+.CommentCard-comment {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.CommentCard-answer {
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.CommentCard-replies {
+    /* background-color: aquamarine; */
+    /* margin-left: 100px; */
+    margin-left: 40px;
+    margin-bottom: 16px;
+}
+
+.CommentCard-authcaution {
+    margin: 24px 0 24px 0;
+}
+
+/* CommentCard-authcaution a {
+    color: var(--primary) !important;
+} */
+
+/* CommentCard-authlink {
+    color: var(--primary) !important;
+} */
+
+.CommentList-authcaution {
+    margin: 24px 0 24px 0;
+}

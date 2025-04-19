@@ -148,4 +148,50 @@ describe('listToTree', () => {
       },
     ]);
   });
+
+  test('test4', () => {
+    const list = [
+      { _id: 3, text: 'Телефоны', parent: { _id: 2 } },
+      { _id: 2, text: 'Электроника', parent: null },
+      { _id: 9, text: 'Учебники', parent: { _id: 8 } },
+      { _id: 8, text: 'Книги', parent: null },
+      { _id: 6, text: 'Ноутбуки', parent: { _id: 2 } },
+      { _id: 7, text: 'Телевизоры', parent: { _id: 2 } },
+      { _id: 10, text: 'Художественная', parent: { _id: 8 } },
+      { _id: 11, text: 'Комиксы', parent: { _id: 8 } },
+      { _id: 4, text: 'Смартфоны', parent: { _id: 3 } },
+      { _id: 5, text: 'Аксессуары', parent: { _id: 3 } },
+    ];
+
+    expect(listToTree(list)).toEqual([
+      {
+        _id: 2,
+        text: 'Электроника',
+        parent: null,
+        children: [
+          {
+            _id: 3,
+            text: 'Телефоны',
+            parent: { _id: 2 },
+            children: [
+              { _id: 4, text: 'Смартфоны', parent: { _id: 3 }, children: [] },
+              { _id: 5, text: 'Аксессуары', parent: { _id: 3 }, children: [] },
+            ],
+          },
+          { _id: 6, text: 'Ноутбуки', parent: { _id: 2 }, children: [] },
+          { _id: 7, text: 'Телевизоры', parent: { _id: 2 }, children: [] },
+        ],
+      },
+      {
+        _id: 8,
+        text: 'Книги',
+        parent: null,
+        children: [
+          { _id: 9, text: 'Учебники', parent: { _id: 8 }, children: [] },
+          { _id: 10, text: 'Художественная', parent: { _id: 8 }, children: [] },
+          { _id: 11, text: 'Комиксы', parent: { _id: 8 }, children: [] },
+        ],
+      },
+    ]);
+  }); // test4
 });
