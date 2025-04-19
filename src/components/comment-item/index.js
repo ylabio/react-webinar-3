@@ -25,6 +25,7 @@ function CommentItem({
     onSend(text, {_id: comment._id, _type: 'comment'});
   };
   const MAX_INDENT_LEVEL = 4;
+  console.log(user._id)
   return (
     <div className="comment-item"
          style={{
@@ -33,7 +34,9 @@ function CommentItem({
          }} key={String(comment._id)}>
       <div className="comment">
         <div className="comment-item__info">
-          <strong>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
+          <strong style={{
+            color: comment.author?._id === user?._id ? '#666' : undefined,
+          }}>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
           <span>
             {new Date(comment.dateCreate)
               .toLocaleString('ru-RU', {
