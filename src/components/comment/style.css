@@ -1,0 +1,35 @@
+.Comment {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 12px;
+}
+
+.Comment-info {
+  display: flex;
+  gap: 12px;
+}
+
+.Comment-profile {
+  font-weight: 700;
+}
+
+.Comment-date {
+  color: #666666;
+}
+
+.Comment-main {
+  margin: 0;
+  font-size: 14px;
+}
+
+.Comment-button {
+  padding: 0;
+  border: none;
+  color: var(--primary);
+
+  &:hover {
+    color: var(--main-text);
+  }
+}

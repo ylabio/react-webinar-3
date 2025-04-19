@@ -5,3 +5,8 @@
 .Form button {
   margin-top: 24px;
 }
+
+.Form-actions {
+  display: flex;
+  gap: 16px;
+}

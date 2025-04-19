@@ -1,0 +1,14 @@
+.CommentInput {
+  padding: 8px;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+  font-family: var(--font-family);
+  resize: none;
+  height: 88px;
+  box-sizing: border-box;
+}
+
+.CommentInput:focus {
+  outline: none;
+}
+
