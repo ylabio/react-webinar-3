@@ -21,4 +21,22 @@ export default {
       }
     }
   },
+
+  create: (id, comment) => {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: 'comments/create-start' });
+
+      try {
+        const res = await services.api.request({
+          url: '/api/v1/comments',
+          method: 'POST',
+          body: JSON.stringify({ _id: id, text: comment, parent: {} }),
+        });
+        console.log('Ваше сообщение отправляется', { id, comment });
+        dispatch({ type: 'comments/create-success', payload: { data: res.data.result.items } });
+      } catch (e) {
+        dispatch({ type: 'comments/create-error' });
+      }
+    }
+  }
 };

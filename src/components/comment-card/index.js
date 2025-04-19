@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function CommentCard(props) {
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const { comment, isAuthenticated, showAuthMessage, onReplyClick, handleAddComment, setAuthMessageCommentId, authMessageCommentId, replyToCommentId, setReplyToCommentId, setShowNewCommentForm } = props;
+  const { comment, isAuthenticated, showAuthMessage, onReplyClick, handleAddComment, setAuthMessageCommentId, authMessageCommentId, replyToCommentId, setReplyToCommentId, setShowNewCommentForm, onChange } = props;
   const cn = bem('CommentCard');
   // console.log('Comments from CommentCard', comment);
 
@@ -21,6 +21,7 @@ function CommentCard(props) {
       // setShowReplyForm(!showReplyForm); // Переключаем видимость формы ответа
       setReplyToCommentId(replyToCommentId === comment._id ? null : comment._id); // Переключаем ответ на текущий комментарий
       setShowNewCommentForm(false); // Скрываем форму добавления нового комментария
+      console.log('replyToCommentId', replyToCommentId);
     }
   };
 
@@ -30,6 +31,31 @@ function CommentCard(props) {
     setReplyToCommentId(null); // Сбросить ID после отправки ответа
     setShowNewCommentForm(false);
   };
+
+  // Проверяем наличие дочерних комментариев
+  // console.log('comment has children', comment);
+  // const hasChildren = comment.children && comment.children.length > 0;
+
+  // let lastChild;
+  // if (hasChildren) {
+  //   lastChild = comment.children[comment.children.length - 1]; // Получаем последний дочерний элемент
+  // }
+  // (hasChildren && replyToCommentId === lastChild._id)
+  // Условие для отображения формы
+  const hasChildren = comment.children && comment.children.length > 0;
+  const shouldShowReplyForm = isAuthenticated && (replyToCommentId === comment._id);
+
+  {isAuthenticated && (replyToCommentId === comment._id) && (
+  <form onSubmit={(e) => {
+    e.preventDefault();
+    const replyText = e.target.elements.reply.value; // Получаем текст из поля ввода
+    handleSubmitReply(replyText);
+  }}>
+    <input type="text" name="reply" placeholder="Ваш ответ..." required onChange={onChange} />
+    <button type="submit">Отправить</button>
+  </form>
+)}
+    
 
   return (
     <div className={cn()}>
@@ -42,36 +68,41 @@ function CommentCard(props) {
             </div>
         </div>
         <div className={cn('comment')}>
-            {comment.text}
+          {comment._id}<br />
+          {comment.text}
         </div>    
         <div className={cn('answer')} onClick={handleReplyClick}>
             Ответить
         </div>
 
         {/* Сообщение о необходимости авторизации */}
-        {showAuthMessage && (
+        {/* {showAuthMessage && (
           <div className={cn('authcaution')}>
             <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
           </div>
-        )}
+        )} */}
         
       {/* Форма для ответа на комментарий */}
       {/* {showReplyForm && ( */}
-      {replyToCommentId === comment._id && (
+      {/* {isAuthenticated && replyToCommentId === comment._id && ( */}
+      {/* Форма для ответа на комментарий, рендерится после всех дочерних комментариев на одном уровне */}
+
+      {isAuthenticated && (replyToCommentId === comment._id) && (
         <form onSubmit={(e) => {
           e.preventDefault();
-          const replyText = e.target.elements.reply.value; // Получаем текст из поля ввода
+          const replyText = e.target.elements.reply.value;
           handleSubmitReply(replyText);
         }}>
-          <input type="text" name="reply" placeholder="Ваш ответ..." required />
+          <input type="text" name="reply" placeholder="Ваш ответ..." required onChange={onChange} />
           <button type="submit">Отправить</button>
         </form>
-      )} 
+      )}
+       
 
       {/* Рендерим детей только если глубина меньше MAX_DEPTH */}
       {comment.children && comment.children.length > 0 && (
         <div className={cn('replies')}>
-          {comment.children.map(child => (
+          {comment.children.map((child, index) => (
             <CommentCard 
               key={child._id} 
               comment={child}
@@ -88,12 +119,22 @@ function CommentCard(props) {
           ))}
         </div>
       )}
-        
-      
-      {/* <Button style="primary" onClick={() => onAdd(article._id)} title={t('article.add')} /> */}
-    </div>
+
+      {/* Форма для ответа на комментарий после последнего дочернего элемента */}
+      {isAuthenticated && showReplyForm && (
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          const replyText = e.target.elements.reply.value;
+          handleSubmitReply(replyText);
+        }}>
+          <input type="text" name="reply" placeholder="Ваш ответ..." required />
+          <button type="submit">Отправить</button>
+        </form>
+      )}
+   </div>
   );
-}
+}     
+
 
 // CommentCard.propTypes = {
 //   article: PropTypes.shape({

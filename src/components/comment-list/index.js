@@ -1,11 +1,13 @@
-import { memo, useState } from 'react';
+import { memo, useState, useMemo, useCallback } from 'react';
 // import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 // import numberFormat from '../../utils/number-format';
 // import Button from '../button';
 import './style.css';
 // import dateFormat from '../../utils/date-format';
-
+import { useDispatch } from 'react-redux';
+import commentsActions from '../../store-redux/comments/actions';
+import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
 import useSelector from '../../hooks/use-selector';
 import { Link } from 'react-router-dom';
@@ -17,13 +19,54 @@ function CommentList(props) {
   const [authMessageCommentId, setAuthMessageCommentId] = useState(null);
   const [showNewCommentForm, setShowNewCommentForm] = useState(true);
   const [replyToCommentId, setReplyToCommentId] = useState(null);
+  const params = useParams();
+  const [newComment, setNewComment] = useState({
+    parent: {
+      _id: '',
+      _type: '',
+    },
+    text: '',
+  });
+
+  const dispatch = useDispatch();
 
   const select = useSelector(state => ({
     exists: state.session.exists,
   }));
+
+  const parent = useMemo(
+    () => ({
+      _id: replyToCommentId || params.id,
+      _type: replyToCommentId ? 'comment' : 'article',
+    }),
+    [replyToCommentId, params.id],
+  );
+
+  const callbacks = {
+    onChange: useCallback(
+      e => {
+        setNewComment({
+          parent,
+          text: e.target.value,
+        });
+      },
+      [setNewComment, replyToCommentId],
+    ),
+
+    onSubmit: useCallback(
+      async e => {
+        // e.preventDefault();
+        if (newComment) {
+          // e.preventDefault();
+          await dispatch(commentsActions.create(newComment));
+          dispatch(commentsActions.load(params.id));
+        }
+      }, [newComment],
+    )
+  };
   
-  const isAuthenticated = false;
-  // const isAuthenticated = select.exists;
+  // const isAuthenticated = false;
+  const isAuthenticated = select.exists;
 
   const handleAddComment = (parentId, commentText) => {
     if (!isAuthenticated) {
@@ -31,6 +74,7 @@ function CommentList(props) {
     } else {
       // @todo написать логику добавления комментария
       console.log(parentId, commentText);
+      callbacks.onSubmit(parentId, commentText);
     }
     setReplyToCommentId(null); // Сбросить ID после добавления комментария
   }
@@ -65,6 +109,7 @@ function CommentList(props) {
             replyToCommentId={replyToCommentId} // Передаем ID для ответа
             setReplyToCommentId={setReplyToCommentId} // Передаем функцию для сброса ID
             setShowNewCommentForm={setShowNewCommentForm}
+            onChangae={callbacks.onChange}
           />
         ) : (
           <p>Комментарии недоступны</p>
