@@ -1,0 +1,25 @@
+.Comments {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Comments-title {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.Comments-link {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Comments-link-title {
+  color: var(--primary);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
