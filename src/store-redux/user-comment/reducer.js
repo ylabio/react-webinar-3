@@ -8,6 +8,8 @@ export const initialState = {
   },
   lastIdFromCommentTree: '',
   waiting: false,
+  isOpenFormInComments: false,
+  commentAuthorNick: '',
 };
 
 // Обработчик действий
@@ -23,7 +25,7 @@ function reducer(state = initialState, action) {
           _id: action.payload.parentId,
         },
       };
-    case 'user-comment/update-comment-ids':
+    case 'user-comment/update-data':
       return {
         ...state,
         parent: {
@@ -32,6 +34,8 @@ function reducer(state = initialState, action) {
           _type: action.payload._type,
         },
         lastIdFromCommentTree: action.payload.lastId,
+        isOpenFormInComments: action.payload.formPlace,
+        commentAuthorNick: action.payload._author,
       };
     case 'user-comment/upload-comment':
       return {

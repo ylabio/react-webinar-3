@@ -1,6 +1,6 @@
 export default {
   init: (userId = '', userToken = '', articleiId = '') => {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({ type: 'user-comment/load-start' });
       dispatch({
         type: 'user-comment/update-user-log-data',
@@ -9,12 +9,18 @@ export default {
       dispatch({ type: 'user-comment/load-success' });
     };
   },
-  setCommentsId: (parentId, lastTreeId, typeComment) => {
-    return (dispatch) => {
+  setCommentsData: (parentId, lastTreeId, typeComment, author, isFormInComments) => {
+    return dispatch => {
       dispatch({ type: 'user-comment/load-start' });
       dispatch({
-        type: 'user-comment/update-comment-ids',
-        payload: { _id: parentId, lastId: lastTreeId, _type: typeComment },
+        type: 'user-comment/update-data',
+        payload: {
+          _id: parentId,
+          lastId: lastTreeId,
+          _type: typeComment,
+          _author: author,
+          formPlace: isFormInComments,
+        },
       });
       dispatch({ type: 'user-comment/load-success' });
     };
@@ -27,8 +33,8 @@ export default {
     };
   },
   resetUserCommentStore: () => {
-    return (dispatch) => {
-      dispatch({type: 'user-comment/reset'})
-    }
-  }
+    return dispatch => {
+      dispatch({ type: 'user-comment/reset' });
+    };
+  },
 };

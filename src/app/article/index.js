@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 
@@ -57,16 +57,11 @@ function Article() {
     dispatch(userCommentsAction.init(selectUser.userId, selectUser.token, params.id));
   }, [selectUser.token]);
 
-  const [isFormOpenInComments, setIsFormOpenInComments] = useState(false);
-  const [authorNickname, setAuthorNickname] = useState('');
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     onCloseFormInComments: useCallback(() => {
-      setIsFormOpenInComments(false);
-      setAuthorNickname('');
-      dispatch(userCommentsAction.setCommentsId(params.id, '', 'article'));
+      dispatch(userCommentsAction.setCommentsData(params.id, '', 'article', '', false));
       callbacks.onChangeCommentMessage('');
     }, []),
     onChangeCommentData: useCallback(
@@ -76,9 +71,16 @@ function Article() {
           comments.data.items,
         );
 
-        dispatch(userCommentsAction.setCommentsId(lastItemId, lastChildFromTree, typeComment));
-        setAuthorNickname(authorNick);
-        setIsFormOpenInComments(true);
+        dispatch(
+          userCommentsAction.setCommentsData(
+            lastItemId,
+            lastChildFromTree,
+            typeComment,
+            authorNick,
+            true,
+          ),
+        );
+
         callbacks.onChangeCommentMessage('');
       },
       [comments.data.items],
@@ -148,21 +150,21 @@ function Article() {
                   t={t}
                   title={t('comments.new-answer')}
                   onCloseForm={callbacks.onCloseFormInComments}
-                  isOpenInComments={isFormOpenInComments}
+                  isOpenInComments={userComment.isOpenFormInComments}
                   onSubmit={callbacks.onSubmit}
                   isDisabledBtn={disabledBtn}
                 >
                   <Textarea
                     value={userComment.userComment}
                     onChange={callbacks.onChangeCommentMessage}
-                    placeholderText={`${t('answer.for')} ${authorNickname}`}
+                    placeholderText={`${t('answer.for')} ${userComment.commentAuthorNick}`}
                   />
                 </ArticleForm>
               ) : (
                 <ArticleAuthMessage />
               )}
             </ArticleComments>
-            {!isFormOpenInComments &&
+            {!userComment.isOpenFormInComments &&
               (selectUser.isUserAuth ? (
                 <ArticleForm
                   t={t}
