@@ -30,7 +30,7 @@ function CommentItem({
       <div className="comment">
         <div className="comment-item__info">
           <strong>{comment.author?.profile?.name || 'Аноним'}</strong>{' '}
-          <span style={{fontSize: '0.85em', color: '#888'}}>
+          <span>
             {new Date(comment.dateCreate)
               .toLocaleString('ru-RU', {
                 day: 'numeric',

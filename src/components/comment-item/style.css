@@ -2,20 +2,26 @@
   padding: 8px 0;
 }
 
+.comment-item__info strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .comment-item__info {
   display: flex;
   gap: 12px;
   align-items: baseline;
 }
+
 .comment-item__info span {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400;
   color: #666666;
 }
 .comment-item__text {
   font-weight: 400;
   color: #000000;
-  font-size: 18px;
+  font-size: 14px;
   padding: 6px 0;
 }
 
