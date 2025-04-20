@@ -11,14 +11,17 @@ import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
 import useSelector from '../../hooks/use-selector';
 import { Link } from 'react-router-dom';
+import Button from '../button';
 
 function CommentList(props) {
   const { comments, commentCount, t = text => text } = props;
-
-  const [showAuthMessage, setShowAuthMessage] = useState(false);
+  // Устанавливаем идентификатор текущего комментария
   const [authMessageCommentId, setAuthMessageCommentId] = useState(null);
+  // Скрываем форму добавления нового комментария
   const [showNewCommentForm, setShowNewCommentForm] = useState(true);
+  // Передаем ID для ответа
   const [replyToCommentId, setReplyToCommentId] = useState(null);
+
   const params = useParams();
   const [newComment, setNewComment] = useState({
     parent: {
@@ -65,7 +68,6 @@ function CommentList(props) {
     )
   };
   
-  // const isAuthenticated = false;
   const isAuthenticated = select.exists;
 
   const handleAddComment = (parentId, commentText) => {
@@ -102,14 +104,15 @@ function CommentList(props) {
             comment={comment}
             handleAddComment={handleAddComment}
             isAuthenticated={isAuthenticated}
-            showAuthMessage={authMessageCommentId === comment._id}
             onReplyClick={() => handleReplyClick(comment._id)}
+
             setAuthMessageCommentId={setAuthMessageCommentId}
             authMessageCommentId={authMessageCommentId}
-            replyToCommentId={replyToCommentId} // Передаем ID для ответа
-            setReplyToCommentId={setReplyToCommentId} // Передаем функцию для сброса ID
+            replyToCommentId={replyToCommentId}
+            setReplyToCommentId={setReplyToCommentId}
+
             setShowNewCommentForm={setShowNewCommentForm}
-            onChangae={callbacks.onChange}
+            onChange={callbacks.onChange}
           />
         ) : (
           <p>Комментарии недоступны</p>
@@ -118,15 +121,17 @@ function CommentList(props) {
 
         {/* Форма для нового комментария */}
         {isAuthenticated && showNewCommentForm ? (
-        // {isAuthenticated && showNewCommentForm ? ( 
           <form onSubmit={(e) => {
             e.preventDefault();
             const newCommentText = e.target.elements.newComment.value;
             handleAddComment(null, newCommentText); // Передаем null как parentId для нового комментария
             setShowNewCommentForm(false); // Скрываем форму после отправки
           }}>
-            <input type="text" name="newComment" placeholder="Ваш комментарий..." required />
-            <button type="submit">Отправить</button>
+            <p>Новый комментарий</p>
+            <textarea name="newComment" required onChange={callbacks.onChange} />
+            <div className={cn('action')}>
+              <Button style="primary" type="submit" title="Отправить" />
+            </div>
           </form>
         ) : (
           isAuthenticated && (

@@ -1,26 +1,28 @@
 import { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import numberFormat from '../../utils/number-format';
-import Button from '../button';
+// import numberFormat from '../../utils/number-format';
+// import Button from '../button';
 import './style.css';
 import dateFormat from '../../utils/date-format';
 import { Link } from 'react-router-dom';
 
 function CommentCard(props) {
-  const [showReplyForm, setShowReplyForm] = useState(false);
-  const { comment, isAuthenticated, showAuthMessage, onReplyClick, handleAddComment, setAuthMessageCommentId, authMessageCommentId, replyToCommentId, setReplyToCommentId, setShowNewCommentForm, onChange } = props;
+  // const [showReplyForm, setShowReplyForm] = useState(false);
+  const { comment, isAuthenticated,  onReplyClick, handleAddComment, 
+    setAuthMessageCommentId, authMessageCommentId, 
+    replyToCommentId, setReplyToCommentId, 
+    setShowNewCommentForm, onChange } = props;
   const cn = bem('CommentCard');
-  // console.log('Comments from CommentCard', comment);
 
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  
   const handleReplyClick = () => {
     if (!isAuthenticated) {
-      setAuthMessageCommentId(comment._id); // Устанавливаем идентификатор текущего комментария
+      setAuthMessageCommentId(comment._id);
     } else {
-      // onReplyClick(); // Вызываем функцию из родителя для обработки ответа
-      // setShowReplyForm(!showReplyForm); // Переключаем видимость формы ответа
-      setReplyToCommentId(replyToCommentId === comment._id ? null : comment._id); // Переключаем ответ на текущий комментарий
-      setShowNewCommentForm(false); // Скрываем форму добавления нового комментария
+      setReplyToCommentId(replyToCommentId === comment._id ? null : comment._id);
+      setShowNewCommentForm(false);
       console.log('replyToCommentId', replyToCommentId);
     }
   };
@@ -75,12 +77,11 @@ function CommentCard(props) {
             Ответить
         </div>
 
-        {/* Сообщение о необходимости авторизации */}
-        {/* {showAuthMessage && (
+        {!isAuthenticated && (authMessageCommentId === comment._id) && (
           <div className={cn('authcaution')}>
             <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
           </div>
-        )} */}
+        )}
         
       {/* Форма для ответа на комментарий */}
       {/* {showReplyForm && ( */}
@@ -108,13 +109,14 @@ function CommentCard(props) {
               comment={child}
               handleAddComment={handleAddComment}
               isAuthenticated={isAuthenticated}
-              showAuthMessage={authMessageCommentId === child._id}
+              // showAuthMessage={authMessageCommentId === child._id}
               onReplyClick={() => handleReplyClick(child._id)}
               setAuthMessageCommentId={setAuthMessageCommentId}
               authMessageCommentId={authMessageCommentId}
               replyToCommentId={replyToCommentId} // Передаем ID для ответа
               setReplyToCommentId={setReplyToCommentId} // Передаем функцию для сброса ID
               setShowNewCommentForm={setShowNewCommentForm}
+              onChange={onChange}
             />
           ))}
         </div>
