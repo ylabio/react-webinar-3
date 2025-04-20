@@ -34,6 +34,8 @@ function CommentList(props) {
     exists: state.session.exists,
   }));
 
+  const isAuthenticated = select.exists;
+
   const parent = useMemo(
     () => ({
       _id: replyToCommentId || params.id,
@@ -53,55 +55,50 @@ function CommentList(props) {
       [setNewComment, replyToCommentId],
     ),
 
-    onSubmit: useCallback(
+    handleAddComment: useCallback(
       async e => {
-        // e.preventDefault();
+        e.preventDefault();
         if (newComment) {
-          // e.preventDefault();
           await dispatch(commentsActions.create(newComment));
           dispatch(commentsActions.load(params.id));
         }
-      }, [newComment],
+      }, [dispatch, newComment, params.id],
     )
   };
-  
-  const isAuthenticated = select.exists;
 
-  const handleAddComment = (parentId, commentText) => {
-    if (!isAuthenticated) {
-      // @todo написать логику обработки авторизации
-    } else {
-      // @todo написать логику добавления комментария
-      console.log(parentId, commentText);
-      callbacks.onSubmit(parentId, commentText);
-    }
-    setReplyToCommentId(null); // Сбросить ID после добавления комментария
-  }
+  // const handleAddComment = (parentId, commentText) => {
+  //   if (!isAuthenticated) {
+  //     // @todo написать логику обработки авторизации
+  //   } else {
+  //     // @todo написать логику добавления комментария
+  //     console.log(parentId, commentText);
+  //     callbacks.onSubmit(parentId, commentText);
+  //   }
+  //   setReplyToCommentId(null); // Сбросить ID после добавления комментария
+  // }
 
-  const handleReplyClick = (commentId) => {
-    if (!isAuthenticated) {
-      setAuthMessageCommentId(commentId);
-    } else {
-      setAuthMessageCommentId(null);
-    }
-  }
+  // const handleReplyClick = (commentId) => {
+  //   if (!isAuthenticated) {
+  //     setAuthMessageCommentId(commentId);
+  //   } else {
+  //     setAuthMessageCommentId(null);
+  //   }
+  // }
 
   const cn = bem('CommentList');
 
   return (
-    <>
-      <div className={cn('comments')}>
-        Комментарии ({typeof commentCount === 'number' ? commentCount : 0})
-      </div>
-      <div>
+    <div className={cn()}>
+      <p className={cn('title')}>Комментарии ({typeof commentCount === 'number' ? commentCount : 0})</p>
+    
       {comments ? 
         comments.map(comment => 
           <CommentCard 
             key={comment._id} 
             comment={comment}
-            handleAddComment={handleAddComment}
+            handleAddComment={callbacks.handleAddComment}
             isAuthenticated={isAuthenticated}
-            onReplyClick={() => handleReplyClick(comment._id)}
+            // onReplyClick={() => handleReplyClick(comment._id)}
 
             setAuthMessageCommentId={setAuthMessageCommentId}
             authMessageCommentId={authMessageCommentId}
@@ -117,28 +114,23 @@ function CommentList(props) {
         )
       }
 
-        {/* Форма для нового комментария */}
-        {isAuthenticated && !isReplyActive && (
-          <CommentForm
-            commentTitle="Новый комментарий"
-            type="comment"
-            handleAddComment={handleAddComment}
-            setIsReplyActive={setIsReplyActive}
-            onChange={callbacks.onChange}
-          />
-        // ) : (
-        //   isAuthenticated && (
-        //     <button onClick={() => setShowNewCommentForm(true)}>Добавить комментарий</button>
-        //   )
-        )}
+      {/* Форма для нового комментария */}
+      {isAuthenticated && !isReplyActive && (
+        <CommentForm
+          commentTitle="Новый комментарий"
+          type="comment"
+          onSubmit={callbacks.handleAddComment}
+          setIsReplyActive={setIsReplyActive}
+          onChange={callbacks.onChange}
+        />
+      )}
 
-        {!isAuthenticated && !authMessageCommentId && (
-          <div className={cn('authcaution')}>
-            <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
-          </div>
-        )}
-      </div>
-    </>
+      {!isAuthenticated && !authMessageCommentId && (
+        <div className={cn('authcaution')}>
+          <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
+        </div>
+      )}
+    </div>
   );
 }
 

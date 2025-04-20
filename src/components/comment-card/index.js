@@ -7,63 +7,41 @@ import { Link } from 'react-router-dom';
 import CommentForm from '../comment-form';
 
 function CommentCard(props) {
-  // const [showReplyForm, setShowReplyForm] = useState(false);
-  const { comment, isAuthenticated,  onReplyClick, handleAddComment, 
+  const { 
+    comment, isAuthenticated, handleAddComment, 
     setAuthMessageCommentId, authMessageCommentId, 
     replyToCommentId, setReplyToCommentId, 
     isReplyActive, setIsReplyActive,
-    onChange } = props;
+    onChange 
+  } = props;
   const cn = bem('CommentCard');
-
-  const [showReplyForm, setShowReplyForm] = useState(false);
   
-  const handleReplyClick = useCallback(() => {
-    if (!isAuthenticated) {
-      setAuthMessageCommentId(comment._id);
-    } else {
-      setReplyToCommentId(replyToCommentId === comment._id ? null : comment._id);
-      setIsReplyActive(true);
-      console.log('isReplyActive', isReplyActive);
-      console.log('replyToCommentId', replyToCommentId);
-    }
-  }, [replyToCommentId]);
+  const callbacks = {
+    handleReplyClick: useCallback(() => {
+      if (!isAuthenticated) {
+        setAuthMessageCommentId(comment._id);
+      } else {
+        setReplyToCommentId(comment._id);
+        setIsReplyActive(true);
+      }
+    }, [replyToCommentId]),
 
-  const handleSubmitReply = (replyText) => {
-    handleAddComment(comment._id, replyText); // Передаем текст ответа родительскому компоненту
-    // setShowReplyForm(false); // Скрываем форму после отправки
-    setReplyToCommentId(null); // Сбросить ID после отправки ответа
-    // setShowNewCommentForm(false);
-    setIsReplyActive(false);
-  };
-
-  useEffect(() => {
-    console.log('isReplyActive изменился на:', isReplyActive);
-  }, [isReplyActive]);
-
-  // Проверяем наличие дочерних комментариев
-  // console.log('comment has children', comment);
-  // const hasChildren = comment.children && comment.children.length > 0;
+    handleSubmitReply: useCallback((replyText) => {
+      // Передаем текст ответа родительскому компоненту
+      //   handleAddComment(comment._id, replyText);
+      setReplyToCommentId(null); 
+      setIsReplyActive(false);
+    })
+  }
 
   // let lastChild;
   // if (hasChildren) {
   //   lastChild = comment.children[comment.children.length - 1]; // Получаем последний дочерний элемент
   // }
-  // (hasChildren && replyToCommentId === lastChild._id)
+  
   // Условие для отображения формы
-  const hasChildren = comment.children && comment.children.length > 0;
-  const shouldShowReplyForm = isAuthenticated && (replyToCommentId === comment._id);
-
-  {isAuthenticated && (replyToCommentId === comment._id) && (
-  <form onSubmit={(e) => {
-    e.preventDefault();
-    const replyText = e.target.elements.reply.value; // Получаем текст из поля ввода
-    handleSubmitReply(replyText);
-  }}>
-    <input type="text" name="reply" placeholder="Ваш ответ..." required onChange={onChange} />
-    <button type="submit">Отправить</button>
-  </form>
-)}
-    
+  // const hasChildren = comment.children && comment.children.length > 0;
+  // const shouldShowReplyForm = isAuthenticated && (replyToCommentId === comment._id);
 
   return (
     <div className={cn()}>
@@ -79,7 +57,7 @@ function CommentCard(props) {
           {comment._id}<br />
           {comment.text}
         </div>    
-        <div className={cn('answer')} onClick={handleReplyClick}>
+        <div className={cn('answer')} onClick={callbacks.handleReplyClick}>
             Ответить
         </div>
 
@@ -88,11 +66,6 @@ function CommentCard(props) {
             <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
           </div>
         )}
-        
-      {/* Форма для ответа на комментарий */}
-      {/* {showReplyForm && ( */}
-      {/* {isAuthenticated && replyToCommentId === comment._id && ( */}
-      {/* Форма для ответа на комментарий, рендерится после всех дочерних комментариев на одном уровне */}
 
       {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
         <CommentForm
@@ -103,19 +76,12 @@ function CommentCard(props) {
           onChange={onChange}
         />
         // <form onSubmit={(e) => {
-        //   e.preventDefault();
         //   const replyText = e.target.elements.reply.value;
         //   handleSubmitReply(replyText);
         // }}>
-        //   <p>Новый ответ</p>
         //   <textarea 
-        //   name="newComment" 
-        //   required onChange={onChange} 
+        //   name="newComment"  
         //   placeholder={`Мой ответ для ${comment.author.profile.name}`} />
-        //   <div className={cn('action')}>
-        //     <Button style="primary" type="submit" title="Отправить" />
-        //     <Button style="outline" type="button" title="Отмена" />
-        //   </div>
         // </form>
       )}
        
@@ -130,7 +96,7 @@ function CommentCard(props) {
               handleAddComment={handleAddComment}
               isAuthenticated={isAuthenticated}
               // showAuthMessage={authMessageCommentId === child._id}
-              onReplyClick={() => handleReplyClick(child._id)}
+              // onReplyClick={() => handleReplyClick(child._id)}
               setAuthMessageCommentId={setAuthMessageCommentId}
               authMessageCommentId={authMessageCommentId}
               replyToCommentId={replyToCommentId} // Передаем ID для ответа
@@ -144,7 +110,7 @@ function CommentCard(props) {
       )}
 
       {/* Форма для ответа на комментарий после последнего дочернего элемента */}
-      {isAuthenticated && showReplyForm && (
+      {/* {isAuthenticated && showReplyForm && (
         <form onSubmit={(e) => {
           e.preventDefault();
           const replyText = e.target.elements.reply.value;
@@ -153,7 +119,7 @@ function CommentCard(props) {
           <input type="text" name="reply" placeholder="Ваш ответ..." required />
           <button type="submit">Отправить</button>
         </form>
-      )}
+      )} */}
    </div>
   );
 }     
