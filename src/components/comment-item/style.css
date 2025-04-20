@@ -17,7 +17,9 @@
   margin-right: 8px;
 }
 
-
+.Comment-author_current {
+  color: #666666; /* Серый цвет для текущего пользователя */
+}
 
 .Comment-date {
   color: #666666;
