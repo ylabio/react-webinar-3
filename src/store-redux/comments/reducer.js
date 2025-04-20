@@ -18,7 +18,7 @@ function reducer(state = initialState, action) {
       return { ...state, data: [], waiting: false }; //@todo текст ошибки сохранять?
 
     case 'comments/load-author-start': {
-      return { ...state, authors: {}, waiting: true };
+      return { ...state, waiting: true };
     }
 
     case 'comments/load-author-success': {
