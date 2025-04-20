@@ -48,8 +48,8 @@ function Comments({ id }) {
     return [
       ...treeToList(listToTree(select.comment.items), (item, level) => ({
         _id: item._id,
-        authorName: item.author.profile.name,
-        dateCreate: formatDate(item.dateCreate),
+        authorName: item.author?.profile?.name,
+        dateCreate: item?.dateCreate ? formatDate(item.dateCreate) : 'Дата не указана',
         text: item.text,
         level: level,
       })),
@@ -95,7 +95,7 @@ function Comments({ id }) {
         ) : (
           comments.map(item => (
             <CommentItem
-              key={item._id}
+              key={`comment-${item._id}`}
               comment={item}
               onReply={callbacks.onReply}
               buttonText={t('comment.reply')}
