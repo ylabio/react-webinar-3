@@ -12,11 +12,10 @@ export default {
         const res = await services.api.request({
           url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`,
         });
-        // console.log('Res', res.data.result.items);
-        // dispatch({ type: 'comments/load-success', payload: { data: res.data.result } });
+   
         dispatch({ type: 'comments/load-success', payload: { data: res.data.result.items, count: res.data.result.count }})
-      } catch (e) {
 
+      } catch (e) {
         dispatch({ type: 'comments/load-error' });
       }
     }
@@ -25,15 +24,15 @@ export default {
   create: comment => {
     return async (dispatch, getState, services) => {
       dispatch({ type: 'comments/create-start' });
-
       try {
         const res = await services.api.request({
           url: '/api/v1/comments',
           method: 'POST',
           body: JSON.stringify(comment),
         });
-        console.log('Ваше сообщение отправляется', comment);
+        
         dispatch({ type: 'comments/create-success', payload: { data: res.data.result.items } });
+
       } catch (e) {
         dispatch({ type: 'comments/create-error' });
       }

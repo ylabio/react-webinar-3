@@ -23,7 +23,6 @@ function Main() {
   );
 
   const { t } = useTranslate();
-  console.log('Translation function:', t);
 
   return (
     <>
