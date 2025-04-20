@@ -17,6 +17,20 @@ function reducer(state = initialState, action) {
     case 'comments/load-error':
       return { ...state, comments: [], count: 0, waiting: false }; //@todo текст ошибки сохранять?
 
+    case "comments/reply-start":
+      return { ...state, waiting: true};
+
+    case "comments/reply-success":
+      return {
+        ...state,
+        comments: [...state.comments, action.payload],
+        count: state.count + 1,
+        waiting: false
+      };
+
+    case "comments/reply-error":
+      return { ...state, waiting: false};
+
     default:
       // Нет изменений
       return state;

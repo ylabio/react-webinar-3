@@ -20,4 +20,25 @@ export default {
       }
     };
   },
+  reply: (data) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comments/reply-start'});
+
+      try {
+        const token = localStorage.getItem('token');
+        const response = await services.api.request({
+          url: `/api/v1/comments?fields=author(profile(name)),dateCreate,parent(_id,_type),_id,text,isDeleted`,
+          method: 'POST',
+          headers: {"X-Token": token},
+          body: JSON.stringify(data),
+        });
+        console.log('Add comments-----');
+        console.log(response);
+        dispatch({type: 'comments/reply-success', payload: response.data.result});
+
+      } catch (e) {
+        dispatch({type: 'comments/reply-error'});
+      }
+    }
+  },
 };

@@ -41,10 +41,6 @@ function Article() {
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  console.log('------comments');
-  console.log(select.comments);
-  console.log(select.count);
-
   const { t } = useTranslate();
 
   const callbacks = {
@@ -64,7 +60,7 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-          <CommentsCard comments={select.comments} count={select.count} />
+          <CommentsCard article={select.article} comments={select.comments} count={select.count} />
         </Spinner>
       </PageLayout>
     </>

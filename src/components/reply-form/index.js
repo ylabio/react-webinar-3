@@ -17,7 +17,6 @@ function ReplyForm(props) {
   const cn = bem('ReplyForm');
 
   useInit(() => {
-    // store.actions.session.resetErrors();
   });
 
   const select = useSelector(state => ({
@@ -26,32 +25,25 @@ function ReplyForm(props) {
   }));
 
   const [data, setData] = useState({
-    // login: '',
-    // password: '',
     text: '',
-    _id: props._id
+    parent: { _id: props._id, _type: props.type }
   });
 
   const callbacks = {
     // Колбэк на ввод в элементах формы
     onChange: useCallback((value, name) => {
-      setData(prevData => ({...prevData, [name]: value}));
+      setData(prevData => ({ ...prevData, [name]: value }));
     }, []),
 
     // Отправка данных формы для авторизации
     onSubmit: useCallback(
       e => {
         e.preventDefault();
-        store.actions.session.signIn(data, () => {
-          // Возврат на страницу, с которой пришли
-          const back =
-            location.state?.back && location.state?.back !== location.pathname
-              ? location.state?.back
-              : '/';
-          navigate(back);
-        });
+        props.onSendReply(data);
+        setData(prevData => ({ ...prevData, text: '' }));
+        props.onChancel();
       },
-      [data, location.state],
+      [data, props.onSendReply, props.onChancel],
     ),
   };
 
@@ -59,7 +51,7 @@ function ReplyForm(props) {
     <>
       <form className={cn()} onSubmit={callbacks.onSubmit}>
         <p className={cn('title')}>{props.title}</p>
-        <textarea className={cn('textarea')} name={'comment'} placeholder={props.placeholder}></textarea>
+        <textarea className={cn('textarea')} name={'comment'} placeholder={props.placeholder} value={data.text} onChange={e => callbacks.onChange(e.target.value, 'text')}></textarea>
         <div className={cn('footer')}>
           <Button style="primary" type="submit" title="Отправить" />
           <Button style="outline" type="button" title="Отмена" onClick={props.onChancel}/>

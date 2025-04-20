@@ -5,7 +5,13 @@
   gap: 24px;
 }
 
-.CommentsCard-description {
+.CommentsCard-comments {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.CommentsCard-title {
   font-family: "Montserrat Alternates";
   font-size: 24px;
   font-style: normal;
@@ -14,6 +20,7 @@
 }
 
 .CommentsCard-login {
+  margin: 16px 0;
   display: flex;
   align-items: center;
 }

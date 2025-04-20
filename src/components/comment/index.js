@@ -5,10 +5,18 @@ import Button from '../button';
 import './style.css';
 import ReplyForm from '../reply-form';
 
-function Comment({ comment, comments, level = 0, replyToCommentId, setReplyToCommentId }) {
+function Comment({
+  comment,
+  comments,
+  level = 0,
+  isLogin,
+  loginComment,
+  replyToCommentId,
+  setReplyToCommentId,
+  onSendReply,
+}) {
   // const { article, onAdd = () => {}, t = text => text } = props;
   const cn = bem('Comment');
-  const [isReply, setIsReply] = useState(false);
 
   if (comment.isDeleted) return null;
 
@@ -27,7 +35,7 @@ function Comment({ comment, comments, level = 0, replyToCommentId, setReplyToCom
   };
 
   return (
-    <div className={cn('wrapper', { nested: level > 0 })}>
+    <div className={cn('wrapper', { nested: level > 0 && level < 10 })}>
       <div className={cn('content')}>
         <div className="">
           <span className={cn('name')}>{comment.author.profile.name} </span>
@@ -42,17 +50,24 @@ function Comment({ comment, comments, level = 0, replyToCommentId, setReplyToCom
           comment={child}
           comments={comments}
           level={level + 1}
+          isLogin={isLogin}
+          loginComment={loginComment}
           replyToCommentId={replyToCommentId}
           setReplyToCommentId={setReplyToCommentId}
+          onSendReply={onSendReply}
         />
       ))}
-      {replyToCommentId === comment._id && (
+      {replyToCommentId === comment._id && isLogin && (
         <ReplyForm
           title="Новый ответ"
           placeholder={`Мой ответ для ${comment.author.profile.name}`}
           onChancel={callbacks.onReplyChancel}
+          onSendReply={onSendReply}
+          type={'comment'}
+          _id={replyToCommentId}
         />
       )}
+      {replyToCommentId === comment._id && !isLogin && loginComment}
     </div>
   );
 }
