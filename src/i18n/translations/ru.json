@@ -26,6 +26,7 @@
   "session.signIn": "Вход",
   "session.signOut": "Выход",
   "comment.title": "Комментарии",
+  "comment.addComment": "Новый комментарий",
   "comment.placeholder": "Напишите ваш комментарий...",
   "comment.submit": "Отправить",
   "comment.replyPlaceholder": "Напишите ваш ответ...",

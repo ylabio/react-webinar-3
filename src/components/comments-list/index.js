@@ -20,7 +20,7 @@ function Comment({ comment, level = 0, onReply, replyTo, onCancelReply, onSubmit
         <span className={cn('date')}>{formatDate(comment.dateCreate)}</span>
       </div>
       <div className={cn('text')}>{comment.text}</div>
-      
+
       <button 
         className={cn('reply', { active: isReplying })} 
         onClick={() => onReply(comment._id)}
@@ -71,6 +71,7 @@ function Comment({ comment, level = 0, onReply, replyTo, onCancelReply, onSubmit
 function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (text) => text }) {
   const cn = bem('CommentsList');
   const [replyTo, setReplyTo] = useState(null);
+  const [showMainForm, setShowMainForm] = useState(true);
   const [error, setError] = useState(null);
   const select = useSelector(state => ({
     exists: state.session.exists,
@@ -92,6 +93,7 @@ function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (t
     try {
       setError(null);
       await onAddComment(text, articleId, 'article');
+      setShowMainForm(false);
     } catch (e) {
       setError(t('comment.error'));
       console.error(e);
@@ -103,11 +105,22 @@ function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (t
   };
 
   const handleReplyClick = (commentId) => {
+    if (!select.exists) {
+      setReplyTo(commentId);
+      setShowMainForm(false);
+      return;
+    }
     if (replyTo === commentId) {
       setReplyTo(null);
     } else {
       setReplyTo(commentId);
+      setShowMainForm(false);
     }
+  };
+
+  const toggleMainForm = () => {
+    setShowMainForm(!showMainForm);
+    setReplyTo(null);
   };
 
   return (
@@ -130,11 +143,24 @@ function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (t
       </div>
       <div className={cn('new-comment')}>
         {select.exists ? (
-          <CommentForm 
-            onSubmit={handleSubmitNewComment} 
-            t={t}
-            placeholder={t('comment.placeholder')}
-          />
+          <>
+            {!showMainForm && (
+              <button 
+                className={cn('add-comment-btn')} 
+                onClick={toggleMainForm}
+              >
+                {t('comment.addComment')}
+              </button>
+            )}
+            {showMainForm && (
+              <CommentForm 
+                onSubmit={handleSubmitNewComment} 
+                t={t}
+                placeholder={t('comment.placeholder')}
+                onCancel={() => setShowMainForm(false)}
+              />
+            )}
+          </>
         ) : (
           <div className={cn('auth-message')}>
             <Link to="/login" state={{ back: window.location.pathname }}>
