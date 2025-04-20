@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CommentItem from '../../components/comments-item';
 import CommentForm from '../../components/comment-form';
@@ -16,6 +16,13 @@ function CommentsList({
   userId,
 }) {
   const { t } = useTranslate();
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    if (replyFormId === comment._id && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [replyFormId, comment._id]);
 
   return (
     <CommentItem
@@ -31,6 +38,7 @@ function CommentsList({
             title={t('comments.new-reply')}
             onSubmit={text => onSubmitReply(text, comment._id)}
             onCancel={onCancelReply}
+            formRef={formRef}
           />
         ) : (
           <CommentsLink />

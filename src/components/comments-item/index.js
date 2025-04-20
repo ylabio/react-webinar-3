@@ -8,8 +8,11 @@ import './style.css';
 
 function CommentItem({ comment, onReplyClick, currentUserId, children, depth = 0 }) {
   const cn = bem('CommentItem');
-  const indent = depth * 40;
-  const { t } = useTranslate();
+  const maxDepth = 3;
+
+  // const indent = Math.min(depth, 1) * 40;
+  const indent = Math.min(depth, maxDepth) * 40;
+  const { t, lang } = useTranslate();
   const isCurrentUser = currentUserId === comment.author?._id;
 
   return (
@@ -19,7 +22,7 @@ function CommentItem({ comment, onReplyClick, currentUserId, children, depth = 0
           <span className={cn('author', { me: isCurrentUser })}>
             {comment.author?.profile?.name}
           </span>
-          <span className={cn('date')}> {DateFormat(comment.dateCreate)}</span>
+          <span className={cn('date')}> {DateFormat(comment.dateCreate, lang)}</span>
         </div>
         <div className={cn('comment')}>{comment.text}</div>
         {!comment.isDeleted && (

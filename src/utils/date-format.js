@@ -1,4 +1,4 @@
-export default function DateFormat(toISOString) {
+export default function DateFormat(toISOString, lang = 'ru') {
   const select = {
     minute: 'numeric',
     hour: 'numeric',
@@ -7,11 +7,9 @@ export default function DateFormat(toISOString) {
     year: 'numeric',
   };
 
-  const dateTime = new Date(toISOString);
+  const date = new Date(toISOString);
+  const locale = lang === 'en' ? 'en-US' : 'ru-RU';
+  const formatDate = date.toLocaleString(locale, select);
 
-  const formatDateTime = dateTime.toLocaleString('ru-RU', select);
-
-  const formatDate = formatDateTime.replace(' г.', ' ');
-
-  return formatDate;
+  return lang === 'ru' ? formatDate.replace(' г.', '') : formatDate;
 }

@@ -10,7 +10,7 @@ import Spinner from '../../components/spinner';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 
-function Comments({ articleId }) {
+function Comments({ articleId, parentType = 'article' }) {
   const { t } = useTranslate();
   const dispatch = useDispatch();
   const [replyFormId, setReplyFormId] = useState(null);
@@ -18,9 +18,9 @@ function Comments({ articleId }) {
   const items = useSelectorRedux(state => state.comment.data.items);
   const waiting = useSelectorRedux(state => state.comment.waiting);
   const raw = useMemo(() => items || [], [items]);
-  const comments = useMemo(() => listToTree(raw), [raw]);
+  const comments = useMemo(() => listToTree(raw, '_id', parentType), [raw, parentType]);
   const count = raw.length;
-
+  const maxDepth = 3;
   // const { comments, waiting, count } = useSelectorRedux(state => {
   //   const raw = state.comment.data.items || [];
   //   return {
@@ -56,22 +56,62 @@ function Comments({ articleId }) {
     [dispatch, articleId],
   );
 
-  const renderCommentsTree = (items, depth = 0) =>
-    items.map(comment => (
-      <CommentsList
-        key={comment._id}
-        comment={comment}
-        replyFormId={replyFormId}
-        onReplyClick={handleReplyClick}
-        onSubmitReply={handleSubmitReply}
-        onCancelReply={() => setReplyFormId(null)}
-        isAuth={isAuth}
-        depth={depth}
-        userId={userId}
-      >
-        {comment.children?.length > 0 && renderCommentsTree(comment.children, depth + 1)}
-      </CommentsList>
-    ));
+  const renderCommentsTree = (items, depth = 0) => {
+    const flat = [];
+
+    const traverse = (nodes, currentDepth) => {
+      for (const comment of nodes) {
+        const limitedDepth = Math.min(currentDepth, maxDepth);
+
+        flat.push(
+          <CommentsList
+            key={comment._id}
+            comment={comment}
+            replyFormId={replyFormId}
+            onReplyClick={handleReplyClick}
+            onSubmitReply={handleSubmitReply}
+            onCancelReply={() => setReplyFormId(null)}
+            isAuth={isAuth}
+            depth={limitedDepth}
+            userId={userId}
+          />,
+        );
+
+        // если depth меньше maxDepth, то рисуем детей
+        if (currentDepth < maxDepth && comment.children?.length) {
+          traverse(comment.children, currentDepth + 1);
+        }
+
+        // если depth >= maxDepth, то плоско, на этом же уровне
+        if (currentDepth >= maxDepth && comment.children?.length) {
+          for (const child of comment.children) {
+            flat.push(
+              <CommentsList
+                key={child._id}
+                comment={child}
+                replyFormId={replyFormId}
+                onReplyClick={handleReplyClick}
+                onSubmitReply={handleSubmitReply}
+                onCancelReply={() => setReplyFormId(null)}
+                isAuth={isAuth}
+                depth={maxDepth}
+                userId={userId}
+              />,
+            );
+
+            //отсальное плоско
+            if (child.children?.length) {
+              traverse(child.children, maxDepth);
+            }
+          }
+        }
+      }
+    };
+
+    traverse(items, depth);
+
+    return flat;
+  };
   return (
     <CommentsLayout head={`${t('comments.head')} (${count})`}>
       <Spinner active={waiting}>

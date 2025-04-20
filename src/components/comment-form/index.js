@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import useTranslate from '../../hooks/use-translate';
 import './style.css';
 
-function CommentForm({ onSubmit, onCancel, title }) {
+function CommentForm({ onSubmit, onCancel, title, formRef }) {
   const cn = bem('CommentForm');
   const { t } = useTranslate();
   const [text, setText] = useState('');
@@ -19,7 +19,7 @@ function CommentForm({ onSubmit, onCancel, title }) {
   };
 
   return (
-    <form className={cn()} onSubmit={handleSubmit}>
+    <form className={cn()} onSubmit={handleSubmit} ref={formRef}>
       {title && <div className={cn('title')}>{title}</div>}
       <textarea className={cn('text')} value={text} onChange={e => setText(e.target.value)} />
       <div className={cn('buttons')}>

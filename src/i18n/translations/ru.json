@@ -16,6 +16,10 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+  "article.madeiIn": "Страна производитель",
+  "article.category": "Категория",
+  "article.year": "Год выпуска",
+  "article.price": "Цена",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
@@ -30,5 +34,7 @@
   "comments.new-reply": "Новый ответ",
   "comments.cancel": "Отмена",
   "comments.send": "Отправить",
-  "comments.reply": "Ответить"
+  "comments.reply": "Ответить",
+  "comments.sighIn": "Войдите, ",
+  "comments.beAble": "чтобы иметь возможность комментировать"
 }
