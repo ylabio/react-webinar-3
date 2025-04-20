@@ -8,7 +8,9 @@
 }
 
 .CommentsForm-text {
+  scroll-behavior: auto;
   resize: none;
+  font-size: 0.87rem;
   width: 100%;
   max-width: 100%;
   min-width: 300px;

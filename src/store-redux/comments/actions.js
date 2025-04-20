@@ -28,13 +28,13 @@ export default {
       }
     };
   },
-  // /**
-  //  * Добавление нового комментария
-  //  * @param {string} text - текст комментария
-  //  * @param {string} id - ID товара и другого комментария
-  //  * @param {string} type - тип комментария
-  //  * @return {Function}
-  //  */
+  /**
+   * Добавление нового комментария
+   * @param {string} text - текст комментария
+   * @param {string} id - ID товара и другого комментария
+   * @param {string} type - тип комментария
+   * @return {Function}
+   */
   addComment: (text, id, type) => {
     return async (dispatch, getState, services) => {
       dispatch({ type: 'comments/addComment-start' });
@@ -50,36 +50,4 @@ export default {
       }
     };
   },
-
-  /**
-   * Добавление нового комментария
-   * @param {string} articleId - ID товара
-   * @param {Object} comment - данные комментария
-   * @return {Function}
-   */
-  // addComment: (articleId, comment) => {
-  //   return async (dispatch, getState, services) => {
-  //     try {
-  //       const res = await services.api.request({
-  //         method: 'POST',
-  //         url: `/api/v1/articles/${articleId}/comments`,
-  //         data: comment
-  //       });
-        
-  //       dispatch({
-  //         type: 'comments/add-comment',
-  //         payload: { comment: res.data.result }
-  //       });
-  //     } catch (e) {
-  //       // Можно добавить обработку ошибки добавления комментария
-  //       console.error('Failed to add comment:', e);
-  //     }
-  //   };
-  // },
-
-  /**
-   * Сброс состояния комментариев
-   * @return {Object}
-   */
-  // resetComments: () => ({ type: 'comments/reset' })
 };

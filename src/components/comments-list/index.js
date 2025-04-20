@@ -4,7 +4,7 @@ import Button from "../button";
 import dataFormate from "../../utils/date-format";
 import { useCommentReplies } from "../../hooks/use-comment-replies";
 import CommentItem from "../comment-item";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
@@ -20,11 +20,12 @@ function CommentsList({
 }) {
   const cn = bem('CommentsList');
   const navigate = useNavigate();
+  const location = useLocation();
   const { replyTo, replyIndex, handleReplyClick, resetReply } = useCommentReplies();
 
   const handleReply = (item, index) => {
     if (!user?._id) {
-      navigate('/login');
+      navigate('/login', { state: { back: location.pathname } });
     } else {
       handleReplyClick(item, index, list);
       onChange('');
@@ -44,28 +45,41 @@ function CommentsList({
     onChange('');
   };
 
+  const callbacks = {
+    onSignIn: useCallback(() => {
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
+  };
+
   return (
     <div className={cn()}>
       <div className={cn('container')}>
-        <div className={cn('title')}>{`${t('article.comments')} (${count})`}</div>
+        <div className={cn('title')}>{`${t('article.comments')} (${count || 0})`}</div>
         
         {list.map((item, index) => (
           <CommentItem
             key={`comment-${item._id}`}
             comment={item}
             onReply={() => handleReply(item, index)}
-            showReplyForm={index === replyIndex - 1}
+            showReplyForm={index === replyIndex - 1 && user?._id}
             onFormChange={onChange}
             onFormSubmit={handleSubmitReply}
             onFormCancel={handleCancelReply}
             formValue={value}
             t={t}
+            authorizedUser={user?.profile?.name}
           />
         ))}
         
         {!user?._id ? (
           <div className={cn('link')}>
-            <Link to="/login">{t('article.login.part1')}</Link>
+            <Link
+              to="" 
+              onClick={(e) => {
+                e.preventDefault();
+                callbacks.onSignIn();
+              }}
+            >{t('article.login.part1')}</Link>
             {t('article.login.part2')}
           </div>
         ) : !replyTo && (

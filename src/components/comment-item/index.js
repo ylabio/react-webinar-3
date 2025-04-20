@@ -12,14 +12,19 @@ function CommentItem({
   onFormSubmit,
   onFormCancel,
   formValue,
-  t
+  t,
+  authorizedUser,
 }) {
   const cn = bem('CommentsList');
   
   return (
-    <div className={cn('comments-container')} style={{ paddingLeft: `${comment.depth * 40}px` }}>
+    <div className={cn('comments-container')} style={{ paddingLeft: `${Math.min(20, comment.depth) * 40}px` }}>
       <div className={cn('comments-container-name')}>
-        <div className={cn('name')}>{comment.author}</div>
+        <div
+          className={cn(`name${authorizedUser === comment.author ? ' gray' : ''}`)}
+        >
+          {comment.author}
+        </div>
         <div className={cn('date')}>{dataFormate(comment.dateCreate)}</div>
       </div>
       <div className={cn('text')}>{comment.text}</div>
@@ -33,7 +38,7 @@ function CommentItem({
       {showReplyForm && (
         <div className={cn('reply-form')}>
           <CommentsForm
-            title={t('article.answer')}
+            title={t('article.new-answer')}
             titleButtonSend={t('article.send')}
             titleButtonCancel={t('article.cancel')}
             onChange={onFormChange}

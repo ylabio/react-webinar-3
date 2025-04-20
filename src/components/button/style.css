@@ -9,6 +9,11 @@
   }
 }
 
+.Button_style_primary.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .Button_style_delete {
   background-color: var(--delete);
   color: var(--second-text);

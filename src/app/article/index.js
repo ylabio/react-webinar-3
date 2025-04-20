@@ -63,7 +63,6 @@ function Article() {
     }, [dispatch, articleComment, params.id]),
     // Добавить ответ
     onAddAnswer: useCallback((id) => {
-      console.log(9);
       dispatch(commentsActions.addComment(articleComment, id, "comment", params.id));
       setTimeout(() => {
         dispatch(commentsActions.loadComments(params.id));

@@ -23,12 +23,17 @@
   font-weight: 700;
 }
 
+.CommentsList-name.gray {
+  color: #4B5563;
+}
+
 .CommentsList-date {
   color: #666666;
 }
 
 .CommentsList-text {
   padding-top: 6px;
+  overflow-wrap: break-word;
 }
 
 .CommentsList-link {
