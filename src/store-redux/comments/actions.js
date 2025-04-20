@@ -68,7 +68,10 @@ export default {
           method: 'POST',
           body: JSON.stringify({
             text,
-            parent: parentId ? { _id: parentId, _type: 'comment' } : undefined,
+            parent: {
+              _id: parentId ?? articleId,
+              _type: parentId ? 'comment' : 'article',
+            },
           }),
         });
 
