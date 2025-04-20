@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import Button from '../button';
 import Input from '../input';
+import './style.css';
 
 const CommentsForm = () => {
   return (
