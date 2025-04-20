@@ -8,8 +8,15 @@ class APIService {
     this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'Accept-Language': 'ru',
     };
   }
+
+  setLanguage(lang) {
+    this.defaultHeaders['Accept-Language'] = lang;
+    this.defaultHeaders['X-Lang'] = lang;
+  }
+
 
   /**
    * HTTP запрос

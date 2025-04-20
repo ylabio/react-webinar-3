@@ -37,6 +37,8 @@ function CatalogFilter() {
     ),
   };
 
+  const { t } = useTranslate();
+
   const options = {
     // Варианты сортировок
     sort: useMemo(
@@ -51,17 +53,16 @@ function CatalogFilter() {
     // Категории для фильтра
     categories: useMemo(
       () => [
-        { value: '', title: 'Все' },
+        { value: '', title: t('filter.allCategories') },
         ...treeToList(listToTree(select.categories), (item, level) => ({
           value: item._id,
           title: '- '.repeat(level) + item.title,
         })),
       ],
-      [select.categories],
+      [select.categories, t],
     ),
   };
 
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">

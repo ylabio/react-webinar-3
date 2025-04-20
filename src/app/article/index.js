@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
+import CommentsList from '../../components/comments-list';
+import commentsActions from '../../store-redux/comments/actions';
 
 function Article() {
   const store = useStore();
@@ -22,16 +24,21 @@ function Article() {
   // Параметры из пути /articles/:id
 
   const params = useParams();
+  const { lang } = useTranslate();
 
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+    dispatch(commentsActions.load(params.id));
+  }, [params.id, lang]);
 
   const select = useSelector(
     state => ({
       article: state.article.data,
       waiting: state.article.waiting,
+      comments: state.comments.items,
+      count: state.comments.count,
+      commentsWaiting: state.comments.waiting,
     }),
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
@@ -41,6 +48,13 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addComment: useCallback(async (text, parentId, parentType) => {
+      try {
+        await dispatch(commentsActions.addComment(text, parentId, parentType));
+      } catch (e) {
+        throw e;
+      }
+    }, [dispatch]),
   };
 
   return (
@@ -55,6 +69,15 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+          <Spinner active={select.commentsWaiting}>
+            <CommentsList 
+              items={select.comments}
+              count={select.count}
+              articleId={params.id}
+              onAddComment={callbacks.addComment}
+              t={t}
+            />
+          </Spinner>
         </Spinner>
       </PageLayout>
     </>

@@ -24,5 +24,17 @@
   "auth.login-placeholder": "Введите логин",
   "auth.password-placeholder": "Введите пароль",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comment.title": "Комментарии",
+  "comment.addComment": "Новый комментарий",
+  "comment.addReply": "Новый ответ",
+  "comment.placeholder": "Напишите ваш комментарий...",
+  "comment.submit": "Отправить",
+  "comment.replyPlaceholder": "Напишите ваш ответ...",
+  "comment.reply": "Ответить",
+  "comment.cancel": "Отмена",
+  "comment.error": "Ошибка при отправке комментария",
+  "comment.signIn": "Войдите,",
+  "comment.toComment": "чтобы иметь возможность комментировать",
+  "filter.allCategories": "Все категории"
 }
