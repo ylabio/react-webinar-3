@@ -8,6 +8,7 @@ class I18nService {
     this.subscribers = [];
 
     this.changeApiHeaders();
+    this.setLocaleInLocalStore();
   }
 
   getCurrentLang() {
@@ -20,9 +21,13 @@ class I18nService {
     this.currentLang = newLang;
 
     this.changeApiHeaders();
+    this.setLocaleInLocalStore();
     this.callSubscriber();
 
     return this.currentLang;
+  }
+  setLocaleInLocalStore() {
+    localStorage.setItem('yl-user-lang', JSON.stringify(this.currentLang));
   }
 
   changeApiHeaders() {
@@ -56,7 +61,6 @@ class I18nService {
   callSubscriber() {
     this.subscribers.forEach(call => call());
   }
-
 }
 
 export default I18nService;

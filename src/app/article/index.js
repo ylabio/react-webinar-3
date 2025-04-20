@@ -49,14 +49,13 @@ function Article() {
     token: state.session.token,
   }));
 
-
   const { article, comments, userComment, ...state } = useSelectorRedux(
     state => ({ ...state }),
     shallowequal,
   );
 
   useInit(() => {
-    dispatch(userCommentsAction.resetUserCommentStore())
+    dispatch(userCommentsAction.resetUserCommentStore());
     dispatch(userCommentsAction.init(selectUser.userId, selectUser.token, params.id));
   }, [selectUser.token]);
 
@@ -65,7 +64,7 @@ function Article() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     onCloseFormInComments: useCallback(() => {
       dispatch(userCommentsAction.setCommentsData(params.id, '', 'article', '', false));
-      callbacks.onChangeCommentMessage('');
+      dispatch(userCommentsAction.setUserMessage(''));
     }, []),
     onChangeCommentData: useCallback(
       (parentId, typeComment, authorNick = '') => {
@@ -83,8 +82,7 @@ function Article() {
             true,
           ),
         );
-
-        callbacks.onChangeCommentMessage('');
+        dispatch(userCommentsAction.setUserMessage(''));
       },
       [comments.data.items],
     ),
@@ -103,7 +101,9 @@ function Article() {
           token: userComment.userToken,
         };
 
-        dispatch(commentsActions.addComment(data, selectUser.userName));
+        if (data.text.trim()) {
+          dispatch(commentsActions.addComment(data, selectUser.userName));
+        }
 
         if (!article.waiting) {
           callbacks.onCloseFormInComments();
@@ -112,13 +112,17 @@ function Article() {
       [userComment],
     ),
   };
+
   const options = {
     comments: useMemo(
       () => [
-        ...textsTreeToList(listToTree(comments.data.items || []), (item, count) => ({
-          ...item,
-          paddingL: Math.floor(40 * count),
-        })),
+        ...textsTreeToList(
+          listToTree(comments.data.items || [], '_id', 'parent'),
+          (item, count) => ({
+            ...item,
+            paddingL: Math.floor(40 * count),
+          }),
+        ),
       ],
       [comments.data.items],
     ),
@@ -165,7 +169,7 @@ function Article() {
                   />
                 </ArticleForm>
               ) : (
-                <ArticleAuthMessage t={t}/>
+                <ArticleAuthMessage t={t} />
               )}
             </ArticleComments>
             {!userComment.isOpenFormInComments &&

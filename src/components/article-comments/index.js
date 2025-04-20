@@ -21,9 +21,10 @@ function ArticleComments({
   const cn = bem('Comments');
   const commentRefs = useRef({});
 
-  const onClickComment = (id, type, authorNickname, paddigEl) => {
+  const onClickComment = (e, id, type, authorNickname, paddigEl) => {
+    e.preventDefault()
     onChangeCommentData(id, type, authorNickname);
-    paddigEl <= 240 ? setFormPadding(paddigEl + 40) : setFormPadding(paddigEl);
+    paddigEl <= 280 ? setFormPadding(paddigEl + 40) : setFormPadding(paddigEl);
     
     if (scrollPlace === lastCommentId) scrollToComment(scrollPlace);
   };
@@ -70,8 +71,8 @@ function ArticleComments({
                   <div className={cn('item', { text: true })}>{text}</div>
                   <a
                     className={cn('link')}
-                    onClick={() =>
-                      onClickComment(_id, 'comment', author.profile.name, paddingL, lastCommentId)
+                    onClick={(e) =>
+                      onClickComment(e,_id, 'comment', author.profile.name, paddingL, lastCommentId)
                     }
                   >
                     {t('answer.reply')}

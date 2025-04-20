@@ -19,7 +19,7 @@ const config = {
     baseUrl: '',
   },
   i18n: {
-    defaultLang: 'ru',
+    defaultLang: JSON.parse(localStorage.getItem('yl-user-lang')) || 'ru',
   },
 };
 
