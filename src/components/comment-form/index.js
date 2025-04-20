@@ -4,7 +4,8 @@ import Button from '../button';
 import './style.css';
 
 function CommentForm(props) {
-  const { commentTitle, type, onSubmit, setIsReplyActive, onChange } = props;
+  const { commentTitle, type, onSubmit,
+   setIsReplyActive, onChange } = props;
 
   const cn = bem('CommentForm');
 
@@ -12,9 +13,7 @@ function CommentForm(props) {
     <div className={cn()}>
       <form onSubmit={e => {
         e.preventDefault();
-        const newCommentText = e.target.elements.newComment.value;
-        onSubmit(e, newCommentText); // Передаем null как parentId для нового комментария
-        // setIsReplyActive(false);
+        onSubmit(e);
       }}>
         <p>{commentTitle}</p>
         <textarea name="newComment" required onChange={onChange} />

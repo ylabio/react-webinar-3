@@ -1,4 +1,4 @@
-import { memo, useState, useMemo, useCallback } from 'react';
+import { memo, useState, useEffect, useMemo, useCallback } from 'react';
 // import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -61,21 +61,11 @@ function CommentList(props) {
         if (newComment) {
           await dispatch(commentsActions.create(newComment));
           dispatch(commentsActions.load(params.id));
+          setIsReplyActive(false);
         }
-      }, [dispatch, newComment, params.id],
+      }, [newComment]
     )
   };
-
-  // const handleAddComment = (parentId, commentText) => {
-  //   if (!isAuthenticated) {
-  //     // @todo написать логику обработки авторизации
-  //   } else {
-  //     // @todo написать логику добавления комментария
-  //     console.log(parentId, commentText);
-  //     callbacks.onSubmit(parentId, commentText);
-  //   }
-  //   setReplyToCommentId(null); // Сбросить ID после добавления комментария
-  // }
 
   // const handleReplyClick = (commentId) => {
   //   if (!isAuthenticated) {
@@ -84,7 +74,6 @@ function CommentList(props) {
   //     setAuthMessageCommentId(null);
   //   }
   // }
-
   const cn = bem('CommentList');
 
   return (
@@ -96,15 +85,12 @@ function CommentList(props) {
           <CommentCard 
             key={comment._id} 
             comment={comment}
-            handleAddComment={callbacks.handleAddComment}
             isAuthenticated={isAuthenticated}
-            // onReplyClick={() => handleReplyClick(comment._id)}
-
+            handleAddComment={callbacks.handleAddComment}
             setAuthMessageCommentId={setAuthMessageCommentId}
             authMessageCommentId={authMessageCommentId}
             replyToCommentId={replyToCommentId}
             setReplyToCommentId={setReplyToCommentId}
-
             isReplyActive={isReplyActive}
             setIsReplyActive={setIsReplyActive}
             onChange={callbacks.onChange}
@@ -119,8 +105,8 @@ function CommentList(props) {
         <CommentForm
           commentTitle="Новый комментарий"
           type="comment"
-          onSubmit={callbacks.handleAddComment}
           setIsReplyActive={setIsReplyActive}
+          onSubmit={callbacks.handleAddComment}
           onChange={callbacks.onChange}
         />
       )}

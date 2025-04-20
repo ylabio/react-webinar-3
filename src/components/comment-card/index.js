@@ -25,14 +25,7 @@ function CommentCard(props) {
         setIsReplyActive(true);
       }
     }, [replyToCommentId]),
-
-    handleSubmitReply: useCallback((replyText) => {
-      // Передаем текст ответа родительскому компоненту
-      //   handleAddComment(comment._id, replyText);
-      setReplyToCommentId(null); 
-      setIsReplyActive(false);
-    })
-  }
+  };
 
   // let lastChild;
   // if (hasChildren) {
@@ -71,8 +64,8 @@ function CommentCard(props) {
         <CommentForm
           commentTitle="Новый ответ"
           type="reply"
-          handleAddComment={handleAddComment}
           setIsReplyActive={setIsReplyActive}
+          onSubmit={handleAddComment}
           onChange={onChange}
         />
         // <form onSubmit={(e) => {
