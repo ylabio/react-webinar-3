@@ -44,6 +44,11 @@
   align-items: flex-start;
 }
 
+.Comment-subtitle-block {
+  display: flex;
+  gap: 12px;
+}
+
 .Comment-userName {
   font-weight: 700;
 

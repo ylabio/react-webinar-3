@@ -9,7 +9,6 @@ import shallowEqual from 'shallowequal';
 
 // TODO вынести в отдельный компонент
 export const Comment = ({ by, text, isMine, date }) => {
-  console.log(isMine);
   return (
     <div className="Comment">
       <div className="Comment-subtitle-block">
@@ -41,20 +40,25 @@ export const SmartComment = ({ comment, userId }) => {
     shallowEqual,
   );
 
+  const formattedDate = new Intl.DateTimeFormat('ru-RU', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+  }).format(new Date(comment.dateCreate));
+
   return (
     <div className="Smart-Comments">
       {comment && (
         <Comment
           by={select.author}
-          id={Date.now()}
           text={comment.text}
           isMine={userId === comment.author._id}
+          date={formatedDate}
         />
       )}
       <div className="Smart-Comment">
         {comment &&
-          comment.children.map((comment, i) => (
-            <SmartComment key={i} comment={comment} userId={userId} />
+          comment.children.map(comment => (
+            <SmartComment key={comment._id} comment={comment} userId={userId} />
           ))}
       </div>
     </div>
@@ -77,7 +81,7 @@ const Comments = ({ isAuth, comments, userId }) => {
       )}
       <div className="Comments-line">
         {comments.length > 0 &&
-          comments.map((comment, i) => (
+          comments.map(comment => (
             <SmartComment key={comment._id} comment={comment} userId={userId} />
           ))}
       </div>
