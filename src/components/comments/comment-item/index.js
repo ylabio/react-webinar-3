@@ -19,16 +19,21 @@ function CommentItem({
   const cn = bem('CommentItem');
 
   const style = {
-    marginLeft: `${comment.level * 40}px`,
+    marginLeft: `${(comment.level * 39) + 2}px`,
   };
 
+  const styleToReplyForm = { marginLeft: "40px" };
+
   const showReplyForm = activeCommentId === comment._id;
+
+  const commenterName = comment.author?.profile?.name;
+  const isAuthorizedUser = commenterName === profileName;
 
   return (
     <div className={cn()} style={style}>
       <div className={cn('info')}>
-        <div className={cn('user')}>
-          {comment.author?.profile?.name || profileName}
+        <div className={cn('user', { authorized: isAuthorizedUser })}>
+          {commenterName || profileName}
         </div>
         <div className={cn('date')}>{formatDate(comment.dateCreate)}</div>
       </div>
@@ -42,6 +47,7 @@ function CommentItem({
       {showReplyForm && (
         sessionExists ? (
           <CommentNew
+            style={styleToReplyForm}
             status="reply"
             onSubmit={text => createComment(text, comment._id)}
             onCancel={resetActiveComment}

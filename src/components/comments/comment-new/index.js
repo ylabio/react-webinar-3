@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import Button from "../../button";
 import './style.css';
 
-function CommentNew({ status, onSubmit, onCancel }) {
+function CommentNew({ status, onSubmit, onCancel, style }) {
   const cn = bem('CommentNew');
   const [commentText, setCommentText] = useState('');
 
@@ -23,7 +23,7 @@ function CommentNew({ status, onSubmit, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cn()}>
+    <form onSubmit={handleSubmit} className={cn()} style={style}>
       <label htmlFor="new-comment" className={cn('label')}>
         {status === 'global' ? 'Новый комментарий' : 'Новый ответ'}
       </label>
