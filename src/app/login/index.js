@@ -16,14 +16,14 @@ import HeadLayout from '../../components/head-layout';
 import Form from '../../components/form';
 
 function Login() {
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
 
   useInit(() => {
     store.actions.session.resetErrors();
-  });
+  }, [lang]);
 
   const select = useSelector(state => ({
     waiting: state.session.waiting,
@@ -69,7 +69,11 @@ function Login() {
       <PageLayout>
         <Navigation />
         <SideLayout padding="medium">
-          <Form onSubmit={callbacks.onSubmit} title={t('auth.title')} submitTitle={t('auth.signIn')}>
+          <Form
+            onSubmit={callbacks.onSubmit}
+            title={t('auth.title')}
+            submitTitle={t('auth.signIn')}
+          >
             <Field label={t('auth.login')} error={select.errors?.login}>
               <Input
                 name="login"

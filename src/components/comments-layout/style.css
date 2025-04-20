@@ -1,0 +1,6 @@
+.CommentsLayout-head {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: bold;
+  padding: 16px 0 24px 0;
+}

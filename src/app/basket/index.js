@@ -12,6 +12,8 @@ import modalsActions from '../../store-redux/modals/actions';
 
 function Basket() {
   const store = useStore();
+  const { t, lang } = useTranslate();
+
   const dispatch = useDispatch();
 
   const select = useSelector(state => ({
@@ -30,8 +32,6 @@ function Basket() {
     }, [store]),
   };
 
-  const { t } = useTranslate();
-
   const renders = {
     itemBasket: useCallback(
       item => (
@@ -44,7 +44,7 @@ function Basket() {
           labelDelete={t('basket.delete')}
         />
       ),
-      [callbacks.removeFromBasket, t],
+      [callbacks.removeFromBasket, t, lang],
     ),
   };
 
@@ -55,7 +55,7 @@ function Basket() {
       onClose={callbacks.closeModal}
     >
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} t={t} />
+      <BasketTotal sum={select.sum} />
     </ModalLayout>
   );
 }

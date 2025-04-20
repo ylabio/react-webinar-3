@@ -2,10 +2,13 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
+import useTranslate from '../../hooks/use-translate';
 import './style.css';
 
 function BasketTotal(props) {
-  const { sum = 0, t = text => text } = props;
+  const { t } = useTranslate();
+
+  const { sum = 0 } = props;
   const cn = bem('BasketTotal');
   return (
     <div className={cn()}>

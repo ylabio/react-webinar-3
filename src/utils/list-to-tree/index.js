@@ -3,8 +3,9 @@
  * @param list {Array} Список объектов с отношением на родителя
  * @param [key] {String} Свойство с первичным ключом
  * @returns {Array} Корневые узлы
+ * @param rootType {String}
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(list, key = '_id', rootType = 'article') {
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -17,9 +18,8 @@ export default function listToTree(list, key = '_id') {
     } else {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
-
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key]) {
+    if (item.parent?.[key] && item.parent?.['_type'] === 'comment') {
       // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
       if (!trees[item.parent[key]]) {
         trees[item.parent[key]] = { children: [] };

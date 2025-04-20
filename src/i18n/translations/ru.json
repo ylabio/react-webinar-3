@@ -16,6 +16,10 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+  "article.madeiIn": "Страна производитель",
+  "article.category": "Категория",
+  "article.year": "Год выпуска",
+  "article.price": "Цена",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
@@ -24,5 +28,13 @@
   "auth.login-placeholder": "Введите логин",
   "auth.password-placeholder": "Введите пароль",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comments.head": "Комментарии",
+  "comments.new-comment": "Новый комментарий",
+  "comments.new-reply": "Новый ответ",
+  "comments.cancel": "Отмена",
+  "comments.send": "Отправить",
+  "comments.reply": "Ответить",
+  "comments.sighIn": "Войдите, ",
+  "comments.beAble": "чтобы иметь возможность комментировать"
 }

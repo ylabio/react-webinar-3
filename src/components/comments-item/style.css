@@ -1,0 +1,36 @@
+.CommentItem-wrap {
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.CommentItem-header {
+  display: flex;
+  gap: 12px;
+  line-height: 18px;
+  font-size: 12px;
+}
+
+.CommentItem-author {
+  font-weight: 700;
+}
+.CommentItem-comment {
+  font-size: 14px;
+  line-height: 20px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.CommentItem-date {
+  color: #666666;
+}
+
+.CommentItem-button button {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.CommentItem-author_me {
+  color: #4b5563;
+}
