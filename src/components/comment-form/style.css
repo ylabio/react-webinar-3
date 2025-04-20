@@ -8,7 +8,6 @@
 .CommentForm textarea {
     width: 100%;
     height: 88px;
-    /* margin-top: 16px; */
     padding: 8px 12px;
     border: 1px solid var(--filter-border);
     font-size: 14px;

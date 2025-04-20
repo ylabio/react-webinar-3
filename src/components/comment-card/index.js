@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -8,11 +8,15 @@ import CommentForm from '../comment-form';
 
 function CommentCard(props) {
   const { 
-    comment, isAuthenticated, handleAddComment, 
-    setAuthMessageCommentId, authMessageCommentId, 
-    replyToCommentId, setReplyToCommentId, 
-    isReplyActive, setIsReplyActive,
-    onChange 
+    comment, 
+    isAuthenticated, 
+    handleAddComment = () => {}, 
+    setAuthMessageCommentId = () => {}, authMessageCommentId, 
+    replyToCommentId, 
+    setReplyToCommentId = () => {}, 
+    isReplyActive, 
+    setIsReplyActive = () => {},
+    onChange = () => {},
   } = props;
   const cn = bem('CommentCard');
   
@@ -23,18 +27,11 @@ function CommentCard(props) {
       } else {
         setReplyToCommentId(comment._id);
         setIsReplyActive(true);
-      }
-    }, [replyToCommentId]),
+      };
+    }, [comment._id, isAuthenticated])
   };
 
-  // let lastChild;
-  // if (hasChildren) {
-  //   lastChild = comment.children[comment.children.length - 1]; // Получаем последний дочерний элемент
-  // }
-  
-  // Условие для отображения формы
-  // const hasChildren = comment.children && comment.children.length > 0;
-  // const shouldShowReplyForm = isAuthenticated && (replyToCommentId === comment._id);
+  const hasChildren = comment.children && comment.children.length > 0;
 
   return (
     <div className={cn()}>
@@ -60,7 +57,9 @@ function CommentCard(props) {
           </div>
         )}
 
-      {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
+      {isAuthenticated && 
+      (replyToCommentId === comment._id) && 
+      isReplyActive && !hasChildren && (
         <CommentForm
           commentTitle="Новый ответ"
           type="reply"
@@ -68,67 +67,73 @@ function CommentCard(props) {
           onSubmit={handleAddComment}
           onChange={onChange}
         />
-        // <form onSubmit={(e) => {
-        //   const replyText = e.target.elements.reply.value;
-        //   handleSubmitReply(replyText);
-        // }}>
-        //   <textarea 
-        //   name="newComment"  
-        //   placeholder={`Мой ответ для ${comment.author.profile.name}`} />
-        // </form>
       )}
-       
 
-      {/* Рендерим детей только если глубина меньше MAX_DEPTH */}
       {comment.children && comment.children.length > 0 && (
         <div className={cn('replies')}>
-          {comment.children.map((child, index) => (
+          {comment.children.map(child => (
             <CommentCard 
               key={child._id} 
               comment={child}
               handleAddComment={handleAddComment}
               isAuthenticated={isAuthenticated}
-              // showAuthMessage={authMessageCommentId === child._id}
-              // onReplyClick={() => handleReplyClick(child._id)}
               setAuthMessageCommentId={setAuthMessageCommentId}
               authMessageCommentId={authMessageCommentId}
-              replyToCommentId={replyToCommentId} // Передаем ID для ответа
-              setReplyToCommentId={setReplyToCommentId} // Передаем функцию для сброса ID
+              replyToCommentId={replyToCommentId}
+              setReplyToCommentId={setReplyToCommentId}
               isReplyActive={isReplyActive}
               setIsReplyActive={setIsReplyActive}
               onChange={onChange}
             />
           ))}
+
+          {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
+            <CommentForm
+              className={cn('child')}
+              commentTitle="Новый ответ"
+              type="reply"
+              setIsReplyActive={setIsReplyActive}
+              onSubmit={(newComment) => {
+                handleAddComment(newComment);
+                setIsReplyActive(false);
+                setReplyToCommentId(null);
+              }}
+              onChange={onChange}
+            />
+          )}
         </div>
       )}
-
-      {/* Форма для ответа на комментарий после последнего дочернего элемента */}
-      {/* {isAuthenticated && showReplyForm && (
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          const replyText = e.target.elements.reply.value;
-          handleSubmitReply(replyText);
-        }}>
-          <input type="text" name="reply" placeholder="Ваш ответ..." required />
-          <button type="submit">Отправить</button>
-        </form>
-      )} */}
    </div>
   );
 }     
 
-
-// CommentCard.propTypes = {
-//   article: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     description: PropTypes.string,
-//     madeIn: PropTypes.object,
-//     category: PropTypes.object,
-//     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-//   t: PropTypes.func,
-// };
+CommentCard.propTypes = {
+  comment: PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      text: PropTypes.string,
+      dateCreate: PropTypes.string,
+      author: PropTypes.shape({
+        _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        profile: PropTypes.shape({
+          name: PropTypes.string,
+        }),
+      }),
+      children: PropTypes.array,
+      parent: PropTypes.shape({
+        _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        _type: PropTypes.string
+      }),
+    }).isRequired,
+  isAutheticated: PropTypes.bool,
+  handleAddComment: PropTypes.func,
+  setAuthMessageCommentId: PropTypes.func,
+  authMessageCommentId: PropTypes.string,
+  replyToCommentId: PropTypes.string,
+  setReplyToCommentId: PropTypes.func,
+  isReplyActive: PropTypes.bool,
+  setIsReplyActive: PropTypes.func,
+  onChange: PropTypes.func,
+  findParentAndLastChild: PropTypes.func,
+};
 
 export default memo(CommentCard);

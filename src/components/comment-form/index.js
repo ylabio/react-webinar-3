@@ -2,10 +2,15 @@ import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
+import PropTypes from 'prop-types';
 
 function CommentForm(props) {
-  const { commentTitle, type, onSubmit,
-   setIsReplyActive, onChange } = props;
+  const { 
+    commentTitle, type, 
+    setIsReplyActive = () => {},
+    onSubmit = () => {},
+    onChange = () => {} 
+} = props;
 
   const cn = bem('CommentForm');
 
@@ -21,7 +26,7 @@ function CommentForm(props) {
           <Button style="primary" type="submit" title="Отправить" />
 
           {type === "reply" &&
-          <Button style="outline" type="button" title="Отмена" onClick={() => setIsReplyActive(false)} />
+            <Button style="outline" type="button" title="Отмена" onClick={() => setIsReplyActive(false)} />
           }
         </div>
       </form>
@@ -29,17 +34,12 @@ function CommentForm(props) {
   );
 }
 
-// CommentForm.propTypes = {
-//   article: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     description: PropTypes.string,
-//     madeIn: PropTypes.object,
-//     category: PropTypes.object,
-//     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-//   t: PropTypes.func,
-// };
+CommentForm.propTypes = {
+  commentTitle: PropTypes.string,
+  type: PropTypes.string,
+  setIsReplyActive: PropTypes.func,
+  onSubmit: PropTypes.func,
+  onChange: PropTypes.func,
+};
 
 export default memo(CommentForm);

@@ -1,12 +1,12 @@
-import { memo, useState, useEffect, useMemo, useCallback } from 'react';
-// import PropTypes from 'prop-types';
+import { memo, useState, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { useDispatch } from 'react-redux';
+import useSelector from '../../hooks/use-selector';
 import commentsActions from '../../store-redux/comments/actions';
 import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
-import useSelector from '../../hooks/use-selector';
 import { Link } from 'react-router-dom';
 import CommentForm from '../comment-form';
 
@@ -58,22 +58,15 @@ function CommentList(props) {
     handleAddComment: useCallback(
       async e => {
         e.preventDefault();
-        if (newComment) {
+        if (newComment.text) {
           await dispatch(commentsActions.create(newComment));
           dispatch(commentsActions.load(params.id));
           setIsReplyActive(false);
         }
-      }, [newComment]
+      }, [dispatch, newComment, params.id]
     )
   };
 
-  // const handleReplyClick = (commentId) => {
-  //   if (!isAuthenticated) {
-  //     setAuthMessageCommentId(commentId);
-  //   } else {
-  //     setAuthMessageCommentId(null);
-  //   }
-  // }
   const cn = bem('CommentList');
 
   return (
@@ -81,27 +74,30 @@ function CommentList(props) {
       <p className={cn('title')}>Комментарии ({typeof commentCount === 'number' ? commentCount : 0})</p>
     
       {comments ? 
-        comments.map(comment => 
-          <CommentCard 
-            key={comment._id} 
-            comment={comment}
-            isAuthenticated={isAuthenticated}
-            handleAddComment={callbacks.handleAddComment}
-            setAuthMessageCommentId={setAuthMessageCommentId}
-            authMessageCommentId={authMessageCommentId}
-            replyToCommentId={replyToCommentId}
-            setReplyToCommentId={setReplyToCommentId}
-            isReplyActive={isReplyActive}
-            setIsReplyActive={setIsReplyActive}
-            onChange={callbacks.onChange}
-          />
+        comments.map(comment =>
+          <div key={comment._id}>
+            <CommentCard 
+              key={comment._id} 
+              comment={comment}
+              isAuthenticated={isAuthenticated}
+              handleAddComment={callbacks.handleAddComment}
+              setAuthMessageCommentId={setAuthMessageCommentId}
+              authMessageCommentId={authMessageCommentId}
+              replyToCommentId={replyToCommentId}
+              setReplyToCommentId={setReplyToCommentId}
+              isReplyActive={isReplyActive}
+              setIsReplyActive={setIsReplyActive}
+              onChange={callbacks.onChange}
+            />
+          </div>
         ) : (
           <p>Комментарии недоступны</p>
         )
       }
 
-      {/* Форма для нового комментария */}
-      {isAuthenticated && !isReplyActive && (
+      {isAuthenticated && 
+      !isReplyActive && 
+      (
         <CommentForm
           commentTitle="Новый комментарий"
           type="comment"
@@ -120,17 +116,25 @@ function CommentList(props) {
   );
 }
 
-// CommentList.propTypes = {
-//   article: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     description: PropTypes.string,
-//     madeIn: PropTypes.object,
-//     category: PropTypes.object,
-//     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-//   t: PropTypes.func,
-// };
+CommentList.propTypes = {
+  comments: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    text: PropTypes.string,
+    dateCreate: PropTypes.string,
+    author: PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      profile: PropTypes.shape({
+        name: PropTypes.string,
+      }),
+    }),
+    children: PropTypes.array,
+    parent: PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      _type: PropTypes.string
+    }),
+  }).isRequired,
+  commentCount: PropTypes.number,
+  t: PropTypes.func,
+};
 
 export default memo(CommentList);
