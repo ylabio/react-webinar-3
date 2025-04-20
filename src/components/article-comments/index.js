@@ -1,7 +1,6 @@
+import { createRef, useEffect, useRef, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
-
-import PropTypes, {string} from "prop-types";
-
+import PropTypes from 'prop-types';
 import { dateFormat } from '../../utils/date-format';
 
 import './style.css';
@@ -13,9 +12,36 @@ function ArticleComments({
   items = [],
   onChangeCommentData = (x, y, i) => {},
   t = text => text,
-  lang = 'ru'
+  lang = 'ru',
+  userId = '',
 }) {
+  const [formPadding, setFormPadding] = useState(0);
+  const [scrollPlace, setScrollPlace] = useState('');
+
   const cn = bem('Comments');
+  const commentRefs = useRef({});
+
+  const onClickComment = (id, type, authorNickname, paddigEl) => {
+    onChangeCommentData(id, type, authorNickname);
+    paddigEl <= 240 ? setFormPadding(paddigEl + 40) : setFormPadding(paddigEl);
+    
+    if (scrollPlace === lastCommentId) scrollToComment(scrollPlace);
+  };
+
+  const scrollToComment = commentId => {
+    if (commentId) {
+      commentRefs.current[commentId].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'start',
+      });
+      setScrollPlace(commentId);
+    }
+  };
+
+  useEffect(() => {
+    scrollToComment(lastCommentId);
+  }, [lastCommentId]);
 
   return (
     <div>
@@ -26,21 +52,32 @@ function ArticleComments({
         <ul className={cn('list')}>
           {items.map((item, idx) => {
             const { text, paddingL, author, dateCreate, _id } = item;
-
+            commentRefs.current[_id] = createRef();
             return (
-              <li key={`${text}-${idx}-${_id}`} className={cn('item')} style={{ paddingLeft: paddingL }}>
-                <div className={cn('item', { header: true })}>
-                  <h4>{author.profile.name}</h4>
-                  <div>{dateFormat(dateCreate, lang)}</div>
+              <li
+                key={`${text}-${idx}-${_id}`}
+                className={cn('item')}
+                id={_id}
+                ref={commentRefs.current[_id]}
+              >
+                <div style={{ paddingLeft: paddingL }}>
+                  <div className={cn('item', { header: true })}>
+                    <h4 className={userId === author._id ? cn('author') : ''}>
+                      {author.profile.name}
+                    </h4>
+                    <div>{dateFormat(dateCreate, lang)}</div>
+                  </div>
+                  <div className={cn('item', { text: true })}>{text}</div>
+                  <a
+                    className={cn('link')}
+                    onClick={() =>
+                      onClickComment(_id, 'comment', author.profile.name, paddingL, lastCommentId)
+                    }
+                  >
+                    {t('answer.reply')}
+                  </a>
                 </div>
-                <div className={cn('item', { text: true })}>{text}</div>
-                <a
-                  className={cn('link')}
-                  onClick={() => onChangeCommentData(_id, 'comment', author.profile.name)}
-                >
-                  {t("answer.reply")}
-                </a>
-                {lastCommentId === _id && children}
+                <div style={{ paddingLeft: formPadding }}>{lastCommentId === _id && children}</div>
               </li>
             );
           })}
@@ -62,15 +99,15 @@ ArticleComments.propTypes = {
           name: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired,
-      paddingL: PropTypes.string,
+      paddingL: PropTypes.number,
       dateCreate: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
   children: PropTypes.node,
   lastCommentId: PropTypes.string,
-  articleId: PropTypes.string,
-  t:PropTypes.func,
+  t: PropTypes.func,
   lang: PropTypes.string,
+  userId: PropTypes.string,
   onChangeCommentData: PropTypes.func,
 };
 

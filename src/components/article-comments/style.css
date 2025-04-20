@@ -17,6 +17,7 @@
 }
 
 .Comments-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -49,13 +50,18 @@
     color: #666;
   }
 }
-
+/* 4b5563 */
+.Comments-author {
+  color: #4b5563 !important;
+}
 .Comments-item_text {
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 143%;
   color: #000;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .Comments-link {

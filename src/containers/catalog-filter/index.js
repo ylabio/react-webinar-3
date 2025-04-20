@@ -51,6 +51,7 @@ function CatalogFilter() {
       [lang],
     ),
     // Категории для фильтра
+
     categories: useMemo(
       () => [
         { value: '', title: t('categories.all') },
@@ -62,7 +63,6 @@ function CatalogFilter() {
       [select.categories, lang],
     ),
   };
-
 
   return (
     <SideLayout padding="medium">

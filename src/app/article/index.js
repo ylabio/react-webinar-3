@@ -45,8 +45,10 @@ function Article() {
   const selectUser = useSelector(state => ({
     isUserAuth: state.session.exists,
     userId: state.session.user._id,
+    userName: state.session.user.profile?.name,
     token: state.session.token,
   }));
+
 
   const { article, comments, userComment, ...state } = useSelectorRedux(
     state => ({ ...state }),
@@ -101,7 +103,7 @@ function Article() {
           token: userComment.userToken,
         };
 
-        dispatch(commentsActions.addComment(data));
+        dispatch(commentsActions.addComment(data, selectUser.userName));
 
         if (!article.waiting) {
           callbacks.onCloseFormInComments();
@@ -110,13 +112,12 @@ function Article() {
       [userComment],
     ),
   };
-
   const options = {
     comments: useMemo(
       () => [
         ...textsTreeToList(listToTree(comments.data.items || []), (item, count) => ({
           ...item,
-          paddingL: `${Math.floor(40 * count)}px`,
+          paddingL: Math.floor(40 * count),
         })),
       ],
       [comments.data.items],
@@ -140,11 +141,13 @@ function Article() {
           <Spinner active={comments.waiting}>
             <ArticleComments
               t={t}
+              userId={userComment.userId}
               lang={lang}
               items={options.comments}
               commentsCount={comments.data.count}
-              lastCommentId={userComment.parent._id}
+              lastCommentId={userComment.lastIdFromCommentTree}
               onChangeCommentData={callbacks.onChangeCommentData}
+              parentId={userComment.parent._id}
             >
               {selectUser.isUserAuth ? (
                 <ArticleForm

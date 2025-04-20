@@ -21,10 +21,20 @@ function reducer(state = initialState, action) {
         ...state,
         waiting: true,
       };
-      case 'texts/send-success':
+    case 'texts/send-success':
       return {
         ...state,
-        data: { ...state.data, items: [...state.data.items, action.payload.data], count: state.data.count + 1 },
+        data: {
+          ...state.data,
+          items: [
+            ...state.data.items,
+            {
+              ...action.payload.data,
+              author: { ...action.payload.data.author, profile: { name: action.payload.name } },
+            },
+          ],
+          count: state.data.count + 1,
+        },
         waiting: false,
       };
 

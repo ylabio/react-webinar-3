@@ -7,9 +7,11 @@ export function textsTreeToList(tree, callback, count = 0, result = []) {
     if (item?._id) {
       result.push(callback ? callback(item, count) : item);
     }
-    if (item.children?.length){
-        textsTreeToList(item.children, callback, count + 1, result);
-  }}
+    if (item.children?.length) {
+      const pxCount = count <= 6 ? count + 1 : count;
+      textsTreeToList(item.children, callback, pxCount, result);
+    }
+  }
 
   return result;
 }

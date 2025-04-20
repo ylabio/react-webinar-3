@@ -11,7 +11,7 @@ function Textarea({ placeholderText = '', ...props }) {
   const onChangeDebounce = useCallback(
     debounce(value => {
       return props.onChange(value);
-    }, 600),
+    }, 100),
     [props.onChange],
   );
 

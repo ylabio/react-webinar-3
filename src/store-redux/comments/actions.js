@@ -15,19 +15,20 @@ export default {
         });
         // Товар загружен успешно
         dispatch({ type: 'texts/load-success', payload: { data: res.data.result } });
+
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: 'texts/load-error' });
       }
     };
   },
-  addComment: data => {
+  addComment: (data, userName) => {
     return async (dispatch, getState, services) => {
       dispatch({ type: 'texts/send-start' });
       const token = localStorage.getItem('token');
       try {
         const res = await services.api.request({
-          url: `api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted`,
+          url: `/api/v1/comments`,
           method: 'POST',
           'X-token': token,
           body: JSON.stringify({
@@ -35,7 +36,7 @@ export default {
             parent: { ...data.parent },
           }),
         });
-        dispatch({ type: 'texts/send-success', payload: { data: res.data.result } });
+        dispatch({ type: 'texts/send-success', payload: { data: res.data.result, name: userName } });
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: 'texts/send-error' });
