@@ -17,3 +17,8 @@
 .Input_theme_small {
   width: 233px;
 }
+
+.Input_theme_full {
+  width: 100%;
+  height: 88px;
+}

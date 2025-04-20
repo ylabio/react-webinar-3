@@ -1,0 +1,12 @@
+.Comments-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.Comments-form-title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+}
