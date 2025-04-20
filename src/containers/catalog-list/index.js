@@ -39,7 +39,7 @@ function CatalogList() {
     ),
   };
 
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   const renders = {
     item: useCallback(
@@ -51,7 +51,7 @@ function CatalogList() {
           labelAdd={t('article.add')}
         />
       ),
-      [callbacks.addToBasket, t],
+      [callbacks.addToBasket, t, lang],
     ),
   };
 

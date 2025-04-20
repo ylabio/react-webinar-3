@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -22,7 +22,12 @@ function Main() {
     true,
   );
 
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
+
+  useEffect(() => {
+    store.actions.catalog.initParams();
+    store.actions.categories.load();
+  }, [lang]);
 
   return (
     <>

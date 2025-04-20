@@ -9,6 +9,11 @@
   }
 }
 
+.Button_style_primary.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .Button_style_delete {
   background-color: var(--delete);
   color: var(--second-text);
@@ -37,5 +42,22 @@
 
   &:hover {
     color: var(--primary);
+  }
+}
+
+.Button_style_text_comments {
+  padding: 6px 0 0 0;
+  border: none;
+  color: var(--primary);
+}
+
+.Button_style_cancel {
+  margin-left: 16px;
+  border-color: var(--primary);
+  color: var(--primary);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--background);
   }
 }
