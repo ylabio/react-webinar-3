@@ -44,7 +44,7 @@ function CommentCard(props) {
             </div>
         </div>
         <div className={cn('comment')}>
-          {comment._id}<br />
+          {/* {comment._id}<br /> */}
           {comment.text}
         </div>    
         <div className={cn('answer')} onClick={callbacks.handleReplyClick}>
