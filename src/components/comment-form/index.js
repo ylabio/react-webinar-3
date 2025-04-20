@@ -21,6 +21,9 @@ function CommentForm({ onSubmit, t = text => text, replyTo, onCancel }) {
 
   return (
     <form className={cn()} onSubmit={handleSubmit}>
+      <div className={cn('text')}>
+        {replyTo ? t('comment.addReply') : t('comment.addComment')}
+      </div>
       <textarea
         className={cn('input')}
         value={text}
@@ -29,18 +32,18 @@ function CommentForm({ onSubmit, t = text => text, replyTo, onCancel }) {
         rows={3}
       />
       <div className={cn('buttons')}>
+        <Button 
+          style="primary" 
+          type="submit" 
+          title={t('comment.submit')}
+        />
         {replyTo && (
           <Button 
-            style="text" 
+            style="outline" 
             onClick={onCancel} 
             title={t('comment.cancel')}
           />
         )}
-        <Button 
-          style="primary" 
-          type="submit" 
-          title={replyTo ? t('comment.reply') : t('comment.submit')}
-        />
       </div>
     </form>
   );

@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
-import CommentsList from '../../components/comments-list';
 import commentsActions from '../../store-redux/comments/actions';
+import CommentsListContainer from '../../containers/comments-list';
 
 function Article() {
   const store = useStore();
@@ -58,30 +58,24 @@ function Article() {
   };
 
   return (
-    <>
-      <HeadLayout>
-        <TopHead />
-      </HeadLayout>
-      <Head title={select.article.title}>
-        <LocaleSelect />
-      </Head>
-      <PageLayout>
-        <Navigation />
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-          <Spinner active={select.commentsWaiting}>
-            <CommentsList 
-              items={select.comments}
-              count={select.count}
-              articleId={params.id}
-              onAddComment={callbacks.addComment}
-              t={t}
-            />
-          </Spinner>
+  <>
+    <HeadLayout>
+      <TopHead />
+    </HeadLayout>
+    <Head title={select.article.title}>
+      <LocaleSelect />
+    </Head>
+    <PageLayout>
+      <Navigation />
+      <Spinner active={select.waiting}>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+        <Spinner active={select.commentsWaiting}>
+          <CommentsListContainer articleId={params.id} />
         </Spinner>
-      </PageLayout>
-    </>
-  );
+      </Spinner>
+    </PageLayout>
+  </>
+);
 }
 
 export default memo(Article);

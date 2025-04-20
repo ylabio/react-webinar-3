@@ -1,18 +1,6 @@
 .Comment {
-  margin-bottom: 15px;
-  padding: 15px;
-}
-
-.Comment-level-1 {
-  margin-left: 30px;
-}
-
-.Comment-level-2 {
-  margin-left: 60px;
-}
-
-.Comment-level-3 {
-  margin-left: 90px;
+  padding-left: 20px;
+  padding-top: 10px;
 }
 
 .Comment-header {

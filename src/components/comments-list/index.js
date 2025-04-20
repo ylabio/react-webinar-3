@@ -1,67 +1,26 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import Comment from '../comment';
 import CommentForm from '../comment-form';
 import './style.css';
-import useSelector from '../../hooks/use-selector';
 
-
-function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (text) => text }) {
+function CommentsList({
+  items = [],
+  count = '0',
+  articleId,
+  onAddComment,
+  t = (text) => text,
+  isAuthenticated,
+  replyTo,
+  onReply,
+  onCancelReply,
+  showMainForm,
+  onToggleForm,
+  error
+}) {
   const cn = bem('CommentsList');
-  const [replyTo, setReplyTo] = useState(null);
-  const [showMainForm, setShowMainForm] = useState(true);
-  const [error, setError] = useState(null);
-  const select = useSelector(state => ({
-    exists: state.session.exists,
-    waiting: state.session.waiting,
-  }));
-
-  const handleSubmitReply = async (text, parentId, parentType) => {
-    try {
-      setError(null);
-      await onAddComment(text, parentId, parentType);
-      setReplyTo(null);
-    } catch (e) {
-      setError(t('comment.error'));
-      console.error(e);
-    }
-  };
-
-  const handleSubmitNewComment = async (text) => {
-    try {
-      setError(null);
-      await onAddComment(text, articleId, 'article');
-      setShowMainForm(false);
-    } catch (e) {
-      setError(t('comment.error'));
-      console.error(e);
-    }
-  };
-
-  const handleCancelReply = () => {
-    setReplyTo(null);
-  };
-
-  const handleReplyClick = (commentId) => {
-    if (!select.exists) {
-      setReplyTo(commentId);
-      setShowMainForm(false);
-      return;
-    }
-    if (replyTo === commentId) {
-      setReplyTo(null);
-    } else {
-      setReplyTo(commentId);
-      setShowMainForm(false);
-    }
-  };
-
-  const toggleMainForm = () => {
-    setShowMainForm(!showMainForm);
-    setReplyTo(null);
-  };
 
   return (
     <div className={cn()}>
@@ -69,38 +28,34 @@ function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (t
       {error && <div className={cn('error')}>{error}</div>}
       <div className={cn('container')}>
         {items.map(item => (
-          <Comment 
-            key={item._id} 
-            comment={item} 
-            onReply={handleReplyClick}
+          <Comment
+            key={item._id}
+            comment={item}
+            onReply={onReply}
             replyTo={replyTo}
-            onCancelReply={handleCancelReply}
-            onSubmitReply={handleSubmitReply}
+            onCancelReply={onCancelReply}
+            onSubmitReply={(text, id, type) => onAddComment(text, id, type)}
             t={t}
-            isAuthenticated={select.exists}
+            isAuthenticated={isAuthenticated}
           />
         ))}
       </div>
       <div className={cn('new-comment')}>
-        {select.exists ? (
-          <>
-            {!showMainForm && (
-              <button 
-                className={cn('add-comment-btn')} 
-                onClick={toggleMainForm}
-              >
-                {t('comment.addComment')}
-              </button>
-            )}
-            {showMainForm && (
-              <CommentForm 
-                onSubmit={handleSubmitNewComment} 
-                t={t}
-                placeholder={t('comment.placeholder')}
-                onCancel={() => setShowMainForm(false)}
-              />
-            )}
-          </>
+        {isAuthenticated ? (
+          showMainForm ? (
+            <CommentForm
+              onSubmit={(text) => onAddComment(text, articleId, 'article')}
+              t={t}
+              placeholder={t('comment.placeholder')}
+            />
+          ) : (
+            <button 
+              className={cn('add-comment-btn')} 
+              onClick={onToggleForm}
+            >
+              {t('comment.addComment')}
+            </button>
+          )
         ) : (
           <div className={cn('auth-message')}>
             <Link to="/login" state={{ back: window.location.pathname }}>
@@ -114,25 +69,17 @@ function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (t
 }
 
 CommentsList.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      dateCreate: PropTypes.string.isRequired,
-      author: PropTypes.shape({
-        profile: PropTypes.shape({
-          name: PropTypes.string
-        })
-      }),
-      children: PropTypes.array,
-      parent: PropTypes.shape({
-        _id: PropTypes.string
-      })
-    })
-  ),
+  items: PropTypes.arrayOf(PropTypes.object),
   articleId: PropTypes.string.isRequired,
   onAddComment: PropTypes.func.isRequired,
-  t: PropTypes.func
+  t: PropTypes.func,
+  isAuthenticated: PropTypes.bool.isRequired,
+  replyTo: PropTypes.string,
+  onReply: PropTypes.func.isRequired,
+  onCancelReply: PropTypes.func.isRequired,
+  showMainForm: PropTypes.bool.isRequired,
+  onToggleForm: PropTypes.func.isRequired,
+  error: PropTypes.string
 };
 
 export default memo(CommentsList);

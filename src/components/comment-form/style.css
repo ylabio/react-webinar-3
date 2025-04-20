@@ -14,9 +14,14 @@
   min-height: 60px;
 }
 
+.CommentForm-text {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
 .CommentForm-buttons {
   display: flex;
-  justify-content: flex-end;
   gap: 10px;
 }
 
