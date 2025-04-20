@@ -45,8 +45,6 @@ function Article() {
     userId: state.session.user._id,
   }));
 
-  console.log(profile);
-
   const { t } = useTranslate();
 
   const callbacks = {
@@ -66,7 +64,12 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-          <Comments isAuth={profile.isAuth} comments={select.comments} userId={profile.userId} />
+          <Comments
+            isAuth={profile.isAuth}
+            comments={select.comments}
+            userId={profile.userId}
+            articleId={params.id}
+          />
         </Spinner>
       </PageLayout>
     </>

@@ -9,6 +9,8 @@ export default {
         const params = new URLSearchParams({
           fields: '*,madeIn(title,code),category(title)',
           'search[parent]': id,
+          sort: '-dateCreate',
+          limit: 50,
         });
 
         const res = await services.api.request({
@@ -53,6 +55,34 @@ export default {
       } catch (e) {
         console.error(e);
         dispatch({ type: 'comments/load-author-error' });
+      }
+    };
+  },
+  create: function (text, parentId, articleId) {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: 'comments/create-start' });
+
+      try {
+        const res = await services.api.request({
+          url: `/api/v1/comments`,
+          method: 'POST',
+          body: JSON.stringify({
+            text,
+            parent: parentId ? { _id: parentId, _type: 'comment' } : undefined,
+          }),
+        });
+
+        const newComment = res.data.result;
+
+        dispatch({
+          type: 'comments/create-success',
+          payload: { comment: newComment },
+        });
+
+        dispatch(this.loadAll(articleId));
+      } catch (e) {
+        console.error(e);
+        dispatch({ type: 'comments/create-error' });
       }
     };
   },

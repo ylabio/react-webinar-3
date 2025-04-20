@@ -6,79 +6,22 @@ import commentsActions from '../../store-redux/comments/actions';
 import useInit from '../../hooks/use-init';
 import { useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import shallowEqual from 'shallowequal';
+import { Comment } from '../../components/comment';
+import { SmartComment } from '../../components/smart-comment';
 
-// TODO вынести в отдельный компонент
-export const Comment = ({ by, text, isMine, date, isFormOpen, toggleForm }) => {
-  return (
-    <div className="Comment">
-      <div className="Comment-subtitle-block">
-        <span className="Comment-userName" data-mine-comment={isMine ? 'isMine' : ''}>
-          {by}
-        </span>
-        <span className="Comment-date">{date}</span>
-      </div>
-      <div className="Comment-text" dangerouslySetInnerHTML={{ __html: text }} />
-      <button className="Comment-answer" onClick={toggleForm}>
-        <span>ответить</span>
-      </button>
-      {isFormOpen && <CommentsForm />}
-    </div>
-  );
-};
-
-// TODO вынести в отдельный компонент
-export const SmartComment = ({ comment, userId, openFormForId, handleToggleForm }) => {
-  const dispatch = useDispatch();
-
-  useInit(() => {
-    dispatch(commentsActions.getAuthor(comment.author._id));
-  }, []);
-
-  const select = useReduxSelector(
-    state => ({
-      author: state.comments.authors[comment.author._id]?.profile.name,
-    }),
-    shallowEqual,
-  );
-
-  const formattedDate = new Intl.DateTimeFormat('ru-RU', {
-    dateStyle: 'long',
-    timeStyle: 'short',
-  }).format(new Date(comment.dateCreate));
-
-  return (
-    <div className="Smart-Comments">
-      {comment && (
-        <Comment
-          by={select.author}
-          text={comment.text}
-          isMine={userId === comment.author._id}
-          date={formattedDate}
-          isFormOpen={openFormForId === comment._id}
-          toggleForm={() => handleToggleForm(comment._id)}
-        />
-      )}
-      <div className="Smart-Comment">
-        {comment &&
-          comment.children.map(comment => (
-            <SmartComment
-              key={comment._id}
-              comment={comment}
-              userId={userId}
-              openFormForId={openFormForId}
-              handleToggleForm={handleToggleForm}
-            />
-          ))}
-      </div>
-    </div>
-  );
-};
-
-const Comments = ({ isAuth, comments, userId }) => {
+const Comments = ({ isAuth, comments, userId, articleId }) => {
   const [openFormForId, setOpenFormForId] = useState(null);
+  const [commentText, setCommentText] = useState('');
+  const dispatch = useDispatch();
 
   const handleToggleForm = id => {
     setOpenFormForId(prev => (prev === id ? null : id));
+  };
+
+  const handleSubmit = () => {
+    dispatch(commentsActions.create(commentText, openFormForId, articleId));
+    setCommentText('');
+    setOpenFormForId(null);
   };
 
   return (
@@ -101,10 +44,15 @@ const Comments = ({ isAuth, comments, userId }) => {
               userId={userId}
               openFormForId={openFormForId}
               handleToggleForm={handleToggleForm}
+              onSubmit={handleSubmit}
+              value={commentText}
+              onChange={setCommentText}
             />
           ))}
       </div>
-      {!isAuth || openFormForId ? null : <CommentsForm />}
+      {!isAuth || openFormForId ? null : (
+        <CommentsForm onSubmit={handleSubmit} value={commentText} onChange={setCommentText} />
+      )}
     </div>
   );
 };
