@@ -1,8 +1,9 @@
 import {memo, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
+import AuthHint from '../auth-hint';
+import useTranslate from '../../hooks/use-translate';
 import './style.css';
-import AuthHint from "../auth-hint";
 
 function CommentItem({
                        comment,
@@ -12,16 +13,22 @@ function CommentItem({
                        activeFormTargetId,
                        isAuthorized,
                        user,
-                       level
+                       level,
                      }) {
   const isReplying = activeFormTargetId === comment._id;
   const replyRef = useRef(null);
 
+  const MAX_INDENT_LEVEL = 4;
+  const isOwnComment = !!user?._id && comment.author?._id === user._id;
+
+  const {t, locale} = useTranslate();
+
   useEffect(() => {
     if (isReplying && replyRef.current) {
-      replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      replyRef.current.scrollIntoView({behavior: 'smooth', block: 'center'});
     }
   }, [isReplying]);
+
   useEffect(() => {
     if (isReplying && !isAuthorized) {
       onCancel();
@@ -36,36 +43,28 @@ function CommentItem({
     onSend(text, {_id: comment._id, _type: 'comment'});
   };
 
-  const MAX_INDENT_LEVEL = 4;
-  const isOwnComment = !!user?._id && comment.author?._id === user._id;
+  const date = new Date(comment.dateCreate);
+  const formattedDate = `${date.toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })} ${locale === 'ru' ? 'в' : ''} ${date.toLocaleTimeString(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+  })}`;
 
   return (
     <div
       className="comment-item"
-      style={{
-        marginLeft: level > 0 ? '40px' : '0px',
-      }}
+      style={{marginLeft: level > 0 ? '40px' : '0px'}}
       key={String(comment._id)}
     >
       <div className="comment">
         <div className="comment-item__info">
-          <strong style={{
-            color: isOwnComment ? '#666' : undefined,
-          }}>
+          <strong style={{color: isOwnComment ? '#666' : undefined}}>
             {comment.author?.profile?.name || 'Аноним'}
           </strong>{' '}
-          <span>
-            {new Date(comment.dateCreate)
-              .toLocaleString('ru-RU', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-              })
-              .replace(' г.', '')
-              .replace(',', ' в')}{' '}
-          </span>
+          <span>{formattedDate}</span>
         </div>
 
         <div className="comment-item__text">{comment.text}</div>
@@ -82,38 +81,40 @@ function CommentItem({
               }
             }}
           >
-            Ответить
+            {t('comments.reply')}
           </button>
         )}
       </div>
 
       {isReplying && (
-        <div ref={replyRef} style={{ marginLeft: level > 0 ? '40px' : '0px' }}>
+        <div ref={replyRef} style={{marginLeft: level > 0 ? '40px' : '0px'}}>
           {isAuthorized ? (
-            <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true} />
+            <CommentForm onSubmit={handleSubmitReply} onCancel={onCancel} isReply={true}/>
           ) : (
-            <AuthHint />
+            <AuthHint/>
           )}
         </div>
       )}
 
-      {level < MAX_INDENT_LEVEL && Array.isArray(comment.children) && comment.children.length > 0 && (
-        <>
-          {comment.children.map(child => (
-            <CommentItem
-              key={String(child._id)}
-              comment={child}
-              onReply={onReply}
-              onCancel={onCancel}
-              onSend={onSend}
-              activeFormTargetId={activeFormTargetId}
-              isAuthorized={isAuthorized}
-              user={user}
-              level={level + 1}
-            />
-          ))}
-        </>
-      )}
+      {level < MAX_INDENT_LEVEL &&
+        Array.isArray(comment.children) &&
+        comment.children.length > 0 && (
+          <>
+            {comment.children.map(child => (
+              <CommentItem
+                key={String(child._id)}
+                comment={child}
+                onReply={onReply}
+                onCancel={onCancel}
+                onSend={onSend}
+                activeFormTargetId={activeFormTargetId}
+                isAuthorized={isAuthorized}
+                user={user}
+                level={level + 1}
+              />
+            ))}
+          </>
+        )}
     </div>
   );
 }

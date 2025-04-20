@@ -28,5 +28,12 @@
   "profile.title": "Профиль",
   "profile.name": "Имя",
   "profile.phone": "Телефон",
-  "profile.email": "Email"
+  "profile.email": "Email",
+  "product.manufacturer": "Страна производитель",
+  "product.category": "Категория",
+  "product.year": "Год выпуска",
+  "product.price": "Цена",
+  "comments.title": "Комментарии",
+  "comments.loading": "Загрузка комментариев...",
+  "comments.reply": "Ответить"
 }

@@ -26,5 +26,12 @@
   "profile.title": "Profile",
   "profile.name": "Name",
   "profile.phone": "Phone",
-  "profile.email": "Email"
+  "profile.email": "Email",
+  "product.manufacturer": "Manufacturer",
+  "product.category": "Category",
+  "product.year": "Year",
+  "product.price": "Price",
+  "comments.title": "Comments",
+  "comments.loading": "Loading comments...",
+  "comments.reply": "Reply"
 }

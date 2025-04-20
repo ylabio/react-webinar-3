@@ -5,13 +5,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import CommentItem from '../../components/comment-item';
 import CommentForm from '../../components/comment-form';
 import commentsActions from '../../store-redux/comments/actions';
-import useStore from '../../hooks/use-store';
 import AuthHint from "../../components/auth-hint";
+
+import useStore from '../../hooks/use-store';
+import useTranslate from "../../hooks/use-translate";
+
 
 function CommentsSection({ articleId }) {
   const dispatch = useDispatch();
   const store = useStore();
-
+  const { t } = useTranslate();
 
   const [isAuthorized, setIsAuthorized] = useState(store.getState().session.exists);
   const [user, setUser] = useState(store.getState().profile.data);
@@ -50,14 +53,15 @@ function CommentsSection({ articleId }) {
   const handleSend = (text, parent) => dispatch(commentsActions.create(text, parent));
 
   const waiting = useSelector(state => state.comments.waiting);
+
   return (
     <div className="comments">
       <h2 style={{ padding: '20px 0', fontFamily: 'var(--second-font-family)' }}>
-        Комментарии ({totalComments})
+        {t('comments.title')} ({totalComments})
       </h2>
 
       {waiting ? (
-        <p>Загрузка комментариев...</p>
+        <p>{t('comments.loading')}</p>
       ) : (
         commentsTree.map((comment, i) => (
           <CommentItem

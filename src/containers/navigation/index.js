@@ -33,11 +33,8 @@ function Navigation() {
     ),
   };
 
-  // Функция для локализации текстов
-  const { t } = useTranslate();
-
   const options = {
-    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t]),
+    menu: useMemo(() => [{ key: 1, title: 'menu.main', link: '/' }], []),
   };
 
   return (
@@ -47,7 +44,6 @@ function Navigation() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        t={t}
       />
     </SideLayout>
   );
