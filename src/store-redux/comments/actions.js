@@ -41,12 +41,12 @@ export default {
         
         try {
           const loadRes = await services.api.request({
-            url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted)&limit=*&search[parent]=${articleId}`,
+            url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${articleId}`,
           });
           
           dispatch({
             type: 'comments/load-success',
-            payload: loadRes.data.result.items
+            payload: loadRes.data.result
           });
         } catch (loadError) {
           console.error('Ошибка при перезагрузке комментариев:', loadError);
