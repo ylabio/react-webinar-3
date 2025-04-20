@@ -42,7 +42,6 @@ class I18n {
 
   subscribe(callback) {
     this.subscribers.push(callback);
-    console.log(this.subscribers)
     return () => {
       this.subscribers = this.subscribers.filter(sub => sub !== callback);
     };

@@ -2,8 +2,6 @@ import React, { memo, useState } from 'react';
 import Form from '../form';
 import Input from '../input';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import commentsActions from '../../store-redux/comments/actions';
 
 function CommentForm({
   title = `Новый комментарий`,
@@ -11,27 +9,10 @@ function CommentForm({
   secondButtonTitle = '',
   _id = '',
   _type = '',
+  error = '',
+  createComment = () => {},
 }) {
-  const dispatch = useDispatch();
-  const [inputText, setInputText] = useState('');
-  const error = useSelector(state => state.comments.error);
-
-  async function createComment(event, { _type, _id, text }) {
-    event.preventDefault();
-
-    if (!inputText.trim()) {
-      alert('комментарий не может быть пустым');
-      return;
-    }
-
-    const res = await dispatch(commentsActions.createComment({ _type, _id, text }));
-
-    if (res) {
-      setInputText('')
-      setCommentIdFormVisible('');
-    }
-  }
-
+   const [inputText, setInputText] = useState('');
   return (
     <>
       <Form
@@ -54,6 +35,7 @@ CommentForm.propTypes = {
   secondButtonTitle: PropTypes.string,
   _id: PropTypes.string,
   _type: PropTypes.string,
+  error: PropTypes.string,
 };
 
 export default memo(CommentForm);

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form';
 import CommentItem from '../comment-item';
@@ -12,6 +12,9 @@ function CommentContainer(props) {
     isLogin = false,
     lastChild = false,
     userId = '',
+    error = '',
+    formRef = '',
+    createComment = () => {},
   } = props;
 
   if (!props.comment) return null;
@@ -39,15 +42,17 @@ function CommentContainer(props) {
         commentOffset={commentOffset}
         _id={_id}
       />
-      <div style={{ marginLeft: `${formOffset}px` }}>
+      <div ref={isShowForm ? props.formRef : null} style={{ marginLeft: `${formOffset}px` }}>
         {isShowForm &&
           (isLogin ? (
             <CommentForm
               _id={commentIdFormVisible}
-              _type={`comment`}
-              secondButtonTitle={`Отмена`}
+              _type="comment"
+              secondButtonTitle="Отмена"
               setCommentIdFormVisible={setCommentIdFormVisible}
-              title={`Новый ответ`}
+              title="Новый ответ"
+              error={error}
+              createComment={createComment}
             />
           ) : (
             <LinkToLogin />
@@ -66,6 +71,8 @@ function CommentContainer(props) {
               LinkToLogin={LinkToLogin}
               lastChild={!!(index === children.length - 1)}
               userId={userId}
+              formRef={formRef}
+              createComment={createComment}
             />
           );
         })}
