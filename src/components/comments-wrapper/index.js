@@ -60,7 +60,7 @@ function CommentsWrapper(props) {
 
   useEffect(() => {
     if (formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [commentIdFormVisible]);
 
