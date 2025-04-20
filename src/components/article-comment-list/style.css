@@ -1,0 +1,9 @@
+.ArticleCommentList-stranger .Button {
+  display: inline;
+}
+
+.ArticleCommentList-stranger button {
+  font-weight: 400;
+  color: var(--primary);
+  font-family: var(--font-family);
+}
