@@ -1,6 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import useSelector from '../../hooks/use-selector';
+import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import Button from '../button';
 import NewComment from '../new-comment';
 import Comment from '../comment';
@@ -17,15 +18,15 @@ function ArticleCommentList({ articleId }) {
   const [activeForm, setActiveForm] = useState(null);
 
   // Получаем данные из хранилища
-  const { exists } = useSelector(state => state.session);
-  const rootComments = useSelector(state => state.comments.items[articleId] || []);
-  // console.log('Current comments state:', {
-  //   items: state.comments.items,
-  //   counts: state.comments.counts,
-  //   loading: state.comments.loadingParents
-  // });
-  const isLoading = useSelector(state => state.comments.loadingParents.includes(articleId));
-  const commentsCount = useSelector(state => state.comments.counts[articleId] || 0);
+  const select = useSelector(state => ({
+    exists: state.session.exists,
+  }));
+
+  const exists = select.exists;
+  const rootComments = useSelectorRedux(state => state.comments.items[articleId] || []);
+
+  const isLoading = useSelectorRedux(state => state.comments.loadingParents.includes(articleId));
+  const commentsCount = useSelectorRedux(state => state.comments.counts[articleId] || 0);
 
   // Загрузка комментариев
   useInit(() => {
