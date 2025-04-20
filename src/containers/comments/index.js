@@ -52,7 +52,7 @@ export const SmartComment = ({ comment, userId }) => {
           by={select.author}
           text={comment.text}
           isMine={userId === comment.author._id}
-          date={formatedDate}
+          date={formattedDate}
         />
       )}
       <div className="Smart-Comment">
