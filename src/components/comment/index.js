@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
@@ -17,6 +17,7 @@ function Comment({
 }) {
   // const { article, onAdd = () => {}, t = text => text } = props;
   const cn = bem('Comment');
+  const replyFormRef = useRef(null);
 
   if (comment.isDeleted) return null;
 
@@ -33,6 +34,22 @@ function Comment({
       setReplyToCommentId(null);
     }, [setReplyToCommentId]),
   };
+
+  useEffect(() => {
+    if (replyToCommentId && replyFormRef.current) {
+      const rect = replyFormRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      const scrollToPosition = scrollY + rect.top - windowHeight + rect.height + 250;
+
+      window.scrollTo({
+        top: scrollToPosition,
+        behavior: 'smooth',
+      });
+    }
+
+  }, [replyToCommentId]);
 
   return (
     <div className={cn('wrapper', { nested: level > 0 && level < 10 })}>
@@ -65,6 +82,7 @@ function Comment({
           onSendReply={onSendReply}
           type={'comment'}
           _id={replyToCommentId}
+          replyFormRef={replyFormRef}
         />
       )}
       {replyToCommentId === comment._id && !isLogin && loginComment}

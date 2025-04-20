@@ -71,7 +71,7 @@ function CommentsCard(props) {
           ))}
       </div>
       {!select.exists && loginComment}
-      {select.exists && !replyToCommentId && (
+      {select.exists && !replyToCommentId && !props.isCommentsWait && (
         <ReplyForm
           title="Новый комментарий"
           placeholder=""

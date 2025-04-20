@@ -36,6 +36,7 @@ function Article() {
       article: state.article.data,
       waiting: state.article.waiting,
       comments: state.comments.comments,
+      isCommentsWait: state.comments.waiting,
       count: state.comments.count,
     }),
     shallowequal,
@@ -60,7 +61,7 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-          <CommentsCard article={select.article} comments={select.comments} count={select.count} />
+          <CommentsCard article={select.article} comments={select.comments} count={select.count} isCommentsWait={select.isCommentsWait}/>
         </Spinner>
       </PageLayout>
     </>
