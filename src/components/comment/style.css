@@ -1,0 +1,50 @@
+.Comment {
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+.Comment-level-1 {
+  margin-left: 30px;
+}
+
+.Comment-level-2 {
+  margin-left: 60px;
+}
+
+.Comment-level-3 {
+  margin-left: 90px;
+}
+
+.Comment-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.Comment-author {
+  font-weight: bold;
+}
+
+.Comment-text {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.Comment-reply {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 0;
+  margin-top: 5px;
+}
+
+.Comment-reply:hover {
+  text-decoration: underline;
+}
+
+.Comment-reply-form {
+  margin-top: 15px;
+}
