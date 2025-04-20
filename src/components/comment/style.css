@@ -39,6 +39,10 @@
   color: var(--primary);
 }
 
+.Comment-auth-message a:hover {
+  color: var(----overlay);
+}
+
 .Comment-reply:hover {
   text-decoration: underline;
 }

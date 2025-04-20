@@ -9,3 +9,11 @@
     color: var(--primary);
   }
 }
+
+.CommentsList-auth-message a {
+  color: var(--primary);
+}
+
+.CommentsList-auth-message a:hover {
+  color: var(----overlay);
+}
