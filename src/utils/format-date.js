@@ -10,12 +10,14 @@ export default function formatDate(isoDate, locale = 'ru-RU') {
 
   const date = new Date(isoDate);
 
-  const day = date.getDate();
-  const month = new Intl.DateTimeFormat(locale, { month: 'long' }).format(date);
-  const year = date.getFullYear();
+  const datePart = new Intl.DateTimeFormat(locale, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date).slice(0, -2); // автоматом в родительном падеже, без "г."
 
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
 
-  return `${day} ${month} ${year} в ${hours}:${minutes}`;
+  return `${datePart} в ${hours}:${minutes}`;
 }
