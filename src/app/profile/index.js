@@ -24,7 +24,7 @@ function Profile() {
     waiting: state.profile.waiting,
   }));
 
-  const { t } = useTranslate();
+  const t = useTranslate();
 
   return (
     <>
@@ -37,7 +37,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ProfileCard data={select.profile} />
+          <ProfileCard data={select.profile} t={t} />
         </Spinner>
       </PageLayout>
     </>
