@@ -90,17 +90,15 @@ function Comment({
   );
 }
 
-// Comment.propTypes = {
-//   article: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     description: PropTypes.string,
-//     madeIn: PropTypes.object,
-//     category: PropTypes.object,
-//     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-//   t: PropTypes.func,
-// };
+Comment.propTypes = {
+  comment: PropTypes.object,
+  comments: PropTypes.array,
+  level: PropTypes.number,
+  isLogin: PropTypes.bool,
+  loginComment: PropTypes.node,
+  replyToCommentId: PropTypes.string,
+  setReplyToCommentId: PropTypes.func,
+  onSendReply: PropTypes.func,
+};
 
 export default memo(Comment);
