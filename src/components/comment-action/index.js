@@ -8,12 +8,9 @@ import { Link } from 'react-router-dom';
 function CommentAction(props) {
   const {
     t = text => text,
-    onAdd = () => {
-    },
-    setValue = () => {
-    },
-    cancel = () => {
-    },
+    onAdd = () => {},
+    setValue = () => {},
+    cancel = () => {},
     value = '',
     isReply = false,
     auth = false,
