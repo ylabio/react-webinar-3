@@ -1,48 +1,103 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useSelector from '../../hooks/use-selector';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../button';
 import NewComment from '../new-comment';
 import Comment from '../comment';
-
+import commentsActions from '../../store-redux/comments/actions';
+import useInit from '../../hooks/use-init';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ArticleCommentList(props) {
+function ArticleCommentList({ articleId }) {
   const cn = bem('ArticleCommentList');
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const [activeForm, setActiveForm] = useState(null);
 
-  const select = useSelector(state => ({
-    user: state.session.user,
-    exists: state.session.exists,
-  }));
+  // Получаем данные из хранилища
+  const { exists } = useSelector(state => state.session);
+  const rootComments = useSelector(state => state.comments.items[articleId] || []);
+  // console.log('Current comments state:', {
+  //   items: state.comments.items,
+  //   counts: state.comments.counts,
+  //   loading: state.comments.loadingParents
+  // });
+  const isLoading = useSelector(state => state.comments.loadingParents.includes(articleId));
+  const commentsCount = useSelector(state => state.comments.counts[articleId] || 0);
+
+  // Загрузка комментариев
+  useInit(() => {
+    dispatch(commentsActions.load(articleId));
+  }, [articleId]);
 
   const callbacks = {
     // Переход к авторизации
     onSignIn: useCallback(() => {
       navigate('/login', { state: { back: location.pathname } });
     }, [location.pathname]),
+
+    // Отправка комментария (добавляем тип родителя)
+    onSubmit: async (parentId, parentType, text) => {
+      try {
+        await dispatch(commentsActions.add(parentId, parentType, text));
+        setActiveForm(null);
+      } catch (e) {
+        console.error('Ошибка при отправке комментария:', e);
+      }
+    },
+
+    // Открытие формы ответа
+    onReply: useCallback((commentId) => setActiveForm(commentId), []),
   };
 
   return (
     <section className={cn()}>
-      <h2 className={cn('caption')}>Комментарии (0)</h2>
-      <Comment>
-        <Comment>
-          <Comment>
-            <Comment />
-          </Comment>
-        </Comment>
-      </Comment>
-      {
-        select.exists ?
-        <NewComment/> :
-        <p className={cn('stranger')}><Button style="text" onClick={callbacks.onSignIn} title={"Войдите"} />, чтобы иметь возможность комментировать</p>
-      }
+      <h2 className={cn('caption')}>Комментарии ({commentsCount})</h2>
+
+      {isLoading ? (
+        <div>Загрузка комментариев...</div>
+      ) : (
+        <>
+          {/* Список корневых комментариев */}
+          {rootComments.map(comment => (
+            <Comment
+              key={comment._id}
+              comment={comment}
+              onReply={exists ? () => callbacks.onReply(comment._id) : null}
+              isFormOpen={activeForm === comment._id}
+              onCancel={() => setActiveForm(null)}
+              onSubmit={(text) => callbacks.onSubmit(
+                comment._id,
+                'comment', // Указываем тип родителя
+                text
+              )}
+            />
+          ))}
+
+          {/* Форма для нового комментария */}
+          {exists ? (
+            <NewComment
+              onSubmit={(text) => callbacks.onSubmit(
+                articleId,
+                'article', // Для корневого комментария
+                text
+              )}
+            />
+          ) : (
+            <div className={cn('stranger')}>
+              <Button
+                style="text"
+                onClick={callbacks.onSignIn}
+                title="Войдите"
+              />, чтобы иметь возможность комментировать
+            </div>
+          )}
+        </>
+      )}
     </section>
   );
 }
-
 
 export default memo(ArticleCommentList);
