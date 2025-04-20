@@ -37,6 +37,7 @@ function Article() {
       article: state.article.data,
       waiting: state.article.waiting,
       comments: state.comments.items,
+      count: state.comments.count,
       commentsWaiting: state.comments.waiting,
     }),
     shallowequal,
@@ -70,7 +71,8 @@ function Article() {
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
           <Spinner active={select.commentsWaiting}>
             <CommentsList 
-              items={select.comments} 
+              items={select.comments}
+              count={select.count}
               articleId={params.id}
               onAddComment={callbacks.addComment}
               t={t}

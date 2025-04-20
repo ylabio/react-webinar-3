@@ -5,12 +5,12 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted)&limit=*&search[parent]=${parentId}`,
+          url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${parentId}`,
         });
         
         dispatch({ 
           type: 'comments/load-success', 
-          payload: res.data.result.items 
+          payload: res.data.result
         });
       } catch (e) {
         console.error('Ошибка загрузки комментариев:', e);

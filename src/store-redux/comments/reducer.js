@@ -1,5 +1,6 @@
 const initialState = {
   items: [],
+  count: '0',
   waiting: false,
 };
 
@@ -25,18 +26,19 @@ function buildCommentTree(comments) {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case 'comments/load-start':
-      return { ...state, items: [], waiting: true };
+      return { ...state, items: [], count: '0', waiting: true };
 
     case 'comments/load-success':
-      const validComments = action.payload.filter(comment => !comment.isDeleted);
+      const validComments = action.payload.items.filter(comment => !comment.isDeleted);
       return { 
         ...state, 
         items: buildCommentTree(validComments),
+        count: action.payload.count,
         waiting: false 
       };
 
     case 'comments/load-error':
-      return { ...state, items: [], waiting: false };
+      return { ...state, items: [], count: '0', waiting: false };
 
     default:
       return state;

@@ -68,7 +68,7 @@ function Comment({ comment, level = 0, onReply, replyTo, onCancelReply, onSubmit
   );
 }
 
-function CommentsList({ items = [], articleId, onAddComment, t = (text) => text }) {
+function CommentsList({ items = [], count = '0', articleId, onAddComment, t = (text) => text }) {
   const cn = bem('CommentsList');
   const [replyTo, setReplyTo] = useState(null);
   const [error, setError] = useState(null);
@@ -112,7 +112,7 @@ function CommentsList({ items = [], articleId, onAddComment, t = (text) => text 
 
   return (
     <div className={cn()}>
-      <h3 className={cn('title')}>{t('comment.title')} ({items.length})</h3>
+      <h3 className={cn('title')}>{t('comment.title')} ({count})</h3>
       {error && <div className={cn('error')}>{error}</div>}
       <div className={cn('container')}>
         {items.map(item => (
