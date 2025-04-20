@@ -51,6 +51,12 @@ class APIService {
       delete this.defaultHeaders[name];
     }
   }
+  destroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+      this.unsubscribe = null;
+    }
+  }
 }
 
 export default APIService;

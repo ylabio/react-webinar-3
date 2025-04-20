@@ -9,6 +9,10 @@
   font-weight: 700;
   line-height: 18px;
   letter-spacing: 0%;
+} 
+.CommentItem-author_userComment {
+  color: #4B5563;
+
 }
 .CommentItem-date {
   font-family: 'Golos Text';
@@ -17,13 +21,13 @@
   line-height: 18px;
   letter-spacing: 0%;
   color: #666666;
-
 }
 .CommentItem-header {
   gap: 15px;
   display: flex;
 }
 .CommentItem-content {
+  overflow-wrap: break-word;
   font-family: 'Golos Text';
   font-weight: 400;
   font-size: 14px;
@@ -54,3 +58,4 @@
   line-height: 22px;
   letter-spacing: 0%;
 }
+

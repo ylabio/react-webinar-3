@@ -1,10 +1,9 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import './style.css';
-import CommentItem from '../comment-item';
+import CommentContainer from '../comment-container';
 import CommentForm from '../comment-form';
 import useSelector from '../../hooks/use-selector';
 import { Link } from 'react-router-dom';
@@ -21,27 +20,36 @@ function CommentsWrapper(props) {
   const isLogin = useSelector(state => state.session.exists);
   const [commentIdFormVisible, setCommentIdFormVisible] = useState('');
   const { comments, _id, _type, t } = props;
-  const formattedComments = useMemo(() => treeToList(listToTree(comments.items)), [props.comments]);
+  const formattedComments = useMemo(
+    () => listToTree(comments.items, '_id', 'article'),
+    [props.comments],
+  );
+  const userId = useSelector(state => state.session.user._id);
 
-  const rootComments = useMemo(() => {
-    return formattedComments.slice(1).filter(comment => comment.parent._id === _id);
-  }, [formattedComments, _id]);
+  useEffect(() => {
+    if (!isLogin) {
+      setCommentIdFormVisible('');
+    }
+  }, [isLogin]);
 
   const cn = bem('CommentsWrapper');
   return (
     <div className={cn()} key={comments.items.length}>
       <span className={cn('header')}>{`${t(`product.comments`)}: (${comments.count})`}</span>
       <div className={cn('container')}>
-        {rootComments.map(comment => (
-          <CommentItem
-            key={comment._id}
-            isLogin={isLogin}
-            LinkToLogin={LinkToLogin}
-            setCommentIdFormVisible={setCommentIdFormVisible}
-            commentIdFormVisible={commentIdFormVisible}
-            comment={comment}
-          />
-        ))}
+        {formattedComments[0]?.children.map(comment => {
+          return (
+            <CommentContainer
+              key={comment._id}
+              isLogin={isLogin}
+              LinkToLogin={LinkToLogin}
+              setCommentIdFormVisible={setCommentIdFormVisible}
+              commentIdFormVisible={commentIdFormVisible}
+              comment={comment}
+              userId={userId}
+            />
+          );
+        })}
       </div>
 
       {isLogin ? (

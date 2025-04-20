@@ -2,7 +2,7 @@ import * as translations from './translations/index';
 
 class I18n {
   constructor() {
-    this.locale = 'en';
+    this.locale = localStorage.getItem('lang') || 'ru';
     this.subscribers = [];
     this.localeWords = translations;
   }
@@ -11,6 +11,7 @@ class I18n {
     if (this.locale !== locale && this.localeWords[locale]) {
       this.locale = locale;
       this.subscribersTrigger();
+      localStorage.setItem('lang', locale)
     }
   }
   getLocale() {
@@ -41,7 +42,7 @@ class I18n {
 
   subscribe(callback) {
     this.subscribers.push(callback);
-
+    console.log(this.subscribers)
     return () => {
       this.subscribers = this.subscribers.filter(sub => sub !== callback);
     };
