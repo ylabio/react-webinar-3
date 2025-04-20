@@ -23,7 +23,37 @@ function ArticleCommentList({ articleId }) {
   }));
 
   const exists = select.exists;
-  const rootComments = useSelectorRedux(state => state.comments.items[articleId] || []);
+  const buildCommentTree = (comments, articleId) => {
+    // Создаем хеш-таблицу для всех комментариев
+    const commentMap = {};
+
+    // Сначала создаем все узлы с пустыми children
+    comments.forEach(comment => {
+      commentMap[comment._id] = { ...comment, children: [] };
+    });
+
+    // Собираем дерево комментариев
+    const rootComments = [];
+
+    comments.forEach(comment => {
+      const parentId = comment.parent._id;
+
+      if (parentId === articleId) {
+        // Корневой комментарий
+        rootComments.push(commentMap[comment._id]);
+      } else if (commentMap[parentId]) {
+        // Вложенный комментарий (любого уровня)
+        commentMap[parentId].children.push(commentMap[comment._id]);
+      }
+    });
+
+    return rootComments;
+  };
+  const rootComments = useSelectorRedux(state => {
+    const items = state.comments.items[articleId] || [];
+    return buildCommentTree(items, articleId);
+  });
+  console.log('rootComments',rootComments);
 
   const isLoading = useSelectorRedux(state => state.comments.loadingParents.includes(articleId));
   const commentsCount = useSelectorRedux(state => state.comments.counts[articleId] || 0);
@@ -64,17 +94,18 @@ function ArticleCommentList({ articleId }) {
           {/* Список корневых комментариев */}
           {rootComments.map(comment => (
             <Comment
-              key={comment._id}
-              comment={comment}
-              onReply={exists ? () => callbacks.onReply(comment._id) : null}
-              isFormOpen={activeForm === comment._id}
-              onCancel={() => setActiveForm(null)}
-              onSubmit={(text) => callbacks.onSubmit(
-                comment._id,
-                'comment', // Указываем тип родителя
-                text
-              )}
-            />
+            key={comment._id}
+            comment={comment}
+            childComments={comment.children}
+            onReply={exists ? () => callbacks.onReply(comment._id) : null}
+            isFormOpen={activeForm === comment._id}
+            onCancel={() => setActiveForm(null)}
+            onSubmit={(text) => callbacks.onSubmit(
+              comment._id,
+              'comment',
+              text
+            )}
+          />
           ))}
 
           {/* Форма для нового комментария */}

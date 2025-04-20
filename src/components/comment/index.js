@@ -62,6 +62,7 @@ function Comment({
             <Comment
               key={child._id}
               comment={child}
+              childComments={child.children} // Рекурсивно передаем детей
               onReply={onReply}
               isFormOpen={isFormOpen === child._id}
               onSubmit={(text) => onSubmit(child._id, 'comment', text)}
