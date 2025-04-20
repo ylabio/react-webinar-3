@@ -1,38 +1,44 @@
-import { memo, useState } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-// import numberFormat from '../../utils/number-format';
-// import Button from '../button';
 import './style.css';
 import dateFormat from '../../utils/date-format';
 import { Link } from 'react-router-dom';
+import CommentForm from '../comment-form';
 
 function CommentCard(props) {
   // const [showReplyForm, setShowReplyForm] = useState(false);
   const { comment, isAuthenticated,  onReplyClick, handleAddComment, 
     setAuthMessageCommentId, authMessageCommentId, 
     replyToCommentId, setReplyToCommentId, 
-    setShowNewCommentForm, onChange } = props;
+    isReplyActive, setIsReplyActive,
+    onChange } = props;
   const cn = bem('CommentCard');
 
   const [showReplyForm, setShowReplyForm] = useState(false);
   
-  const handleReplyClick = () => {
+  const handleReplyClick = useCallback(() => {
     if (!isAuthenticated) {
       setAuthMessageCommentId(comment._id);
     } else {
       setReplyToCommentId(replyToCommentId === comment._id ? null : comment._id);
-      setShowNewCommentForm(false);
+      setIsReplyActive(true);
+      console.log('isReplyActive', isReplyActive);
       console.log('replyToCommentId', replyToCommentId);
     }
-  };
+  }, [replyToCommentId]);
 
   const handleSubmitReply = (replyText) => {
     handleAddComment(comment._id, replyText); // Передаем текст ответа родительскому компоненту
     // setShowReplyForm(false); // Скрываем форму после отправки
     setReplyToCommentId(null); // Сбросить ID после отправки ответа
-    setShowNewCommentForm(false);
+    // setShowNewCommentForm(false);
+    setIsReplyActive(false);
   };
+
+  useEffect(() => {
+    console.log('isReplyActive изменился на:', isReplyActive);
+  }, [isReplyActive]);
 
   // Проверяем наличие дочерних комментариев
   // console.log('comment has children', comment);
@@ -88,15 +94,29 @@ function CommentCard(props) {
       {/* {isAuthenticated && replyToCommentId === comment._id && ( */}
       {/* Форма для ответа на комментарий, рендерится после всех дочерних комментариев на одном уровне */}
 
-      {isAuthenticated && (replyToCommentId === comment._id) && (
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          const replyText = e.target.elements.reply.value;
-          handleSubmitReply(replyText);
-        }}>
-          <input type="text" name="reply" placeholder="Ваш ответ..." required onChange={onChange} />
-          <button type="submit">Отправить</button>
-        </form>
+      {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
+        <CommentForm
+          commentTitle="Новый ответ"
+          type="reply"
+          handleAddComment={handleAddComment}
+          setIsReplyActive={setIsReplyActive}
+          onChange={onChange}
+        />
+        // <form onSubmit={(e) => {
+        //   e.preventDefault();
+        //   const replyText = e.target.elements.reply.value;
+        //   handleSubmitReply(replyText);
+        // }}>
+        //   <p>Новый ответ</p>
+        //   <textarea 
+        //   name="newComment" 
+        //   required onChange={onChange} 
+        //   placeholder={`Мой ответ для ${comment.author.profile.name}`} />
+        //   <div className={cn('action')}>
+        //     <Button style="primary" type="submit" title="Отправить" />
+        //     <Button style="outline" type="button" title="Отмена" />
+        //   </div>
+        // </form>
       )}
        
 
@@ -115,7 +135,8 @@ function CommentCard(props) {
               authMessageCommentId={authMessageCommentId}
               replyToCommentId={replyToCommentId} // Передаем ID для ответа
               setReplyToCommentId={setReplyToCommentId} // Передаем функцию для сброса ID
-              setShowNewCommentForm={setShowNewCommentForm}
+              isReplyActive={isReplyActive}
+              setIsReplyActive={setIsReplyActive}
               onChange={onChange}
             />
           ))}

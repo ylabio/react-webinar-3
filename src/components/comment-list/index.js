@@ -1,24 +1,21 @@
 import { memo, useState, useMemo, useCallback } from 'react';
 // import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-// import numberFormat from '../../utils/number-format';
-// import Button from '../button';
 import './style.css';
-// import dateFormat from '../../utils/date-format';
 import { useDispatch } from 'react-redux';
 import commentsActions from '../../store-redux/comments/actions';
 import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
 import useSelector from '../../hooks/use-selector';
 import { Link } from 'react-router-dom';
-import Button from '../button';
+import CommentForm from '../comment-form';
 
 function CommentList(props) {
   const { comments, commentCount, t = text => text } = props;
   // Устанавливаем идентификатор текущего комментария
   const [authMessageCommentId, setAuthMessageCommentId] = useState(null);
-  // Скрываем форму добавления нового комментария
-  const [showNewCommentForm, setShowNewCommentForm] = useState(true);
+  // Активна ли форма ответа
+  const [isReplyActive, setIsReplyActive] = useState(false);
   // Передаем ID для ответа
   const [replyToCommentId, setReplyToCommentId] = useState(null);
 
@@ -111,7 +108,8 @@ function CommentList(props) {
             replyToCommentId={replyToCommentId}
             setReplyToCommentId={setReplyToCommentId}
 
-            setShowNewCommentForm={setShowNewCommentForm}
+            isReplyActive={isReplyActive}
+            setIsReplyActive={setIsReplyActive}
             onChange={callbacks.onChange}
           />
         ) : (
@@ -120,23 +118,18 @@ function CommentList(props) {
       }
 
         {/* Форма для нового комментария */}
-        {isAuthenticated && showNewCommentForm ? (
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            const newCommentText = e.target.elements.newComment.value;
-            handleAddComment(null, newCommentText); // Передаем null как parentId для нового комментария
-            setShowNewCommentForm(false); // Скрываем форму после отправки
-          }}>
-            <p>Новый комментарий</p>
-            <textarea name="newComment" required onChange={callbacks.onChange} />
-            <div className={cn('action')}>
-              <Button style="primary" type="submit" title="Отправить" />
-            </div>
-          </form>
-        ) : (
-          isAuthenticated && (
-            <button onClick={() => setShowNewCommentForm(true)}>Добавить комментарий</button>
-          )
+        {isAuthenticated && !isReplyActive && (
+          <CommentForm
+            commentTitle="Новый комментарий"
+            type="comment"
+            handleAddComment={handleAddComment}
+            setIsReplyActive={setIsReplyActive}
+            onChange={callbacks.onChange}
+          />
+        // ) : (
+        //   isAuthenticated && (
+        //     <button onClick={() => setShowNewCommentForm(true)}>Добавить комментарий</button>
+        //   )
         )}
 
         {!isAuthenticated && !authMessageCommentId && (
