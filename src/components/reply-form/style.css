@@ -1,0 +1,24 @@
+.ReplyForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.ReplyForm-title {
+  margin: 0;
+  padding: 0;
+  font-family: "Golos Text";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.ReplyForm-textarea {
+  height: 88px;
+}
+
+.ReplyForm-footer {
+  display: flex;
+  column-gap: 16px;
+}

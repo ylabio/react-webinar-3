@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
@@ -9,6 +9,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Comment from '../comment';
+import ReplyForm from '../reply-form';
 
 function CommentsCard(props) {
   // const { article, onAdd = () => {}, t = text => text } = props;
@@ -35,6 +36,7 @@ function CommentsCard(props) {
       store.actions.session.signOut();
     }, []),
   };
+  const [replyToCommentId, setReplyToCommentId] = useState(null);
 
   const rootComments = props.comments.filter(
     (comment) => comment.parent._type === "article" && !comment.isDeleted
@@ -51,12 +53,16 @@ function CommentsCard(props) {
               comment={comment}
               comments={props.comments}
               level={0}
+              replyToCommentId={replyToCommentId}
+              setReplyToCommentId={setReplyToCommentId}
             /> )))
         }
       </div>
       {!select.exists && ( <div className={cn('login')}>
-        <p className={cn('label')}><Button className={cn('label')} style="text" onClick={callbacks.onSignIn} title={t('session.signIn')} />, чтобы иметь возможность комментировать</p>
-      </div> ) }
+        <Button style="login" onClick={callbacks.onSignIn} title={t('session.signIn')} />
+        <span className={cn('label')}> , чтобы иметь возможность комментировать</span>
+      </div> )}
+      {select.exists && !replyToCommentId && <ReplyForm title='Новый комментарий' placeholder='' onChancel={() =>{}}/>}
     </div>
   );
 }

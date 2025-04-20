@@ -1,42 +1,60 @@
-import { memo } from 'react';
+import { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import numberFormat from '../../utils/number-format';
 import Button from '../button';
 import './style.css';
+import ReplyForm from '../reply-form';
 
-function Comment({ comment, comments, level = 0 }) {
+function Comment({ comment, comments, level = 0, replyToCommentId, setReplyToCommentId }) {
   // const { article, onAdd = () => {}, t = text => text } = props;
   const cn = bem('Comment');
+  const [isReply, setIsReply] = useState(false);
 
   if (comment.isDeleted) return null;
 
   const children = comments.filter(
-    (c) => c.parent._id === comment._id && c.parent._type === "comment" && !c.isDeleted
+    item => item.parent._id === comment._id && item.parent._type === 'comment' && !item.isDeleted,
   );
 
+  const callbacks = {
+    onReply: useCallback(() => {
+      setReplyToCommentId(comment._id);
+    }, [comment._id, setReplyToCommentId]),
+
+    onReplyChancel: useCallback(() => {
+      setReplyToCommentId(null);
+    }, [setReplyToCommentId]),
+  };
+
   return (
-    <div className={`mt-4 ${level > 0 ? `ml-${level * 4}` : ''}`}>
-      <div className="">
+    <div className={cn('wrapper', { nested: level > 0 })}>
+      <div className={cn('content')}>
         <div className="">
-          <span className="">{comment.author.profile.name} </span>
-          <span className="">
-                {new Date(comment.dateCreate).toLocaleString()}
-              </span>
+          <span className={cn('name')}>{comment.author.profile.name} </span>
+          <span className={cn('date')}>{new Date(comment.dateCreate).toLocaleString()}</span>
         </div>
-        <p className="">{comment.text}</p>
+        <p className={cn('text')}>{comment.text}</p>
+        <Button style="comment" onClick={callbacks.onReply} title="Ответить" />
       </div>
-      {children.map((child) => (
+      {children.map(child => (
         <Comment
           key={child._id}
           comment={child}
           comments={comments}
           level={level + 1}
+          replyToCommentId={replyToCommentId}
+          setReplyToCommentId={setReplyToCommentId}
         />
       ))}
+      {replyToCommentId === comment._id && (
+        <ReplyForm
+          title="Новый ответ"
+          placeholder={`Мой ответ для ${comment.author.profile.name}`}
+          onChancel={callbacks.onReplyChancel}
+        />
+      )}
     </div>
   );
-
 }
 
 // Comment.propTypes = {
