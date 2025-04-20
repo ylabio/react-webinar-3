@@ -8,5 +8,8 @@
 }
 
 .LadderList-item {
-  padding-left: calc(var(--level, 0) * 40px);
+ /* padding-left: calc(var(--level, 0) * 40px);*/
+  --level: 0;
+  --indent: 0px;
+  padding-left: calc(var(--level) * var(--indent));
 }
