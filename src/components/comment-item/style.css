@@ -12,9 +12,12 @@
 }
 
 .Comment-author {
+  color: #000000;
   font-weight: 700;
   margin-right: 8px;
 }
+
+
 
 .Comment-date {
   color: #666666;
@@ -25,6 +28,12 @@
 .Comment-text {
   line-height: 1.5;
   margin-bottom: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 
 .Comment-actions button {

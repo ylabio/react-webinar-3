@@ -5,9 +5,10 @@ export default {
       const res = await services.api.request({
         url: `/api/v1/comments?fields=*,author(profile(name))&limit=*&search[parent]=${articleId}`,
       });
+      console.log('Comments API Response:', res);
       dispatch({
         type: 'comments/load-success',
-        payload: { data: res.data.result },
+        payload: { data: res.data.result.items },
       });
     } catch (e) {
       dispatch({ type: 'comments/load-error' });
@@ -20,13 +21,14 @@ export default {
       dispatch({ type: 'comments/add-start' });
       try {
         const res = await services.api.request({
-          url: '/api/v1/comments',
+          url: '/api/v1/comments?fields=*,author(profile(name))',
           method: 'POST',
           body: JSON.stringify({
             text,
             parent: { _id: parentId, _type: parentType },
           }),
         });
+        console.log('Add Comment API Response:', res);
         dispatch({
           type: 'comments/add-success',
           payload: { comment: res.data.result },

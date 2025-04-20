@@ -12,7 +12,6 @@
 
 .CommentsList {
   border-radius: 10px;
-  overflow: hidden;
   list-style: none;
   padding-left: 0;
   margin: 0;
@@ -22,6 +21,14 @@
   margin-bottom: 16px;
 }
 
-.CommentsList-reply-form {
+.CommentsList-item {
+  position: relative;
+}
+
+.CommentsList-reply-form,
+.CommentsList-login-prompt {
   margin-top: 16px;
+  margin-bottom: 16px;
+  padding-right: 40px;
+  box-sizing: border-box;
 }

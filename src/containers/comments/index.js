@@ -13,7 +13,7 @@ function CommentsBlock() {
   const dispatch = useDispatch();
   const { id: articleId } = useParams();
   const isAuth = useAuth(); // Получаем статус авторизации
-  const { items: comments, waiting } = useSelector(state => state.comments);
+  const { tree: comments, waiting } = useSelector(state => state.comments);
 
   const {
     replyTo,

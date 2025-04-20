@@ -2,8 +2,11 @@ class I18nService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config;
-    this._currentLang = config.defaultLang || 'ru';
+    this._currentLang = localStorage.getItem('selectedLanguage') || config.defaultLang || 'ru';
     this.subscribers = new Set();
+    setTimeout(() => {
+      this.services.api.setHeader('X-Lang', this._currentLang);
+    }, 0);
   }
 
   get currentLang() {
@@ -18,8 +21,9 @@ class I18nService {
   setLang(lang) {
     if (lang !== this._currentLang) {
       this._currentLang = lang;
+      localStorage.setItem('selectedLanguage', lang);
       this.notifySubscribers();
-      this.services.api.setHeader('X-Lang', lang); // Обновление заголовка X-Lang
+      this.services.api.setHeader('X-Lang', lang);
     }
   }
 

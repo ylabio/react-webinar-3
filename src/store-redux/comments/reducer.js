@@ -1,5 +1,8 @@
+import { listToTree } from '../../utils/listToTree';
+
 const initialState = {
-  items: [], // Переименуем data в items для согласованности
+  items: [],
+  tree: [],
   waiting: false,
 };
 
@@ -10,16 +13,23 @@ export default function reducer(state = initialState, action) {
       return { ...state, waiting: true };
 
     case 'comments/load-success':
+      console.log('Reducer received load success:', action.payload);
+      const items = action.payload.data || [];
+      const tree = listToTree(items, 'article');
       return {
         ...state,
-        items: action.payload.data?.items || [], // Учитываем структуру ответа
+        items,
+        tree,
         waiting: false,
       };
 
     case 'comments/add-success':
+      const newItems = [...state.items, action.payload.comment];
+      const newTree = listToTree(newItems, 'article');
       return {
         ...state,
-        items: [...state.items, action.payload.comment],
+        items: newItems,
+        tree: newTree,
         waiting: false,
       };
 

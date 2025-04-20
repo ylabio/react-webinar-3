@@ -9,10 +9,11 @@ function CommentItem({ comment, onReply, isReplying, isAuth, showLoginPrompt }) 
   const authorName = comment.author?.profile?.name || 'Анонимный пользователь';
   const formattedDate = formatDate(comment.dateCreate);
 
+
   return (
     <div className={cn()}>
       <div className={cn('header')}>
-        <span className={cn('author')}>{authorName}</span>
+        <div className={cn('author')}>{authorName}</div>
         <span className={cn('date')}>{formattedDate}</span>
       </div>
       <div className={cn('text')}>{comment.text}</div>
@@ -24,12 +25,6 @@ function CommentItem({ comment, onReply, isReplying, isAuth, showLoginPrompt }) 
           Ответить
         </button>
       </div>
-
-      {showLoginPrompt && !isAuth && (
-        <div className={cn('login-prompt')}>
-          <LoginPrompt text="чтобы иметь возможность комментировать" />
-        </div>
-      )}
     </div>
   );
 }

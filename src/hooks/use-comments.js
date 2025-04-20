@@ -16,7 +16,6 @@ export default function useComments(articleId, isAuth) {
       setReplyTo(null);
       setCommentText('');
       setReplyText('');
-      dispatch(commentActions.load(articleId));
     }
   };
 

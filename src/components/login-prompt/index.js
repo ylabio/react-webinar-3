@@ -1,11 +1,13 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './style.css';
 
 function LoginPrompt({ text }) {
+  const location = useLocation();
+  
   return (
     <div className="LoginPrompt">
-      <Link to="/login">Войдите</Link>, <span>{text}</span>
+      <Link to="/login" state={{ back: location.pathname }}>Войдите</Link>, <span>{text}</span>
     </div>
   );
 }
