@@ -112,6 +112,11 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
+
+  async loadWithCurrentParams() {
+    const params = this.getState().params;
+    await this.setParams(params, true);
+  }
 }
 
 export default CatalogState;

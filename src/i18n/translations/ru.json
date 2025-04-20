@@ -33,5 +33,6 @@
   "comment.cancel": "Отмена",
   "comment.error": "Ошибка при отправке комментария",
   "comment.signIn": "Войдите,",
-  "comment.toComment": "чтобы иметь возможность комментировать"
+  "comment.toComment": "чтобы иметь возможность комментировать",
+  "filter.allCategories": "Все категории"
 }
