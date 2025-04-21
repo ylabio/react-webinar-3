@@ -1,0 +1,50 @@
+.CommentsNode-item {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 6px;
+  padding-bottom: 16px;
+}
+
+.CommentsNode-header {
+  display: flex;
+  gap: 12px;
+}
+
+.CommentsNode-title, .CommentsNode-authorTitle {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+}
+
+.CommentsNode-authorTitle {
+  color: #4b5563;
+}
+
+.CommentsNode-date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  color: #666;
+}
+
+.CommentsNode-text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 143%;
+  word-break: break-all;
+}
+
+.CommentsNode-button {
+  padding: 0;
+  font-family: var(--second-font-family), 'sans-serif';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+  color: var(--primary);
+}
+
+.CommentsNode-button:disabled {
+  cursor: auto;
+  color: var(--close);
+}

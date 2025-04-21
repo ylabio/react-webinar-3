@@ -1,0 +1,10 @@
+.SignInNotice {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  padding: 8px 0 24px 0;
+}
+
+.SignInNotice-link {
+  color: var(--primary);
+}

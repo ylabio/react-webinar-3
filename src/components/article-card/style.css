@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-block: 24px;
+  padding-top: 24px;
+  padding-bottom: 32px;
 }
 
 .ArticleCard-prop-wrapper {
