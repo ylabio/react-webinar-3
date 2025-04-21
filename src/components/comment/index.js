@@ -11,7 +11,7 @@ function Comment({ comment, onAnswer = () => {}, t}) {
     <div className={cn()}>
       <div className={cn('header')}>
         <h3 className={cn('title')}>{comment.author}</h3>
-        <time className={cn('date')} dateTime={comment.dateCreate}>{dateFormat(comment.dateCreate)}</time>
+        <time className={cn('date')} dateTime={comment.dateCreate}>{comment.dateCreate && dateFormat(comment.dateCreate)}</time>
       </div>
       <div className={cn('text')}>
         <p>{comment.text}</p>
