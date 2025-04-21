@@ -1,6 +1,6 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import { memo, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../button';
 import Form from '../form';
@@ -22,6 +22,14 @@ const CommentForm = ({
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    if (formRef.current && parentCommentId) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [parentCommentId]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -51,7 +59,7 @@ const CommentForm = ({
   };
 
   return (
-    <div className={cn()} style={{ paddingLeft: 40 * depth }}>
+    <div className={cn()} style={{ paddingLeft: 40 * depth }} ref={formRef}>
       {isAuth ? (
         <Form
           onSubmit={handleSubmit}
