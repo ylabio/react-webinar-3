@@ -27,7 +27,7 @@ const CommentForm = ({
 
   useEffect(() => {
     if (formRef.current && parentCommentId) {
-      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [parentCommentId]);
 
