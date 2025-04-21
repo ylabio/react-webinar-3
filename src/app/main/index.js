@@ -13,16 +13,17 @@ import HeadLayout from '../../components/head-layout';
 
 function Main() {
   const store = useStore();
+  const {t,getLang} = useTranslate();
 
   useInit(
     async () => {
       await Promise.all([store.actions.catalog.initParams(), store.actions.categories.load()]);
     },
-    [],
+    [getLang],
     true,
   );
 
-  const { t } = useTranslate();
+  // const { t:translate } = useTranslate();
 
   return (
     <>

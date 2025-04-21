@@ -13,11 +13,17 @@ const config = {
         // Названия токена в АПИ
         tokenHeader: 'X-Token',
       },
+     
     },
   },
   api: {
     baseUrl: '',
   },
+  i18n: {
+    baseLang: 'ru',
+    
+    language : 'X-Lang',
+  }
 };
 
 export default config;

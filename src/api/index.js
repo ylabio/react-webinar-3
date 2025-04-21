@@ -8,6 +8,7 @@ class APIService {
     this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'X-Lang' : this.services.config.i18n.baseLang
     };
   }
 

@@ -1,0 +1,35 @@
+.Comment {
+  width: 100%;
+  font-size: 14px;
+  font-family: var(--font-family);
+  margin-bottom: 16px;
+}
+
+.Comment-info {
+  font-size: 12px;
+  font-weight: 700;
+}
+.Comment-info-current {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4b5563;
+
+}
+
+.Comment-date {
+  color: #666666;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.Comment-actions button {
+  padding: 6px 0px;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+.Comment-text {
+  word-break: break-word; 
+  line-height: 20px;
+  font-size: 14px;
+}

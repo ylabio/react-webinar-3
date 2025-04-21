@@ -22,5 +22,29 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "article.comments": "Comments",
+  "article.reply": "Reply",
+  "article.cancel": "Cancel",
+  "article.placeholder": "Reply to",
+  "article.newcomment": "New Comment",
+  "article.newreply": "New Reply",
+  "article.send": "Send",
+  "article.pleaseSignIn": "Login,",
+  "article.ableToComment": "to be able to comment",
+  "monthNames": [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december"
+  ],
+  "at": "at"
 }
