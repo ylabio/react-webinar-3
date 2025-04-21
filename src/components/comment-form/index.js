@@ -21,46 +21,46 @@ function CommentForm({ parentId, onSubmit, onCancel, isSubmitting, depth = 0, t 
 
   return (
     <div>
-<form 
-  className={cn()}
-  onSubmit={handleSubmit}
-  style={{ marginLeft: `${depth * 40}px` }}
->
-  <h3 className={cn('Title')}>
-    {parentId ? t('comments.newReply') : t('comments.newComment')}
-  </h3>
+      <form 
+        className={cn()}
+        onSubmit={handleSubmit}
+        style={{ marginLeft: `${depth * 40}px` }}
+      >
+        <h3 className={cn('Title')}>
+          {parentId ? t('comments.newReply') : t('comments.newComment')}
+        </h3>
 
-  <div className={cn('Border')}>
-    <textarea
-      className={cn('Textarea')}
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-      disabled={isSubmitting}
-    />
-  </div>
+        <div className={cn('Border')}>
+          <textarea
+            className={cn('Textarea')}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            disabled={isSubmitting}
+          />
+        </div>
 
-  <div className={cn('Buttons')}>
-    <Button
-      onClick={(e) => {
-        e.preventDefault();
-        handleSubmit(e);
-      }}
-      title={t('comments.submit')}
-      style="primary"
-      type="submit"
-      disabled={!text.trim() || isSubmitting}
-    />
-    {onCancel && (
-      <Button
-        onClick={handleCancel}
-        title={t('comments.cancel')}
-        style="outline"
-        type="button"
-        disabled={isSubmitting}
-      />
-    )}
-  </div>
-</form>
+        <div className={cn('Buttons')}>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit(e);
+            }}
+            title={t('comments.submit')}
+            style="primary"
+            type="submit"
+            disabled={!text.trim() || isSubmitting}
+          />
+          {onCancel && (
+            <Button
+              onClick={handleCancel}
+              title={t('comments.cancel')}
+              style="outline"
+              type="button"
+              disabled={isSubmitting}
+            />
+          )}
+        </div>
+      </form>
     </div>
   );
 }

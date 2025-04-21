@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Comment({ comment, onReply, isReplying, depth = 0, t }) {
+function Comment({ comment, onReply, isReplying, depth = 0, t, isCurrentUser }) {
   const cn = bem('Comment');
+  const MAX_DEPTH = 6;
+  const actualDepth = Math.min(depth, MAX_DEPTH);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -17,17 +19,22 @@ function Comment({ comment, onReply, isReplying, depth = 0, t }) {
   };
 
   return (
-    <div className={cn()} style={{ marginLeft: `${depth * 40}px` }}>
+    <div className={cn()} style={{ marginLeft: `${actualDepth * 40}px`, maxWidth: 'calc(100% - 40px)' }}>
       <div className={cn('content')}>
         <div className={`${cn('header')} Comment-Header`}>
-          <span className={`${cn('author')} Comment-Author`}>
+          <span 
+            className={`${cn('author')} Comment-Author`}
+            style={{ 
+              color: isCurrentUser ? '#6B5563' : 'inherit',
+            }}
+          >
             {comment.author?.profile?.name}
           </span>
           <span className={`${cn('date')} Comment-Date`}>
             {formatDate(comment.dateCreate)}
           </span>
         </div>
-        <div className={`${cn('text')} Comment-Text`}>
+        <div className={`${cn('text')} Comment-Text`} style={{ wordBreak: 'break-word' }}>
           {comment.text}
         </div>
         {!isReplying && (
@@ -46,12 +53,13 @@ Comment.propTypes = {
     text: PropTypes.string.isRequired,
     dateCreate: PropTypes.string.isRequired,
     author: PropTypes.object,
-    replies: PropTypes.array
+    children: PropTypes.array
   }).isRequired,
   onReply: PropTypes.func.isRequired,
   isReplying: PropTypes.bool,
   depth: PropTypes.number,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
+  isCurrentUser: PropTypes.bool
 };
 
 export default memo(Comment);
