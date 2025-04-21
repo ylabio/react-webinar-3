@@ -6,6 +6,7 @@ import CommentItem from '../comment-item';
 
 function CommentChain({
   comment,
+  authedUser,
   onReply,
   handleSubmitComment,
   handleResetForm,
@@ -26,11 +27,13 @@ function CommentChain({
         rootCommentId={rootCommentId}
         depth={depth}
         locale={locale}
+        authedUser={authedUser}
       />
       {comment.children?.map(childComment => (
         <CommentChain
           key={childComment._id}
           comment={childComment}
+          authedUser={authedUser}
           onReply={onReply}
           rootCommentId={rootCommentId}
           depth={depth <= depthLimit ? depth + 1 : depth}
@@ -68,6 +71,7 @@ CommentChain.propTypes = {
       }),
     ),
   }),
+  authedUser: PropTypes.object,
   rootCommentId: PropTypes.string,
   onReply: PropTypes.func.isRequired,
   depth: PropTypes.number,

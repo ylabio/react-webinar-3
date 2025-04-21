@@ -5,16 +5,18 @@ import dateFormat from '../../utils/date-format';
 import Button from '../button';
 import './style.css';
 
-function CommentItem({ comment, onReply, rootCommentId, depth = 0, locale }) {
+function CommentItem({ comment, onReply, rootCommentId, depth = 0, locale, authedUser }) {
   const cn = bem('CommentItem');
   const { author, text, dateCreate, _id } = comment;
   const { t, lang } = locale;
+
+  const isAuthor = author?.profile?.name === authedUser?.profile?.name;
 
   return (
     <div className={cn()} style={{ paddingLeft: 40 * depth }}>
       <div className={cn('wrapper')}>
         <div className={cn('header')}>
-          <div className={cn('author')}>{author?.profile?.name}</div>
+          <div className={cn('author', { authedUser: isAuthor })}>{author?.profile?.name}</div>
           <div className={cn('date')}>{dateFormat(dateCreate, lang)}</div>
         </div>
         <div className={cn('text')}>{text}</div>
@@ -41,6 +43,7 @@ CommentItem.propTypes = {
       }),
     ),
   }).isRequired,
+  authedUser: PropTypes.object,
   rootCommentId: PropTypes.string,
   onReply: PropTypes.func,
   depth: PropTypes.number,

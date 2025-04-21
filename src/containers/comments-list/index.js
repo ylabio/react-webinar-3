@@ -27,6 +27,7 @@ function CommentsList({ articleId }) {
 
   // Проверка авторизации
   const exists = useSelector(state => state.session.exists);
+  const authedUser = useSelector(state => state.session.user);
 
   const callbacks = {
     handleReply: useCallback((targetCommentId, rootCommentId, depth) => {
@@ -68,6 +69,7 @@ function CommentsList({ articleId }) {
           <CommentChain
             key={comment._id}
             comment={comment}
+            authedUser={authedUser}
             onReply={callbacks.handleReply}
             rootCommentId={replyTargetId}
             locale={{ t, lang }}
