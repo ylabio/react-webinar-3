@@ -24,8 +24,8 @@ function Comments({ articleId, commentsList, t }) {
         onReplyClick: useCallback(id => setReplyToCommentId(id), [setReplyToCommentId]),
 
         onSubmitComment: useCallback(comment => {
-            if (!comment) {
-                console.log('Комментарий пуст!');
+            if (!comment || comment.trim() === '') {
+                alert('Комментарий пуст!');
                 return;
             }
 

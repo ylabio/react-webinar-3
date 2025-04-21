@@ -1,38 +1,40 @@
-.Comment{
+.Comment {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.Comment-head{
+.Comment-head {
     display: flex;
     gap: 12px;
     font-size: 12px;
 }
 
-.Comment-head-author{
+.Comment-head-author {
     font-weight: 600;
 }
 
-.Comment-head-date{
+.Comment-head-date {
     color: var(--close);
 }
 
-.Comment-body{
+.Comment-body {
     font-size: 14px;
+    width: 650px;
+    word-wrap: break-word;
 }
 
-.Comment-body p{
+.Comment-body p {
     margin: 0;
     padding: 0;
 }
 
-.comment-btn{
+.comment-btn {
     color: var(--primary);
     font-size: 12px;
 }
 
-.reply{
+.reply {
     padding-left: 40px;
 }
