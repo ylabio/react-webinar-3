@@ -9,7 +9,7 @@ function Form({
   onSubmit,
   children,
   submitTitle,
-  style = '',
+  style = 'big',
   option = '',
   cancelTitle,
   onClick = () => {},
@@ -17,8 +17,8 @@ function Form({
   const cn = bem('Form');
 
   return (
-    <form className={cn()} onSubmit={onSubmit}>
-      <h2 className={cn({ theme: style })}>{title}</h2>
+    <form className={cn({ theme: style })} onSubmit={onSubmit}>
+      <h2 className={cn('title', { theme: style })}>{title}</h2>
       {children}
       <div className={cn('action')}>
         <Button style="primary" type="submit" title={submitTitle} />
