@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Button from '../button';
 
-function ItemComment({ author, date, text, titleBtn, onClick }) {
+function ItemComment({ author, date, text, titleBtn, onClick = () => {} }) {
   const cn = bem('ItemComment');
   return (
     <div className={cn()}>
@@ -17,17 +17,12 @@ function ItemComment({ author, date, text, titleBtn, onClick }) {
   );
 }
 
-// ItemComment.propTypes = {
-//   article: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     description: PropTypes.string,
-//     madeIn: PropTypes.object,
-//     category: PropTypes.object,
-//     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-//   t: PropTypes.func,
-// };
+ItemComment.propTypes = {
+  date: PropTypes.string,
+  author: PropTypes.string,
+  text: PropTypes.string,
+  titleBtn: PropTypes.string,
+  onClick: PropTypes.func,
+};
 
 export default memo(ItemComment);

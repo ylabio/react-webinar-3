@@ -1,8 +1,11 @@
 .ItemComment {
   margin-bottom: 16px;
+  /* &:first-child {
+    margin-top: 24px;
+  }
   &:last-child {
     margin-bottom: 24px;
-  }
+  } */
   .ItemComment-header {
     font-size: 12px;
     & strong {
@@ -14,6 +17,7 @@
   }
   .ItemComment-text {
     margin: 6px 0;
+    word-wrap: break-word;
     font-size: 14px;
     color: #000000;
   }

@@ -1,4 +1,5 @@
 .CommentsForm {
+  margin-top: 24px;
   margin-bottom: 24px;
   .CommentsForm-error {
     font-size: 14px;

@@ -33,6 +33,7 @@
   "comments.singIn": "Войдите",
   "comments.singIn-desc": ", чтобы иметь возможность комментировать",
   "comments.answer": "Ответить",
+  "comments.answer-text": "Мой ответ для ",
   "comments.send": "Отпаравить",
   "comments.cancel": "Отмена",
   "comments.title": "Новый комментарий",

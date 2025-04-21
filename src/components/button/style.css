@@ -46,6 +46,7 @@
   color: var(--primary);
 
   &:hover {
-    color: var(--primary-select);
+    color: var(--second-text);
+    background-color: var(--primary);
   }
 }

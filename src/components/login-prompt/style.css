@@ -3,7 +3,8 @@
   .CommentsPrompt-link {
     color: var(--primary);
     &:hover {
-      color: var(--primary-select);
+      text-decoration: underline;
+      font-weight: 500;
     }
   }
 }

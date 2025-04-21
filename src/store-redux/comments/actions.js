@@ -18,7 +18,7 @@ export default {
       }
     };
   },
-  create: comment => {
+  create: (comment, userName) => {
     return async (dispatch, getState, services) => {
       dispatch({ type: 'comments/create-start' });
 
@@ -28,7 +28,15 @@ export default {
           method: 'POST',
           body: JSON.stringify(comment),
         });
-        dispatch({ type: 'comments/create-success', payload: { data: res.data.result.items } });
+        dispatch({
+          type: 'comments/create-success',
+          payload: {
+            data: [
+              ...getState().comments.data,
+              { ...res.data.result, author: { profile: { name: userName } } },
+            ],
+          },
+        });
       } catch (e) {
         dispatch({ type: 'comments/create-error' });
       }

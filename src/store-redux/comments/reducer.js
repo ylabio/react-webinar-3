@@ -22,7 +22,7 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true, success: true };
 
     case 'comments/create-success': {
-      return { ...state, success: true, waiting: false };
+      return { ...state, success: true, waiting: false, data: action.payload.data };
     }
 
     case 'comments/create-error':

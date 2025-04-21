@@ -22,7 +22,7 @@ function CommentsForm({
       <Form
         onSubmit={onSubmit}
         submitTitle={t('comments.send')}
-        title={t('comments.answer-title')}
+        title={t(`${option === 'cancel' ? 'comments.answer-title' : 'comments.title'}`)}
         cancelTitle={t('comments.cancel')}
         style={style}
         option={option}

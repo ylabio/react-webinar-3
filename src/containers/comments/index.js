@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import { useLocation, useParams } from 'react-router-dom';
 import ItemComment from '../../components/item-comment';
@@ -14,6 +14,7 @@ import Spinner from '../../components/spinner';
 import CommentsForm from '../../components/comments-form';
 import CommentsPrompt from '../../components/login-prompt';
 import formatDate from '../../utils/date-format';
+import findLastChild from '../../utils/findLastChild';
 
 function Comments({}) {
   const { t } = useTranslate();
@@ -30,9 +31,20 @@ function Comments({}) {
   });
   const [activeReplyId, setActiveReplyId] = useState(null);
 
+  const formRef = useRef(null);
+
   useInit(() => {
     dispatch(commentsActions.load(params.id));
   }, [params.id]);
+
+  useEffect(() => {
+    if (activeReplyId && formRef.current) {
+      formRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }, [activeReplyId]);
 
   const selectRedux = UseSelectRedux(
     state => ({
@@ -63,11 +75,11 @@ function Comments({}) {
     ),
 
     onSubmit: useCallback(
-      async e => {
+      e => {
         e.preventDefault();
-        if (newComment.text) {
-          await dispatch(commentsActions.create(newComment));
-          dispatch(commentsActions.load(params.id));
+        const isEmpty = newComment.text.toString().trim().length > 0;
+        if (isEmpty) {
+          dispatch(commentsActions.create(newComment, select.user.profile.name));
           setNewComment({
             parent,
             text: '',
@@ -77,10 +89,24 @@ function Comments({}) {
       },
       [newComment],
     ),
-    onCancel: useCallback(e => setActiveReplyId(null), [setActiveReplyId]),
+    onCancel: useCallback(
+      e => {
+        setNewComment(prev => ({ ...prev, text: '' }));
+        setActiveReplyId(null);
+      },
+      [setActiveReplyId],
+    ),
+    onAnswer: useCallback(
+      c => {
+        setNewComment(prev => ({ ...prev, text: `${t('comments.answer-text')}${c.author}` }));
+        setActiveReplyId(c.id);
+      },
+      [setActiveReplyId, setNewComment],
+    ),
   };
   const select = useSelector(state => ({
     exists: state.session.exists,
+    user: state.session.user,
   }));
 
   const options = {
@@ -88,50 +114,67 @@ function Comments({}) {
       () => [
         ...treeToList(listToTree(selectRedux.commentsList), (item, level) => ({
           id: item._id,
-          padding: 40 * level,
-          author: item.author?.profile.name,
+          padding: level >= 8 ? 40 * 8 : 40 * level,
+          author: item.author?.profile?.name,
           date: item.dateCreate,
           text: item.text,
         })),
       ],
       [selectRedux.commentsList],
     ),
+    commentListTree: useMemo(
+      () => listToTree(selectRedux.commentsList),
+      [selectRedux.commentsList],
+    ),
+    lastChild: useMemo(() => {
+      const commentListTree = listToTree(selectRedux.commentsList);
+      return findLastChild(commentListTree, activeReplyId);
+    }, [selectRedux.commentsList, activeReplyId]),
   };
 
   return (
     <CommentsContainer t={t} count={options.comments.length}>
       <Spinner active={selectRedux.waiting}>
-        {options.comments.map(comment => (
-          <div key={comment.id} style={{ paddingLeft: comment.padding }}>
-            <ItemComment
-              author={comment.author}
-              date={formatDate(comment.date)}
-              text={comment.text}
-              titleBtn={t('comments.answer')}
-              onClick={e => setActiveReplyId(comment.id)}
-            />
-
-            {select.exists && activeReplyId === comment.id && (
-              <CommentsForm
-                onSubmit={callbacks.onSubmit}
-                style="small"
-                option="cancel"
-                onClick={callbacks.onCancel}
-                value={newComment ? newComment.text : newComment}
-                onChange={callbacks.onChange}
-                success={selectRedux.success}
-                t={t}
+        {options.comments.map((comment, indx) => {
+          const style = {
+            color: select.user.profile?.name === comment.author ? '#4B5563' : '',
+            paddingLeft: comment.padding,
+            marginTop: indx === 0 ? '24px' : 0,
+          };
+          return (
+            <div key={comment.id} style={{ ...style }}>
+              <ItemComment
+                padding={comment.padding}
+                author={comment.author}
+                date={formatDate(comment.date)}
+                text={comment.text}
+                titleBtn={t('comments.answer')}
+                onClick={() => callbacks.onAnswer(comment)}
               />
-            )}
-            {!select.exists && activeReplyId === comment.id && (
-              <CommentsPrompt
-                back={back}
-                subLink={t('comments.singIn')}
-                subDesc={t('comments.singIn-desc')}
-              />
-            )}
-          </div>
-        ))}
+              {select.exists && options.lastChild?._id === comment.id && (
+                <div ref={formRef}>
+                  <CommentsForm
+                    onSubmit={callbacks.onSubmit}
+                    style="small"
+                    option="cancel"
+                    onClick={callbacks.onCancel}
+                    value={newComment ? newComment.text : newComment}
+                    onChange={callbacks.onChange}
+                    success={selectRedux.success}
+                    t={t}
+                  />
+                </div>
+              )}
+              {!select.exists && activeReplyId === comment.id && (
+                <CommentsPrompt
+                  back={back}
+                  subLink={t('comments.singIn')}
+                  subDesc={t('comments.singIn-desc')}
+                />
+              )}
+            </div>
+          );
+        })}
       </Spinner>
       {!select.exists && !activeReplyId && (
         <CommentsPrompt

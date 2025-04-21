@@ -17,17 +17,11 @@ function Textarea({ value, onChange, placeholder = '', rows = 5 }) {
   );
 }
 
-// Textarea.propTypes = {
-//   article: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     description: PropTypes.string,
-//     madeIn: PropTypes.object,
-//     category: PropTypes.object,
-//     edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-//   t: PropTypes.func,
-// };
+Textarea.propTypes = {
+  onChange: PropTypes.func,
+  rows: PropTypes.number,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+};
 
 export default memo(Textarea);
