@@ -10,7 +10,6 @@ class APIService {
       'Content-Type': 'application/json',
     };
   }
-
   /**
    * HTTP запрос
    * @param url
@@ -21,9 +20,14 @@ class APIService {
    */
   async request({ url, method = 'GET', headers = {}, ...options }) {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
+
+    // Извлечем язык, раз у нас уже есть сервис здесь, и перед каждым запросом будем его обновлять
+    // а в main добавим зависимость lang
+    const lang = this.services.i18n.getLang();
+
     const res = await fetch(url, {
       method,
-      headers: { ...this.defaultHeaders, ...headers },
+      headers: { ...this.defaultHeaders, ...headers, 'Accept-language': lang },
       ...options,
     });
     return { data: await res.json(), status: res.status, headers: res.headers };
