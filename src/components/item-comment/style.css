@@ -1,11 +1,5 @@
 .ItemComment {
   margin-bottom: 16px;
-  /* &:first-child {
-    margin-top: 24px;
-  }
-  &:last-child {
-    margin-bottom: 24px;
-  } */
   .ItemComment-header {
     font-size: 12px;
     & strong {
