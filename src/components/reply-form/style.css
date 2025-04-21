@@ -5,6 +5,10 @@
   row-gap: 16px;
 }
 
+.ReplyForm-comment {
+  margin-left: 40px;
+}
+
 .ReplyForm-title {
   margin: 0;
   padding: 0;

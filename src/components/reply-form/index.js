@@ -49,7 +49,7 @@ function ReplyForm(props) {
 
   return (
     <>
-      <form className={cn()} onSubmit={callbacks.onSubmit} ref={props.replyFormRef}>
+      <form className={`${cn()} ${props.type === 'comment' ? 'ReplyForm-comment' : ''}`} onSubmit={callbacks.onSubmit} ref={props.replyFormRef}>
         <p className={cn('title')}>{props.title}</p>
         <textarea
           className={cn('textarea')}
