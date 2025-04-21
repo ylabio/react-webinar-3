@@ -4,11 +4,14 @@ import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import Cart from '../../assets/icon/cart.svg';
 import './style.css';
+import useTranslate from "../../hooks/use-translate";
 
 function BasketTool(props) {
-  const { sum = 0, amount = 0, onOpen = () => {}, t = text => text } = props;
+  const { sum = 0, amount = 0, onOpen = () => {} } = props;
 
   const cn = bem('BasketTool');
+  const { t } = useTranslate();
+
   return (
     <div className={cn()}>
       <button className={cn('action')} onClick={onOpen}>
@@ -27,7 +30,6 @@ BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
   amount: PropTypes.number,
-  t: PropTypes.func,
 };
 
 export default memo(BasketTool);

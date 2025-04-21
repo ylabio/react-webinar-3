@@ -22,5 +22,18 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "Email",
+  "product.manufacturer": "Manufacturer",
+  "product.category": "Category",
+  "product.year": "Year",
+  "product.price": "Price",
+  "comments.title": "Comments",
+  "comments.loading": "Loading comments...",
+  "comments.reply": "Reply",
+  "authHint.login": "Sign in",
+  "authHint.continue": "to leave a comment"
 }

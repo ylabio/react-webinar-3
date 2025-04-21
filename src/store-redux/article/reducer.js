@@ -1,6 +1,5 @@
-// Начальное состояние
 export const initialState = {
-  data: {},
+  data: {}, // данные о товаре
   waiting: false, // признак ожидания загрузки
 };
 
@@ -8,16 +7,15 @@ export const initialState = {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case 'article/load-start':
-      return { ...state, data: {}, waiting: true };
+      return { ...state, waiting: true, data: {} };
 
     case 'article/load-success':
-      return { ...state, data: action.payload.data, waiting: false };
+      return { ...state, waiting: false, data: action.payload.data };
 
     case 'article/load-error':
-      return { ...state, data: {}, waiting: false }; //@todo текст ошибки сохранять?
+      return { ...state, waiting: false }; // можно добавить error, если нужно
 
     default:
-      // Нет изменений
       return state;
   }
 }

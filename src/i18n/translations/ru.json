@@ -24,5 +24,18 @@
   "auth.login-placeholder": "Введите логин",
   "auth.password-placeholder": "Введите пароль",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "Email",
+  "product.manufacturer": "Страна производитель",
+  "product.category": "Категория",
+  "product.year": "Год выпуска",
+  "product.price": "Цена",
+  "comments.title": "Комментарии",
+  "comments.loading": "Загрузка комментариев...",
+  "comments.reply": "Ответить",
+  "authHint.login": "Войти",
+  "authHint.continue": "чтобы иметь возможность комментировать"
 }
