@@ -1,10 +1,8 @@
-import React, {memo, useCallback, useMemo, useState} from 'react';
+import React, {memo} from 'react';
 import CommentItem from '../comment-item';
-import buildCommentTree from '../../utils/buildCommentTree';
 import Textarea from '../textarea';
 import './style.css';
 import Button from "../button";
-import {useLocation, useNavigate} from "react-router-dom";
 
 const CommentList = ({
   onPost = () => {},

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import './style.css';
 import formatDate from '../../utils/format-date';
 import Button from '../button';
@@ -16,7 +16,10 @@ const CommentItem = ({
   goToLogin = () => {},
   t = z => {},
   lang = 'ru',
+  level = 0,
 }) => {
+
+  const replyRef = useRef(null);
 
   const callbacks = {
     onReply: useCallback(() => {
@@ -29,12 +32,24 @@ const CommentItem = ({
     }, []),
   };
 
+  useEffect(() => {
+    if (activeReplyId === comment._id && replyRef.current) {
+      replyRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }, [activeReplyId, comment._id]);
+
   return (
     <>
       <div className="com-item">
         <div className="com-item-head">
           <div
-            className={'com-item-head-name' + (sessionUserId === comment.author._id ? ' com-item-head-name_user' : '')}
+            className={
+              'com-item-head-name' +
+              (sessionUserId === comment.author._id ? ' com-item-head-name_user' : '')
+            }
           >
             {comment?.author?.profile?.name}
           </div>
@@ -46,10 +61,10 @@ const CommentItem = ({
         <Button style="text-com" onClick={callbacks.onReply} title={t('comments.reply')} />
       </div>
 
-      <div className="com-item-children">
-        {comment.replies.length > 0 && (
+      <div className={level <= 10 ? 'com-item-children' : 'com-item-children_no-padding'}>
+        {comment.children.length > 0 && (
           <>
-            {comment.replies.map(child => (
+            {comment.children.map(child => (
               <CommentItem
                 key={child._id}
                 comment={child}
@@ -63,27 +78,48 @@ const CommentItem = ({
                 goToLogin={goToLogin}
                 t={t}
                 lang={lang}
+                level={level + 1}
               />
             ))}
           </>
         )}
-        {activeReplyId === comment._id && isAuth && (
-          <Textarea
-            onCancel={callbacks.onActiveReplyReset}
-            parentType="comment"
-            title={t('comments.new-reply-title')}
-            postCommentText={postCommentText}
-            setPostCommentText={setPostCommentText}
-            onPost={onPost}
-            t={t}
-          />
-        )}
-        {activeReplyId === comment._id && !isAuth && (
-          <div className={'com-item-unAuth'}>
-            <Button style={'text'} title={t('comments.unAuth-btn')} onClick={goToLogin} />
-            {t('comments.unAuth-text')}
+        {activeReplyId === comment._id && (
+          <div ref={replyRef}>
+            {isAuth ? (
+              <Textarea
+                onCancel={callbacks.onActiveReplyReset}
+                parentType="comment"
+                title={t('comments.new-reply-title')}
+                postCommentText={postCommentText}
+                setPostCommentText={setPostCommentText}
+                onPost={onPost}
+                t={t}
+              />
+            ) : (
+              <div className={'com-item-unAuth'}>
+                <Button style={'text'} title={t('comments.unAuth-btn')} onClick={goToLogin} />
+                {t('comments.unAuth-text')}
+              </div>
+            )}
           </div>
         )}
+        {/*{activeReplyId === comment._id && isAuth && (*/}
+        {/*  <Textarea*/}
+        {/*    onCancel={callbacks.onActiveReplyReset}*/}
+        {/*    parentType="comment"*/}
+        {/*    title={t('comments.new-reply-title')}*/}
+        {/*    postCommentText={postCommentText}*/}
+        {/*    setPostCommentText={setPostCommentText}*/}
+        {/*    onPost={onPost}*/}
+        {/*    t={t}*/}
+        {/*  />*/}
+        {/*)}*/}
+        {/*{activeReplyId === comment._id && !isAuth && (*/}
+        {/*  <div className={'com-item-unAuth'}>*/}
+        {/*    <Button style={'text'} title={t('comments.unAuth-btn')} onClick={goToLogin} />*/}
+        {/*    {t('comments.unAuth-text')}*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </div>
     </>
   );

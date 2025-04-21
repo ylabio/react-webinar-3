@@ -9,6 +9,7 @@ import shallowequal from "shallowequal";
 import Spinner from "../../components/spinner";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+import listToTree from "../../utils/list-to-tree";
 
 const Comments = () => {
   const { t, lang } = useTranslate();
@@ -30,7 +31,6 @@ const Comments = () => {
       comments: state.comments.data,
       commentCount: state.comments.count,
       waiting: state.comments.waiting,
-      userName: state,
     }),
     shallowequal,
   );
@@ -38,22 +38,28 @@ const Comments = () => {
   const sessionUserId = useSelector((state) => state.session?.user._id);
 
   const options = {
-    commentTree: useMemo(() => buildCommentTree(select.comments), [select.comments]),
-  }
+    commentTree: useMemo(() => {
+      return (listToTree(select.comments, '_id', {rootType: 'article'})[0])?.children;
+    }, [select.comments]),
+  };
 
   const callbacks = {
     postComment: useCallback(() => {
-      dispatch(commentsActions.post(
-        postCommentText,
-        activeReplyId ? activeReplyId : params.id,
-        activeReplyId ? 'comment' : 'article',
-      )).then(() => {
-        dispatch(commentsActions.load(params.id));
-        setPostCommentText('');
-        setActiveReplyId(null);
-      }).catch((err) => {
-        console.error("Ошибка при отправке комментария", err);
-      });
+      if (postCommentText.trim() !== "") {
+        dispatch(commentsActions.post(
+          postCommentText,
+          activeReplyId ? activeReplyId : params.id,
+          activeReplyId ? 'comment' : 'article',
+        )).then(() => {
+          dispatch(commentsActions.load(params.id));
+          setPostCommentText('');
+          setActiveReplyId(null);
+        }).catch((err) => {
+          console.error("Ошибка при отправке комментария", err);
+        });
+      } else {
+        alert('Введите текст комментария');
+      }
     }, [dispatch, postCommentText, activeReplyId, params.id]),
     goToLogin: useCallback(() => {
       navigate('/login', { state: { back: location.pathname } });

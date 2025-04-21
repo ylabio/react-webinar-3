@@ -4,32 +4,53 @@
  * @param [key] {String} Свойство с первичным ключом
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(
+  list,
+  key = '_id',
+  options = {},
+) {
+  const {
+    parentKey = 'parent',
+    rootType = null,
+    rootId = null
+  } = options;
+
   let trees = {};
   let roots = {};
+
   for (const item of list) {
-    // Добавление элемента в индекс узлов и создание свойства children
-    if (!trees[item[key]]) {
-      trees[item[key]] = item;
-      trees[item[key]].children = [];
-      // Ещё никто не ссылался, поэтому пока считаем корнем
-      roots[item[key]] = trees[item[key]];
+    const itemId = item[key];
+    const parent = item?.[parentKey];
+    const parentId = parent?.[key];
+    const parentType = parent?._type;
+
+    // Создание элемента и children
+    if (!trees[itemId]) {
+      trees[itemId] = { ...item, children: [] };
+      roots[itemId] = trees[itemId];
     } else {
-      trees[item[key]] = Object.assign(trees[item[key]], item);
+      trees[itemId] = Object.assign(trees[itemId], item);
     }
 
-    // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key]) {
-      // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
-      if (!trees[item.parent[key]]) {
-        trees[item.parent[key]] = { children: [] };
-        roots[item.parent[key]] = trees[item.parent[key]];
+    // Если есть родитель
+    if (parentId) {
+      if (!trees[parentId]) {
+        trees[parentId] = { children: [] };
+        roots[parentId] = trees[parentId];
       }
-      // Добавления в подчиненные родителя
-      trees[item.parent[key]].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
+      trees[parentId].children.push(trees[itemId]);
+
+      if (roots[itemId]) delete roots[itemId];
+    }
+
+    // Только если rootType задан — проверяем его
+    if (
+      rootType !== null &&
+      (parentType !== rootType || parentId !== rootId)
+    ) {
+      if (roots[itemId]) delete roots[itemId];
     }
   }
+
   return Object.values(roots);
 }

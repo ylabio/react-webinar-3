@@ -25,10 +25,16 @@
 .com-item-body {
   font-size: 14px;
   line-height: 20px;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .com-item-children {
   padding-left: 40px;
+}
+
+.com-item-children_no-padding {
+
 }
 
 .com-item-unAuth {
