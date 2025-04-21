@@ -19,7 +19,7 @@ function PLeseLogin({ t = () => {} }) {
   );
 }
 
-CommentItem.propTypes = {
+PLeseLogin.propTypes = {
   t: PropTypes.func,
 };
 export default memo(PLeseLogin);
