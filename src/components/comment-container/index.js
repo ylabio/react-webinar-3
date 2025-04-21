@@ -21,7 +21,7 @@ function CommentContainer(props) {
 
   const { author, dateCreate, text, children, _id, parent } = props.comment;
   const hasChildren = children.length > 0;
-  const maxlevel = 5; //максимальный уровень вложенности
+  const maxlevel = 15; //максимальный уровень вложенности
 
   const commentOffset = 40 * Math.min(maxlevel, treeLevel);
   const formOffset = commentOffset + (!hasChildren && commentIdFormVisible === _id ? 40 : 0);
@@ -42,22 +42,6 @@ function CommentContainer(props) {
         commentOffset={commentOffset}
         _id={_id}
       />
-      <div ref={isShowForm ? props.formRef : null} style={{ marginLeft: `${formOffset}px` }}>
-        {isShowForm &&
-          (isLogin ? (
-            <CommentForm
-              _id={commentIdFormVisible}
-              _type="comment"
-              secondButtonTitle="Отмена"
-              setCommentIdFormVisible={setCommentIdFormVisible}
-              title="Новый ответ"
-              error={error}
-              createComment={createComment}
-            />
-          ) : (
-            <LinkToLogin />
-          ))}
-      </div>
       {hasChildren &&
         children.map((child, index) => {
           return (
@@ -76,6 +60,23 @@ function CommentContainer(props) {
             />
           );
         })}
+      <div ref={isShowForm ? props.formRef : null} style={{ marginLeft: `${formOffset}px` }}>
+        {isShowForm &&
+          (isLogin ? (
+            <CommentForm
+              _id={commentIdFormVisible}
+              _type="comment"
+              secondButtonTitle="Отмена"
+              setCommentIdFormVisible={setCommentIdFormVisible}
+              title="Новый ответ"
+              error={error}
+              createComment={createComment}
+            />
+          ) : (
+            <LinkToLogin />
+          ))}
+      </div>
+      
     </>
   );
 }
