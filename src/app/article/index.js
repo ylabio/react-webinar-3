@@ -15,6 +15,7 @@ import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import HeadLayout from '../../components/head-layout';
 import Comments from '../../containers/comments';
+import commentsActions from '../../store-redux/comments/actions';
 
 function Article() {
   const store = useStore();
@@ -27,8 +28,8 @@ function Article() {
   const { t, lang } = useTranslate();
 
   useInit(() => {
-    //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
+    dispatch(commentsActions.load(params.id));
   }, [params.id, lang]);
 
   const select = useSelector(

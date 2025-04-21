@@ -1,6 +1,5 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import useInit from '../../hooks/use-init';
 import commentsActions from '../../store-redux/comments/actions';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import shallowequal from 'shallowequal';
@@ -16,6 +15,7 @@ function Comments() {
 
   const select = useSelector(state => ({
     exists: state.session.exists,
+    userId: state.session.user._id,
   }));
 
   const selectRedux = useSelectorRedux(
@@ -27,10 +27,6 @@ function Comments() {
     shallowequal,
   );
 
-  useInit(() => {
-    dispatch(commentsActions.load(params.id));
-  }, [params.id]);
-
   const callbacks = {
     // Установление id узла, в котором открыта форма добавления комментария
     setNodeId: useCallback(nodeId => {
@@ -39,7 +35,10 @@ function Comments() {
     // Добавление комментария и обновление данных
     addComment: useCallback(async (id, text, type) => {
       await dispatch(commentsActions.createComment(id, text, type));
-      await dispatch(commentsActions.load(params.id));
+      setActiveNodeId('main');
+    }, []),
+    // Отменить добавление комментария
+    cancelComment: useCallback(async () => {
       setActiveNodeId('main');
     }, []),
   };
@@ -54,9 +53,11 @@ function Comments() {
       activeNodeId={activeNodeId}
       id={params.id}
       addComment={callbacks.addComment}
+      cancelComment={callbacks.cancelComment}
       setNodeId={callbacks.setNodeId}
       count={selectRedux.count}
       pathname={pathname}
+      userId={select.userId}
     />
   );
 }

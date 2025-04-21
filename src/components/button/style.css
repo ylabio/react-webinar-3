@@ -7,6 +7,12 @@
     border-color: var(--primary);
     color: var(--primary);
   }
+
+  &:disabled {
+    background-color: var(--close);
+    color: var(--second-text);
+    cursor: auto;
+  }
 }
 
 .Button_style_delete {
@@ -39,3 +45,4 @@
     color: var(--primary);
   }
 }
+

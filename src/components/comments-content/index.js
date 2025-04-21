@@ -2,13 +2,24 @@ import { memo } from 'react';
 import Spinner from '../../components/spinner';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
-import { Link } from 'react-router-dom';
 import AddComment from '../add-comment';
 import CommentsListTree from '../comments-list-tree';
+import SignInNotice from '../sign-in-notice';
 
 function CommentsContent(props) {
-  const { exists, waiting, comments, activeNodeId, id, addComment, setNodeId, count, pathname } =
-    props;
+  const {
+    exists,
+    waiting,
+    comments,
+    activeNodeId,
+    id,
+    addComment,
+    cancelComment,
+    setNodeId,
+    count,
+    pathname,
+    userId,
+  } = props;
 
   const cn = bem('CommentsContent');
 
@@ -20,19 +31,18 @@ function CommentsContent(props) {
           data={comments}
           setNodeId={setNodeId}
           addComment={addComment}
+          cancelComment={cancelComment}
           activeNodeId={activeNodeId}
+          userId={userId}
+          exists={exists}
+          pathname={pathname}
         />
-        {exists ? (
-          activeNodeId === 'main' && <AddComment id={id} addComment={addComment} />
-        ) : (
-          <div className={cn('text')}>
-            <Link className={cn('link')} to={'/login'} state={{ back: pathname }}>
-              Войдите
-            </Link>
-            , чтобы иметь возможность комментировать
-          </div>
-        )}
       </div>
+      {activeNodeId === 'main' && (exists ? (
+        <AddComment id={id} cancelComment={cancelComment} addComment={addComment} />
+      ) : (
+        <SignInNotice pathname={pathname} />
+      ))}
     </Spinner>
   );
 }

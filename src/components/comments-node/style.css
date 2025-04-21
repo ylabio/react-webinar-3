@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: start;
   gap: 6px;
-  margin-bottom: 16px;
+  padding-bottom: 16px;
 }
 
 .CommentsNode-header {
@@ -11,10 +11,14 @@
   gap: 12px;
 }
 
-.CommentsNode-title {
+.CommentsNode-title, .CommentsNode-authorTitle {
   font-weight: 700;
   font-size: 12px;
   line-height: 150%;
+}
+
+.CommentsNode-authorTitle {
+  color: #4b5563;
 }
 
 .CommentsNode-date {
@@ -28,6 +32,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 143%;
+  word-break: break-all;
 }
 
 .CommentsNode-button {

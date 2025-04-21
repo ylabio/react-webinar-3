@@ -32,8 +32,8 @@ export default {
       dispatch({ type: 'comments/create-comment-start' });
 
       try {
-        await services.api.request({
-          url: '/api/v1/comments',
+        const res = await services.api.request({
+          url: '/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)',
           method: 'POST',
           body: JSON.stringify({
             text,
@@ -44,7 +44,7 @@ export default {
           })
         });
 
-        dispatch({ type: 'comments/create-comment-end' });
+        dispatch({ type: 'comments/create-comment-success',  payload: { newComment: res.data.result }});
       } catch (e) {
         //Ошибка создания
         dispatch({ type: 'comments/load-error' });

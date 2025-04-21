@@ -20,8 +20,16 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true };
     }
 
-    case 'comments/create-comment-end': {
-      return { ...state, waiting: false };
+    case 'comments/create-comment-success': {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          items: [...state.data.items, action.payload.newComment],
+          count: state.data.count + 1,
+        },
+        waiting: false,
+      };
     }
 
     default:

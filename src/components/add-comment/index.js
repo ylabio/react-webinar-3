@@ -4,7 +4,7 @@ import Button from '../button';
 import { cn as bem } from '@bem-react/classname';
 
 function AddComment(props) {
-  const { t = text => text, addComment = () => {}, id } = props;
+  const { t = text => text, addComment = () => {}, cancelComment = () => {}, id } = props;
   const [text, setText] = useState('');
 
   const handleChange = event => {
@@ -21,7 +21,10 @@ function AddComment(props) {
     <div className={cn()}>
       <div className={cn('text__bold')}>{t('Новый комментарий')}</div>
       <textarea rows={4} value={text} onChange={handleChange} className={cn('textarea')} />
-      <Button title={t('Отправить')} style={'primary'} onClick={onAddComment} />
+      <div className={cn('actions')}>
+        <Button title={t('Отправить')} style={'primary'} onClick={onAddComment} disabled={!text.trim()} />
+        <Button title={t('Отмена')} style={'outline'} onClick={cancelComment} />
+      </div>
     </div>
   );
 }
