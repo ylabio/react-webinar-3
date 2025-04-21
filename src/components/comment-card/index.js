@@ -71,6 +71,7 @@ function CommentCard(props) {
 
       {comment.children && comment.children.length > 0 && (
         <div className={cn('replies')}>
+          <div key={comment._id}>
           {comment.children.map(child => (
             <CommentCard 
               key={child._id} 
@@ -85,8 +86,9 @@ function CommentCard(props) {
               setIsReplyActive={setIsReplyActive}
               onChange={onChange}
             />
+            
           ))}
-
+        </div>
           {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
             <CommentForm
               className={cn('child')}

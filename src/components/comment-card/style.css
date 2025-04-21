@@ -30,6 +30,7 @@
     color: var(--primary);
     font-weight: 700;
     margin-bottom: 6px;
+    cursor: pointer;
 }
 
 .CommentCard-replies {
