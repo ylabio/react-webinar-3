@@ -12,14 +12,15 @@ function CommentCard(props) {
     isAuthenticated, 
     handleAddComment = () => {}, 
     setAuthMessageCommentId = () => {}, authMessageCommentId, 
-    replyToCommentId, 
+    replyToCommentId,
+    depth,
+    maxDepth,
     setReplyToCommentId = () => {}, 
     isReplyActive, 
     setIsReplyActive = () => {},
     onChange = () => {},
   } = props;
-  const cn = bem('CommentCard');
-  
+
   const callbacks = {
     handleReplyClick: useCallback(() => {
       if (!isAuthenticated) {
@@ -28,10 +29,12 @@ function CommentCard(props) {
         setReplyToCommentId(comment._id);
         setIsReplyActive(true);
       };
-    }, [comment._id, isAuthenticated])
+    }, [])
   };
-
+  
   const hasChildren = comment.children && comment.children.length > 0;
+
+  const cn = bem('CommentCard');
 
   return (
     <div className={cn()}>
@@ -59,7 +62,7 @@ function CommentCard(props) {
 
       {isAuthenticated && 
       (replyToCommentId === comment._id) && 
-      isReplyActive && !hasChildren && (
+      isReplyActive && (depth === maxDepth || !hasChildren) && (
         <CommentForm
           commentTitle="Новый ответ"
           type="reply"
@@ -69,7 +72,7 @@ function CommentCard(props) {
         />
       )}
 
-      {comment.children && comment.children.length > 0 && (
+      {hasChildren && (depth < maxDepth) && (
         <div className={cn('replies')}>
           <div key={comment._id}>
           {comment.children.map(child => (
@@ -85,6 +88,8 @@ function CommentCard(props) {
               isReplyActive={isReplyActive}
               setIsReplyActive={setIsReplyActive}
               onChange={onChange}
+              depth={depth + 1}
+              maxDepth={maxDepth}
             />
             
           ))}
@@ -131,11 +136,12 @@ CommentCard.propTypes = {
   setAuthMessageCommentId: PropTypes.func,
   authMessageCommentId: PropTypes.string,
   replyToCommentId: PropTypes.string,
+  depth: PropTypes.number,
+  maxDepth: PropTypes.number,
   setReplyToCommentId: PropTypes.func,
   isReplyActive: PropTypes.bool,
   setIsReplyActive: PropTypes.func,
   onChange: PropTypes.func,
-  findParentAndLastChild: PropTypes.func,
 };
 
 export default memo(CommentCard);

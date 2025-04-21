@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
 import { Link } from 'react-router-dom';
 import CommentForm from '../comment-form';
+import debounce from 'lodash.debounce';
 
 function CommentList(props) {
   const { comments, commentCount, t = text => text } = props;
@@ -46,19 +47,22 @@ function CommentList(props) {
 
   const callbacks = {
     onChange: useCallback(
-      e => {
+      debounce(
+        e => {
         setNewComment({
           parent,
           text: e.target.value,
         });
-      },
-      [setNewComment, replyToCommentId],
+      }, 
+      100),
+      [setNewComment, replyToCommentId]
     ),
 
     handleAddComment: useCallback(
       async e => {
         e.preventDefault();
         if (newComment.text) {
+          console.log('comment', newComment);
           await dispatch(commentsActions.create(newComment));
           dispatch(commentsActions.load(params.id));
           setIsReplyActive(false);
@@ -68,6 +72,25 @@ function CommentList(props) {
   };
 
   const cn = bem('CommentList');
+
+  const getMaxDepth = (comments) => {
+    let max = 0;
+    const traverse = (comments, depth) => {
+      if (depth > max) {
+        max = depth;
+      }
+      comments.forEach(comment => {
+        if (comment.children && comment.children.length > 0) {
+          traverse(comment.children, depth + 1);
+        }
+      });
+    };
+    traverse(comments, 0);
+    return max;
+  };
+
+  let maxDepth = getMaxDepth(comments);
+  if (maxDepth > 5) maxDepth = 5;
 
   return (
     <div className={cn()}>
@@ -88,6 +111,8 @@ function CommentList(props) {
               isReplyActive={isReplyActive}
               setIsReplyActive={setIsReplyActive}
               onChange={callbacks.onChange}
+              depth={0}
+              maxDepth={maxDepth}
             />
           </div>
         ) : (

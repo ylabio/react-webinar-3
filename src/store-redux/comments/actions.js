@@ -30,7 +30,7 @@ export default {
           method: 'POST',
           body: JSON.stringify(comment),
         });
-        
+        console.log('Сообщение отправляется');
         dispatch({ type: 'comments/create-success', payload: { data: res.data.result.items } });
 
       } catch (e) {
