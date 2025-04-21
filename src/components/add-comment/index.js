@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import './style.css';
 import Button from '../button';
 import { cn as bem } from '@bem-react/classname';
+import PropTypes from 'prop-types';
 
 function AddComment(props) {
   const { t = text => text, addComment = () => {}, cancelComment = () => {}, id } = props;
@@ -28,5 +29,12 @@ function AddComment(props) {
     </div>
   );
 }
+
+AddComment.propTypes = {
+  t: PropTypes.func,
+  addComment: PropTypes.func,
+  cancelComment: PropTypes.func,
+  id: PropTypes.string,
+};
 
 export default memo(AddComment);

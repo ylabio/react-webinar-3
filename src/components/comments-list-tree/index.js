@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import CommentsNode from '../comments-node';
+import PropTypes from 'prop-types';
 
 function CommentsListTree(props) {
   const {
@@ -34,5 +35,17 @@ function CommentsListTree(props) {
     </>
   );
 }
+
+CommentsListTree.propTypes = {
+  exists: PropTypes.bool,
+  addComment: PropTypes.func,
+  cancelComment: PropTypes.func,
+  setNodeId: PropTypes.func,
+  data: PropTypes.arrayOf(),
+  activeNodeId: PropTypes.string,
+  userId: PropTypes.string,
+  pathname: PropTypes.string,
+  t: PropTypes.func,
+};
 
 export default memo(CommentsListTree);

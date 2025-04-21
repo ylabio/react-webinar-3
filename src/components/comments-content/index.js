@@ -5,6 +5,7 @@ import { cn as bem } from '@bem-react/classname';
 import AddComment from '../add-comment';
 import CommentsListTree from '../comments-list-tree';
 import SignInNotice from '../sign-in-notice';
+import PropTypes from 'prop-types';
 
 function CommentsContent(props) {
   const {
@@ -19,6 +20,7 @@ function CommentsContent(props) {
     count,
     pathname,
     userId,
+    t = text => text,
   } = props;
 
   const cn = bem('CommentsContent');
@@ -36,6 +38,7 @@ function CommentsContent(props) {
           userId={userId}
           exists={exists}
           pathname={pathname}
+          t={t}
         />
       </div>
       {activeNodeId === 'main' && (exists ? (
@@ -46,5 +49,20 @@ function CommentsContent(props) {
     </Spinner>
   );
 }
+
+CommentsContent.propTypes = {
+  exists: PropTypes.bool,
+  waiting: PropTypes.bool,
+  comment: PropTypes.arrayOf(),
+  addComment: PropTypes.func,
+  cancelComment: PropTypes.func,
+  setNodeId: PropTypes.func,
+  activeNodeId: PropTypes.string,
+  count: PropTypes.number,
+  id: PropTypes.string,
+  userId: PropTypes.string,
+  pathname: PropTypes.string,
+  t: PropTypes.func,
+};
 
 export default memo(CommentsContent);

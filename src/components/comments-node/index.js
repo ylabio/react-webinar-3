@@ -4,6 +4,7 @@ import AddComment from '../add-comment';
 import { formatDateForComments } from '../../utils/formated-date';
 import { cn as bem } from '@bem-react/classname';
 import SignInNotice from '../sign-in-notice';
+import PropTypes from 'prop-types';
 
 function CommentsNode(props) {
   const {
@@ -76,5 +77,18 @@ function CommentsNode(props) {
     </div>
   );
 }
+
+CommentsNode.propTypes = {
+  t: PropTypes.func,
+  level: PropTypes.number,
+  node: PropTypes.object,
+  setNodeId: PropTypes.func,
+  activeNodeId: PropTypes.string,
+  addComment: PropTypes.func,
+  cancelComment: PropTypes.func,
+  userId: PropTypes.string,
+  exists: PropTypes.bool,
+  pathname: PropTypes.string,
+};
 
 export default memo(CommentsNode);

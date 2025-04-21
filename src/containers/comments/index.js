@@ -6,6 +6,7 @@ import shallowequal from 'shallowequal';
 import useSelector from '../../hooks/use-selector';
 import CommentsContent from '../../components/comments-content';
 import listToTree from '../../utils/list-to-tree';
+import useTranslate from '../../hooks/use-translate';
 
 function Comments() {
   const dispatch = useDispatch();
@@ -45,6 +46,8 @@ function Comments() {
 
   const commentsTree = useMemo(() => listToTree(selectRedux?.comments || []), [selectRedux.comments]);
 
+  const { t } = useTranslate();
+
   return (
     <CommentsContent
       exists={select.exists}
@@ -58,6 +61,7 @@ function Comments() {
       count={selectRedux.count}
       pathname={pathname}
       userId={select.userId}
+      t={t}
     />
   );
 }
