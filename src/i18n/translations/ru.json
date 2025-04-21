@@ -35,5 +35,6 @@
   "product.price": "Цена",
   "comments.title": "Комментарии",
   "comments.loading": "Загрузка комментариев...",
-  "comments.reply": "Ответить"
+  "comments.reply": "Ответить",
+  "authHint.message": "Войдите, чтобы иметь возможность комментировать"
 }

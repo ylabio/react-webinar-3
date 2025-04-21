@@ -25,15 +25,10 @@ function CommentItem({
 
   useEffect(() => {
     if (isReplying && replyRef.current) {
-      replyRef.current.scrollIntoView({behavior: 'smooth', block: 'center'});
+      replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [isReplying]);
 
-  useEffect(() => {
-    if (isReplying && !isAuthorized) {
-      onCancel();
-    }
-  }, [isAuthorized, isReplying, onCancel]);
 
   const handleReplyClick = () => {
     onReply(comment._id);

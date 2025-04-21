@@ -33,5 +33,6 @@
   "product.price": "Price",
   "comments.title": "Comments",
   "comments.loading": "Loading comments...",
-  "comments.reply": "Reply"
+  "comments.reply": "Reply",
+  "authHint.message": "Sign in to leave a comment"
 }
