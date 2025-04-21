@@ -1,0 +1,43 @@
+.CommentItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.CommentItem-head {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.CommentItem-name {
+  font-weight: 700;
+}
+
+.CommentItem-date {
+  color: #666666;
+}
+
+.CommentItem-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  overflow-wrap: break-word
+}
+
+.CommentItem-button {
+  padding: 0;
+  width: fit-content;
+  color: var(--primary);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.auth-user-name {
+  color: #4B5563;
+}
+
+.CommentItem-form {
+  scroll-margin-top: 200px;
+}

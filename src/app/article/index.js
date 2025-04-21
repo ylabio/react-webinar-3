@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -10,10 +10,15 @@ import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
+import commentActions from '../../store-redux/comment/actions';
 import HeadLayout from '../../components/head-layout';
+import Comment from '../../components/comment';
+import listToTree from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list';
+import useSelector from '../../hooks/use-selector';
 
 function Article() {
   const store = useStore();
@@ -23,12 +28,15 @@ function Article() {
 
   const params = useParams();
 
+  const { t, lang } = useTranslate();
+
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+    dispatch(commentActions.load(params.id));
+  }, [params.id, lang]);
 
-  const select = useSelector(
+  const select = useSelectorRedux(
     state => ({
       article: state.article.data,
       waiting: state.article.waiting,
@@ -36,7 +44,29 @@ function Article() {
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
+  const selectComment = useSelectorRedux(
+    state => ({
+      comment: state.comment.data,
+      postRes: state.comment.postRes,
+      waitingComment: state.comment.waiting,
+    }),
+    shallowequal,
+  );
+
+  const selectUser = useSelector(state => ({
+    user: state.session.user,
+  }));
+
+  const commentList = useMemo(() => {
+    if (!selectComment.waitingComment) {
+      return [
+        ...treeToList(listToTree(selectComment.comment.items, '_id', 'article'), (item, level) => ({
+          ...item,
+          level: level,
+        })),
+      ];
+    } else return [];
+  }, [selectComment.comment, selectComment.postRes]);
 
   const callbacks = {
     // Добавление в корзину
@@ -55,6 +85,7 @@ function Article() {
         <Navigation />
         <Spinner active={select.waiting}>
           <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+          <Comment count={selectComment.comment.count} comments={commentList} />
         </Spinner>
       </PageLayout>
     </>
