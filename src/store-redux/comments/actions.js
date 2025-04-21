@@ -24,17 +24,14 @@ export default {
 
   /**
    * Загрузка комментариев по товару
-   * @param id
-   * @return {Function}
    */
-  addComment: (parent, text, token, callback) => {
+  addComment: (parent, text, callback) => {
     return async (dispatch, getState, services) => {
       try {
         if (!text?.trim()) return;
         const res = await services.api.request({
           url: `/api/v1/comments`,
           method: 'POST',
-          headers: {"X-Token": token},
           body: JSON.stringify(
 
         {

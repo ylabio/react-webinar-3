@@ -1,5 +1,4 @@
 import { memo, useCallback, useMemo, useState } from 'react';
-import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -16,7 +15,6 @@ import Spinner from '../../components/spinner';
 import useLocale from '../../hooks/use-locale';
 
 function ArticleComments() {
-  const cn = bem('ArticleComments');
 
   const { t, locale } = useLocale()
   const select = useSelector(
@@ -34,7 +32,6 @@ function ArticleComments() {
   const selectStore = useSelectorStore(state => ({
     user: state.session.user,
     exists: state.session.exists,
-    token: state.session.token,
   }));
 
   const options = listToTree(select.comments || []);
@@ -70,8 +67,8 @@ function ArticleComments() {
     }, []),
 
     addApiToAnswer: useCallback((parent) => {
-      dispatch(commentsActions.addComment(parent, commentValue, selectStore.token, () => dispatch(commentsActions.load(select.article._id))));
-    }, [parent, commentValue, selectStore.token]),
+      dispatch(commentsActions.addComment(parent, commentValue, () => dispatch(commentsActions.load(select.article._id))));
+    }, [parent, commentValue]),
 
   };
 

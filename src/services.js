@@ -45,7 +45,7 @@ class Services {
    */
   get i18n() {
     if (!this._i18n) {
-      this._i18n = new I18nService(this.config.locale );
+      this._i18n = new I18nService(this, this.config.i18n);
     }
     return this._i18n;
   }

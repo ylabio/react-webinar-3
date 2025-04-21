@@ -4,7 +4,10 @@ import baseTranslate from './translate';
  * Сервис для хранения локали и перевода
  */
 class I18nService {
-  constructor(defaultLocale = 'ru') {
+
+  constructor(services, config = {}, defaultLocale = 'ru') {
+    this.services = services;
+    this.config = config;
     this.locale = defaultLocale;
     this.listeners = [];
   }
@@ -18,6 +21,7 @@ class I18nService {
       this.locale = locale;
       this._notify();
     }
+    this.services.api.setHeader(this.config.localeHeader, locale);
   }
 
   translate(key, plural, locale = this.locale) {

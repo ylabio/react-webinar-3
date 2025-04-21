@@ -9,10 +9,6 @@ import 'global.css';
 
 const services = new Services(config);
 
-services.i18n.subscribe((newLocale) => {
-  services.api.setHeader('Accept-Language', newLocale);
-});
-
 const root = createRoot(document.getElementById('root'));
 
 // Первый рендер приложения

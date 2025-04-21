@@ -15,6 +15,10 @@ const config = {
       },
     },
   },
+  i18n: {
+  // Названия локали в АПИ
+  localeHeader: 'Accept-Language',
+  },
   api: {
     baseUrl: '',
   },
