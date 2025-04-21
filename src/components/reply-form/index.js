@@ -49,7 +49,7 @@ function ReplyForm(props) {
 
   return (
     <>
-      <form className={`${cn()} ${props.type === 'comment' ? 'ReplyForm-comment' : ''}`} onSubmit={callbacks.onSubmit} ref={props.replyFormRef}>
+      <form className={cn({ comment: props.type === 'comment' })} onSubmit={callbacks.onSubmit} ref={props.replyFormRef}>
         <p className={cn('title')}>{props.title}</p>
         <textarea
           className={cn('textarea')}
@@ -60,7 +60,7 @@ function ReplyForm(props) {
         ></textarea>
         <div className={cn('footer')}>
           <Button style="primary" type="submit" title="Отправить" />
-          <Button style="outline" type="button" title="Отмена" onClick={props.onChancel} />
+          {props.type === 'comment' && <Button style="outline" type="button" title="Отмена" onClick={props.onChancel} />}
         </div>
       </form>
     </>
