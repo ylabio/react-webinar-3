@@ -23,6 +23,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 20px;
+  overflow-wrap: break-word
 }
 
 .CommentItem-button {
@@ -31,4 +32,12 @@
   color: var(--primary);
   font-size: 12px;
   line-height: 18px;
+}
+
+.auth-user-name {
+  color: #4B5563;
+}
+
+.CommentItem-form {
+  scroll-margin-top: 200px;
 }

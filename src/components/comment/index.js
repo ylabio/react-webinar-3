@@ -22,25 +22,12 @@ function Comment({ count = 0, comments }) {
     shallowequal,
   );
 
-  const select = useSelector(state => ({
-    exists: state.session.exists,
-  }));
-
   return (
     <div className={cn()}>
       {/* ДОБАВИТЬ ДИНАМИЧЕСКОЕ ОТОБРАЖЕНИЕ КОЛЛИЧЕСТВА КОММЕНТАРИЕВ */}
       <h1 className={cn('title')}>{t('comment')} ({count})</h1>
       <CommentList comments={comments} />
-      {select.exists ? (
-        selectCommentForm.place.match(/^common$/) && <CommentForm />
-      ) : (
-        <div className={cn('unauthorized')}>
-          <Link to="/login" className={cn('link-login')}>
-            {t('comment.login')}
-          </Link>
-          {t('comment.login-able-to-comment')}
-        </div>
-      )}
+      {selectCommentForm.place === 'common' && <CommentForm />}
     </div>
   );
 }

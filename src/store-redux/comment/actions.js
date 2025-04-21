@@ -45,7 +45,7 @@ export default {
           },
           body: requestBody,
         });
-        console.log(res.data);
+        dispatch({ type: 'comment/post-success', payload: { data: res.data.result }});
       } catch (e) {
         //Ошибка загрузки
         console.log(e);
@@ -78,7 +78,7 @@ export default {
           },
           body: requestBody,
         });
-        console.log(res.data);
+        dispatch({ type: 'comment/reply-success', payload: { data: res.data.result }});
       } catch (e) {
         //Ошибка загрузки
         console.log(e);

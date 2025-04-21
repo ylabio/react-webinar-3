@@ -3,6 +3,7 @@ export const initialState = {
   data: [],
   waiting: true, // признак ожидания загрузки
   error: '',
+  postRes: {},
 };
 
 // Обработчик действий
@@ -20,11 +21,31 @@ function reducer(state = initialState, action) {
     case 'comment/post-start':
       return { ...state, waiting: true };
 
+    case 'comment/post-success':
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          items: [ ...state.data.items, action.payload.data],
+        },
+        waiting: false,
+      };
+
     case 'comment/post-error':
       return { ...state, waiting: false, error: action.payload.error };
 
     case 'comment/reply-start':
       return { ...state, waiting: true };
+
+      case 'comment/reply-success':
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            items: [ ...state.data.items, action.payload.data],
+          },
+          waiting: false,
+        };
 
     case 'comment/reply-error':
       return { ...state, waiting: false, error: action.payload.error };
