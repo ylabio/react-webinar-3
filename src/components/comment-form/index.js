@@ -42,7 +42,7 @@ function CommentForm({
 CommentForm.propTypes = {
   title: PropTypes.string,
   placeholder: PropTypes.string,
-  cancel: PropTypes.string,
+  cancel: PropTypes.bool,
   onCancel: PropTypes.func,
   action: PropTypes.func,
   childern: PropTypes.node,

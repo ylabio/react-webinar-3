@@ -3,14 +3,11 @@ import Spinner from '../../components/spinner';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import CommentsList from '../../components/comments-list';
 import useSelector from '../../hooks/use-selector';
-import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import commentsArticle from '../../store-redux/article-comments/actions';
-import { useNavigate } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 
 function ArticleComments() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslate();
   const select = useSelectorRedux(state => ({
@@ -20,7 +17,7 @@ function ArticleComments() {
   const selectSession = useSelector(state => ({
     exists: state.session.exists,
     waiting: state.session.waiting,
-    user: state.session.user._id,
+    user: state.session.user,
   }));
 
   const options = {
@@ -31,19 +28,16 @@ function ArticleComments() {
     }, [select.comments]),
   };
 
-  console.log(options.comments, select.comments);
-
   const callbacks = {
     onSubmit: useCallback((e, id, type) => {
       e.preventDefault();
       const form = e.currentTarget;
       const formData = new FormData(form);
       const text = formData.get('text');
-      if(text.trim() === ''){
-        return
+      if (text.trim() === '') {
+        return;
       }
       dispatch(commentsArticle.post(id, type, text));
-      // navigate(0);
     }, []),
   };
   return (

@@ -21,7 +21,11 @@ function reducer(state = initialState, action) {
       return { ...state, data: action.payload.data, waiting: false };
     }
     case 'article-comments/post-comment-end': {
-      return { ...state, data: {items:[...state.data.items, action.payload.answ]}, waiting: false };
+      return {
+        ...state,
+        data: { items: [...state.data.items, action.payload.answ] },
+        waiting: false,
+      };
     }
     default:
       // Нет изменений

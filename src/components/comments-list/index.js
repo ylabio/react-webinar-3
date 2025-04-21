@@ -7,18 +7,24 @@ import CommentForm from '../comment-form';
 import PleaseLogin from '../please-login';
 import { useParams } from 'react-router-dom';
 
-function CommentsList({ t = () => {}, onSubmit = () => {}, comments, isExist, currentUser,commentsLength }) {
+function CommentsList({
+  t = () => {},
+  onSubmit = () => {},
+  comments,
+  isExist,
+  currentUser,
+  commentsLength,
+}) {
   const cn = bem('CommentsList');
   const [answerTo, setAnswerTo] = useState(null);
   const params = useParams();
   const formRef = useRef(null);
-
   useEffect(() => {
     if (answerTo && formRef.current) {
       setTimeout(() => {
         formRef.current?.scrollIntoView({
           behavior: 'smooth',
-          block: 'center'
+          block: 'center',
         });
       }, 100);
     }
@@ -26,29 +32,29 @@ function CommentsList({ t = () => {}, onSubmit = () => {}, comments, isExist, cu
 
   const renderCommentNode = (comment, level = 0) => {
     const marginLeft = level <= 5 ? level * 40 : 5 * 40;
-
     return (
       <div key={comment._id}>
         <div style={{ marginLeft }}>
           <CommentItem
-            level={level}
             clickToAnswer={() => setAnswerTo(comment._id)}
             isActive={answerTo === comment._id}
-            userName={comment.author._id}
+            userName={comment.author?.profile?.name || currentUser.profile?.name}
             date={comment.dateCreate}
             description={comment.text}
             onCloseForm={() => setAnswerTo(null)}
-            isExist={isExist}
             t={t}
             onSubmit={e => onSubmit(e, comment._id, 'comment')}
-            currentUser={currentUser === comment.author._id}
+            currentUser={currentUser._id === comment.author?._id}
           />
         </div>
 
         {comment.children?.map(child => renderCommentNode(child, level + 1))}
 
         {answerTo === comment._id && (
-          <div ref={answerTo === comment._id ? formRef : null} style={{ marginLeft: marginLeft + 40, marginTop: 24 }}>
+          <div
+            ref={answerTo === comment._id ? formRef : null}
+            style={{ marginLeft: marginLeft + 40, marginTop: 24 }}
+          >
             {isExist ? (
               <div>
                 <CommentForm
@@ -57,11 +63,11 @@ function CommentsList({ t = () => {}, onSubmit = () => {}, comments, isExist, cu
                   title={t('article.newreply')}
                   t={t}
                   cancel={true}
-                  placeholder={`${t('article.placeholder')} ${comment.author._id}`}
+                  placeholder={`${t('article.placeholder')} ${comment.author?.profile?.name}`}
                 />
               </div>
             ) : (
-              <PleaseLogin text={t('article.login_to_comment')} />
+              <PleaseLogin t={t} />
             )}
           </div>
         )}
@@ -74,7 +80,7 @@ function CommentsList({ t = () => {}, onSubmit = () => {}, comments, isExist, cu
       <CommentForm action={e => onSubmit(e, params.id)} title={t('article.newcomment')} t={t} />
     </div>
   ) : (
-    <PleaseLogin text={t('article.login_to_comment')} />
+    <PleaseLogin t={t} />
   );
 
   return (
@@ -100,7 +106,8 @@ CommentsList.propTypes = {
   ),
   isExist: PropTypes.bool,
   onSubmit: PropTypes.func,
-  currentUser: PropTypes.string,
+  currentUser: PropTypes.object,
+  commentsLength: PropTypes.number,
 };
 
 export default memo(CommentsList);

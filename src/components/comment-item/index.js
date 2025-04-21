@@ -13,21 +13,22 @@ function CommentItem({
   currentUser,
 }) {
   const cn = bem('Comment');
-  const formatedDate = formatDate(date);
+  const formatedDate = formatDate(date, t('monthNames'), t('at'));
   return (
     <>
-      <div className={cn()} >
-        <div className={currentUser ?cn('info-current') :  cn('info') }>
+      <div className={cn()}>
+        <div className={currentUser ? cn('info-current') : cn('info')}>
           <p>
             {userName} <span className={cn('date')}>{formatedDate}</span>
           </p>
         </div>
         <div className={cn('text')}>{description}</div>
         <div>
-          {!isActive &&
+          {!isActive && (
             <div className={cn('actions')}>
               <button onClick={clickToAnswer}>{t('article.reply')}</button>
-            </div>}
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -36,10 +37,7 @@ function CommentItem({
 CommentItem.propTypes = {
   userName: PropTypes.string,
   description: PropTypes.string,
-  level: PropTypes.number,
-  isExist: PropTypes.bool,
   isActive: PropTypes.bool,
-  onSubmit: PropTypes.func,
   clickToAnswer: PropTypes.func,
   onCloseForm: PropTypes.func,
   t: PropTypes.func,

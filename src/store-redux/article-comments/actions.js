@@ -5,7 +5,7 @@ export default {
       dispatch({ type: 'article-comments/load-start' });
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?limit=100&search%5Bparent%5D=${id}`,
+          url: `/api/v1/comments?search%5Bparent%5D=${id}&skip=&limit=*&fields=items%28_id%2Ctext%2CdateCreate%2Cauthor%28_id%2Cprofile%28name%29%29%2Cparent%28_id%2C_type%29%2CisDeleted%29`,
         });
         // Товар загружен успешно
         dispatch({ type: 'article-comments/load-success', payload: { data: res.data.result } });
@@ -30,7 +30,6 @@ export default {
             parent: { _id: id, _type: type },
           }),
         });
-        console.log(res)
         dispatch({ type: 'article-comments/post-comment-end', payload: {answ: res.data.result} });
       } catch (e) {
         console.log(e);

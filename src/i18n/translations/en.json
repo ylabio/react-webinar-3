@@ -26,13 +26,25 @@
   "article.comments": "Comments",
   "article.reply": "Reply",
   "article.cancel": "Cancel",
-  "article.placeholder": "My answer for",
+  "article.placeholder": "Reply to",
   "article.newcomment": "New Comment",
   "article.newreply": "New Reply",
-  "article.send": "Send"
-
-
-
-  
-
+  "article.send": "Send",
+  "article.pleaseSignIn": "Login,",
+  "article.ableToComment": "to be able to comment",
+  "monthNames": [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december"
+  ],
+  "at": "at"
 }
