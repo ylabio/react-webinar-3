@@ -12,6 +12,7 @@ import CommentLogin from '../../components/comments/comment-login';
 
 import buildCommentTree from '../../utils/buildCommentTree';
 import flattenCommentTree from '../../utils/tree-to-flat';
+import listToTree from "../../utils/list-to-tree";
 
 /**
  * Компонент списка комментариев с формами и логикой добавления/ответа
@@ -25,8 +26,12 @@ function CommentsList({ comments, commentsCount, articleId }) {
     profileName: state.session.user?.profile?.name,
   }));
 
-  const tree = buildCommentTree(comments);
-  const hierarchicalComments = flattenCommentTree(tree);
+  const tree = listToTree(comments, {
+    key: '_id',
+    rootKey: item => item.parent?._type === 'article',
+    parentKey: 'parent._id',
+    levelKey: 'level',
+  });
 
   const resetActiveComment = () => {
     setActiveCommentId(null);
@@ -51,7 +56,7 @@ function CommentsList({ comments, commentsCount, articleId }) {
       <CommentsTitle commentsCount={commentsCount} />
 
       <CommentsTree
-        comments={hierarchicalComments}
+        comments={tree}
         onReply={setActiveCommentId}
         activeCommentId={activeCommentId}
         resetActiveComment={resetActiveComment}

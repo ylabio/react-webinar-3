@@ -1,35 +1,47 @@
 /**
  * Преобразование списка в иерархию
  * @param list {Array} Список объектов с отношением на родителя
- * @param [key] {String} Свойство с первичным ключом
+ * @param options {Object} Настройки ключей
+ * @param options.key {String} Ключ идентификатора (по умолчанию '_id')
+ * @param options.rootKey {String|Function} Условие корневого узла (по умолчанию 'parent')
+ * @param options.parentKey {String} Ключ для получения ID родителя (по умолчанию 'parent._id')
+ * @param options.levelKey {String} Ключ для хранения уровня вложенности (по умолчанию 'level')
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
-  let trees = {};
-  let roots = {};
-  for (const item of list) {
-    // Добавление элемента в индекс узлов и создание свойства children
-    if (!trees[item[key]]) {
-      trees[item[key]] = item;
-      trees[item[key]].children = [];
-      // Ещё никто не ссылался, поэтому пока считаем корнем
-      roots[item[key]] = trees[item[key]];
-    } else {
-      trees[item[key]] = Object.assign(trees[item[key]], item);
-    }
+export default function listToTree(list, options = {}) {
+  const {
+    key = '_id',
+    rootKey = 'parent',
+    parentKey = 'parent._id',
+    levelKey = 'level',
+  } = options;
 
-    // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key]) {
-      // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
-      if (!trees[item.parent[key]]) {
-        trees[item.parent[key]] = { children: [] };
-        roots[item.parent[key]] = trees[item.parent[key]];
+  const map = {};
+  const roots = [];
+
+  // Создание мапы всех узлов с children
+  for (const item of list) {
+    map[item[key]] = { ...item, children: [] };
+  }
+
+  // Сборка дерева
+  for (const item of list) {
+    const node = map[item[key]];
+    const isRoot = typeof rootKey === 'function' ? rootKey(item) : !item[rootKey];
+
+    if (isRoot) {
+      node[levelKey] = 0;
+      roots.push(node);
+    } else {
+      const [parentField, idField] = parentKey.split('.');
+      const parentId = item[parentField]?.[idField];
+
+      if (parentId && map[parentId]) {
+        node[levelKey] = (map[parentId][levelKey] || 0) + 1;
+        map[parentId].children.push(node);
       }
-      // Добавления в подчиненные родителя
-      trees[item.parent[key]].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
     }
   }
-  return Object.values(roots);
+
+  return roots;
 }

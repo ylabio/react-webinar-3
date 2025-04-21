@@ -52,10 +52,18 @@ function CatalogFilter() {
     categories: useMemo(
       () => [
         { value: '', title: 'Все' },
-        ...treeToList(listToTree(select.categories), (item, level) => ({
-          value: item._id,
-          title: '- '.repeat(level) + item.title,
-        })),
+        ...treeToList(
+          listToTree(select.categories, {
+            key: '_id',
+            rootKey: item => !item.parent,
+            parentKey: 'parent._id',
+            levelKey: 'level',
+          }),
+          (item, level) => ({
+            value: item._id,
+            title: '- '.repeat(level) + item.title,
+          })
+        )
       ],
       [select.categories],
     ),
