@@ -37,7 +37,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ProfileCard data={select.profile} />
+          <ProfileCard t={t} data={select.profile} />
         </Spinner>
       </PageLayout>
     </>

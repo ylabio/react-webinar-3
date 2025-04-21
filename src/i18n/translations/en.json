@@ -5,7 +5,7 @@
   "basket.open": "Open",
   "basket.close": "Close",
   "basket.inBasket": "In cart",
-  "basket.empty": "empty",
+  "basket.empty": "Empty",
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
@@ -13,7 +13,35 @@
     "one": "article",
     "other": "articles"
   },
+
+
   "article.add": "Add",
+
+  "article.madeIn": "Made in",
+  "article.category": "Category",
+  "article.edition": "Year of release",
+  "article.price": "Price",
+
+  "comments.title": "Comments",
+  "comments.reply": "Reply",
+  "comments.new-comment-title": "New comment",
+  "comments.unAuth-btn": "Log in",
+  "comments.unAuth-text": " to be able to comment",
+  "comments.new-reply-title": "New Reply",
+  "comments.button-send": "Submit",
+  "comments.button-cancel": "Cancel",
+
+  "filter.sort.order": "In order",
+  "filter.sort.title": "By naming",
+  "filter.sort.price": "Dear ones first",
+  "filter.sort.edition": "Ancient",
+  "filter.categories-all": "All",
+  "filter.search": "Search",
+
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",

@@ -6,12 +6,12 @@ import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
-  const { onChange = () => {}, type = 'text', theme = '' } = props;
+  const { onChange = () => {}, type = 'text', theme = '', delay = 0} = props;
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce(value => onChange(value, props.name), 600),
+    debounce(value => onChange(value, props.name), delay),
     [onChange, props.name],
   );
 

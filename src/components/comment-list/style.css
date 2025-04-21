@@ -1,0 +1,8 @@
+.comList-title {
+  font-family: var(--second-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--main-text);
+  padding-top: 24px;
+  margin-bottom: 36px;
+}

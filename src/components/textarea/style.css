@@ -1,0 +1,19 @@
+.textarea-c {
+  margin-bottom: 24px;
+  textarea {
+    width: 100%;
+    margin: 16px 0;
+    border: 1px solid #D3D3D3;
+    resize: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    min-height: 88px;
+    font-family: var(--font-family);
+  }
+}
+
+.textarea-c-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}

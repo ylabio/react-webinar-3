@@ -34,8 +34,20 @@
 .Button_style_text {
   padding: 0;
   border: none;
+  color: var(--primary);
 
   &:hover {
-    color: var(--primary);
+    color: var(--main-text);
+  }
+}
+
+.Button_style_text-com {
+  padding: 0;
+  border: none;
+  font-size: 12px;
+  color: var(--primary);
+
+  &:hover {
+    color: var(--main-text);
   }
 }

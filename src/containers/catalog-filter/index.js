@@ -10,6 +10,8 @@ import listToTree from '../../utils/list-to-tree';
 import Button from '../../components/button';
 
 function CatalogFilter() {
+  const { t, lang } = useTranslate();
+
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -23,7 +25,7 @@ function CatalogFilter() {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({ sort }), [store]),
     // Поиск
-    onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
+    onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store, lang]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
     // Фильтр по категории
@@ -33,7 +35,7 @@ function CatalogFilter() {
           category,
           page: 1,
         }),
-      [store],
+      [store, lang],
     ),
   };
 
@@ -41,27 +43,25 @@ function CatalogFilter() {
     // Варианты сортировок
     sort: useMemo(
       () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
+        { value: 'order', title: t('filter.sort.order') },
+        { value: `title.${lang}`, title: t('filter.sort.title') },
+        { value: '-price', title: t('filter.sort.price') },
+        { value: 'edition', title: t('filter.sort.edition') },
       ],
-      [],
+      [lang],
     ),
     // Категории для фильтра
     categories: useMemo(
       () => [
-        { value: '', title: 'Все' },
+        { value: '', title: t('filter.categories-all') },
         ...treeToList(listToTree(select.categories), (item, level) => ({
           value: item._id,
           title: '- '.repeat(level) + item.title,
         })),
       ],
-      [select.categories],
+      [select.categories, lang],
     ),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -80,7 +80,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
+        placeholder={t('filter.search')}
         delay={1000}
         theme={'big'}
       />
