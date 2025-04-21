@@ -33,9 +33,9 @@ function TopHead() {
     <SideLayout side="end" padding="small" gap="big">
       {select.exists ? <Link to="/profile" style={{fontSize: '16px'}}>{select.user.profile.name}</Link> : ''}
       {select.exists ? (
-        <Button style="text" onClick={callbacks.onSignOut} title={t('session.signOut')} />
+        <Button style="textRevers" onClick={callbacks.onSignOut} title={t('session.signOut')} />
       ) : (
-        <Button style="text" onClick={callbacks.onSignIn} title={t('session.signIn')} />
+        <Button style="textRevers" onClick={callbacks.onSignIn} title={t('session.signIn')} />
       )}
     </SideLayout>
   );

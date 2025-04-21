@@ -1,8 +1,8 @@
-import { memo, useCallback } from 'react';
-import { useDispatch, useStore as useStoreRedux } from 'react-redux';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
@@ -13,39 +13,46 @@ import modalsActions from '../../store-redux/modals/actions';
 function Basket() {
   const store = useStore();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { t, lang } = useTranslate();
 
-  const select = useSelector(state => ({
-    list: state.basket.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
+  const { list: basketItems, sum, amount } = useSelector(state => state.basket);
+
+  const [itemsCache, setItemsCache] = useState({});
+
+  const updateItemsCache = useCallback(async () => {
+    const newItems = basketItems.filter(item => !itemsCache[item._id]);
+    if (newItems.length === 0) return;
+
+    const updates = await store.services.api.fetchItemsDetails(newItems);
+    setItemsCache(prev => ({ ...prev, ...updates }));
+  }, [basketItems, itemsCache, store.services.api]);
+
+  useEffect(() => {
+    updateItemsCache();
+  }, [basketItems, lang, updateItemsCache]);
+
+  const resolvedItems = basketItems.map(item => ({
+    ...item,
+    ...(itemsCache[item._id] || {}),
   }));
 
   const callbacks = {
-    // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
-    // Закрытие любой модалки
-    closeModal: useCallback(() => {
-      //store.actions.modals.close();
+    removeFromBasket: useCallback(_id => {
+      store.actions.basket.removeFromBasket(_id);
+      setItemsCache(prev => {
+        const newCache = { ...prev };
+        delete newCache[_id];
+        return newCache;
+      });
+    }, [store.actions.basket]),
+
+    closeModal: useCallback(() => dispatch(modalsActions.close()), [dispatch]),
+    
+    navigateToArticle: useCallback((id) => {
       dispatch(modalsActions.close());
-    }, [store]),
-  };
-
-  const { t } = useTranslate();
-
-  const renders = {
-    itemBasket: useCallback(
-      item => (
-        <ItemBasket
-          item={item}
-          link={`/articles/${item._id}`}
-          onRemove={callbacks.removeFromBasket}
-          onLink={callbacks.closeModal}
-          labelUnit={t('basket.unit')}
-          labelDelete={t('basket.delete')}
-        />
-      ),
-      [callbacks.removeFromBasket, t],
-    ),
+      navigate(`/articles/${id}`);
+    }, [dispatch, navigate]),
   };
 
   return (
@@ -54,8 +61,19 @@ function Basket() {
       labelClose={t('basket.close')}
       onClose={callbacks.closeModal}
     >
-      <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} t={t} />
+      <List
+        list={resolvedItems} 
+        renderItem={item => (
+          <ItemBasket
+            item={item}
+            onRemove={callbacks.removeFromBasket}
+            onNavigate={() => callbacks.navigateToArticle(item._id)}
+            labelUnit={t('basket.unit')}
+            labelDelete={t('basket.delete')}
+          />
+        )}
+      />
+      <BasketTotal sum={sum} t={t} />
     </ModalLayout>
   );
 }

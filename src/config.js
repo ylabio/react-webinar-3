@@ -1,23 +1,29 @@
+import ru from '../src/i18n/translations/ru.json';
+import en from '../src/i18n/translations/en.json';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
  * Настройки сервисов
  */
-const config = {
+export default {
   store: {
-    // Логировать установку состояния?
     log: !isProduction,
-    // Настройки модулей состояния
     modules: {
       session: {
-        // Названия токена в АПИ
         tokenHeader: 'X-Token',
       },
     },
   },
   api: {
-    baseUrl: '',
+    baseUrl: process.env.REACT_APP_API_BASE || '',
+  },
+  i18n: {
+    defaultLang: 'ru',
+    translations: { ru, en },
+    apiLanguageMap: {
+      ru: 'ru-RU',
+      en: 'en-US'
+    }
   },
 };
-
-export default config;

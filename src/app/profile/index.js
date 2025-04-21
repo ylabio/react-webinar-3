@@ -15,6 +15,7 @@ import HeadLayout from '../../components/head-layout';
 function Profile() {
   const store = useStore();
 
+
   useInit(() => {
     store.actions.profile.load();
   }, []);
@@ -24,7 +25,7 @@ function Profile() {
     waiting: state.profile.waiting,
   }));
 
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   return (
     <>
@@ -37,7 +38,7 @@ function Profile() {
       <PageLayout>
         <Navigation />
         <Spinner active={select.waiting}>
-          <ProfileCard data={select.profile} />
+          <ProfileCard data={select.profile} t={t} lang={lang}/>
         </Spinner>
       </PageLayout>
     </>

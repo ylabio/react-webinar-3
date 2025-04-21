@@ -11,6 +11,7 @@ import modalsActions from '../../store-redux/modals/actions';
 function Navigation() {
   const store = useStore();
   const dispatch = useDispatch();
+  const { t, lang } = useTranslate();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -18,13 +19,10 @@ function Navigation() {
   }));
 
   const callbacks = {
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => {
-      //store.actions.modals.open('basket')
       dispatch(modalsActions.open('basket'));
-    }, [store]),
+    }, [dispatch]),
 
-    // Обработка перехода на главную
     onNavigate: useCallback(
       item => {
         if (item.key === 1) store.actions.catalog.resetParams();
@@ -33,12 +31,9 @@ function Navigation() {
     ),
   };
 
-  // Функция для локализации текстов
-  const { t } = useTranslate();
-
-  const options = {
-    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t]),
-  };
+  const options = useMemo(() => ({
+    menu: [{ key: 1, title: t('menu.main'), link: '/' }]
+  }), [t, lang]);
 
   return (
     <SideLayout side="between">
@@ -48,6 +43,7 @@ function Navigation() {
         amount={select.amount}
         sum={select.sum}
         t={t}
+        lang={lang}
       />
     </SideLayout>
   );
