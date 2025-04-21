@@ -1,30 +1,23 @@
-import { forwardRef, useLayoutEffect } from "react";
-import PropTypes from "prop-types";
+import { forwardRef, useLayoutEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const CommentOffset = forwardRef((props, ref) => {
+const CommentOffset = forwardRef((maxOffset, offset, ref, children) => {
   useLayoutEffect(() => {
-    if (!ref) {
-      return;
-    }
-
     ref.current.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-      inline: "start",
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'start',
     });
   }, [ref]);
 
-  const padding =
-    props.offset > props.maxNesting
-      ? `${props.offset * 40}px`
-      : `${(props.offset + 1) * 40}px`;
+  const padding = offset > maxOffset ? `${offset * 40}px` : `${(offset + 1) * 40}px`;
 
   return (
-    <div ref={ref} style={{paddingLeft: padding}}>
-      {props.children}
+    <div ref={ref} style={{ paddingLeft: padding }}>
+      {children}
     </div>
   );
-})
+});
 
 CommentOffset.propTypes = {
   scrollTo: PropTypes.bool,

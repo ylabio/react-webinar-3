@@ -55,7 +55,7 @@ function Comment({
   };
 
   return (
-    <div className={cn()} style={{ paddingLeft: `${offset * 40}px` }} >
+    <div className={cn()} style={{ paddingLeft: `${offset * 40}px` }}>
       <div className={cn('header')}>
         <h3 className={cn('username', { current: existsUserName === name })}>{name}</h3>
         <span className={cn('date')}>{`${dateFromDate.date} ${

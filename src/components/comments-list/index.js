@@ -21,7 +21,7 @@ function CommentsList({
 }) {
   const cn = bem('CommentsList');
   const formRef = useRef(null);
-  const maxNesting = 10;
+  const maxOffset = 10;
   const [offsetForm, setOffsetForm] = useState(0);
 
   return (
@@ -41,12 +41,12 @@ function CommentsList({
                   t={t}
                   existsUserName={existsUserName}
                   offset={comment.offset}
-                  maxNesting={maxNesting}
+                  maxNesting={maxOffset}
                   setOffsetForm={setOffsetForm}
                   setCommentId={setCommentId}
                 />
                 {parent._id === comment._id && (
-                  <CommentOffset ref={formRef} offset={offsetForm} maxNesting={maxNesting}>
+                  <CommentOffset ref={formRef} offset={offsetForm} maxOffset={maxOffset}>
                     {exists && (
                       <CommentForm
                         cancel={true}
