@@ -52,7 +52,7 @@ function Login() {
             location.state?.back && location.state?.back !== location.pathname
               ? location.state?.back
               : '/';
-          navigate(back);
+          navigate(back, {state: {replyTo: location.state?.replyTo}});
         });
       },
       [data, location.state],

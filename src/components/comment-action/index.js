@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 function CommentAction(props) {
   const {
+    id='',
     t = text => text,
     onAdd = () => {},
     setValue = () => {},
@@ -25,10 +26,11 @@ function CommentAction(props) {
     setValue(event.target.value);
   };
 
+
   if (!auth) {
     return (
       <div className={cn({type: 'alert'})}>
-        <Link to={link} state={{back: backLink}}>{t('comment.authHint.link')}</Link>{t('comment.authHint.text')}
+        <Link to={link} state={{back: backLink, replyTo: id}}>{t('comment.authHint.link')}</Link>{t('comment.authHint.text')}
       </div>
     );
   }
@@ -55,6 +57,7 @@ function CommentAction(props) {
 CommentAction.propTypes = {
   onAdd: PropTypes.func,
   t: PropTypes.func,
+  id: PropTypes.string,
   value: PropTypes.string,
   isReply: PropTypes.bool,
   auth: PropTypes.bool,

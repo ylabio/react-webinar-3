@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState, useEffect } from 'react';
 import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -57,6 +57,22 @@ function ArticleComments() {
   const [commentValue, setCommentValue] = useState('');
   const dispatch = useDispatch();
 
+
+  const location = useLocation();
+  const replyTo = location.state?.replyTo;
+
+
+  useEffect(() => {
+    if (replyTo) {
+      const target = document.getElementById(`comment-${replyTo}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // можно ещё подсветить или открыть форму ответа
+      }
+    }
+  }, [replyTo]);
+
+
   const callbacks = {
     addToAnswer: useCallback(id => {
       setCommentValue('')
@@ -72,7 +88,7 @@ function ArticleComments() {
 
   };
 
-  const location = useLocation();
+
 
   const backLink = location.pathname;
 
@@ -91,6 +107,7 @@ function ArticleComments() {
           />
           {addComment === item.value &&
             renders.action({
+              id: item.value,
               isReply: true,
               onAdd: () =>
                 callbacks.addApiToAnswer({
@@ -104,8 +121,9 @@ function ArticleComments() {
       [addComment, commentValue, selectStore, t, callbacks],
     ),
 
-    action: ({ isReply, onAdd, cancel }) => (
+    action: ({ isReply, onAdd, cancel, id }) => (
       <CommentAction
+        id={id}
         t={t}
         auth={selectStore.exists}
         backLink={backLink}

@@ -31,7 +31,7 @@ function CommentItem(props) {
   }, [active, onStartReply, onCancelReply]);
 
   return (
-    <div className={cn()}>
+    <div className={cn()} id={`comment-${comment.value}`}>
       <p className={cn('caption', { my })}>
         <b>{comment.author}</b>{formattedDate}
       </p>
