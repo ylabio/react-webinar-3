@@ -5,6 +5,7 @@ import simplifyErrors from '../../utils/simplify-errors';
  * Сессия
  */
 class SessionState extends StoreModule {
+  
   /**
    * Начальное состояние
    * @return {Object}

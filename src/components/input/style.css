@@ -4,6 +4,18 @@
   border-radius: 4px;
   font-family: var(--font-family);
   height: 40px;
+
+  resize: none;
+  text-align: left;
+  vertical-align: top;
+  box-sizing: border-box;
+
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: 0%;
+  vertical-align: middle;
 }
 
 .Input:focus {
@@ -16,4 +28,18 @@
 
 .Input_theme_small {
   width: 233px;
+}
+
+.Input_theme_commentForm {
+  width: 100%;
+  min-height: 88px;
+  gap: 10px;
+  padding-top: 8px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  border-radius: 4px;
+  border-width: 1px;
+
+  
 }

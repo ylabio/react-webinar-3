@@ -22,5 +22,10 @@
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "product.country": "Manufacturer country",
+  "product.category": "Category",
+  "product.year": "Release year",
+  "product.price": "Price",
+  "product.comments": "Comments"
 }
