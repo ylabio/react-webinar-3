@@ -65,13 +65,11 @@ function ArticleComments() {
       setCommentValue('')
       setAddComment(id)}, []),
     cancelToAnswer: useCallback(() => {
-
-      setAddComment(''),
-        setCommentValue('');
+      setAddComment('');
+      setCommentValue('');
     }, []),
 
     addApiToAnswer: useCallback((parent) => {
-
       dispatch(commentsActions.addComment(parent, commentValue, selectStore.token, () => dispatch(commentsActions.load(select.article._id))));
     }, [parent, commentValue, selectStore.token]),
 

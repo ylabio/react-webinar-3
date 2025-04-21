@@ -8,25 +8,23 @@
  */
 export function formatPrettyDate(dateString, locale = 'ru') {
   const date = new Date(dateString);
-  const yearLiteral = 'г.';
+
+  const incorrectLiteral = 'г. в';
+  const correctLiteral = ' в ';
   const formatter = {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    dateStyle: "long",
+    timeStyle: "short",
   };
 
   const datePart = new Intl.DateTimeFormat(locale, formatter).formatToParts(date);
 
   const customDate = datePart.reduce((dateString, part) => {
     // Пропускаем литерал, если это "г." (обязательно с trim что бы удалить все виды пробелов)
-    if (part.type === 'literal' && part.value.trim() === yearLiteral) {
-      return dateString;
+    if (part.type === 'literal' && part.value.trim() === incorrectLiteral) {
+      return dateString + correctLiteral;
     }
     return dateString + part.value;
   }, '');
 
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-
-  return `${customDate} в ${hours}:${minutes}`;
+  return customDate;
 }

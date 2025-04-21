@@ -36,17 +36,17 @@ function CommentAction(props) {
 
   return (
     <div className={cn()}>
-      <label htmlFor="story">{label}</label>
-      <textarea id="story"
-                name="story"
+      <label htmlFor="comment">{label}</label>
+      <textarea id="comment"
+                name="comment"
                 onChange={onChangeHandler}
                 value={value}/>
       <div className={cn('controls')}>
-        <Button title={t('comment.send')} style={'primary'} onClick={() => {
-          onAdd();
-          cancel();
-        }}/>
-        {isReply && value !== '' && <Button title={t('comment.cancel')} style={'outline'} onClick={cancel}/>}
+        <Button title={t('comment.send')}
+                disabled={!value.trim()}
+                style={'primary'}
+                onClick={() => { onAdd(); cancel(); }}/>
+        {isReply && <Button title={t('comment.cancel')} style={'outline'} onClick={cancel}/>}
       </div>
     </div>
   );

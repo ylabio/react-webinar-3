@@ -28,9 +28,9 @@ export default {
    * @return {Function}
    */
   addComment: (parent, text, token, callback) => {
-
     return async (dispatch, getState, services) => {
       try {
+        if (!text?.trim()) return;
         const res = await services.api.request({
           url: `/api/v1/comments`,
           method: 'POST',
