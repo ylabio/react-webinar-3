@@ -5,14 +5,16 @@ export default class I18n {
     this.api = apiService;
     this.config = config;
     this.lang = this.config.lang;
+    const lang = localStorage.getItem('lang')
+      ? localStorage.getItem('lang')
+      : localStorage.setItem('lang', this.lang);
     this.listeners = new Set();
-    this.api.setHeader('X-lang', this.lang);
+    return this.api.setHeader('X-lang', lang);
   }
 
-  getLang = () => this.lang;
-
+  getLang = () => localStorage.getItem('lang');
   setLang = lang => {
-    if (this.lang === lang) return;
+    localStorage.setItem('lang', lang);
     this.lang = lang;
     // Ставим новый заголовок в API
     this.api.setHeader('X-lang', lang);
@@ -26,7 +28,6 @@ export default class I18n {
   };
 
   translate = (text, number) => {
-    return translates(this.lang, text, number); 
+    return translates(localStorage.getItem('lang'), text, number);
   };
 }
-

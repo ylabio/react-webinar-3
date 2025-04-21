@@ -16,6 +16,9 @@
   font-family: var(--font-family);
   line-height: 18px;
 }
+.Comment-username_current {
+  color: var(--color-exists-user-name);
+}
 
 .Comment-date {
   font-size: 12px;
@@ -31,6 +34,7 @@
   font-family: var(--font-family);
   line-height: 18px;
   font-weight: 400;
+  word-wrap: break-word;
 }
 
 .Comment-action {

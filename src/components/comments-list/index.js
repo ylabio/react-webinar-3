@@ -1,10 +1,11 @@
-import { memo } from 'react';
+import { memo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Comment from '../comment';
 import CommentForm from '../comment-form';
 import CommentLogin from '../comment-login';
+import CommentOffset from '../comment-offset';
 
 function CommentsList({
   comments,
@@ -15,38 +16,60 @@ function CommentsList({
   location,
   resetParent,
   t,
+  existsUserName,
+  setCommentId = () => {},
 }) {
   const cn = bem('CommentsList');
+  const formRef = useRef(null);
+  const maxNesting = 10;
+  const [offsetForm, setOffsetForm] = useState(0);
+
   return (
     <>
       {comments.length > 0 && (
         <ul className={cn()}>
-          {comments.map(comment => (
-            <li key={comment._id} style={{ paddingLeft: `${comment.offset * 40}px` }}>
-              <Comment
-                id={comment._id}
-                dateCreate={comment.dateCreate}
-                name={comment.author.profile.name}
-                text={comment.text}
-                setParent={setParent}
-                t={t}
-              />
-              {parent._id === comment._id && exists && (
-                <CommentForm
-                  cancel={true}
-                  onSubmit={onSubmit}
-                  onCancel={resetParent}
+          {comments.map(comment => {
+            return (
+              <li key={comment._id}>
+                <Comment
+                  comment={comment}
                   id={comment._id}
-                  title={t('comment.newReply')}
-                  placeholder={`${t('comment.placeholderReply')} ${comment.author.profile.name}`}
+                  dateCreate={comment.dateCreate}
+                  name={comment.author.profile.name}
+                  text={comment.text}
+                  setParent={setParent}
                   t={t}
+                  existsUserName={existsUserName}
+                  offset={comment.offset}
+                  maxNesting={maxNesting}
+                  setOffsetForm={setOffsetForm}
+                  setCommentId={setCommentId}
                 />
-              )}
-              {parent._id === comment._id && !exists && (
-                <CommentLogin isShowClose={true} location={location} onCancel={resetParent} t={t} />
-              )}
-            </li>
-          ))}
+                {parent._id === comment._id && (
+                  <CommentOffset ref={formRef} offset={offsetForm} maxNesting={maxNesting}>
+                    {exists && (
+                      <CommentForm
+                        cancel={true}
+                        onSubmit={onSubmit}
+                        onCancel={resetParent}
+                        title={t('comment.newReply')}
+                        placeholder={`${t('comment.placeholderReply')} ${comment.author.profile.name}`}
+                        t={t}
+                      />
+                    )}
+                    {!exists && (
+                      <CommentLogin
+                        isShowClose={true}
+                        location={location}
+                        onCancel={resetParent}
+                        t={t}
+                      />
+                    )}
+                  </CommentOffset>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
     </>

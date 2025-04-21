@@ -1,9 +1,28 @@
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { useEffect, useState } from 'react';
 
-function Comment({ setParent = () => {}, id, dateCreate, name, text, t }) {
+function Comment({
+  setParent = () => {},
+  id,
+  dateCreate,
+  name,
+  text,
+  t,
+  existsUserName,
+  maxNesting,
+  setOffsetForm,
+  comment,
+  setCommentId = () => {},
+}) {
   const cn = bem('Comment');
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const maxOffset = comment.offset > maxNesting ? maxNesting : comment.offset;
+    setOffset(maxOffset);
+  }, [setOffset]);
 
   const date = new Date(dateCreate);
 
@@ -15,16 +34,30 @@ function Comment({ setParent = () => {}, id, dateCreate, name, text, t }) {
     minutes: date.getMinutes(),
   };
 
+  const getLastChild = comment => {
+    if (comment.children && comment.children.length > 0) {
+      const lastChild = comment.children.at(-1);
+      if (lastChild.children && lastChild.children.length > 0) {
+        return getLastChild(lastChild);
+      }
+      return lastChild._id;
+    }
+    return comment._id;
+  };
+
   const callbacks = {
     setParent: () => {
-      setParent(id);
+      const lastChild = getLastChild(comment);
+      setParent(lastChild);
+      setOffsetForm(offset);
+      setCommentId(id);
     },
   };
 
   return (
-    <div className={cn()}>
+    <div className={cn()} style={{ paddingLeft: `${offset * 40}px` }} >
       <div className={cn('header')}>
-        <h3 className={cn('username')}>{name}</h3>
+        <h3 className={cn('username', { current: existsUserName === name })}>{name}</h3>
         <span className={cn('date')}>{`${dateFromDate.date} ${
           dateFromDate.month
         } ${dateFromDate.year} ${t('comment.at')} ${dateFromDate.hours}:${

@@ -8,7 +8,6 @@ function CommentForm({
   onSubmit = () => {},
   cancel,
   title,
-  id,
   onCancel = () => {},
   placeholder,
   t,
@@ -23,7 +22,7 @@ function CommentForm({
       if (!text.trim()) {
         return;
       }
-      onSubmit(text, id);
+      onSubmit(text);
       setText('');
       onCancel();
     },

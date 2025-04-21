@@ -14,10 +14,12 @@ import { useLocation } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 
 function Comments({ articleId }) {
+  const [commentId, setCommentId] = useState(articleId);
   const dispatch = useDispatchRedux();
   const location = useLocation();
   const { t } = useTranslate();
   const exists = useSelector(state => state.session.exists);
+  const existsUserName = useSelector(state => state.session.user.profile?.name);
   const select = useSelectorRedux(state => ({
     waiting: state.comments.waiting,
     comments: state.comments.comments,
@@ -30,8 +32,8 @@ function Comments({ articleId }) {
   });
 
   const callbacks = {
-    onSubmit: (text, commentId) => dispatch(commentsActions.addComment(text, commentId, articleId)),
-
+    onSubmit: text => dispatch(commentsActions.addComment(text, commentId, articleId)),
+    // onSubmit: text => console.log(text, idComment, articleId),
     onSetParent: useCallback(
       _id => {
         setParent({ _id, _type: 'comment' });
@@ -56,6 +58,7 @@ function Comments({ articleId }) {
         dateCreate: comment.dateCreate,
         parent: comment.parent,
         offset: level - 1,
+        children: comment.children,
       })).slice(1),
     [select.comments],
   );
@@ -64,8 +67,10 @@ function Comments({ articleId }) {
     <CommentsLayout count={select.count} t={t}>
       <Spinner active={select.waiting}>
         <CommentsList
+          setCommentId={setCommentId}
           comments={commentsFormat}
           exists={exists}
+          existsUserName={existsUserName}
           onSubmit={callbacks.onSubmit}
           setParent={callbacks.onSetParent}
           parent={parent}
