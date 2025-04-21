@@ -9,8 +9,14 @@ function AuthHint() {
   const handleLoginRedirect = () => navigate('/login');
 
   return (
-    <p style={{ cursor: 'pointer', color: 'var(--primary)' }} onClick={handleLoginRedirect}>
-      {t('authHint.message')}
+    <p>
+      <span
+        onClick={handleLoginRedirect}
+        style={{ cursor: 'pointer', color: 'var(--primary)' }}
+      >
+        {t('authHint.login')}
+      </span>{', '}
+      {t('authHint.continue')}
     </p>
   );
 }

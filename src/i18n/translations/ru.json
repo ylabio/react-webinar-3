@@ -36,5 +36,6 @@
   "comments.title": "Комментарии",
   "comments.loading": "Загрузка комментариев...",
   "comments.reply": "Ответить",
-  "authHint.message": "Войдите, чтобы иметь возможность комментировать"
+  "authHint.login": "Войти",
+  "authHint.continue": "чтобы иметь возможность комментировать"
 }

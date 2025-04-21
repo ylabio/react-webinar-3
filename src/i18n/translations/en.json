@@ -34,5 +34,6 @@
   "comments.title": "Comments",
   "comments.loading": "Loading comments...",
   "comments.reply": "Reply",
-  "authHint.message": "Sign in to leave a comment"
+  "authHint.login": "Sign in",
+  "authHint.continue": "to leave a comment"
 }
