@@ -1,54 +1,33 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { formatDate } from '../../utils/formatDate';
 import PropTypes from 'prop-types';
-import CommentForm from '../comment-form';
-import PleaseLogin from '../please-login';
 function CommentItem({
-  onSubmit = () => {},
   t = () => {},
-  isExist,
   userName,
   isActive,
   date,
   description,
-  level,
   clickToAnswer = () => {},
-  onCloseForm = () => {},
+  currentUser,
 }) {
-  let commentContent = isExist ? (
-    <CommentForm
-      t={t}
-      action={onSubmit}
-      onCancel={onCloseForm}
-      cancel={true}
-      title={t('article.newreply')}
-      placeholder={`${t('article.placeholder')} ${userName}`}
-    />
-  ) : (
-    <PleaseLogin text={'чтобы иметь возможность комментировать'} />
-  );
   const cn = bem('Comment');
   const formatedDate = formatDate(date);
   return (
     <>
-      <div className={cn()} style={{ marginLeft: 1 * level }}>
-        <div className={cn('info')}>
+      <div className={cn()} >
+        <div className={currentUser ?cn('info-current') :  cn('info') }>
           <p>
             {userName} <span className={cn('date')}>{formatedDate}</span>
           </p>
         </div>
         <div className={cn('text')}>{description}</div>
         <div>
-          {!isActive ? (
+          {!isActive &&
             <div className={cn('actions')}>
-              {' '}
               <button onClick={clickToAnswer}>{t('article.reply')}</button>
-            </div>
-          ) : (
-            <div className={cn('form')}>{commentContent}</div>
-          )}
+            </div>}
         </div>
       </div>
     </>

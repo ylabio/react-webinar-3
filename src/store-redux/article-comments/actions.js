@@ -30,7 +30,8 @@ export default {
             parent: { _id: id, _type: type },
           }),
         });
-        dispatch({ type: 'article-comments/post-comment-end' });
+        console.log(res)
+        dispatch({ type: 'article-comments/post-comment-end', payload: {answ: res.data.result} });
       } catch (e) {
         console.log(e);
         dispatch({ type: 'article-comments/post-comment-error' , payload:{data: e.message}});

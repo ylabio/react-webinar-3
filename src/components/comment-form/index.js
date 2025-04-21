@@ -21,7 +21,7 @@ function CommentForm({
         <h3>{title}</h3>
         {children}
         <div className={cn('area')}>
-          <textarea name="text" id="text" placeholder={placeholder} />
+          <textarea name="text" id="text" >{placeholder}</textarea>
         </div>
         <div className={cn('actions')}>
           <Button type="submit" style={'primary'} title={t('article.send')} />

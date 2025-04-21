@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CommentItem from '../comment-item';
 import { cn as bem } from '@bem-react/classname';
@@ -6,63 +6,101 @@ import './style.css';
 import CommentForm from '../comment-form';
 import PleaseLogin from '../please-login';
 import { useParams } from 'react-router-dom';
-function CommentsList({ t = () => {}, onSubmit = () => {}, comments, isExist }) {
+
+function CommentsList({ t = () => {}, onSubmit = () => {}, comments, isExist, currentUser,commentsLength }) {
   const cn = bem('CommentsList');
   const [answerTo, setAnswerTo] = useState(null);
-  const handleCloseForm = () => {
-    setAnswerTo(null);
-  };
   const params = useParams();
-  let commentContent = isExist ? (
-    <CommentForm action={(e, id) => onSubmit(e, params.id)} title={t('article.newcomment')} t={t} />
-  ) : (
-    <PleaseLogin text={'чтобы иметь возможность комментировать'} />
-  );
-  return (
-    <>
-      <div className="Comments">
-        <h2>
-          {t('article.comments')} {`(${comments ? comments.length : 0})`}{' '}
-        </h2>
-        <ul className={cn()}>
-          {comments &&
-            comments.map(comment => (
-              <li className={cn('item')} key={comment.value}>
-                <CommentItem
-                  level={comment.level}
-                  clickToAnswer={() =>
-                    setAnswerTo(prev => (prev === comment.value ? null : comment.value))
-                  }
-                  isActive={answerTo === comment.value}
-                  userName={comment.author}
-                  date={comment.date}
-                  description={comment.text}
-                  onCloseForm={handleCloseForm}
-                  isExist={isExist}
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    if (answerTo && formRef.current) {
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 100);
+    }
+  }, [answerTo]);
+
+  const renderCommentNode = (comment, level = 0) => {
+    const marginLeft = level <= 5 ? level * 40 : 5 * 40;
+
+    return (
+      <div key={comment._id}>
+        <div style={{ marginLeft }}>
+          <CommentItem
+            level={level}
+            clickToAnswer={() => setAnswerTo(comment._id)}
+            isActive={answerTo === comment._id}
+            userName={comment.author._id}
+            date={comment.dateCreate}
+            description={comment.text}
+            onCloseForm={() => setAnswerTo(null)}
+            isExist={isExist}
+            t={t}
+            onSubmit={e => onSubmit(e, comment._id, 'comment')}
+            currentUser={currentUser === comment.author._id}
+          />
+        </div>
+
+        {comment.children?.map(child => renderCommentNode(child, level + 1))}
+
+        {answerTo === comment._id && (
+          <div ref={answerTo === comment._id ? formRef : null} style={{ marginLeft: marginLeft + 40, marginTop: 24 }}>
+            {isExist ? (
+              <div>
+                <CommentForm
+                  action={e => onSubmit(e, comment._id, 'comment')}
+                  onCancel={() => setAnswerTo(null)}
+                  title={t('article.newreply')}
                   t={t}
-                  onSubmit={(e, id, type) => onSubmit(e, comment.value, comment.parent)}
+                  cancel={true}
+                  placeholder={`${t('article.placeholder')} ${comment.author._id}`}
                 />
-              </li>
-            ))}
-        </ul>
+              </div>
+            ) : (
+              <PleaseLogin text={t('article.login_to_comment')} />
+            )}
+          </div>
+        )}
       </div>
-      {answerTo === null ? commentContent : null}
-    </>
+    );
+  };
+
+  const mainCommentContent = isExist ? (
+    <div className={cn('form')}>
+      <CommentForm action={e => onSubmit(e, params.id)} title={t('article.newcomment')} t={t} />
+    </div>
+  ) : (
+    <PleaseLogin text={t('article.login_to_comment')} />
+  );
+
+  return (
+    <div>
+      <h2>
+        {t('article.comments')} {`(${commentsLength || 0})`}
+      </h2>
+      <div className={cn()}>{comments?.map(comment => renderCommentNode(comment, 0))}</div>
+      {!answerTo && mainCommentContent}
+    </div>
   );
 }
+
 CommentsList.propTypes = {
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      level: PropTypes.number,
+      _id: PropTypes.string,
       text: PropTypes.string,
-      date: PropTypes.string,
-      author: PropTypes.string,
-      parent: PropTypes.string,
+      parent: PropTypes.object,
+      dateCreate: PropTypes.string,
+      author: PropTypes.object,
     }),
   ),
   isExist: PropTypes.bool,
   onSubmit: PropTypes.func,
+  currentUser: PropTypes.string,
 };
 
 export default memo(CommentsList);

@@ -20,24 +20,18 @@ function ArticleComments() {
   const selectSession = useSelector(state => ({
     exists: state.session.exists,
     waiting: state.session.waiting,
+    user: state.session.user._id,
   }));
 
   const options = {
     comments: useMemo(() => {
       if (select.comments.items !== undefined) {
-        return [
-          ...treeToList(listToTree(select.comments.items), (item, level) => ({
-            value: item._id,
-            level: level * 40,
-            text: item.text,
-            date: item.dateCreate,
-            author: item.author._type,
-            parent: item.parent._type,
-          })),
-        ];
+        return listToTree(select.comments.items || []);
       }
     }, [select.comments]),
   };
+
+  console.log(options.comments, select.comments);
 
   const callbacks = {
     onSubmit: useCallback((e, id, type) => {
@@ -45,8 +39,11 @@ function ArticleComments() {
       const form = e.currentTarget;
       const formData = new FormData(form);
       const text = formData.get('text');
+      if(text.trim() === ''){
+        return
+      }
       dispatch(commentsArticle.post(id, type, text));
-      navigate(0);
+      // navigate(0);
     }, []),
   };
   return (
@@ -57,6 +54,8 @@ function ArticleComments() {
           onSubmit={callbacks.onSubmit}
           isExist={selectSession.exists}
           comments={options.comments}
+          currentUser={selectSession.user}
+          commentsLength={select.comments.items?.length}
         />
       </Spinner>
     </>

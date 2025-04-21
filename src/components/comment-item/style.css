@@ -3,12 +3,20 @@
     font-size: 14px;
     font-family: var(--font-family);
     margin-bottom: 16px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
 }
 
 .Comment-info{
     font-size: 12px;
     font-weight: 700;
+    
 
+}
+.Comment-info-current{
+    font-size: 12px;
+    font-weight: 700;
+    color: #4B5563;
 }
 
 .Comment-date{
@@ -22,6 +30,18 @@
     font-size: 12px;
 }
 
-.Comment-form{
-    margin-top:  24px;
+
+
+.Comment-text{
+    text-align: left;
+    word-break: break-all;
+    line-height: 20px;
+    font-size: 14px;
 }
+  
+
+  .Comment__children {
+    margin-left: 30px;
+    border-left: 2px solid #e9ecef;
+    padding-left: 15px;
+  }
