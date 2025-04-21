@@ -84,6 +84,7 @@ function Comments() {
       [selectRedux.comments],
     ),
   };
+console.log(options.comments);
 
   return (
     <CommentLayout count={selectRedux.count} title={t('comment.title')}>
@@ -109,6 +110,8 @@ function Comments() {
                 addForm={callbacks.addForm}
                 sendComment={callbacks.sendComment}
                 currentCommentId={selectRedux.currentCommentId}
+                nameFromSession={select.name}
+                t={t}
               />
             ),
         )}
@@ -121,6 +124,7 @@ function Comments() {
           sendComment={callbacks.sendComment}
           type="article"
           exists={select.exists}
+          t={t}
         />
       )}
     </CommentLayout>

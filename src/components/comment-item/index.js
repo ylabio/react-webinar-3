@@ -2,12 +2,10 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import FormComment from '../comment-form';
-import useTranslate from '../../hooks/use-translate';
 import './style.css';
 
 function ItemComment(props) {
   const cn = bem('ItemComment');
-  const { t } = useTranslate();
 
   const computedLevel = useMemo(() => {
     if (props.level > 10) return 10;
@@ -34,7 +32,13 @@ function ItemComment(props) {
   return (
     <div className={cn() + ' ' + cn(`level-${computedLevel}`)}>
       <div className={cn('header')}>
-        <div className={cn('user')}>{props.name}</div>
+        <div
+          className={
+            props.nameFromSession === props.name ? `${cn('user')} ${cn('autho')}` : cn('user')
+          }
+        >
+          {props.name}
+        </div>
         <div className={cn('datetime')}> {correctDatetime}</div>
       </div>
       <div className={cn('text')}>{props.text}</div>
@@ -44,13 +48,14 @@ function ItemComment(props) {
       {props.formAnswerIsActive && props.index1 === props.index2 && (
         <FormComment
           mode="answer"
-          title={t('comment.newAnswer')}
+          title={props.t('comment.newAnswer')}
           sendComment={props.sendComment}
           exists={props.exists}
           type="comment"
           setFormCommentIsActive={props.setFormCommentIsActive}
           currentCommentId={props.currentCommentId}
           level={props.level}
+          t={props.t}
         />
       )}
     </div>

@@ -56,6 +56,10 @@
   font-size: 12px;
 }
 
+.ItemComment-autho {
+  color: rgba(75, 85, 99, 1);
+}
+
 .ItemComment-datetime {
   font-size: 12px;
   color: #666666;

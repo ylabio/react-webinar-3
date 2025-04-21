@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import useTranslate from '../../hooks/use-translate';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 import Button from '../button';
@@ -15,9 +14,9 @@ function FormComment({
   exists,
   setFormCommentIsActive = () => {},
   currentCommentId,
+  t
 }) {
   const cn = bem('FormComment');
-  const { t } = useTranslate();
   const navigate = useNavigate();
   const [text, setText] = useState('');
   const formRef = useRef(null);

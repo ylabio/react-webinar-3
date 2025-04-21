@@ -2,7 +2,7 @@ import * as translations from './translations';
 
 class i18nService {
   constructor() {
-    this.lang = 'ru';
+    this.lang = localStorage.getItem('lang') || 'ru';
     this.listeners = new Set();
   }
 
@@ -10,6 +10,7 @@ class i18nService {
   setLang(lang) {
     if (this.lang !== lang) {
       this.lang = lang;
+      localStorage.setItem('lang', lang);
       this.sentNotify(lang);
     }
   }
