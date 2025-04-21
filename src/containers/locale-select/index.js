@@ -1,11 +1,14 @@
 import { memo, useCallback, useMemo } from 'react';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import Select from '../../components/select';
+import useServices from '../../hooks/use-services';
 
 function LocaleSelect() {
-  const { lang, setLang } = useTranslate();
+  const { I18n } = useServices();
+
+  const handleLanguageChange = (newLang) => {
+    I18n.setLang(newLang);
+  }
 
   const options = {
     lang: useMemo(
@@ -17,7 +20,7 @@ function LocaleSelect() {
     ),
   };
 
-  return <Select onChange={setLang} value={lang} options={options.lang} size="small" text />;
+  return <Select onChange={handleLanguageChange} value={options.lang.value} options={options.lang} size="small" text />;
 }
 
 export default memo(LocaleSelect);

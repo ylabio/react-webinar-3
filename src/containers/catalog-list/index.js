@@ -39,7 +39,7 @@ function CatalogList() {
     ),
   };
 
-  const { t } = useTranslate();
+  const t = useTranslate();
 
   const renders = {
     item: useCallback(

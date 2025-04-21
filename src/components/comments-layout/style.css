@@ -1,0 +1,10 @@
+.Comments-layout{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.Comments-layout-title{
+    font-family: var(--second-font-family);
+    margin-top: 16px;
+}

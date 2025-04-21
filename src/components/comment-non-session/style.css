@@ -1,0 +1,7 @@
+.Comment-non-session{
+    margin-block: 18px;
+}
+
+.Comment-non-session-link{
+    color: var(--primary);
+}
