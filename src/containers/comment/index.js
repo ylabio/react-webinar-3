@@ -84,7 +84,6 @@ function Comments() {
       [selectRedux.comments],
     ),
   };
-console.log(options.comments);
 
   return (
     <CommentLayout count={selectRedux.count} title={t('comment.title')}>
