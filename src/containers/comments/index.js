@@ -15,6 +15,7 @@ import CommentsForm from '../../components/comments-form';
 import CommentsPrompt from '../../components/login-prompt';
 import formatDate from '../../utils/date-format';
 import findLastChild from '../../utils/findLastChild';
+import findInsertPosition from '../../utils/findInsertPosition';
 
 function Comments({}) {
   const { t } = useTranslate();
@@ -114,6 +115,7 @@ function Comments({}) {
       () => [
         ...treeToList(listToTree(selectRedux.commentsList), (item, level) => ({
           id: item._id,
+          level: level,
           padding: level >= 8 ? 40 * 8 : 40 * level,
           author: item.author?.profile?.name,
           date: item.dateCreate,
@@ -132,6 +134,10 @@ function Comments({}) {
     }, [selectRedux.commentsList, activeReplyId]),
   };
 
+  const insertPost = useMemo(() => {
+    return findInsertPosition(activeReplyId, options.lastChild, options.comments);
+  }, [options.lastChild, activeReplyId, options.comments]);
+
   return (
     <CommentsContainer t={t} count={options.comments.length}>
       <Spinner active={selectRedux.waiting}>
@@ -142,17 +148,19 @@ function Comments({}) {
             marginTop: indx === 0 ? '24px' : 0,
           };
           return (
-            <div key={comment.id} style={{ ...style }}>
-              <ItemComment
-                padding={comment.padding}
-                author={comment.author}
-                date={formatDate(comment.date)}
-                text={comment.text}
-                titleBtn={t('comments.answer')}
-                onClick={() => callbacks.onAnswer(comment)}
-              />
+            <div key={comment.id}>
+              <div style={{ ...style }}>
+                <ItemComment
+                  padding={comment.padding}
+                  author={comment.author}
+                  date={formatDate(comment.date)}
+                  text={comment.text}
+                  titleBtn={t('comments.answer')}
+                  onClick={() => callbacks.onAnswer(comment)}
+                />
+              </div>
               {select.exists && options.lastChild?._id === comment.id && (
-                <div ref={formRef}>
+                <div ref={formRef} style={{ marginLeft: `${insertPost.level * 40}px` }}>
                   <CommentsForm
                     onSubmit={callbacks.onSubmit}
                     style="small"
@@ -166,11 +174,13 @@ function Comments({}) {
                 </div>
               )}
               {!select.exists && activeReplyId === comment.id && (
-                <CommentsPrompt
-                  back={back}
-                  subLink={t('comments.singIn')}
-                  subDesc={t('comments.singIn-desc')}
-                />
+                <div style={{ marginLeft: `${insertPost.level * 40}px` }}>
+                  <CommentsPrompt
+                    back={back}
+                    subLink={t('comments.singIn')}
+                    subDesc={t('comments.singIn-desc')}
+                  />
+                </div>
               )}
             </div>
           );
