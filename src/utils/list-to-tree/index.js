@@ -2,9 +2,11 @@
  * Преобразование списка в иерархию
  * @param list {Array} Список объектов с отношением на родителя
  * @param [key] {String} Свойство с первичным ключом
+ * @param [parentTypeKey] {String} Свойство с типом родителя
+ * @param [parentType] {String} Тип родителя
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(list, key = '_id', parentTypeKey = '_type', parentType = 'comment') {
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -19,7 +21,7 @@ export default function listToTree(list, key = '_id') {
     }
 
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key]) {
+    if (item.parent?.[key] && item.parent?.[parentTypeKey] === parentType) {
       // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
       if (!trees[item.parent[key]]) {
         trees[item.parent[key]] = { children: [] };
