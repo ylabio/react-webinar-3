@@ -1,4 +1,4 @@
-import { memo, useMemo, useCallback, useState, useRef, useEffect } from 'react';
+import { memo, useMemo, useCallback, useState, useEffect } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import Spinner from '../../components/spinner';
 import Comment from '../../components/comment';
@@ -10,14 +10,14 @@ import Form from '../../components/form';
 import CommentsLayout from '../../components/comments-layout';
 import commentsActions from '../../store-redux/comments/actions';
 import InputWrapper from '../input-wrapper';
+import useSelector from '../../hooks/use-selector';
+import CommentWithForm from '../comment-with-form';
 
 function CommentList() {
 
   const dispatch = useDispatch();
 
   const [text, setText] = useState('');
-
-  const lastCommentRef = useRef(null);
 
   const select = useSelectorRedux(
     state => ({
@@ -26,28 +26,16 @@ function CommentList() {
       waitingComments: state.comments.waiting,
       article: state.article,
       activeCommentId: state.comments.activeCommentId,
-      lastCommentId: state.comments.lastCommentId,
     }),
     shallowequal,
   );
 
   useEffect(() => {
-    if (lastCommentRef.current) {
-      lastCommentRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [select.lastCommentId]);
+    dispatch(commentsActions.resetActiveComment());
+  }, []);
+  
 
   const callbacks = {
-    // Установка айди активного комментария
-    setActiveComment: useCallback(
-      id => dispatch(commentsActions.setActiveComment(id)),
-    [select.activeCommentId]),
-    //Сброс активного комментария
-    resetActiveComment: useCallback(() => {
-      dispatch(commentsActions.resetActiveComment());
-      setText('');
-    }, [select.activeCommentId]),
-
     // Колбэк на ввод в элементах формы
     onChange: useCallback((newText) => {
       setText(newText);
@@ -57,10 +45,9 @@ function CommentList() {
     onSubmit: useCallback(
       (e, id, type) => {
         e.preventDefault();
-        dispatch(commentsActions.sendComment(text, id, type));
-        setText('');
-        if (type === 'comment') {
-          dispatch(commentsActions.resetActiveComment());
+        if(text.trim().length !== 0) {
+          dispatch(commentsActions.sendComment(text.trim(), id, type));
+          setText('');
         }
       },
       [text],
@@ -72,6 +59,7 @@ function CommentList() {
     return commentsFormat(select.article.data._id, select.comments);
   }, [select.article, select.comments]);
 
+
   const { t } = useTranslate();
 
   return (
@@ -80,32 +68,12 @@ function CommentList() {
       <h2>{t('comments.title')} ({select.count})</h2>
       <Spinner active={select.waitingComments}>
         {commentList.map((item) => {
-          const padding = item.level * 40;
           return (
-            <div
-              key={item._id}
-              style={{ paddingLeft: `${padding}px`}}
-              ref={item._id === select.lastCommentId ? lastCommentRef : null}
-            >
-              <Comment
+              <CommentWithForm
                 item={item}
-                onClick={callbacks.setActiveComment}
-                buttonTitle={t('comments.answer')}
+                level={0}
+                key={item._id}
               />
-                {select.activeCommentId === item._id &&
-                  <InputWrapper>
-                    <Form
-                      title={t('comments.newAnswer')}
-                      submitTitle={t('comments.submit')}
-                      onCancel={callbacks.resetActiveComment}
-                      onSubmit={(e) => callbacks.onSubmit(e, item._id, 'comment')}
-                      cancelTitle={t('comments.cancel')}
-                    >
-                    <CommentInput onChange={callbacks.onChange} value={text} padding={padding}/>
-                    </Form>
-                  </InputWrapper>
-                }
-            </div>
           )
         })}
       </Spinner>
@@ -116,6 +84,7 @@ function CommentList() {
             title={t('comments.newComment')}
             submitTitle={t('comments.submit')}
             onSubmit={(e) => callbacks.onSubmit(e, select.article.data._id)}
+            titleType='small'
           >
             <CommentInput onChange={callbacks.onChange} value={text}/>
           </Form>

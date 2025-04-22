@@ -46,6 +46,7 @@ function Login() {
       e => {
         e.preventDefault();
         store.actions.session.signIn(data, () => {
+          console.log(location.state);
           // Возврат на страницу, с которой пришли
           const back =
             location.state?.back && location.state?.back !== location.pathname

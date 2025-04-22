@@ -14,10 +14,12 @@ import SideLayout from '../../components/side-layout';
 import CommentsLayout from '../../components/comments-layout';
 import useSelector from '../../hooks/use-selector';
 import commentsActions from '../../store-redux/comments/actions';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CommentLoginMessage from '../../components/comment-login-message';
 
 function InputWrapper({ children }) {
+
+  const location = useLocation();
 
   const select = {...useSelectorRedux(
     state => ({
@@ -32,13 +34,13 @@ function InputWrapper({ children }) {
   };
 
   if (!select.exists && !select.waiting) {
-    return <CommentLoginMessage />
+    return <CommentLoginMessage back={location.pathname} />
   } 
   
   if (!select.exists || select.waiting){
     return <div>Подождите</div>
   } else {
-    return <div style={{marginTop: '24px'}}>{children}</div>
+    return <div style={{marginTop: '8px'}}>{children}</div>
   }
 }
 

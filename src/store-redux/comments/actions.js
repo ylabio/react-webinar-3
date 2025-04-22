@@ -37,13 +37,11 @@ export default {
 
   sendComment: (text, id, type='article') => {
     return async (dispatch, getState, services) => {
-      const token = services.store.state.session.token;
       dispatch({ type: 'comments/send-start' });
       try {
         const res = await services.api.request({
           url: `/api/v1/comments/?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted`,
           method: 'POST',
-          headers: { 'X-Token': token },
           body: JSON.stringify({"text": text, "parent": { "_id": id, "_type": type }}),
         });
         // Комментарий отправлен успешно

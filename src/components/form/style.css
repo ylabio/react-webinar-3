@@ -1,4 +1,4 @@
-.Form-title {
+.Form-title_titleType_normal {
   margin-bottom: 24px;
 }
 
@@ -9,4 +9,9 @@
 .Form-actions {
   display: flex;
   gap: 16px;
+}
+
+.Form-title_titleType_small {
+  font-size: 16px;
+  margin-bottom: 16px;
 }

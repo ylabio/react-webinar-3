@@ -5,7 +5,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function CommentInput(props) {
-  const { onChange = () => {}, type = 'text', padding = 0 } = props;
+  const { onChange = () => {}, type = 'text' } = props;
 
   // Обработчик изменений в поле
   const onChangeHandler = event => {
@@ -21,7 +21,7 @@ function CommentInput(props) {
       type={type}
       placeholder={props.placeholder}
       onChange={onChangeHandler}
-      style={{ width: `calc(100% + ${padding}px)`, maxWidth: `calc(1152px - ${padding}px`}}
+      required
     />
   );
 }
@@ -29,7 +29,6 @@ function CommentInput(props) {
 CommentInput.PropTypes = {
   onChange: PropTypes.func,
   type: PropTypes.string,
-  padding: PropTypes.number,
 }
 
 

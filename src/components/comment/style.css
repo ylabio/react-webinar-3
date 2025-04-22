@@ -10,6 +10,7 @@
 .Comment-info {
   display: flex;
   gap: 12px;
+  align-items: flex-end;
 }
 
 .Comment-profile {
@@ -31,10 +32,16 @@
   font-size: 14px;
 }
 
+.Comment-profile_isAuthor {
+  color: #4B5563;
+}
+
 .Comment-button {
   padding: 0;
   border: none;
   color: var(--primary);
+  font-size: 12px;
+  line-height: 18px;
 
   &:hover {
     color: var(--main-text);
