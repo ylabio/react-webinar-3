@@ -5,14 +5,13 @@ import { useLocation } from 'react-router-dom';
 import commentsActions from '../../store-redux/comments/actions';
 import shallowequal from 'shallowequal';
 import useSelectorStore from '../../hooks/use-selector';
-import listToTree from '../../utils/list-to-tree';
-import treeToList from '../../utils/tree-to-list';
 import CommentAction from '../../components/comment-action';
 import LadderList from '../../components/ladder-list';
 import CommentsLayout from '../../components/comments-layout';
 import CommentItem from '../../components/comment-item';
 import Spinner from '../../components/spinner';
 import useLocale from '../../hooks/use-locale';
+import { listFromFlat } from '../../utils/list-from-flat/list-from-flat';
 
 function ArticleComments() {
 
@@ -24,6 +23,7 @@ function ArticleComments() {
       comments: state.comments.data,
       commentsCount: state.comments.count,
       commentsWaiting: state.comments.waiting,
+/*      commentsReplyTarget: state.comments.replyTarget,*/
     }),
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
@@ -34,37 +34,39 @@ function ArticleComments() {
     exists: state.session.exists,
   }));
 
-  const options = listToTree(select.comments || []);
-
-  const test = options?.[0]?.children || [];
-
   const comments = useMemo(
-    () => [
-      ...treeToList(test, (item, level) => ({
-        value: item._id,
-        level: level,
-        text: item.text,
-        author: item.author?.profile?.name,
-        authorId: item.author?._id,
-        dateCreate: item.dateCreate,
-        parent: item.parent,
-      })),
-    ],
-    [select.comments],
+    () => listFromFlat(select.comments || []),
+    [select.comments]
   );
 
-  const [addComment, setAddComment] = useState('');
+  const [addComment, setAddComment] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const dispatch = useDispatch();
 
 
   const location = useLocation();
   const replyTo = location.state?.replyTo;
+  console.log("location.replyTo", replyTo)
+
+
+  useEffect(() => {
+    // Автоскролл до формы ответа, если она появилась
+    const target = document.getElementById('reply');
+
+    console.log("location.target", target)
+
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [select.comments]); // каждый раз, когда список комментариев меняется
 
 
   useEffect(() => {
     if (replyTo) {
       const target = document.getElementById(`comment-${replyTo}`);
+
+
+      console.log("location.target", target)
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         // можно ещё подсветить или открыть форму ответа
@@ -73,19 +75,26 @@ function ArticleComments() {
   }, [replyTo]);
 
 
+
+
+
   const callbacks = {
-    addToAnswer: useCallback(id => {
-      setCommentValue('')
-      setAddComment(id)}, []),
+    addToAnswer: useCallback(comment => {
+      setAddComment(true)
+      setCommentValue(`Мой ответ для ${comment.author} `)
+      dispatch(commentsActions.setReplyTarget2(comment, selectStore.user))
+    }, []),
+
     cancelToAnswer: useCallback(() => {
-      setAddComment('');
+      setAddComment(false)
       setCommentValue('');
+      dispatch(commentsActions.removeReplyPlaceholder())
+
     }, []),
 
     addApiToAnswer: useCallback((parent) => {
       dispatch(commentsActions.addComment(parent, commentValue, () => dispatch(commentsActions.load(select.article._id))));
     }, [parent, commentValue]),
-
   };
 
 
@@ -96,24 +105,21 @@ function ArticleComments() {
     item: useCallback(
       item => (
         <>
-          <CommentItem
+          {item.value !== 'reply' && <CommentItem
             active={addComment === item.value}
             comment={item}
             my={selectStore.user._id === item.authorId}
-            onStartReply={() => callbacks.addToAnswer(item.value)}
+            onStartReply={() => callbacks.addToAnswer(item)}
             onCancelReply={() => callbacks.cancelToAnswer()}
             t={t}
             locale={locale}
-          />
-          {addComment === item.value &&
+          />}
+          {item.value === 'reply' &&
             renders.action({
-              id: item.value,
+              id: item.parent._id,
               isReply: true,
               onAdd: () =>
-                callbacks.addApiToAnswer({
-                  _id: item.value,
-                  _type: 'comment',
-                }),
+                callbacks.addApiToAnswer(item.parent),
               cancel: callbacks.cancelToAnswer,
             })}
         </>
@@ -140,7 +146,7 @@ function ArticleComments() {
   return (
     <Spinner active={select.waiting}>    <CommentsLayout title={`${t('comment.title')} (${select.commentsCount})`}>
       {comments && <LadderList list={comments} renderItem={renders.item}/>}
-      {addComment === '' && renders.action({
+      {!addComment && renders.action({
         isReply: false,
         onAdd: () =>
           callbacks.addApiToAnswer({

@@ -29,7 +29,7 @@ function CommentAction(props) {
 
   if (!auth) {
     return (
-      <div className={cn({type: 'alert'})}>
+      <div {...(isReply ? { id: 'reply' } : {})} className={cn({type: 'alert'})}>
         <Link to={link} state={{back: backLink, replyTo: id}}>{t('comment.authHint.link')}</Link>{t('comment.authHint.text')}
       </div>
     );
@@ -37,7 +37,7 @@ function CommentAction(props) {
 
 
   return (
-    <div className={cn()}>
+    <div {...(isReply ? { id: 'reply' } : {})} className={cn(isReply ? { type: 'reply' } : {})}>
       <label htmlFor="comment">{label}</label>
       <textarea id="comment"
                 name="comment"

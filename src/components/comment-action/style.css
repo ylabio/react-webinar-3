@@ -1,5 +1,5 @@
 .CommentAction {
-  padding-top: 24px;
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -46,6 +46,11 @@
 }
 
 .CommentAction_type_alert {
+  padding: 8px 0;
   flex-direction: row;
   gap: 0;
+}
+
+.CommentAction_type_reply {
+  padding: 8px 0;
 }
