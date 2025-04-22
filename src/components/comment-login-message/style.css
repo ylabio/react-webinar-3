@@ -1,0 +1,12 @@
+.Login-message {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.Login-link {
+  color: var(--primary);
+  &:hover {
+    color: var(--main-text);
+  }
+}

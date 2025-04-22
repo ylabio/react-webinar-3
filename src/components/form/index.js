@@ -4,14 +4,19 @@ import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
 
-function Form({ title, onSubmit, children, submitTitle }) {
+function Form({ title, onSubmit, children, submitTitle, onCancel, cancelTitle, type }) {
   const cn = bem('Form');
 
   return (
-    <form className={cn()} onSubmit={onSubmit}>
+    <form className={cn({ type })} onSubmit={onSubmit}>
       <h2 className={cn('title')}>{title}</h2>
       {children}
-      <Button style="primary" type="submit" title={submitTitle} />
+      <div className={cn('actions')}>
+        <Button style="primary" type="submit" title={submitTitle} />
+          {onCancel &&
+        <Button style="outline" type="button" title={cancelTitle} onClick={onCancel}/>
+        }
+      </div>
     </form>
   );
 }
@@ -21,6 +26,8 @@ Form.propTypes = {
   onSubmit: PropTypes.func,
   title: PropTypes.string,
   submitTitle: PropTypes.string,
+  onCancel: PropTypes.func,
+  cancelTitle: PropTypes.string
 };
 
 export default memo(Form);

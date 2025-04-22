@@ -1,0 +1,21 @@
+.CommentInput {
+  padding: 8px;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+  font-family: var(--font-family);
+  resize: none;
+  height: 88px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1152px;
+}
+
+.CommentInput:focus {
+  outline: none;
+}
+
+.CommentInput_isFormPadding {
+  width: calc(100% + 40px);
+  max-width: calc(1152px - 40)px;
+}
+

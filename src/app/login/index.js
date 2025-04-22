@@ -46,6 +46,7 @@ function Login() {
       e => {
         e.preventDefault();
         store.actions.session.signIn(data, () => {
+          console.log(location.state);
           // Возврат на страницу, с которой пришли
           const back =
             location.state?.back && location.state?.back !== location.pathname
@@ -69,7 +70,12 @@ function Login() {
       <PageLayout>
         <Navigation />
         <SideLayout padding="medium">
-          <Form onSubmit={callbacks.onSubmit} title={t('auth.title')} submitTitle={t('auth.signIn')}>
+          <Form
+            onSubmit={callbacks.onSubmit}
+            title={t('auth.title')}
+            submitTitle={t('auth.signIn')}
+            type="main"
+          >
             <Field label={t('auth.login')} error={select.errors?.login}>
               <Input
                 name="login"

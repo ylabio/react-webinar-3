@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.SideLayout_direction_column {
+  flex-direction: column;
+}
+
 .SideLayout_gap_big {
   gap: 24px;
 }

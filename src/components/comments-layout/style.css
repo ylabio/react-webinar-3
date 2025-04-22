@@ -1,0 +1,17 @@
+.CommentsLayout {
+  display: flex;
+  flex-direction: column;
+  max-width: 1192px;
+}
+
+.CommentsLayout_gap_large {
+  gap: 24px;
+}
+
+.CommentsLayout_gap_medium {
+  gap: 16px;
+}
+
+.CommentsLayout_isPaddingLeft {
+  padding-left: 40px;
+}

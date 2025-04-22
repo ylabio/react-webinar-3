@@ -1,7 +1,38 @@
-.Form-title {
+.Form_type_main h2 {
   margin-bottom: 24px;
 }
 
-.Form button {
+.Form_type_main button {
   margin-top: 24px;
+}
+
+.Form-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.Form_type_comment {
+  margin-top: 24px;
+}
+
+.Form_type_comment h2 {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.Form_type_comment button {
+  margin-top: 16px;
+}
+
+.Form_type_reply {
+  margin-top: 8px;
+}
+
+.Form_type_reply button {
+  margin-top: 16px;
+}
+
+.Form_type_reply h2 {
+  font-size: 16px;
+  margin-bottom: 16px;
 }
