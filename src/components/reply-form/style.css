@@ -20,10 +20,15 @@
 }
 
 .ReplyForm-textarea {
+  padding: 8px 12px;
   height: 88px;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
 }
 
 .ReplyForm-footer {
   display: flex;
-  column-gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
 }

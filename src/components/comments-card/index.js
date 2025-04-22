@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import {memo, useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 
 function CommentsCard(props) {
   // const { article, onAdd = () => {}, t = text => text } = props;
+  const replyLoginRef = useRef(null);
 
   const cn = bem('CommentsCard');
   const { t } = useTranslate();
@@ -45,11 +46,26 @@ function CommentsCard(props) {
   };
 
   const loginComment = (
-    <div className={cn('login')}>
+    <div className={cn('login')} ref={replyLoginRef}>
       <Button style="login" onClick={callbacks.onSignIn} title={t('session.signIn')} />
       <span className={cn('label')}> , чтобы иметь возможность комментировать</span>
     </div>
   );
+
+  useEffect(() => {
+    if (replyToCommentId && replyLoginRef.current) {
+      const rect = replyLoginRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      const scrollToPosition = scrollY + rect.top - windowHeight + rect.height + 250;
+
+      window.scrollTo({
+        top: scrollToPosition,
+        behavior: 'smooth',
+      });
+    }
+  }, [replyToCommentId]);
 
   return (
     <div className={cn()}>

@@ -39,9 +39,11 @@ function ReplyForm(props) {
     onSubmit: useCallback(
       e => {
         e.preventDefault();
+        if (data.text.trim() !== '') {
         props.onSendReply(data);
         setData(prevData => ({ ...prevData, text: '' }));
         props.onChancel();
+        }
       },
       [data, props.onSendReply, props.onChancel],
     ),

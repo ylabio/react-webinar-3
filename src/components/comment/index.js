@@ -48,7 +48,6 @@ function Comment({
         behavior: 'smooth',
       });
     }
-
   }, [replyToCommentId]);
 
   return (
