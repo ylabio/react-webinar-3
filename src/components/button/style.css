@@ -9,6 +9,14 @@
   }
 }
 
+.Button_fontSize_small {
+  font-size: 12px;
+}
+
+.Button_fontSize_medium {
+  font-size: 14px;
+}
+
 .Button_style_delete {
   background-color: var(--delete);
   color: var(--second-text);
@@ -37,5 +45,15 @@
 
   &:hover {
     color: var(--primary);
+  }
+}
+
+.Button_style_text-primary {
+  padding: 0;
+  border: none;
+  color: var(--primary);
+
+  &:hover {
+    color: var(--main-text);
   }
 }

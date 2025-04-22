@@ -1,0 +1,45 @@
+.CommentItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
+}
+
+.CommentItem-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.CommentItem-header {
+  display: flex;
+  gap: 12px;
+}
+
+.CommentItem-author {
+  font-weight: bold;
+}
+
+.CommentItem-author_authedUser {
+  color: var(--gray-text);
+}
+
+.CommentItem-text {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.CommentItem-date {
+  color: #666666;
+}
+
+.CommentItem-button {
+  padding: 0;
+  color: var(--primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
