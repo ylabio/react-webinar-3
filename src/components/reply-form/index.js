@@ -1,0 +1,81 @@
+import { memo, useCallback, useState } from 'react';
+import useTranslate from '../../hooks/use-translate';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useStore from '../../hooks/use-store';
+import useSelector from '../../hooks/use-selector';
+import useInit from '../../hooks/use-init';
+import Button from '../button';
+import { cn as bem } from '@bem-react/classname';
+import './style.css';
+import PropTypes from 'prop-types';
+
+function ReplyForm(props) {
+  const { t } = useTranslate();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const store = useStore();
+
+  const cn = bem('ReplyForm');
+
+  useInit(() => {});
+
+  const select = useSelector(state => ({
+    waiting: state.session.waiting,
+    errors: state.session.errors,
+  }));
+
+  const [data, setData] = useState({
+    text: '',
+    parent: { _id: props._id, _type: props.type },
+  });
+
+  const callbacks = {
+    // Колбэк на ввод в элементах формы
+    onChange: useCallback((value, name) => {
+      setData(prevData => ({ ...prevData, [name]: value }));
+    }, []),
+
+    // Отправка данных формы для авторизации
+    onSubmit: useCallback(
+      e => {
+        e.preventDefault();
+        if (data.text.trim() !== '') {
+        props.onSendReply(data);
+        setData(prevData => ({ ...prevData, text: '' }));
+        props.onChancel();
+        }
+      },
+      [data, props.onSendReply, props.onChancel],
+    ),
+  };
+
+  return (
+    <>
+      <form className={cn({ comment: props.type === 'comment' })} onSubmit={callbacks.onSubmit} ref={props.replyFormRef}>
+        <p className={cn('title')}>{props.title}</p>
+        <textarea
+          className={cn('textarea')}
+          name={'comment'}
+          placeholder={props.placeholder}
+          value={data.text}
+          onChange={e => callbacks.onChange(e.target.value, 'text')}
+        ></textarea>
+        <div className={cn('footer')}>
+          <Button style="primary" type="submit" title="Отправить" />
+          {props.type === 'comment' && <Button style="outline" type="button" title="Отмена" onClick={props.onChancel} />}
+        </div>
+      </form>
+    </>
+  );
+}
+
+ReplyForm.propTypes = {
+  title: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChancel: PropTypes.func,
+  onSendReply: PropTypes.func,
+  type: PropTypes.string,
+  _id: PropTypes.string,
+};
+
+export default memo(ReplyForm);

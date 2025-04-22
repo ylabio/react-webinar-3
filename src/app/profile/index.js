@@ -25,7 +25,8 @@ function Profile() {
   }));
 
   const { t } = useTranslate();
-
+  console.log('Profile translate----');
+  console.log(t('title'));
   return (
     <>
       <HeadLayout>

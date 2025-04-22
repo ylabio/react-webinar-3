@@ -1,0 +1,1814 @@
+{
+  "items": [
+    {
+      "_id": "67fee024de177582e52335bb",
+      "text": "Первый коммент!",
+      "dateCreate": "2025-04-15T22:39:32.013Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67fee064de177582e52335c2",
+      "text": "Второй коммент!",
+      "dateCreate": "2025-04-15T22:40:36.407Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67fee07ede177582e52335c5",
+      "text": "Ответ на первый коммент!",
+      "dateCreate": "2025-04-15T22:41:02.889Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ff6be2de177582e52338d7",
+      "text": "d",
+      "dateCreate": "2025-04-16T08:35:46.413Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee07ede177582e52335c5",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ff953dde177582e5233a57",
+      "text": "",
+      "dateCreate": "2025-04-16T11:32:13.679Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": true
+    },
+    {
+      "_id": "67ff9540de177582e5233a59",
+      "text": "jhjh\n",
+      "dateCreate": "2025-04-16T11:32:16.470Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ff95d2de177582e5233a6e",
+      "text": "hgthh\n",
+      "dateCreate": "2025-04-16T11:34:42.411Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ff95dede177582e5233a71",
+      "text": "jhjhj",
+      "dateCreate": "2025-04-16T11:34:54.911Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ff9644de177582e5233a90",
+      "text": "jhjj",
+      "dateCreate": "2025-04-16T11:36:36.379Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffb9c8de177582e5233db3",
+      "text": "Hi\n",
+      "dateCreate": "2025-04-16T14:08:08.895Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ff953dde177582e5233a57",
+        "_type": "comment",
+        "isDeleted": true
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffcbaa6bc0478e51e8e835",
+      "text": "GhbdTn",
+      "dateCreate": "2025-04-16T15:24:26.723Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffcbb06bc0478e51e8e837",
+      "text": "ggggg",
+      "dateCreate": "2025-04-16T15:24:32.481Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffcbc26bc0478e51e8e84a",
+      "text": "HELLO!",
+      "dateCreate": "2025-04-16T15:24:50.775Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffd0ba6bc0478e51e8e890",
+      "text": "Ответ на это сообщение",
+      "dateCreate": "2025-04-16T15:46:02.067Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ffcbc26bc0478e51e8e84a",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffd1206bc0478e51e8e89c",
+      "text": "11",
+      "dateCreate": "2025-04-16T15:47:44.523Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67ffd3056bc0478e51e8e8b8",
+      "text": "Хай хай",
+      "dateCreate": "2025-04-16T15:55:49.436Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ffd1206bc0478e51e8e89c",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680000966bc0478e51e8ec2a",
+      "text": "fffff\n",
+      "dateCreate": "2025-04-16T19:10:14.940Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680006476bc0478e51e8ecf7",
+      "text": "ffff\n",
+      "dateCreate": "2025-04-16T19:34:31.501Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800064d6bc0478e51e8ecfa",
+      "text": "uuuu\n",
+      "dateCreate": "2025-04-16T19:34:37.987Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680006656bc0478e51e8ecfe",
+      "text": "f word\n\n",
+      "dateCreate": "2025-04-16T19:35:01.945Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680006b16bc0478e51e8ed04",
+      "text": "derf\n",
+      "dateCreate": "2025-04-16T19:36:17.830Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680006bc6bc0478e51e8ed06",
+      "text": "dfd",
+      "dateCreate": "2025-04-16T19:36:28.007Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680006476bc0478e51e8ecf7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680008376bc0478e51e8ed19",
+      "text": "Hm\n\n\n\n",
+      "dateCreate": "2025-04-16T19:42:47.583Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ffb9c8de177582e5233db3",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680008bc6bc0478e51e8ed26",
+      "text": "hjj",
+      "dateCreate": "2025-04-16T19:45:00.600Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ff6be2de177582e52338d7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68008dc06bc0478e51e8f313",
+      "text": "dasdad",
+      "dateCreate": "2025-04-17T05:12:32.799Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680094796bc0478e51e8f376",
+      "text": "a",
+      "dateCreate": "2025-04-17T05:41:13.930Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680094916bc0478e51e8f37a",
+      "text": "lol",
+      "dateCreate": "2025-04-17T05:41:37.310Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800aa406bc0478e51e8f588",
+      "text": "Z",
+      "dateCreate": "2025-04-17T07:14:08.879Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800aa4f6bc0478e51e8f58b",
+      "text": "z",
+      "dateCreate": "2025-04-17T07:14:23.510Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680008bc6bc0478e51e8ed26",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800ab3a6bc0478e51e8f5c3",
+      "text": "вфывфв",
+      "dateCreate": "2025-04-17T07:18:18.514Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800ac416bc0478e51e8f5ec",
+      "text": "d",
+      "dateCreate": "2025-04-17T07:22:41.172Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800ab3a6bc0478e51e8f5c3",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800ad286bc0478e51e8f5fe",
+      "text": "ф",
+      "dateCreate": "2025-04-17T07:26:32.697Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800ac416bc0478e51e8f5ec",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800adb46bc0478e51e8f611",
+      "text": "ф",
+      "dateCreate": "2025-04-17T07:28:52.775Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800064d6bc0478e51e8ecfa",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800adba6bc0478e51e8f616",
+      "text": "ф",
+      "dateCreate": "2025-04-17T07:28:58.717Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680006b16bc0478e51e8ed04",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800c3de6bc0478e51e8f8ab",
+      "text": "111",
+      "dateCreate": "2025-04-17T09:03:26.774Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800aa4f6bc0478e51e8f58b",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800e4fe6bc0478e51e8fe19",
+      "text": "123",
+      "dateCreate": "2025-04-17T11:24:46.962Z",
+      "author": {
+        "profile": {
+          "name": "User №10"
+        },
+        "_id": "67fb67dc8702ec3fc67fe388"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800ecc26bc0478e51e90002",
+      "text": "gfdgdgdfg",
+      "dateCreate": "2025-04-17T11:57:54.218Z",
+      "author": {
+        "profile": {
+          "name": "User №10"
+        },
+        "_id": "67fb67dc8702ec3fc67fe388"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800edc96bc0478e51e9006f",
+      "text": "абракадабра",
+      "dateCreate": "2025-04-17T12:02:17.174Z",
+      "author": {
+        "profile": {
+          "name": "User №8"
+        },
+        "_id": "67fb67dc8702ec3fc67fe386"
+      },
+      "parent": {
+        "_id": "67ffd0ba6bc0478e51e8e890",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f2326bc0478e51e9014f",
+      "text": "wwww52",
+      "dateCreate": "2025-04-17T12:21:06.025Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f3176bc0478e51e9019f",
+      "text": "wwwwwasdasd",
+      "dateCreate": "2025-04-17T12:24:55.856Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f3286bc0478e51e901ab",
+      "text": "asfasfasf",
+      "dateCreate": "2025-04-17T12:25:12.125Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800c3de6bc0478e51e8f8ab",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f3686bc0478e51e901bb",
+      "text": "wwww",
+      "dateCreate": "2025-04-17T12:26:16.039Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800f3286bc0478e51e901ab",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f36f6bc0478e51e901be",
+      "text": "dasdasd",
+      "dateCreate": "2025-04-17T12:26:23.350Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f3736bc0478e51e901c1",
+      "text": "sssssss",
+      "dateCreate": "2025-04-17T12:26:27.764Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f3816bc0478e51e901c4",
+      "text": "asdas",
+      "dateCreate": "2025-04-17T12:26:41.344Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f3886bc0478e51e901c7",
+      "text": "Ответ\n",
+      "dateCreate": "2025-04-17T12:26:48.517Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f7396bc0478e51e90306",
+      "text": "fdfd",
+      "dateCreate": "2025-04-17T12:42:33.210Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800f3686bc0478e51e901bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f74a6bc0478e51e90312",
+      "text": "dsfsdf",
+      "dateCreate": "2025-04-17T12:42:50.855Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800f3686bc0478e51e901bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f7556bc0478e51e90314",
+      "text": "sdsd",
+      "dateCreate": "2025-04-17T12:43:01.782Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f7e66bc0478e51e9032f",
+      "text": "ыыыы",
+      "dateCreate": "2025-04-17T12:45:26.858Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f7ef6bc0478e51e90337",
+      "text": "111",
+      "dateCreate": "2025-04-17T12:45:35.431Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800f7e66bc0478e51e9032f",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f7f26bc0478e51e90339",
+      "text": "2222",
+      "dateCreate": "2025-04-17T12:45:38.334Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6800f7e66bc0478e51e9032f",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f89a6bc0478e51e90388",
+      "text": "dsfd",
+      "dateCreate": "2025-04-17T12:48:26.777Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800f9966bc0478e51e903f0",
+      "text": "sadas",
+      "dateCreate": "2025-04-17T12:52:38.802Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6800ff066bc0478e51e90506",
+      "text": "dsfsdf",
+      "dateCreate": "2025-04-17T13:15:50.705Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680101bc6bc0478e51e905b7",
+      "text": "asfasf",
+      "dateCreate": "2025-04-17T13:27:24.846Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ff6be2de177582e52338d7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68010c406bc0478e51e907e0",
+      "text": "ввыыыыыыыыыыыыыыы",
+      "dateCreate": "2025-04-17T14:12:16.924Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68010d476bc0478e51e90815",
+      "text": "123",
+      "dateCreate": "2025-04-17T14:16:39.329Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68010d496bc0478e51e90817",
+      "text": "dasd",
+      "dateCreate": "2025-04-17T14:16:41.915Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "68010d476bc0478e51e90815",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68010d4c6bc0478e51e90819",
+      "text": "asfas",
+      "dateCreate": "2025-04-17T14:16:44.220Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "68010d496bc0478e51e90817",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68010d686bc0478e51e90832",
+      "text": "sadasd",
+      "dateCreate": "2025-04-17T14:17:12.892Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680112c36bc0478e51e90a4b",
+      "text": "fafdasf",
+      "dateCreate": "2025-04-17T14:40:03.513Z",
+      "author": {
+        "profile": {
+          "name": "User №3"
+        },
+        "_id": "67fb67dc8702ec3fc67fe381"
+      },
+      "parent": {
+        "_id": "6800f74a6bc0478e51e90312",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680112ff6bc0478e51e90a69",
+      "text": "ВАВАВААВА",
+      "dateCreate": "2025-04-17T14:41:03.205Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6801133c6bc0478e51e90a7e",
+      "text": "АВВАВ",
+      "dateCreate": "2025-04-17T14:42:04.656Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680120257e843dad89603953",
+      "text": "aboba",
+      "dateCreate": "2025-04-17T15:37:09.719Z",
+      "author": {
+        "profile": {
+          "name": "AdminName"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37d"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6801298b7e843dad89603b69",
+      "text": "Ответ на первый коммент!",
+      "dateCreate": "2025-04-17T16:17:15.632Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68012d1f7e843dad89603dd2",
+      "text": "sdgsdg",
+      "dateCreate": "2025-04-17T16:32:31.493Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67ff6be2de177582e52338d7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680131b17e843dad89603fa8",
+      "text": "кто ты воин?)",
+      "dateCreate": "2025-04-17T16:52:01.634Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680112c36bc0478e51e90a4b",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6801363b7e843dad89604065",
+      "text": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "dateCreate": "2025-04-17T17:11:23.192Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680139997e843dad89604174",
+      "text": "fdf",
+      "dateCreate": "2025-04-17T17:25:45.154Z",
+      "author": {
+        "profile": {
+          "name": "User №2"
+        },
+        "_id": "67fb67dc8702ec3fc67fe380"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68013ed87e843dad896043a1",
+      "text": "5433222",
+      "dateCreate": "2025-04-17T17:48:08.522Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680112ff6bc0478e51e90a69",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6801754b7e843dad8960513f",
+      "text": "sdasdasd",
+      "dateCreate": "2025-04-17T21:40:27.549Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680008bc6bc0478e51e8ed26",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680175567e843dad89605142",
+      "text": "111111111111111111111",
+      "dateCreate": "2025-04-17T21:40:38.255Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680176847e843dad89605159",
+      "text": "хх",
+      "dateCreate": "2025-04-17T21:45:40.231Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680176f47e843dad89605167",
+      "text": "44",
+      "dateCreate": "2025-04-17T21:47:32.257Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680176847e843dad89605159",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "67fb67dc8702ec3fc67fe393",
+      "text": "123",
+      "dateCreate": "2025-04-17T22:22:28.538Z",
+      "author": {
+        "profile": {
+          "name": "User №21"
+        },
+        "_id": "67fb67dc8702ec3fc67fe393"
+      },
+      "parent": {
+        "_id": "680131b17e843dad89603fa8",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680199f97e843dad8960547c",
+      "text": "Ответ на 1001 коммент!",
+      "dateCreate": "2025-04-18T00:16:57.909Z",
+      "author": {
+        "profile": {
+          "name": "User №37"
+        },
+        "_id": "67fb67dc8702ec3fc67fe3a3"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68019a0a7e843dad8960547e",
+      "text": "sdgsdg",
+      "dateCreate": "2025-04-18T00:17:14.310Z",
+      "author": {
+        "profile": {
+          "name": "User №37"
+        },
+        "_id": "67fb67dc8702ec3fc67fe3a3"
+      },
+      "parent": {
+        "_id": "67ff6be2de177582e52338d7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68019a137e843dad89605480",
+      "text": "1",
+      "dateCreate": "2025-04-18T00:17:23.658Z",
+      "author": {
+        "profile": {
+          "name": "User №37"
+        },
+        "_id": "67fb67dc8702ec3fc67fe3a3"
+      },
+      "parent": {
+        "_id": "680112c36bc0478e51e90a4b",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68019a5b7e843dad89605484",
+      "text": "Первый коммент!",
+      "dateCreate": "2025-04-18T00:18:35.243Z",
+      "author": {
+        "profile": {
+          "name": "User №37"
+        },
+        "_id": "67fb67dc8702ec3fc67fe3a3"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6801ea457e843dad896057e3",
+      "text": "sdfsd",
+      "dateCreate": "2025-04-18T05:59:33.121Z",
+      "author": {
+        "profile": {
+          "name": "User №2"
+        },
+        "_id": "67fb67dc8702ec3fc67fe380"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68021b6e7e843dad89605db1",
+      "text": "www",
+      "dateCreate": "2025-04-18T09:29:18.561Z",
+      "author": {
+        "profile": {
+          "name": "User №13"
+        },
+        "_id": "67fb67dc8702ec3fc67fe38b"
+      },
+      "parent": {
+        "_id": "6800f74a6bc0478e51e90312",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68021b817e843dad89605db4",
+      "text": "www1",
+      "dateCreate": "2025-04-18T09:29:37.410Z",
+      "author": {
+        "profile": {
+          "name": "User №13"
+        },
+        "_id": "67fb67dc8702ec3fc67fe38b"
+      },
+      "parent": {
+        "_id": "67ffcbc26bc0478e51e8e84a",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68021baf7e843dad89605db9",
+      "text": "222",
+      "dateCreate": "2025-04-18T09:30:23.687Z",
+      "author": {
+        "profile": {
+          "name": "User №13"
+        },
+        "_id": "67fb67dc8702ec3fc67fe38b"
+      },
+      "parent": {
+        "_id": "6800f3686bc0478e51e901bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68021be27e843dad89605dbf",
+      "text": "1234567qwertyu cdwxcv4t5by5vt444444444444444444444444444444444444444\n\ndwcrvb5t4",
+      "dateCreate": "2025-04-18T09:31:14.490Z",
+      "author": {
+        "profile": {
+          "name": "User №13"
+        },
+        "_id": "67fb67dc8702ec3fc67fe38b"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68021c317e843dad89605dc2",
+      "text": "1\n2\n#\n$",
+      "dateCreate": "2025-04-18T09:32:33.404Z",
+      "author": {
+        "profile": {
+          "name": "User №13"
+        },
+        "_id": "67fb67dc8702ec3fc67fe38b"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802333a7e843dad896060f0",
+      "text": "test_123",
+      "dateCreate": "2025-04-18T11:10:50.706Z",
+      "author": {
+        "profile": {
+          "name": "User №53"
+        },
+        "_id": "67fb67dc8702ec3fc67fe3b3"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68024d8e7e843dad89606458",
+      "text": "z",
+      "dateCreate": "2025-04-18T13:03:10.931Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fee07ede177582e52335c5",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680271527e843dad89606dc1",
+      "text": "333",
+      "dateCreate": "2025-04-18T15:35:46.411Z",
+      "author": {
+        "profile": {
+          "name": "User №11"
+        },
+        "_id": "67fb67dc8702ec3fc67fe389"
+      },
+      "parent": {
+        "_id": "6800f3286bc0478e51e901ab",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680271607e843dad89606de9",
+      "text": "rtrtrt",
+      "dateCreate": "2025-04-18T15:36:00.421Z",
+      "author": {
+        "profile": {
+          "name": "User №11"
+        },
+        "_id": "67fb67dc8702ec3fc67fe389"
+      },
+      "parent": {
+        "_id": "6800f3686bc0478e51e901bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680271bd7e843dad89606e12",
+      "text": "1234567qwertyu cdwxcv4t5by5vt444444444444444444444444444444444444444 dwcrvb5t4 * 2",
+      "dateCreate": "2025-04-18T15:37:33.764Z",
+      "author": {
+        "profile": {
+          "name": "User №11"
+        },
+        "_id": "67fb67dc8702ec3fc67fe389"
+      },
+      "parent": {
+        "_id": "68021be27e843dad89605dbf",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680272357e843dad89606e2b",
+      "text": "teesssstttt",
+      "dateCreate": "2025-04-18T15:39:33.811Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802723a7e843dad89606e35",
+      "text": "test",
+      "dateCreate": "2025-04-18T15:39:38.466Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "680272357e843dad89606e2b",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680278b37e843dad89606fe7",
+      "text": "test",
+      "dateCreate": "2025-04-18T16:07:15.299Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "680278c97e843dad89606ff4",
+      "text": "test11",
+      "dateCreate": "2025-04-18T16:07:37.207Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027aec7e843dad896070f6",
+      "text": "test111",
+      "dateCreate": "2025-04-18T16:16:44.057Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027b357e843dad89607115",
+      "text": "test1111\n",
+      "dateCreate": "2025-04-18T16:17:57.615Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027b5e7e843dad89607127",
+      "text": "sdf",
+      "dateCreate": "2025-04-18T16:18:38.402Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027b7b7e843dad8960718b",
+      "text": "sdf",
+      "dateCreate": "2025-04-18T16:19:07.107Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027b807e843dad8960719d",
+      "text": "sdf",
+      "dateCreate": "2025-04-18T16:19:12.662Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027b867e843dad896071a0",
+      "text": "ytr",
+      "dateCreate": "2025-04-18T16:19:18.550Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027bba7e843dad896071b1",
+      "text": "vdfs",
+      "dateCreate": "2025-04-18T16:20:10.817Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027bc17e843dad896071b4",
+      "text": "dfg",
+      "dateCreate": "2025-04-18T16:20:17.117Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68027fe57e843dad89607355",
+      "text": "            ",
+      "dateCreate": "2025-04-18T16:37:57.284Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68029a467e843dad896079e8",
+      "text": "",
+      "dateCreate": "2025-04-18T18:30:30.840Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68029a517e843dad896079eb",
+      "text": "",
+      "dateCreate": "2025-04-18T18:30:41.942Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "68029a707e843dad896079f4",
+      "text": "1",
+      "dateCreate": "2025-04-18T18:31:12.259Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802bbe47e843dad89607ee7",
+      "text": "test",
+      "dateCreate": "2025-04-18T20:53:56.024Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "67fb67e98702ec3fc67fef7c",
+        "_type": "article"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802bbe97e843dad89607eea",
+      "text": "test2",
+      "dateCreate": "2025-04-18T20:54:01.938Z",
+      "author": {
+        "profile": {
+          "name": "User №1"
+        },
+        "_id": "67fb67dc8702ec3fc67fe37f"
+      },
+      "parent": {
+        "_id": "6802bbe47e843dad89607ee7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802dd407e843dad89608b66",
+      "text": "Комментарий 4 уровня",
+      "dateCreate": "2025-04-18T23:16:16.423Z",
+      "author": {
+        "profile": {
+          "name": "User №4"
+        },
+        "_id": "67fb67dc8702ec3fc67fe382"
+      },
+      "parent": {
+        "_id": "67ff6be2de177582e52338d7",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802de647e843dad89608b95",
+      "text": "Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. ",
+      "dateCreate": "2025-04-18T23:21:08.809Z",
+      "author": {
+        "profile": {
+          "name": "User №4"
+        },
+        "_id": "67fb67dc8702ec3fc67fe382"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802df0c7e843dad89608be1",
+      "text": "contentcontentcontentcontentcontentcontentcontentcontent",
+      "dateCreate": "2025-04-18T23:23:56.705Z",
+      "author": {
+        "profile": {
+          "name": "User №4"
+        },
+        "_id": "67fb67dc8702ec3fc67fe382"
+      },
+      "parent": {
+        "_id": "6802de647e843dad89608b95",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    },
+    {
+      "_id": "6802df537e843dad89608c18",
+      "text": "2",
+      "dateCreate": "2025-04-18T23:25:07.318Z",
+      "author": {
+        "profile": {
+          "name": "User №4"
+        },
+        "_id": "67fb67dc8702ec3fc67fe382"
+      },
+      "parent": {
+        "_id": "67fee024de177582e52335bb",
+        "_type": "comment"
+      },
+      "isDeleted": false
+    }
+  ],
+  "count": 113
+}
