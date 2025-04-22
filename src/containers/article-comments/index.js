@@ -62,17 +62,24 @@ function ArticleComments() {
 
 
   useEffect(() => {
-    if (replyTo) {
+    if (!replyTo) return;
+
+    const didScroll = { current: false }; // локально внутри эффекта — сбрасывается на каждый новый replyTo
+
+    const timeout = setTimeout(() => {
+      console.log('2123214location.targetreplyTo', replyTo);
       const target = document.getElementById(`comment-${replyTo}`);
+      console.log('123123123location.target', target);
 
-
-      console.log("location.target", target)
-      if (target) {
+      if (target && !didScroll.current) {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // можно ещё подсветить или открыть форму ответа
+        didScroll.current = true;
       }
-    }
+    }, 2000); // Подождать, пока DOM обновится
+
+    return () => clearTimeout(timeout);
   }, [replyTo]);
+
 
 
 
