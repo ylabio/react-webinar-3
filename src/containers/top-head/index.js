@@ -7,7 +7,7 @@ import useStore from '../../hooks/use-store';
 import Button from '../../components/button';
 
 function TopHead() {
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
@@ -26,6 +26,7 @@ function TopHead() {
     // Отмена авторизации
     onSignOut: useCallback(() => {
       store.actions.session.signOut();
+      window.location.reload();
     }, []),
   };
 

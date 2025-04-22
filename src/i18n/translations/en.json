@@ -9,11 +9,16 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+  "basket.info": "Your cart is currently empty.",
   "basket.articles": {
     "one": "article",
     "other": "articles"
   },
   "article.add": "Add",
+  "article.country.dev": "Made in",
+  "article.product.cat": "Category",
+  "article.product.dev.date": "Year of release",
+  "article.price": "Price",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",
@@ -21,6 +26,11 @@
   "auth.signIn": "Sign in",
   "auth.login-placeholder": "Enter login",
   "auth.password-placeholder": "Enter password",
+  "comments.heading": "Comments",
+  "profile.heading": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "Email",
   "session.signIn": "Sign In",
   "session.signOut": "Sign Out"
 }

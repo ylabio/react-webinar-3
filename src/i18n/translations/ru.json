@@ -9,6 +9,7 @@
   "basket.total": "Итого",
   "basket.unit": "шт",
   "basket.delete": "Удалить",
+  "basket.info": "В вашей корзине пока пусто",
   "basket.articles": {
     "one": "товар",
     "few": "товара",
@@ -16,6 +17,10 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+  "article.country.dev": "Страна производитель",
+  "article.product.cat": "Категория",
+  "article.product.dev.date": "Год выпуска",
+  "article.price": "Цена",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
@@ -23,6 +28,11 @@
   "auth.signIn": "Войти",
   "auth.login-placeholder": "Введите логин",
   "auth.password-placeholder": "Введите пароль",
+  "profile.heading": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "Email",
+  "comments.heading": "Комментарии",
   "session.signIn": "Вход",
   "session.signOut": "Выход"
 }

@@ -2,11 +2,22 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
+import cart_empty from '../../assets/icon/cart_empty.png';
 import './style.css';
 
 function BasketTotal(props) {
   const { sum = 0, t = text => text } = props;
   const cn = bem('BasketTotal');
+
+  if (sum === 0) {
+    return (
+      <div className="Cart-empty">
+        <img src={cart_empty} alt="Empty Cart" />
+        <b>{t('basket.info')}</b>
+      </div>
+    );
+  }
+  
   return (
     <div className={cn()}>
       <span className={cn('cell')}>{t('basket.total')}</span>

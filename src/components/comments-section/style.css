@@ -1,0 +1,136 @@
+.comments-container{
+  margin-top: 16px;
+}
+
+.comments-section {
+  margin-top: 24px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+.comment {
+  margin-bottom: 16px;
+}
+
+.new-comment-heading, .new-reply-heading {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  margin: 24px 0 16px 0; 
+}
+
+.controls-layout{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: #000;
+}
+
+.comment-author.child {
+  color: #4B5563;
+}
+
+.comment-date {
+  font-weight: 400;
+  font-size: 12px;
+  color: #666;
+}
+
+.comment-body {
+  font-size: 14px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+  color: #000;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.comment-children {
+  margin-top: 16px;
+}
+
+.comment-reply-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.new-comment-form {
+  margin-top: 24px;
+}
+
+.comment-textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 4px;
+  resize: none;
+  white-space: pre-wrap;
+  word-break: break-all;
+
+  &:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(123, 0, 255, 0.25);
+  }
+}
+
+
+.comment-submit-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #553c9a;
+  }
+}
+
+.comments-login-prompt {
+  margin-top: 24px;
+  font-size: 16px;
+  color: var(--main-text);
+}
+
+.comments-login-prompt .link-to {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover{
+    text-decoration: underline;
+  }
+}
