@@ -28,14 +28,7 @@ function reducer(state = initialState, action) {
     case 'user-comment/update-data':
       return {
         ...state,
-        parent: {
-          ...state.parent,
-          _id: action.payload._id,
-          _type: action.payload._type,
-        },
-        lastIdFromCommentTree: action.payload.lastId,
-        isOpenFormInComments: action.payload.formPlace,
-        commentAuthorNick: action.payload._author,
+        ...action.payload.data,
       };
     case 'user-comment/upload-comment':
       return {
@@ -51,6 +44,12 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         waiting: false,
+      };
+    case 'user-comment/reset-form':
+      return {
+        ...state,
+        isOpenFormInComments: false,
+        userComment: '',
       };
     case 'user-comment/reset':
       return {

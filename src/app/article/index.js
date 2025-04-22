@@ -40,6 +40,9 @@ function Article() {
   useInit(() => {
     dispatch(commentsActions.load(params.id));
     dispatch(articleActions.load(params.id));
+    if (userComment.isOpenFormInComments) {
+      dispatch(userCommentsAction.resetForm());
+    }
   }, [params.id, lang]);
 
   const selectUser = useSelector(state => ({
@@ -63,26 +66,31 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     onCloseFormInComments: useCallback(() => {
-      dispatch(userCommentsAction.setCommentsData(params.id, '', 'article', '', false));
-      dispatch(userCommentsAction.setUserMessage(''));
+      const commentDefaultData = {
+        parent: {
+          _id: params.id,
+          _type: 'article',
+        },
+        commentAuthorNick: '',
+        userComment: '',
+        isOpenFormInComments: false,
+        lastIdFromCommentTree: '',
+      };
+      dispatch(userCommentsAction.setCommentsData(commentDefaultData));
     }, []),
     onChangeCommentData: useCallback(
-      (parentId, typeComment, authorNick = '') => {
+      commentData => {
         const { lastItemId, lastChildFromTree } = getLastCommentChildrenId(
-          parentId,
+          commentData.parent._id,
           comments.data.items,
         );
+        const data = {
+          ...commentData,
+          isOpenFormInComments: true,
+          lastIdFromCommentTree: lastChildFromTree,
+        };
 
-        dispatch(
-          userCommentsAction.setCommentsData(
-            lastItemId,
-            lastChildFromTree,
-            typeComment,
-            authorNick,
-            true,
-          ),
-        );
-        dispatch(userCommentsAction.setUserMessage(''));
+        dispatch(userCommentsAction.setCommentsData(data));
       },
       [comments.data.items],
     ),
@@ -100,6 +108,7 @@ function Article() {
           },
           token: userComment.userToken,
         };
+        
 
         if (data.text.trim()) {
           dispatch(commentsActions.addComment(data, selectUser.userName));
@@ -153,24 +162,24 @@ function Article() {
               onChangeCommentData={callbacks.onChangeCommentData}
               parentId={userComment.parent._id}
             >
-              {selectUser.isUserAuth ? (
-                <ArticleForm
-                  t={t}
-                  title={t('comments.new-answer')}
-                  onCloseForm={callbacks.onCloseFormInComments}
-                  isOpenInComments={userComment.isOpenFormInComments}
-                  onSubmit={callbacks.onSubmit}
-                  isDisabledBtn={disabledBtn}
-                >
-                  <Textarea
-                    value={userComment.userComment}
-                    onChange={callbacks.onChangeCommentMessage}
-                    placeholderText={`${t('answer.for')} ${userComment.commentAuthorNick}`}
-                  />
-                </ArticleForm>
-              ) : (
-                <ArticleAuthMessage t={t} />
-              )}
+              {userComment.isOpenFormInComments &&
+                (selectUser.isUserAuth ? (
+                  <ArticleForm
+                    t={t}
+                    title={t('comments.new-answer')}
+                    onCloseForm={callbacks.onCloseFormInComments}
+                    isOpenInComments={userComment.isOpenFormInComments}
+                    onSubmit={callbacks.onSubmit}
+                    isDisabledBtn={disabledBtn}
+                  >
+                    <Textarea
+                      value={userComment.userComment}
+                      onChange={callbacks.onChangeCommentMessage}
+                    />
+                  </ArticleForm>
+                ) : (
+                  <ArticleAuthMessage t={t} />
+                ))}
             </ArticleComments>
             {!userComment.isOpenFormInComments &&
               (selectUser.isUserAuth ? (

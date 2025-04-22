@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 
 import './style.css';
 
-function Textarea({ placeholderText = '', ...props }) {
+function Textarea(props) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
@@ -27,14 +27,12 @@ function Textarea({ placeholderText = '', ...props }) {
     <textarea
       className="Textarea"
       value={value}
-      placeholder={placeholderText ? placeholderText : ''}
       onChange={onChangeHandler}
     ></textarea>
   );
 }
 
 Textarea.propTypes = {
-  placeholder: PropTypes.string,
   value: PropTypes.string,
 };
 

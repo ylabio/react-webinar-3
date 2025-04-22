@@ -22,15 +22,23 @@ function ArticleComments({
   const commentRefs = useRef({});
 
   const onClickComment = (e, id, type, authorNickname, paddigEl) => {
-    e.preventDefault()
-    onChangeCommentData(id, type, authorNickname);
+    e.preventDefault();
+    const commentData = {
+      parent: {
+        _id: id,
+        _type: type,
+      },
+      commentAuthorNick: authorNickname,
+      userComment: `${t('answer.for')} ${authorNickname} `,
+    };
+    onChangeCommentData(commentData);
     paddigEl <= 280 ? setFormPadding(paddigEl + 40) : setFormPadding(paddigEl);
-    
+
     if (scrollPlace === lastCommentId) scrollToComment(scrollPlace);
   };
 
   const scrollToComment = commentId => {
-    if (commentId) {
+    if (commentId && commentRefs.current[commentId]?.current) {
       commentRefs.current[commentId].current.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
@@ -71,8 +79,15 @@ function ArticleComments({
                   <div className={cn('item', { text: true })}>{text}</div>
                   <a
                     className={cn('link')}
-                    onClick={(e) =>
-                      onClickComment(e,_id, 'comment', author.profile.name, paddingL, lastCommentId)
+                    onClick={e =>
+                      onClickComment(
+                        e,
+                        _id,
+                        'comment',
+                        author.profile.name,
+                        paddingL,
+                        lastCommentId,
+                      )
                     }
                   >
                     {t('answer.reply')}
