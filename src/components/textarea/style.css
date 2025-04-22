@@ -1,0 +1,16 @@
+.Textarea {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    color: var(--main-text);
+    border: 1px solid var(--filter-border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    height: 88px;
+
+    &:focus {
+        outline: none;
+        border: 0.4px solid var(--primary);
+    }
+}

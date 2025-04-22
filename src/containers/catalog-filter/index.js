@@ -12,6 +12,8 @@ import Button from '../../components/button';
 function CatalogFilter() {
   const store = useStore();
 
+  const { t, lang } = useTranslate();
+
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -41,27 +43,26 @@ function CatalogFilter() {
     // Варианты сортировок
     sort: useMemo(
       () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
+        { value: 'order', title: t( "search.filter-order") },
+        { value: 'title.ru', title: t( "search.filter-name") },
+        { value: '-price', title: t("search.filter-expensive") },
+        { value: 'edition', title: t("search.filter-ancient") },
       ],
-      [],
+      [lang],
     ),
     // Категории для фильтра
+
     categories: useMemo(
       () => [
-        { value: '', title: 'Все' },
+        { value: '', title: t('categories.all') },
         ...treeToList(listToTree(select.categories), (item, level) => ({
           value: item._id,
           title: '- '.repeat(level) + item.title,
         })),
       ],
-      [select.categories],
+      [select.categories, lang],
     ),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -80,7 +81,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
+        placeholder={t('search')}
         delay={1000}
         theme={'big'}
       />

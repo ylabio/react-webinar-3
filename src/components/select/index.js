@@ -9,7 +9,7 @@ function Select(props) {
   const onSelect = e => {
     onChange(e.target.value);
   };
-
+  
   return (
     <select className={cn({size, text: !!text})} value={value} onChange={onSelect}>
       {options.map(item => (

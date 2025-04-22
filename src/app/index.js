@@ -1,6 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import useSelector from '../hooks/use-selector';
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
 import Main from './main';
@@ -10,16 +8,25 @@ import Login from './login';
 import Profile from './profile';
 import Protected from '../containers/protected';
 import { useSelector as useSelectorRedux } from 'react-redux';
+import useServices from '../hooks/use-services';
+import useTranslate from '../hooks/use-translate';
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
+  const services = useServices();
+  const { lang } = useTranslate();
   const store = useStore();
+
   useInit(async () => {
     await store.actions.session.remind();
-  });
+  }, [services.i18n]);
+
+  useInit(async () => {
+    await store.actions.basket.updateBasketListAnotherLang();
+  }, [lang]);
 
   const activeModal = useSelectorRedux(state => state.modals.name);
 

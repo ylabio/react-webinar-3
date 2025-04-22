@@ -1,0 +1,25 @@
+.ArticleForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 520px;
+  gap: 16px;
+
+
+  > h4 {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 137%;
+    color: #000;
+    text-transform: capitalize;
+  }
+
+}
+
+
+.ArticleForm-actions {
+  display: flex;
+  gap: 16px;
+}

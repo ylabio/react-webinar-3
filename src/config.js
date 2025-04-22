@@ -18,6 +18,9 @@ const config = {
   api: {
     baseUrl: '',
   },
+  i18n: {
+    defaultLang: JSON.parse(localStorage.getItem('yl-user-lang')) || 'ru',
+  },
 };
 
 export default config;

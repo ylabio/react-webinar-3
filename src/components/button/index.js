@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Button({ onClick = () => {}, title, style, type = 'button' }) {
+function Button({ onClick = () => {}, title, style, type = 'button', isDisabled = false }) {
   const cn = bem('Button');
 
   return (
     <div className={cn()}>
-      <button type={type} className={cn({ style })} onClick={() => onClick()}>{title}</button>
+      <button type={type} className={cn({ style })} onClick={() => onClick()} disabled={isDisabled}>{title}</button>
     </div>
   );
 }
@@ -16,6 +16,7 @@ function Button({ onClick = () => {}, title, style, type = 'button' }) {
 Button.propTypes = {
   onClick: PropTypes.func,
   title: PropTypes.string,
+  isDisabled: PropTypes.bool,
   style: PropTypes.oneOf(['text', 'primary', 'delete', 'outline']),
   type: PropTypes.oneOf(['button', 'submit']),
 };
