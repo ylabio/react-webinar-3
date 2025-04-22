@@ -1,9 +1,9 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import useSelector from '../../hooks/use-selector';
 import dateFormat from '../../utils/date-format';
-import { Link } from 'react-router-dom';
 import CommentForm from '../comment-form';
 
 function CommentCard(props) {
@@ -19,28 +19,54 @@ function CommentCard(props) {
     isReplyActive, 
     setIsReplyActive = () => {},
     onChange = () => {},
+    errorMessage,
+    setErrorMessage,
+    handleLogin,
   } = props;
+
+  const select = useSelector(state => ({
+    user: state.session.user,
+  }));
+
+  const formRef = useRef(null);
+  const [currentFormRefId, setCurrentFormRefId] = useState(null);
 
   const callbacks = {
     handleReplyClick: useCallback(() => {
       if (!isAuthenticated) {
         setAuthMessageCommentId(comment._id);
       } else {
-        setReplyToCommentId(comment._id);
-        setIsReplyActive(true);
+        if (replyToCommentId === comment._id) {
+          setReplyToCommentId(null);
+          setIsReplyActive(false);
+          setCurrentFormRefId(null);
+          setErrorMessage('');
+        } else {
+          setReplyToCommentId(comment._id);
+          setIsReplyActive(true);
+          setCurrentFormRefId(comment._id);
+          setErrorMessage('');
+        }
       };
-    }, [])
+    }, [isAuthenticated, replyToCommentId])
   };
+
+  useEffect(() => {
+    if (isReplyActive && formRef.current) {
+        formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [replyToCommentId, currentFormRefId, isReplyActive]);
   
   const hasChildren = comment.children && comment.children.length > 0;
 
   const cn = bem('CommentCard');
-
+  console.log('User', select.user);
+  
   return (
     <div className={cn()}>
         <div className={cn('info')}>
-            <div className={cn('username')}>
-                {comment.author.profile.name}
+            <div className={select?.user._id === comment.author._id ? 'CommentCard-username__auth' : cn('username')}>
+                {comment.author.profile?.name ? comment.author.profile?.name : select.user.profile?.name}
             </div>
             <div className={cn('date')}>
                 {dateFormat(comment.dateCreate)}
@@ -56,20 +82,24 @@ function CommentCard(props) {
 
         {!isAuthenticated && (authMessageCommentId === comment._id) && (
           <div className={cn('authcaution')}>
-            <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
+            <span style={{ color: 'var(--primary)', cursor: 'pointer' }} onClick={handleLogin}>Войдите</span>, чтобы иметь возможность комментировать
           </div>
         )}
 
       {isAuthenticated && 
       (replyToCommentId === comment._id) && 
       isReplyActive && (depth === maxDepth || !hasChildren) && (
-        <CommentForm
-          commentTitle="Новый ответ"
-          type="reply"
-          setIsReplyActive={setIsReplyActive}
-          onSubmit={handleAddComment}
-          onChange={onChange}
-        />
+        <div ref={formRef}>
+          <CommentForm
+            commentTitle="Новый ответ"
+            type="reply"
+            setIsReplyActive={setIsReplyActive}
+            setReplyToCommentId={setReplyToCommentId}
+            onChange={onChange}
+            onSubmit={handleAddComment}
+            errorMessage={errorMessage}
+          />
+        </div>
       )}
 
       {hasChildren && (depth < maxDepth) && (
@@ -90,23 +120,31 @@ function CommentCard(props) {
               onChange={onChange}
               depth={depth + 1}
               maxDepth={maxDepth}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+              handleLogin={handleLogin}
             />
             
           ))}
         </div>
           {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
-            <CommentForm
-              className={cn('child')}
-              commentTitle="Новый ответ"
-              type="reply"
-              setIsReplyActive={setIsReplyActive}
-              onSubmit={(newComment) => {
-                handleAddComment(newComment);
-                setIsReplyActive(false);
-                setReplyToCommentId(null);
-              }}
-              onChange={onChange}
-            />
+            <div ref={formRef}>
+              <CommentForm
+                className={cn('child')}
+                commentTitle="Новый ответ"
+                type="reply"
+                setIsReplyActive={setIsReplyActive}
+                setReplyToCommentId={setReplyToCommentId}
+                onChange={onChange}
+                // onSubmit={handleAddComment}
+                onSubmit={(newComment) => {
+                  handleAddComment(newComment);
+                  // setIsReplyActive(false);
+                  // setReplyToCommentId(null);
+                }}
+                errorMessage={errorMessage}
+              />
+            </div>
           )}
         </div>
       )}
@@ -142,6 +180,7 @@ CommentCard.propTypes = {
   isReplyActive: PropTypes.bool,
   setIsReplyActive: PropTypes.func,
   onChange: PropTypes.func,
+  handleLogin: PropTypes.func,
 };
 
 export default memo(CommentCard);

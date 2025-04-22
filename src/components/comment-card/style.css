@@ -15,6 +15,11 @@
     font-weight: 700;
 }
 
+.CommentCard-username__auth {
+    color: #4B5563;
+    font-weight: 700;
+}
+
 .CommentCard-date {
     color: var(--date-text);
 }

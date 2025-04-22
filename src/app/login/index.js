@@ -47,6 +47,7 @@ function Login() {
         e.preventDefault();
         store.actions.session.signIn(data, () => {
           // Возврат на страницу, с которой пришли
+          console.log('back', location.state?.back);
           const back =
             location.state?.back && location.state?.back !== location.pathname
               ? location.state?.back
@@ -57,6 +58,9 @@ function Login() {
       [data, location.state],
     ),
   };
+
+  const back = location.state?.back; // Если back не определен, используем '/'
+  console.log('ссылка back', back);
 
   return (
     <>

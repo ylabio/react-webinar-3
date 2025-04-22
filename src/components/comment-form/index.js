@@ -8,8 +8,10 @@ function CommentForm(props) {
   const { 
     commentTitle, type, 
     setIsReplyActive = () => {},
+    setReplyToCommentId = () => {},
     onSubmit = () => {},
-    onChange = () => {} 
+    onChange = () => {},
+    errorMessage,
 } = props;
 
   const cn = bem('CommentForm');
@@ -22,11 +24,16 @@ function CommentForm(props) {
       }}>
         <p>{commentTitle}</p>
         <textarea name="newComment" required onChange={onChange} />
+        {errorMessage && <div className={cn('error')}>{errorMessage}</div>}
         <div className={cn('action')}>
           <Button style="primary" type="submit" title="Отправить" />
 
           {type === "reply" &&
-            <Button style="outline" type="button" title="Отмена" onClick={() => setIsReplyActive(false)} />
+            <Button style="outline" type="button" title="Отмена" onClick={() => {
+              setIsReplyActive(false),
+            setReplyToCommentId(null)
+            }
+            } />
           }
         </div>
       </form>

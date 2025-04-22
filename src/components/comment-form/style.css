@@ -21,3 +21,7 @@
     margin-top: 16px;
     margin-bottom: 24px;
 }
+
+.CommentForm-error {
+    color: var(--delete);
+}

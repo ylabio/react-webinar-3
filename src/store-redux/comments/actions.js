@@ -31,8 +31,8 @@ export default {
           body: JSON.stringify(comment),
         });
         console.log('Сообщение отправляется');
-        dispatch({ type: 'comments/create-success', payload: { data: res.data.result.items } });
-
+        dispatch({ type: 'comments/create-success', payload: { data: res.data.result } });
+        return { data: res.data.result }
       } catch (e) {
         dispatch({ type: 'comments/create-error' });
       }

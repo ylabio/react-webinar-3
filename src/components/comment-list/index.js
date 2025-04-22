@@ -1,26 +1,25 @@
-import { memo, useState, useMemo, useCallback } from 'react';
+import { memo, useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { useDispatch } from 'react-redux';
 import useSelector from '../../hooks/use-selector';
+import { useLocation, useNavigate } from 'react-router-dom';
 import commentsActions from '../../store-redux/comments/actions';
 import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
-import { Link } from 'react-router-dom';
 import CommentForm from '../comment-form';
 import debounce from 'lodash.debounce';
 
 function CommentList(props) {
-  const { comments, commentCount, t = text => text } = props;
+  const { comments: initialComments, commentCount, t = text => text } = props;
   // Устанавливаем идентификатор текущего комментария
   const [authMessageCommentId, setAuthMessageCommentId] = useState(null);
   // Активна ли форма ответа
   const [isReplyActive, setIsReplyActive] = useState(false);
   // Передаем ID для ответа
   const [replyToCommentId, setReplyToCommentId] = useState(null);
-
-  const params = useParams();
+  const [errorMessage, setErrorMessage] = useState('');
   const [newComment, setNewComment] = useState({
     parent: {
       _id: '',
@@ -28,15 +27,20 @@ function CommentList(props) {
     },
     text: '',
   });
+  const [comments, setComments] = useState(initialComments);
+
+  const params = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const dispatch = useDispatch();
-
+  
   const select = useSelector(state => ({
     exists: state.session.exists,
   }));
 
   const isAuthenticated = select.exists;
-
+  
   const parent = useMemo(
     () => ({
       _id: replyToCommentId || params.id,
@@ -45,13 +49,25 @@ function CommentList(props) {
     [replyToCommentId, params.id],
   );
 
+  console.log('parent', parent);
+
+  useEffect(() => {
+    setComments(initialComments);
+    // console.log('comments useEffect', comments);
+  }, [initialComments]);
+
+  useEffect(() => {
+    console.log('Updated comments from useEffect:', comments);
+    // setComments(updatedComments);
+  }, [comments]);
+
   const callbacks = {
     onChange: useCallback(
       debounce(
         e => {
         setNewComment({
           parent,
-          text: e.target.value,
+          text: e.target.value.trim().replace(/\s+/g, ' '),
         });
       }, 
       100),
@@ -61,17 +77,28 @@ function CommentList(props) {
     handleAddComment: useCallback(
       async e => {
         e.preventDefault();
-        if (newComment.text) {
-          console.log('comment', newComment);
-          await dispatch(commentsActions.create(newComment));
-          dispatch(commentsActions.load(params.id));
+        
+        if (!newComment.text) {
+          setErrorMessage('Комментарий не может быть пустым.');
+          return
+        }
+        try {
+          const { data } = await dispatch(commentsActions.create(newComment));
+          console.log('returned comment', data);
+          // dispatch(commentsActions.load(params.id));
+          const updatedComments = addCommentToTree(comments, data);
+          setComments(updatedComments);
+          // console.log('updatedComments', updatedComments);
+          setErrorMessage('');
           setIsReplyActive(false);
+          setReplyToCommentId(null);
+        } catch (e) {
+          console.error('Ошибка при добавлении комментария:', e);
+          setErrorMessage('Не удалось добавить комментарий. Попробуйте еще раз.');
         }
       }, [dispatch, newComment, params.id]
     )
   };
-
-  const cn = bem('CommentList');
 
   const getMaxDepth = (comments) => {
     let max = 0;
@@ -90,7 +117,51 @@ function CommentList(props) {
   };
 
   let maxDepth = getMaxDepth(comments);
-  if (maxDepth > 5) maxDepth = 5;
+  // if (maxDepth > 5) maxDepth = 5;
+
+  const handleLogin = () => {
+    navigate('/login', { state: { back: location.pathname } });
+  }
+
+  // Функция для добавления нового комментария в дерево
+    const addCommentToTree = (comments, newComment) => {
+      console.log('newComment', newComment);
+      // const { parent } = newComment;
+      console.log('Проверка parent', parent);
+      // Если у нового комментария нет родителя, добавляем его на верхний уровень
+      if (parent._type === "article") {
+        console.log('У комментария Нет родителя');
+        return [...comments, newComment];
+      }
+      // Рекурсивная функция для поиска родителя и добавления нового комментария
+      const findAndAdd = (comments) => {
+        for (let comment of comments) {
+          if (comment._id === parent._id) {
+            // Если нашли родителя, добавляем новый комментарий в его children
+            if (!comment.children) {
+              comment.children = [];
+            }
+            comment.children.push(newComment);
+            // console.log('Ребенок добавлен', comment._id, parent._id);
+            return true;
+          }
+          // Если у текущего комментария есть дочерние элементы, продолжаем поиск
+          if (comment.children && findAndAdd(comment.children)) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      const updatedComments = [...comments];
+      console.log('updatedComments', updatedComments);
+      findAndAdd(updatedComments);
+
+      return updatedComments; 
+    };
+
+    const cn = bem('CommentList');
+    console.log('comments before render', comments);
 
   return (
     <div className={cn()}>
@@ -113,6 +184,9 @@ function CommentList(props) {
               onChange={callbacks.onChange}
               depth={0}
               maxDepth={maxDepth}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+              handleLogin={handleLogin}
             />
           </div>
         ) : (
@@ -127,14 +201,16 @@ function CommentList(props) {
           commentTitle="Новый комментарий"
           type="comment"
           setIsReplyActive={setIsReplyActive}
+          setReplyToCommentId={setReplyToCommentId}
           onSubmit={callbacks.handleAddComment}
           onChange={callbacks.onChange}
+          errorMessage={errorMessage}
         />
       )}
 
       {!isAuthenticated && !authMessageCommentId && (
         <div className={cn('authcaution')}>
-          <Link to='/login' style={{ color: 'var(--primary)' }}>Войдите</Link>, чтобы иметь возможность комментировать
+          <span style={{ color: 'var(--primary)', cursor: 'pointer' }} onClick={handleLogin}>Войдите</span>, чтобы иметь возможность комментировать
         </div>
       )}
     </div>
