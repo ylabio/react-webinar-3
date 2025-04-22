@@ -8,10 +8,8 @@ import treeToList from '../tree-to-list';
  */
 export function listFromFlat(list, key = '_id') {
 
-  console.log("listFromFlatlist", list);
-
   const tree = listToTree(list, key);
-  console.log("listFromFlattree", tree);
+
   return treeToList(tree[0]?.children || [], (item, level) => ({
     value: item[key],
     level,

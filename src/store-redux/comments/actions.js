@@ -13,7 +13,6 @@ export default {
         const res = await services.api.request({
           url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`,
         });
-        console.log('res.data.result.items', res.data.result.items);
         // Список комментариев загружен успешно
         dispatch({ type: 'comments/load-success', payload: { data: res.data.result.items, count: res.data.result.count } });
       } catch (e) {
@@ -26,22 +25,26 @@ export default {
   /**
    * Загрузка комментариев по товару
    */
-  addComment: (parent, text, callback) => {
+  addComment: (parent, text) => {
     return async (dispatch, getState, services) => {
+
       try {
         if (!text?.trim()) return;
         const res = await services.api.request({
           url: `/api/v1/comments`,
           method: 'POST',
           body: JSON.stringify(
-
         {
           "text": text,
           "parent": {...parent}
         })
-        }).then(()=>{
-          callback()
         });
+
+        dispatch({
+          type: 'comments/set-reply-comment',
+          payload: res.data.result
+        });
+
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: 'comments/load-error' });
@@ -49,20 +52,9 @@ export default {
     };
   },
 
-
-/*  setReplyTarget: (comment) => ({
-    type: 'comments/set-reply-target',
-    payload: {
-      id: comment.value,
-      authorName: comment.author,
-      level: comment.level ?? 0,
-    },
-  }),*/
-
-
-  setReplyTarget2: (comment, user) => {
+  setReplyAction: (comment, user) => {
     return (dispatch) => {
-      dispatch({ type: 'comments/remove-reply-placeholder' });
+      dispatch({ type: 'comments/remove-reply-action' });
 
       const newReply = {
         _id: 'reply',
@@ -82,14 +74,14 @@ export default {
       };
 
       dispatch({
-        type: 'comments/set-reply-target2',
+        type: 'comments/set-reply-action',
         payload: newReply
       });
     };
   },
 
 
-  removeReplyPlaceholder: () => ({
-    type: 'comments/remove-reply-placeholder',
+  removeReplyAction: () => ({
+    type: 'comments/remove-reply-action',
   }),
 };

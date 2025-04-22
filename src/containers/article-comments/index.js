@@ -16,6 +16,14 @@ import { listFromFlat } from '../../utils/list-from-flat/list-from-flat';
 function ArticleComments() {
 
   const { t, locale } = useLocale()
+  const [addComment, setAddComment] = useState(false);
+  const [commentValue, setCommentValue] = useState('');
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const replyTo = location.state?.replyTo;
+  const backLink = location.pathname;
+
+
   const select = useSelector(
     state => ({
       article: state.article.data,
@@ -23,7 +31,6 @@ function ArticleComments() {
       comments: state.comments.data,
       commentsCount: state.comments.count,
       commentsWaiting: state.comments.waiting,
-/*      commentsReplyTarget: state.comments.replyTarget,*/
     }),
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
@@ -39,74 +46,40 @@ function ArticleComments() {
     [select.comments]
   );
 
-  const [addComment, setAddComment] = useState(false);
-  const [commentValue, setCommentValue] = useState('');
-  const dispatch = useDispatch();
-
-
-  const location = useLocation();
-  const replyTo = location.state?.replyTo;
-  console.log("location.replyTo", replyTo)
-
-
   useEffect(() => {
-    // Автоскролл до формы ответа, если она появилась
+    if (!addComment) return;
+
     const target = document.getElementById('reply');
-
-    console.log("location.target", target)
-
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [select.comments]); // каждый раз, когда список комментариев меняется
+  }, [select.comments, addComment]);
 
 
   useEffect(() => {
     if (!replyTo) return;
-
-    const didScroll = { current: false }; // локально внутри эффекта — сбрасывается на каждый новый replyTo
-
-    const timeout = setTimeout(() => {
-      console.log('2123214location.targetreplyTo', replyTo);
       const target = document.getElementById(`comment-${replyTo}`);
-      console.log('123123123location.target', target);
-
-      if (target && !didScroll.current) {
+      if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        didScroll.current = true;
-      }
-    }, 2000); // Подождать, пока DOM обновится
-
-    return () => clearTimeout(timeout);
-  }, [replyTo]);
-
-
-
-
-
+  }}, [replyTo]);
 
   const callbacks = {
     addToAnswer: useCallback(comment => {
       setAddComment(true)
       setCommentValue(`Мой ответ для ${comment.author} `)
-      dispatch(commentsActions.setReplyTarget2(comment, selectStore.user))
+      dispatch(commentsActions.setReplyAction(comment, selectStore.user))
     }, []),
 
     cancelToAnswer: useCallback(() => {
       setAddComment(false)
       setCommentValue('');
-      dispatch(commentsActions.removeReplyPlaceholder())
-
+      dispatch(commentsActions.removeReplyAction())
     }, []),
 
     addApiToAnswer: useCallback((parent) => {
-      dispatch(commentsActions.addComment(parent, commentValue, () => dispatch(commentsActions.load(select.article._id))));
+      dispatch(commentsActions.addComment(parent, commentValue));
     }, [parent, commentValue]),
   };
-
-
-
-  const backLink = location.pathname;
 
   const renders = {
     item: useCallback(

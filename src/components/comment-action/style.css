@@ -43,6 +43,7 @@
 .CommentAction-controls {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .CommentAction_type_alert {

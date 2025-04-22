@@ -20,9 +20,9 @@ X-Token: 7ee15209d8429544dea8123fbdae254f5f79e6da5d720fec3127d9385b6eb9bc
 # Создание ответа на коммент коммента
 POST http://query.rest/api/v1/comments
 Content-Type: application/json
-X-Token: 7ee15209d8429544dea8123fbdae254f5f79e6da5d720fec3127d9385b6eb9bc
+X-Token: 40717d1c056933a15c15a0d8ccd6684cd8ff2805b845d9810a4446c85d2f93c4
 
 {
   "text": "Первый ответ на коммент!",
-  "parent": {"_id":  "670429839c74519426f378bd", "_type":  "comment"}
+  "parent": {"_id": "68056df17e843dad89610a98", "_type": "comment"}
 }
