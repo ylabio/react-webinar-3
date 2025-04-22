@@ -1,11 +1,11 @@
 import { memo, useCallback } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
 import Item from '../../components/item';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import Spinner from '../../components/spinner';
+import useLocale from '../../hooks/use-locale';
 
 function CatalogList() {
   const store = useStore();
@@ -39,7 +39,7 @@ function CatalogList() {
     ),
   };
 
-  const { t } = useTranslate();
+  const { t } = useLocale()
 
   const renders = {
     item: useCallback(

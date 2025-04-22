@@ -1,19 +1,20 @@
 import { memo, useCallback } from 'react';
-import { useDispatch, useStore as useStoreRedux } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useInit from '../../hooks/use-init';
-import useTranslate from '../../hooks/use-translate';
 import ItemBasket from '../../components/item-basket';
 import List from '../../components/list';
 import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
 import modalsActions from '../../store-redux/modals/actions';
+import useLocale from '../../hooks/use-locale';
+
+
 
 function Basket() {
   const store = useStore();
   const dispatch = useDispatch();
-
+  const {locale, t} = useLocale()
   const select = useSelector(state => ({
     list: state.basket.list,
     amount: state.basket.amount,
@@ -30,12 +31,11 @@ function Basket() {
     }, [store]),
   };
 
-  const { t } = useTranslate();
-
   const renders = {
     itemBasket: useCallback(
       item => (
         <ItemBasket
+          locale={locale}
           item={item}
           link={`/articles/${item._id}`}
           onRemove={callbacks.removeFromBasket}

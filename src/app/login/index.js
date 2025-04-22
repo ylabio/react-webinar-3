@@ -1,5 +1,4 @@
 import { memo, useCallback, useState } from 'react';
-import useTranslate from '../../hooks/use-translate';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
@@ -14,9 +13,11 @@ import useSelector from '../../hooks/use-selector';
 import useInit from '../../hooks/use-init';
 import HeadLayout from '../../components/head-layout';
 import Form from '../../components/form';
+import useLocale from '../../hooks/use-locale';
+
 
 function Login() {
-  const { t } = useTranslate();
+  const { t } = useLocale()
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
@@ -51,7 +52,7 @@ function Login() {
             location.state?.back && location.state?.back !== location.pathname
               ? location.state?.back
               : '/';
-          navigate(back);
+          navigate(back, {state: {replyTo: location.state?.replyTo}});
         });
       },
       [data, location.state],

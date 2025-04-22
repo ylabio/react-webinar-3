@@ -1,13 +1,13 @@
 import { memo, useCallback } from 'react';
 import SideLayout from '../../components/side-layout';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import Button from '../../components/button';
+import useLocale from '../../hooks/use-locale';
 
 function TopHead() {
-  const { t } = useTranslate();
+  const { t } = useLocale()
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();

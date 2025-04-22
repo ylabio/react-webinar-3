@@ -1,5 +1,4 @@
 import { memo, useCallback, useMemo } from 'react';
-import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Select from '../../components/select';
@@ -8,10 +7,12 @@ import SideLayout from '../../components/side-layout';
 import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import Button from '../../components/button';
+import useLocale from '../../hooks/use-locale';
+
 
 function CatalogFilter() {
   const store = useStore();
-
+  const { t, locale } = useLocale()
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -41,17 +42,17 @@ function CatalogFilter() {
     // Варианты сортировок
     sort: useMemo(
       () => [
-        { value: 'order', title: 'По порядку' },
-        { value: 'title.ru', title: 'По именованию' },
-        { value: '-price', title: 'Сначала дорогие' },
-        { value: 'edition', title: 'Древние' },
+        { value: 'order', title: t('sort.order') },
+        { value: 'title.ru', title: t('sort.name') },
+        { value: '-price', title: t('sort.expensive') },
+        { value: 'edition', title: t('sort.old') },
       ],
-      [],
+      [locale],
     ),
     // Категории для фильтра
     categories: useMemo(
       () => [
-        { value: '', title: 'Все' },
+        { value: '', title: t('filter.all') },
         ...treeToList(listToTree(select.categories), (item, level) => ({
           value: item._id,
           title: '- '.repeat(level) + item.title,
@@ -61,7 +62,7 @@ function CatalogFilter() {
     ),
   };
 
-  const { t } = useTranslate();
+
 
   return (
     <SideLayout padding="medium">
@@ -80,7 +81,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
+        placeholder={t('search')}
         delay={1000}
         theme={'big'}
       />

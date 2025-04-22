@@ -1,12 +1,12 @@
 import { memo, useCallback, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
 import Menu from '../../components/menu';
 import BasketTool from '../../components/basket-tool';
 import SideLayout from '../../components/side-layout';
 import { useDispatch } from 'react-redux';
 import modalsActions from '../../store-redux/modals/actions';
+import useLocale from '../../hooks/use-locale';
 
 function Navigation() {
   const store = useStore();
@@ -34,7 +34,7 @@ function Navigation() {
   };
 
   // Функция для локализации текстов
-  const { t } = useTranslate();
+  const { t } = useLocale()
 
   const options = {
     menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t]),

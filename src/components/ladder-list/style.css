@@ -1,0 +1,15 @@
+.LadderList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.LadderList-item {
+ /* padding-left: calc(var(--level, 0) * 40px);*/
+  --level: 0;
+  --indent: 0px;
+  padding-left: calc(var(--level) * var(--indent));
+}

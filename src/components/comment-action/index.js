@@ -1,0 +1,69 @@
+import { memo } from 'react';
+import PropTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
+import './style.css';
+import Button from '../button';
+import { Link } from 'react-router-dom';
+
+function CommentAction(props) {
+  const {
+    id='',
+    t = text => text,
+    onAdd = () => {},
+    setValue = () => {},
+    cancel = () => {},
+    value = '',
+    isReply = false,
+    auth = false,
+    link = '/login',
+    backLink = '',
+  } = props;
+  const cn = bem('CommentAction');
+
+  const label = isReply ? t('comment.newReply') : t('comment.newComment');
+
+  const onChangeHandler = event => {
+    setValue(event.target.value);
+  };
+
+
+  if (!auth) {
+    return (
+      <div {...(isReply ? { id: 'reply' } : {})} className={cn({type: 'alert'})}>
+        <Link to={link} state={{back: backLink, replyTo: id}}>{t('comment.authHint.link')}</Link>{t('comment.authHint.text')}
+      </div>
+    );
+  }
+
+
+  return (
+    <div {...(isReply ? { id: 'reply' } : {})} className={cn(isReply ? { type: 'reply' } : {})}>
+      <label htmlFor="comment">{label}</label>
+      <textarea id="comment"
+                name="comment"
+                onChange={onChangeHandler}
+                value={value}/>
+      <div className={cn('controls')}>
+        <Button title={t('comment.send')}
+                disabled={!value.trim()}
+                style={'primary'}
+                onClick={() => { onAdd(); cancel(); }}/>
+        {isReply && <Button title={t('comment.cancel')} style={'outline'} onClick={cancel}/>}
+      </div>
+    </div>
+  );
+}
+
+CommentAction.propTypes = {
+  onAdd: PropTypes.func,
+  t: PropTypes.func,
+  id: PropTypes.string,
+  value: PropTypes.string,
+  isReply: PropTypes.bool,
+  auth: PropTypes.bool,
+  link: PropTypes.string,
+  backLink: PropTypes.string,
+  cancel: PropTypes.func,
+};
+
+export default memo(CommentAction);

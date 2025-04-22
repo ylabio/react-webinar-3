@@ -6,8 +6,15 @@ import { Link } from 'react-router-dom';
 import Button from '../button';
 import './style.css';
 
+
 function ItemBasket(props) {
-  const { onRemove = () => {}, labelCurr = '₽', labelUnit = 'шт', labelDelete = 'Удалить' } = props;
+  const {
+    onRemove = () => {},
+    labelCurr = '₽',
+    labelUnit = 'шт',
+    labelDelete = 'Удалить',
+    locale = 'ru'
+  } = props;
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -20,10 +27,10 @@ function ItemBasket(props) {
       <div className={cn('title')}>
         {props.link ? (
           <Link to={props.link} onClick={props.onLink}>
-            {props.item.title}
+            {props.item.title[locale]}
           </Link>
         ) : (
-          props.item.title
+          props.item.title[locale]
         )}
       </div>
       <div className={cn('right')}>
@@ -54,6 +61,7 @@ ItemBasket.propTypes = {
   labelCurr: PropTypes.string,
   labelDelete: PropTypes.string,
   labelUnit: PropTypes.string,
+  locale: PropTypes.string,
 };
 
 export default memo(ItemBasket);
