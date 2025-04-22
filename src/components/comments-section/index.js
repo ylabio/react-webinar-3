@@ -1,24 +1,64 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import './style.css';
 
 function CommentItem({comment, replyTo, text, onTextChange, onReplyClick, onSubmit, isAuthorized}) {
+  
   const isChild = (comment.level || 0) > 0;
+  const level = comment.level ?? 0;
+  const base_padding = 40;
+  const max_level = 4;
+  const extra_padding = -30;
+
+  const indentPx =
+    level <= max_level
+      ? level * base_padding
+      : max_level * base_padding + (level - max_level) * extra_padding;
+
+  const navigate = useNavigate();
+
+
+  const handleReply = () => {
+    if (isAuthorized) {
+      onReplyClick(comment.id);
+    } else {
+      navigate('/login', { state: { back: window.location.pathname } });
+    }
+  };
+
+  const replyRef = useRef(null);
+
+  useEffect(() => {
+    if (replyTo === comment.id && replyRef.current) {
+      replyRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [replyTo, comment.id]);
 
   return (
-    <div className="comment" style={{ paddingLeft: (comment.level || 0) * 40 }}>
+    <div className="comment" style={{ paddingLeft: indentPx }}>
       <div className="comment-header">
-        <span className={`comment-author${isChild ? ' child' : ''}`}>{comment.author}</span>
-        <span className="comment-date">{new Date(comment.date).toLocaleString()}</span>
+        <span className={`comment-author${isChild ? ' child' : ''}`}>
+          {comment.author}
+        </span>
+        <span className="comment-date">
+          {new Date(comment.date).toLocaleString()}
+        </span>
       </div>
       <div className="comment-body">{comment.text}</div>
-      {isAuthorized && (
-        <button className="comment-reply-btn" onClick={() => onReplyClick(comment.id)}>
-          Ответить
-        </button>
-      )}
+
+      <button
+        className="comment-reply-btn"
+        onClick={handleReply}
+      >
+        Ответить
+      </button>
+
       {comment.replies.length > 0 && (
         <div className="comment-children">
           {comment.replies.map(child => (
@@ -35,9 +75,11 @@ function CommentItem({comment, replyTo, text, onTextChange, onReplyClick, onSubm
           ))}
         </div>
       )}
+
+      {/* Форма ответа */}
       {isAuthorized && replyTo === comment.id && (
-        <form className="comment-reply-form" onSubmit={onSubmit}>
-          <h3 className='new-reply-heading'>Новый ответ</h3>
+        <form ref={replyRef} className="comment-reply-form" onSubmit={onSubmit} style={{ paddingLeft: indentPx }}>
+          <h3 className="new-reply-heading">Новый ответ</h3>
           <textarea
             className="comment-textarea"
             value={text}
@@ -45,28 +87,21 @@ function CommentItem({comment, replyTo, text, onTextChange, onReplyClick, onSubm
             placeholder="Ваш ответ..."
             required
           />
-          <div className='controls-layout'>
+          <div className="controls-layout">
             <Button
-             title={'Отправить'}
-             style={'primary'}
-             type="submit"
-             className="comment-submit-btn"
-             onClick={() => {window.location.reload()}}
+              title="Отправить"
+              style="primary"
+              type="submit"
+              disabled={!text.trim()}
+              onClick={() => {window.location.reload()}}
             />
-
             <Button
-              title={'Отмена'}
-              style={'outline'} 
+              title="Отмена"
+              style="outline"
               type="button"
-              onClick={() => {
-                onReplyClick(null);
-                onTextChange('');
-                
-              }}
-              className="comment-submit-btn"
+              onClick={() => onReplyClick(null)}
             />
           </div>
-
         </form>
       )}
     </div>
@@ -108,10 +143,10 @@ export default function CommentsSection({comments, replyTo, text, onTextChange, 
               onChange={e => onTextChange(e.target.value)}
               required
             />
-            <button className="comment-submit-btn" onClick={() => {window.location.reload()}} type="submit">Отправить</button>
+            <button className="comment-submit-btn" disabled={!text.trim()} onClick={() => {window.location.reload()}} type="submit">Отправить</button>
           </form>
         ) : (
-          <p className="comments-login-prompt">
+          <p className="comments-login-prompt" >
             <Link className='link-to' to="/login">Войдите</Link>, чтобы иметь возможность комментировать
           </p>
         )

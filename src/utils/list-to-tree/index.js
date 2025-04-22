@@ -1,35 +1,38 @@
 /**
  * Преобразование списка в иерархию
- * @param list {Array} Список объектов с отношением на родителя
- * @param [key] {String} Свойство с первичным ключом
- * @returns {Array} Корневые узлы
+ * @param {Array} list - Список объектов с родительскими ссылками
+ * @param {String} [key='_id'] - Свойство первичного ключа
+ * @param {String} [rootParentType] - Тип родителя, узлы с таким типом считаются корневыми
+ * @returns {Array} - Массив корневых узлов с вложенными children
  */
-export default function listToTree(list, key = '_id') {
-  let trees = {};
-  let roots = {};
-  for (const item of list) {
-    // Добавление элемента в индекс узлов и создание свойства children
-    if (!trees[item[key]]) {
-      trees[item[key]] = item;
-      trees[item[key]].children = [];
-      // Ещё никто не ссылался, поэтому пока считаем корнем
-      roots[item[key]] = trees[item[key]];
-    } else {
-      trees[item[key]] = Object.assign(trees[item[key]], item);
-    }
+export default function listToTree(list, key = '_id', rootParentType) {
+  const idMap = {};
+  const roots = [];
 
-    // Если элемент имеет родителя, то добавляем его в подчиненные родителя
-    if (item.parent?.[key]) {
-      // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
-      if (!trees[item.parent[key]]) {
-        trees[item.parent[key]] = { children: [] };
-        roots[item.parent[key]] = trees[item.parent[key]];
+  // Инициализация узлов и создание children
+  for (const item of list) {
+    idMap[item[key]] = { ...item, children: [] };
+  }
+
+  // Построение дерева
+  for (const item of list) {
+    const node = idMap[item[key]];
+    const parent = item.parent;
+
+    // Если есть родитель и тип родителя не совпадает с корневым типом, то добавляем к родителю
+    if (parent?.[key] && (!rootParentType || parent._type !== rootParentType)) {
+      const parentNode = idMap[parent[key]];
+      if (parentNode) {
+        parentNode.children.push(node);
+      } else {
+        // Родитель не найден в списке — считаем текущий узел корневым
+        roots.push(node);
       }
-      // Добавления в подчиненные родителя
-      trees[item.parent[key]].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
+    } else {
+      // Нет родителя или тип родителя соответствует корневому типу
+      roots.push(node);
     }
   }
-  return Object.values(roots);
+
+  return roots;
 }
