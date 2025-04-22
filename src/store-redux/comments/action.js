@@ -21,7 +21,7 @@ export default {
       }
     };
   },
-  create: comment => {
+  create: (comment, userName) => {
     return async (dispatch, getState, services) => {
       // Сброс комментариев и установка признака ожидания загрузки
       dispatch({ type: 'comments/create-start' });
@@ -33,7 +33,15 @@ export default {
           body: JSON.stringify(comment),
         });
         // комментарии загружены успешно
-        dispatch({ type: 'comments/create-success', payload: { data: res.data.result.items } });
+        dispatch({
+          type: 'comments/create-success',
+          payload: {
+            data: [
+              ...getState().comments.data,
+              { ...res.data.result, author: { profile: { name: userName } } },
+            ],
+          },
+        });
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: 'comments/create-error' });

@@ -1,25 +1,26 @@
 .ItemComment {
   margin-bottom: 16px;
+}
 
-  &:last-child {
-    margin-bottom: 24px;
-  }
+.ItemComment:last-child {
+  margin-bottom: 16px;
+}
 
-  &-header {
-    font-size: 12px;
+.ItemComment-header {
+  font-size: 12px;
+}
 
-    & strong {
-      margin-right: 12px;
-    }
+.ItemComment-header strong {
+  margin-right: 12px;
+}
 
-    & span {
-      color: var(--third-text);
-    }
-  }
+.ItemComment-header span {
+  color: var(--third-text);
+}
 
-  &-text {
-    margin: 6px 0;
-    font-size: 14px;
-    color: #000000;
-  }
+.ItemComment-text {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #000000;
+  word-wrap: break-word;
 }

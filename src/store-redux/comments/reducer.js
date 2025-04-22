@@ -16,17 +16,17 @@ function reducer(state = initialState, action) {
     }
 
     case 'comments/load-error':
-      return { ...state, data: [], waiting: false }; //@todo текст ошибки сохранять?
+      return { ...state, data: [], waiting: false };
 
     case 'comments/create-start':
       return { ...state, waiting: true, success: true };
 
     case 'comments/create-success': {
-      return { ...state, success: true, waiting: false };
+      return { ...state, success: true, waiting: false, data: action.payload.data };
     }
 
     case 'comments/create-error':
-      return { ...state, success: false, waiting: false }; //@todo текст ошибки сохранять?
+      return { ...state, success: false, waiting: false };
 
     default:
       // Нет изменений

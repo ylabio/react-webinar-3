@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Button from '../button';
 
-function ItemComment({ author, date, text, titleBtn, onClick }) {
+function ItemComment({ author, date, text, titleBtn, onClick = () => {} }) {
   const cn = bem('ItemComment');
   return (
     <div className={cn()}>

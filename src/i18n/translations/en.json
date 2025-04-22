@@ -31,6 +31,7 @@
   "comments.singIn": "Sign in",
   "comments.singIn-desc": ", to be able to comment",
   "comments.answer": "Answer",
+  "comments.answer-text": "My answer for ",
   "comments.send": "Submit",
   "comments.cancel": "Cancel",
   "comments.title": "New comment",

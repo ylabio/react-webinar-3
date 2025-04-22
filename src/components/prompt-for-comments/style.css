@@ -6,6 +6,7 @@
 
     &:hover {
       color: var(--primary-select);
+      text-decoration: underline;
     }
   }
 }
