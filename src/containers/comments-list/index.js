@@ -30,7 +30,7 @@ function CommentsList({ articleId }) {
   const authedUser = useSelector(state => state.session.user);
 
   const callbacks = {
-    handleReply: useCallback((targetCommentId, rootCommentId, depth) => {
+    handleReply: useCallback(targetCommentId => {
       setReplyTargetId(targetCommentId);
     }, []),
 

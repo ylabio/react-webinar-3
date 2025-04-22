@@ -5,7 +5,7 @@ import dateFormat from '../../utils/date-format';
 import Button from '../button';
 import './style.css';
 
-function CommentItem({ comment, onReply, rootCommentId, depth = 0, locale, authedUser }) {
+function CommentItem({ comment, onReply, depth = 0, locale, authedUser }) {
   const cn = bem('CommentItem');
   const { author, text, dateCreate, _id } = comment;
   const { t, lang } = locale;
@@ -24,7 +24,7 @@ function CommentItem({ comment, onReply, rootCommentId, depth = 0, locale, authe
           style="text-primary"
           title={t('comments.reply')}
           fontSize="small"
-          onClick={() => onReply(_id, rootCommentId, depth + 1)}
+          onClick={() => onReply(_id)}
         />
       </div>
     </div>
@@ -44,7 +44,6 @@ CommentItem.propTypes = {
     ),
   }).isRequired,
   authedUser: PropTypes.object,
-  rootCommentId: PropTypes.string,
   onReply: PropTypes.func,
   depth: PropTypes.number,
 };
