@@ -22,7 +22,6 @@ function reducer(state = initialState, action) {
 
     case 'comments/create-success':
       console.log('Успешная отправка сообщения');
-      console.log('reducer', action.payload.data);
       return { ...state, data: action.payload.data, waiting: false, success: true }
     
     case 'comments/create-error':

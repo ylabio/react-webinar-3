@@ -59,9 +59,6 @@ function Login() {
     ),
   };
 
-  const back = location.state?.back; // Если back не определен, используем '/'
-  console.log('ссылка back', back);
-
   return (
     <>
       <HeadLayout>

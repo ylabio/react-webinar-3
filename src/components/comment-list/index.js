@@ -49,17 +49,9 @@ function CommentList(props) {
     [replyToCommentId, params.id],
   );
 
-  console.log('parent', parent);
-
   useEffect(() => {
     setComments(initialComments);
-    // console.log('comments useEffect', comments);
   }, [initialComments]);
-
-  useEffect(() => {
-    console.log('Updated comments from useEffect:', comments);
-    // setComments(updatedComments);
-  }, [comments]);
 
   const callbacks = {
     onChange: useCallback(
@@ -84,16 +76,12 @@ function CommentList(props) {
         }
         try {
           const { data } = await dispatch(commentsActions.create(newComment));
-          console.log('returned comment', data);
-          // dispatch(commentsActions.load(params.id));
           const updatedComments = addCommentToTree(comments, data);
           setComments(updatedComments);
-          // console.log('updatedComments', updatedComments);
           setErrorMessage('');
           setIsReplyActive(false);
           setReplyToCommentId(null);
         } catch (e) {
-          console.error('Ошибка при добавлении комментария:', e);
           setErrorMessage('Не удалось добавить комментарий. Попробуйте еще раз.');
         }
       }, [dispatch, newComment, params.id]
@@ -125,12 +113,8 @@ function CommentList(props) {
 
   // Функция для добавления нового комментария в дерево
     const addCommentToTree = (comments, newComment) => {
-      console.log('newComment', newComment);
-      // const { parent } = newComment;
-      console.log('Проверка parent', parent);
       // Если у нового комментария нет родителя, добавляем его на верхний уровень
       if (parent._type === "article") {
-        console.log('У комментария Нет родителя');
         return [...comments, newComment];
       }
       // Рекурсивная функция для поиска родителя и добавления нового комментария
@@ -142,7 +126,6 @@ function CommentList(props) {
               comment.children = [];
             }
             comment.children.push(newComment);
-            // console.log('Ребенок добавлен', comment._id, parent._id);
             return true;
           }
           // Если у текущего комментария есть дочерние элементы, продолжаем поиск
@@ -154,14 +137,12 @@ function CommentList(props) {
       };
 
       const updatedComments = [...comments];
-      console.log('updatedComments', updatedComments);
       findAndAdd(updatedComments);
 
       return updatedComments; 
     };
 
     const cn = bem('CommentList');
-    console.log('comments before render', comments);
 
   return (
     <div className={cn()}>
@@ -234,7 +215,7 @@ CommentList.propTypes = {
       _type: PropTypes.string
     }),
   }).isRequired,
-  commentCount: PropTypes.number,
+  commentCount: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   t: PropTypes.func,
 };
 

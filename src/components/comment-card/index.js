@@ -60,7 +60,6 @@ function CommentCard(props) {
   const hasChildren = comment.children && comment.children.length > 0;
 
   const cn = bem('CommentCard');
-  console.log('User', select.user);
   
   return (
     <div className={cn()}>
