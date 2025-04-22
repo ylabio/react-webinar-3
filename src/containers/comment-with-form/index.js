@@ -1,9 +1,7 @@
-import { memo, useMemo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useRef, useEffect } from 'react';
 import useTranslate from '../../hooks/use-translate';
-import Spinner from '../../components/spinner';
 import Comment from '../../components/comment';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
-import commentsFormat from '../../utils/comments-format';
 import shallowequal from 'shallowequal';
 import CommentInput from '../../components/comment-input';
 import Form from '../../components/form';
@@ -11,59 +9,66 @@ import commentsActions from '../../store-redux/comments/actions';
 import InputWrapper from '../input-wrapper';
 import useSelector from '../../hooks/use-selector';
 import CommentsLayout from '../../components/comments-layout';
+import PropTypes from 'prop-types';
 
 
 function CommentWithForm(props) {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const inputFormRef = useRef(null);
 
-    const [text, setText] = useState('');
+  const [text, setText] = useState('');
 
-    const { t } = useTranslate();
+  const { t } = useTranslate();
   
-    const select = {...useSelectorRedux(
-      state => ({
-        activeCommentId: state.comments.activeCommentId,
-      }),
-      shallowequal,
-    ), ...useSelector(
-      state => ({
-        user: state.session.user,
-      })
-    )};
+  const select = {...useSelectorRedux(
+    state => ({
+      activeCommentId: state.comments.activeCommentId,
+    }),
+    shallowequal,
+  ), ...useSelector(
+    state => ({
+      user: state.session.user,
+    })
+  )};
+
+  useEffect(() => {
+    if (inputFormRef.current) {
+      inputFormRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [select.activeCommentId]);
   
-    const callbacks = {
-      // Установка айди активного комментария
-      setActiveComment: useCallback(
-        id => dispatch(commentsActions.setActiveComment(id)),
-      [select.activeCommentId]),
-      //Сброс активного комментария
-      resetActiveComment: useCallback(() => {
-        dispatch(commentsActions.resetActiveComment());
-        setText('');
-      }, [select.activeCommentId]),
+  const callbacks = {
+    // Установка айди активного комментария
+    setActiveComment: useCallback(
+      id => dispatch(commentsActions.setActiveComment(id)),
+    [select.activeCommentId]),
+    //Сброс активного комментария
+    resetActiveComment: useCallback(() => {
+      dispatch(commentsActions.resetActiveComment());
+      setText('');
+    }, [select.activeCommentId]),
 
-      // Колбэк на ввод в элементах формы
-      onChange: useCallback((newText) => {
-        setText(newText);
-      }, []),
+    // Колбэк на ввод в элементах формы
+    onChange: useCallback((newText) => {
+      setText(newText);
+    }, []),
 
-      // Отправка формы для создания комментария
-      onSubmit: useCallback(
-        (e, id, type) => {
-          e.preventDefault();
-          if (text.trim().length !== 0) {
-            dispatch(commentsActions.sendComment(text, id, type));
-            setText('');
-            dispatch(commentsActions.resetActiveComment());
-          }
-        },
-        [text],
-      ),
-    };
+    // Отправка формы для создания комментария
+    onSubmit: useCallback(
+      (e, id, type) => {
+        e.preventDefault();
+        if (text.trim().length !== 0) {
+          dispatch(commentsActions.sendComment(text, id, type));
+          setText('');
+          dispatch(commentsActions.resetActiveComment());
+        }
+      },
+      [text],
+    ),
+  };
   const children = props.item.children;
   const isPaddingLeft = props.level > 0 && props.level <= 10;
-  const isFormPadding = props.level <= 10;
   return (
   <CommentsLayout isPaddingLeft={isPaddingLeft} gap="medium">
     <Comment
@@ -81,7 +86,7 @@ function CommentWithForm(props) {
       />))
     }
     {select.activeCommentId === props.item._id &&
-      <div style={{ paddingLeft: '40px'}}>
+      <div style={{ paddingLeft: '40px'}} ref={inputFormRef}>
         <InputWrapper>
           <Form
             title={t('comments.newAnswer')}
@@ -89,7 +94,7 @@ function CommentWithForm(props) {
             onCancel={callbacks.resetActiveComment}
             onSubmit={(e) => callbacks.onSubmit(e, props.item._id, 'comment')}
             cancelTitle={t('comments.cancel')}
-            titleType='small'
+            type="reply"
           >
             <CommentInput
               onChange={callbacks.onChange}
@@ -102,5 +107,9 @@ function CommentWithForm(props) {
   </CommentsLayout>)
 
 }
+
+CommentWithForm.propTypes = {
+  level: PropTypes.number,
+};
 
 export default memo(CommentWithForm);

@@ -29,7 +29,8 @@ function CommentList() {
     }),
     shallowequal,
   );
-
+  
+  //Сбрасываем активный комментарий,чтобы отображалась только форма для создания нового комментария
   useEffect(() => {
     dispatch(commentsActions.resetActiveComment());
   }, []);
@@ -84,7 +85,7 @@ function CommentList() {
             title={t('comments.newComment')}
             submitTitle={t('comments.submit')}
             onSubmit={(e) => callbacks.onSubmit(e, select.article.data._id)}
-            titleType='small'
+            type="comment"
           >
             <CommentInput onChange={callbacks.onChange} value={text}/>
           </Form>

@@ -70,7 +70,12 @@ function Login() {
       <PageLayout>
         <Navigation />
         <SideLayout padding="medium">
-          <Form onSubmit={callbacks.onSubmit} title={t('auth.title')} submitTitle={t('auth.signIn')}>
+          <Form
+            onSubmit={callbacks.onSubmit}
+            title={t('auth.title')}
+            submitTitle={t('auth.signIn')}
+            type="main"
+          >
             <Field label={t('auth.login')} error={select.errors?.login}>
               <Input
                 name="login"

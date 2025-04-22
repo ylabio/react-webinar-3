@@ -4,12 +4,12 @@ import { cn as bem } from '@bem-react/classname';
 import Button from '../button';
 import './style.css';
 
-function Form({ title, onSubmit, children, submitTitle, onCancel, cancelTitle, titleType = 'normal' }) {
+function Form({ title, onSubmit, children, submitTitle, onCancel, cancelTitle, type }) {
   const cn = bem('Form');
 
   return (
-    <form className={cn()} onSubmit={onSubmit}>
-      <h2 className={cn('title', { titleType })}>{title}</h2>
+    <form className={cn({ type })} onSubmit={onSubmit}>
+      <h2 className={cn('title')}>{title}</h2>
       {children}
       <div className={cn('actions')}>
         <Button style="primary" type="submit" title={submitTitle} />

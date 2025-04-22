@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentsLayout({ children, gap, isPaddingLeft = false }) {
+function CommentsLayout({ children, gap = 'large', isPaddingLeft = false  }) {
   const cn = bem('CommentsLayout');
   return (
     <div className={cn({ gap, isPaddingLeft })}>
@@ -14,6 +14,8 @@ function CommentsLayout({ children, gap, isPaddingLeft = false }) {
 
 CommentsLayout.PropTypes = {
   children: PropTypes.node,
+  gap: PropTypes.oneOf(['medium', 'large']),
+  isPaddingLeft: PropTypes.bool,
 }
 
 export default memo(CommentsLayout);
