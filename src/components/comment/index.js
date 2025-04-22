@@ -21,9 +21,13 @@ function Comment({
 
   if (comment.isDeleted) return null;
 
-  const children = comments.filter(
-    item => item.parent._id === comment._id && item.parent._type === 'comment' && !item.isDeleted,
-  );
+  // const children = comments.filter(
+  //   item => item.parent._id === comment._id && item.parent._type === 'comment' && !item.isDeleted,
+  // );
+  const children = comment?.children;
+
+  // console.log('Comment children ----');
+  // console.log(children);
 
   const callbacks = {
     onReply: useCallback(() => {
@@ -54,17 +58,17 @@ function Comment({
     <div className={cn('wrapper', { nested: level > 0 && level < 10 })}>
       <div className={cn('content')}>
         <div className="">
-          <span className={cn('name')}>{comment.author.profile.name} </span>
+          <span className={cn('name')}>{comment?.author?.profile.name} </span>
           <span className={cn('date')}>{new Date(comment.dateCreate).toLocaleString()}</span>
         </div>
         <p className={cn('text')}>{comment.text}</p>
         <Button style="comment" onClick={callbacks.onReply} title="Ответить" />
       </div>
-      {children.map(child => (
+      {children?.map(child => (
         <Comment
           key={child._id}
           comment={child}
-          comments={comments}
+          // comments={comments}
           level={level + 1}
           isLogin={isLogin}
           loginComment={loginComment}

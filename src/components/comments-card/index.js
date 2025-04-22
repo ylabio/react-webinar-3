@@ -12,6 +12,7 @@ import Comment from '../comment';
 import ReplyForm from '../reply-form';
 import commentsActions from '../../store-redux/comments/actions';
 import { useDispatch } from 'react-redux';
+import listToTree from '../../utils/list-to-tree';
 
 function CommentsCard(props) {
   // const { article, onAdd = () => {}, t = text => text } = props;
@@ -31,9 +32,14 @@ function CommentsCard(props) {
 
   const [replyToCommentId, setReplyToCommentId] = useState(null);
 
-  const rootComments = props.comments.filter(
-    comment => comment.parent._type === 'article' && !comment.isDeleted,
-  );
+  // const rootComments = props.comments.filter(
+  //   comment => comment.parent._type === 'article' && !comment.isDeleted,
+  // );
+
+  const rootComments = listToTree(props.comments);
+
+  // console.log('Comment Root ----');
+  // console.log(rootComments);
 
   const callbacks = {
     // Переход к авторизации
@@ -76,7 +82,7 @@ function CommentsCard(props) {
             <Comment
               key={comment._id}
               comment={comment}
-              comments={props.comments}
+              // comments={props.comments}
               level={0}
               isLogin={select.exists}
               loginComment={loginComment}
