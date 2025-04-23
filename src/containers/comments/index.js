@@ -14,8 +14,48 @@ import CommentsPrompt from '../../components/prompt-for-comments';
 import formatDate from '../../utils/format-date';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
-import findLastChild from '../../utils/find-last-child';
-import findInsertPosition from '../../utils/find-insert-position';
+
+// Функция для поиска последнего дочернего комментария
+function findLastChild(comments, targetId, parentLevel = 0) {
+  for (const comment of comments) {
+    if (comment._id === targetId) {
+      if (comment.children && comment.children.length > 0) {
+        const lastChild = findLastChild(
+          comment.children,
+          comment.children[comment.children.length - 1]._id,
+          parentLevel + 1,
+        );
+        return (
+          lastChild || {
+            ...comment.children[comment.children.length - 1],
+            level: parentLevel + 1,
+          }
+        );
+      }
+      return null;
+    }
+    if (comment.children) {
+      const found = findLastChild(comment.children, targetId, parentLevel + 1);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+// Функция для определения позиции вставки
+function findInsertPosition(targetId, lastChild, commentsList) {
+  if (lastChild) {
+    return {
+      insertAfterId: lastChild._id,
+      level: lastChild.level + 1,
+    };
+  }
+
+  return {
+    insertAfterId: targetId,
+    level: 1, // Базовый уровень вложенности для ответа
+  };
+}
 
 const Comments = () => {
   const { t } = useTranslate();
@@ -26,7 +66,6 @@ const Comments = () => {
   const formRef = useRef(null);
 
   const [newComment, setNewComment] = useState({
-    parent: { _id: '', _type: '' },
     text: '',
   });
   const [activeReplyId, setActiveReplyId] = useState(null);
@@ -59,14 +98,6 @@ const Comments = () => {
     }
   }, [activeReplyId]);
 
-  const parent = useMemo(
-    () => ({
-      _id: activeReplyId || params.id,
-      _type: activeReplyId ? 'comment' : selectRedux.article._type,
-    }),
-    [activeReplyId, params.id, selectRedux.article._type],
-  );
-
   const commentListTree = useMemo(
     () => listToTree(selectRedux.commentsList),
     [selectRedux.commentsList],
@@ -75,8 +106,9 @@ const Comments = () => {
   const comments = useMemo(
     () =>
       treeToList(commentListTree, (item, level) => ({
+        ...item,
         id: item._id,
-        level,
+        level: level,
         padding: Math.min(level, 8) * 40,
         author: item.author?.profile?.name,
         date: item.dateCreate,
@@ -86,26 +118,22 @@ const Comments = () => {
   );
 
   const lastChild = useMemo(
-    () => findLastChild(commentListTree, activeReplyId),
+    () => (activeReplyId ? findLastChild(commentListTree, activeReplyId) : null),
     [commentListTree, activeReplyId],
   );
 
-  const insertPost = useMemo(
-    () => findInsertPosition(activeReplyId, lastChild, comments),
-    [activeReplyId, lastChild, comments],
+  const insertPosition = useMemo(
+    () => (activeReplyId ? findInsertPosition(activeReplyId, lastChild, comments) : null),
+    [lastChild, activeReplyId, comments],
   );
 
   const callbacks = {
-    onChange: useCallback(
-      e => {
-        setNewComment(prev => ({
-          ...prev,
-          parent,
-          text: e.target.value,
-        }));
-      },
-      [parent],
-    ),
+    onChange: useCallback(e => {
+      setNewComment(prev => ({
+        ...prev,
+        text: e.target.value,
+      }));
+    }, []),
 
     onSubmit: useCallback(
       e => {
@@ -113,12 +141,24 @@ const Comments = () => {
         const isEmpty = newComment.text.trim().length > 0;
 
         if (isEmpty) {
-          dispatch(commentsActions.create(newComment, select.user.profile.name));
-          setNewComment({ parent, text: '' });
+          const parent = {
+            _id: activeReplyId || params.id,
+            _type: activeReplyId ? 'comment' : selectRedux.article._type,
+          };
+
+          dispatch(commentsActions.create({ ...newComment, parent }, select.user.profile.name));
+          setNewComment({ text: '' });
           setActiveReplyId(null);
         }
       },
-      [newComment, select.user?.profile?.name, dispatch, parent],
+      [
+        newComment,
+        activeReplyId,
+        params.id,
+        selectRedux.article._type,
+        select.user?.profile?.name,
+        dispatch,
+      ],
     ),
 
     onCancel: useCallback(() => {
@@ -141,8 +181,8 @@ const Comments = () => {
   const renderComment = (comment, index) => {
     const isCurrentUserComment = select.user.profile?.name === comment.author;
     const commentStyle = {
-      color: isCurrentUserComment ? '#4B5563' : '',
-      paddingLeft: comment.padding,
+      color: isCurrentUserComment ? '#4B5563' : 'inherit',
+      paddingLeft: `${comment.padding}px`,
       marginTop: index === 0 ? '24px' : 0,
     };
 
@@ -159,28 +199,33 @@ const Comments = () => {
           />
         </div>
 
-        {select.exists && lastChild?._id === comment.id && (
-          <div ref={formRef} style={{ marginLeft: `${insertPost.level * 40}px` }}>
-            <CommentsForm
-              onSubmit={callbacks.onSubmit}
-              style="small"
-              option="cancel"
-              onClick={callbacks.onCancel}
-              value={newComment.text}
-              onChange={callbacks.onChange}
-              success={selectRedux.success}
-              t={t}
-            />
-          </div>
-        )}
-
-        {!select.exists && activeReplyId === comment.id && (
-          <div style={{ marginLeft: `${insertPost.level * 40}px` }}>
-            <CommentsPrompt
-              back={back}
-              subLink={t('comments.singIn')}
-              subDesc={t('comments.singIn-desc')}
-            />
+        {/* Форма вставляется после последнего комментария в цепочке */}
+        {insertPosition && insertPosition.insertAfterId === comment.id && (
+          <div
+            ref={formRef}
+            style={{
+              marginLeft: `${insertPosition.level * 40}px`,
+              marginTop: '16px',
+            }}
+          >
+            {select.exists ? (
+              <CommentsForm
+                onSubmit={callbacks.onSubmit}
+                style="small"
+                option="cancel"
+                onClick={callbacks.onCancel}
+                value={newComment.text}
+                onChange={callbacks.onChange}
+                success={selectRedux.success}
+                t={t}
+              />
+            ) : (
+              <CommentsPrompt
+                back={back}
+                subLink={t('comments.singIn')}
+                subDesc={t('comments.singIn-desc')}
+              />
+            )}
           </div>
         )}
       </div>
