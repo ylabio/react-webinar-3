@@ -42,10 +42,7 @@
 
 .Button_style_text-primary {
   padding: 0;
+  font-size: 12px;
   border: none;
   color: var(--primary);
-
-  &:hover {
-    color: var(--primary-select);
-  }
 }

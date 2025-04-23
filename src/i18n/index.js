@@ -5,7 +5,7 @@ class I18nService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.locale = config.locale;
+    this.locale = localStorage.getItem('locale') || config.locale;
     this.dictionary = config.dictionary || {};
     this.listeners = new Set();
   }
@@ -17,6 +17,7 @@ class I18nService {
   setLocale(locale) {
     if (this.locale !== locale) {
       this.locale = locale;
+      localStorage.setItem('locale', locale);
       this.notify(locale);
     }
   }

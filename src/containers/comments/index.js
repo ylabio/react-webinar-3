@@ -160,7 +160,12 @@ function Comments({}) {
                 />
               </div>
               {select.exists && options.lastChild?._id === comment.id && (
-                <div ref={formRef} style={{ marginLeft: `${insertPost.level * 40}px` }}>
+                <div
+                  ref={formRef}
+                  style={{
+                    marginLeft: `${insertPost.level > 8 ? 8 * 40 : insertPost.level * 40}px`,
+                  }}
+                >
                   <CommentsForm
                     onSubmit={callbacks.onSubmit}
                     style="small"
@@ -173,8 +178,13 @@ function Comments({}) {
                   />
                 </div>
               )}
-              {!select.exists && activeReplyId === comment.id && (
-                <div style={{ marginLeft: `${insertPost.level * 40}px` }}>
+              {!select.exists && options.lastChild?._id === comment.id && (
+                <div
+                  ref={formRef}
+                  style={{
+                    marginLeft: `${insertPost.level > 8 ? 8 * 40 : insertPost.level * 40}px`,
+                  }}
+                >
                   <CommentsPrompt
                     back={back}
                     subLink={t('comments.singIn')}
