@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
 import CommentForm from '../comment-form';
 import debounce from 'lodash.debounce';
+import addCommentToTree from '../../utils/obj-to-list';
 
 function CommentList(props) {
   const { comments: initialComments, commentCount, t = text => text } = props;
@@ -76,7 +77,7 @@ function CommentList(props) {
         }
         try {
           const { data } = await dispatch(commentsActions.create(newComment));
-          const updatedComments = addCommentToTree(comments, data);
+          const updatedComments = addCommentToTree(comments, data, parent);
           setComments(updatedComments);
           setErrorMessage('');
           setIsReplyActive(false);
@@ -111,38 +112,7 @@ function CommentList(props) {
     navigate('/login', { state: { back: location.pathname } });
   }
 
-  // Функция для добавления нового комментария в дерево
-    const addCommentToTree = (comments, newComment) => {
-      // Если у нового комментария нет родителя, добавляем его на верхний уровень
-      if (parent._type === "article") {
-        return [...comments, newComment];
-      }
-      // Рекурсивная функция для поиска родителя и добавления нового комментария
-      const findAndAdd = (comments) => {
-        for (let comment of comments) {
-          if (comment._id === parent._id) {
-            // Если нашли родителя, добавляем новый комментарий в его children
-            if (!comment.children) {
-              comment.children = [];
-            }
-            comment.children.push(newComment);
-            return true;
-          }
-          // Если у текущего комментария есть дочерние элементы, продолжаем поиск
-          if (comment.children && findAndAdd(comment.children)) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      const updatedComments = [...comments];
-      findAndAdd(updatedComments);
-
-      return updatedComments; 
-    };
-
-    const cn = bem('CommentList');
+  const cn = bem('CommentList');
 
   return (
     <div className={cn()}>
