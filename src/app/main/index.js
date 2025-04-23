@@ -10,15 +10,18 @@ import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import HeadLayout from '../../components/head-layout';
+import useServices from '../../hooks/use-services';
 
 function Main() {
   const store = useStore();
+  const services = useServices();
+  const locale = services.i18n?.getLocale();
 
   useInit(
     async () => {
       await Promise.all([store.actions.catalog.initParams(), store.actions.categories.load()]);
     },
-    [],
+    [locale],
     true,
   );
 

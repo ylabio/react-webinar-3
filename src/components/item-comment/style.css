@@ -1,0 +1,18 @@
+.ItemComment {
+  margin-bottom: 16px;
+  .ItemComment-header {
+    font-size: 12px;
+    & strong {
+      margin-right: 12px;
+    }
+    & span {
+      color: var(--third-text);
+    }
+  }
+  .ItemComment-text {
+    margin: 6px 0;
+    word-wrap: break-word;
+    font-size: 14px;
+    color: #000000;
+  }
+}

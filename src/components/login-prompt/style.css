@@ -1,0 +1,10 @@
+.CommentsPrompt {
+  margin-bottom: 24px;
+  .CommentsPrompt-link {
+    color: var(--primary);
+    &:hover {
+      text-decoration: underline;
+      font-weight: 500;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.Textarea {
+  width: 100%;
+  max-height: 88px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--main-text);
+  padding: 8px 12px;
+  border: 1px solid var(--filter-border);
+  resize: none;
+  overflow: auto;
+}

@@ -1,7 +1,23 @@
-.Form-title {
-  margin-bottom: 24px;
+.Form_theme_small {
+  & > * > * > * {
+    margin-top: 16px !important;
+  }
 }
-
 .Form button {
   margin-top: 24px;
+}
+
+.Form-title_theme_small {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+.Form-title_theme_big {
+  margin-bottom: 24px;
+  font-size: 32px;
+  font-family: var(--second-font-family);
+}
+
+.Form-action {
+  display: flex;
+  gap: 16px;
 }
