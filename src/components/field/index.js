@@ -8,7 +8,7 @@ function Field({ label, error, children }) {
   return (
     <div className={cn()}>
       <label className={cn('label')}>{label}</label>
-      <div className={cn('input')}>{children}</div>
+      {children && <div className={cn('input')}>{children}</div>}
       <div className={cn('error')}>{error}</div>
     </div>
   );

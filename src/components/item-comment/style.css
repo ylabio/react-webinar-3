@@ -1,0 +1,26 @@
+.ItemComment {
+  margin-bottom: 16px;
+}
+
+.ItemComment:last-child {
+  margin-bottom: 16px;
+}
+
+.ItemComment-header {
+  font-size: 12px;
+}
+
+.ItemComment-header strong {
+  margin-right: 12px;
+}
+
+.ItemComment-header span {
+  color: var(--third-text);
+}
+
+.ItemComment-text {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #000000;
+  word-wrap: break-word;
+}

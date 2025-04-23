@@ -7,9 +7,16 @@
  * @returns {Array} Корневые узлы
  */
 export default function treeToList(tree, callback, level = 0, result = []) {
+  if (!Array.isArray(tree)) return result;
+
   for (const item of tree) {
-    result.push(callback ? callback(item, level) : item);
-    if (item.children?.length) treeToList(item.children, callback, level + 1, result);
+    const newItem = callback ? callback(item, level) : { ...item, level, id: item._id };
+    result.push(newItem);
+
+    if (item.children?.length) {
+      treeToList(item.children, callback, level + 1, result);
+    }
   }
+
   return result;
 }

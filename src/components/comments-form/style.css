@@ -1,0 +1,8 @@
+.CommentsForm {
+  margin-bottom: 24px;
+}
+
+.CommentsForm-error {
+  font-size: 14px;
+  color: var(--delete);
+}

@@ -1,7 +1,18 @@
 .Form-title {
   margin-bottom: 24px;
 }
-
 .Form button {
   margin-top: 24px;
+}
+
+.Form_theme_small {
+  font-size: 16px;
+}
+
+.Form-action {
+  display: flex;
+  gap: 16px;
+}
+.Form-action > * > * {
+  margin-top: 16px !important;
 }
