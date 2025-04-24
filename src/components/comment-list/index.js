@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import CommentCard from '../comment-card';
 import CommentForm from '../comment-form';
 import debounce from 'lodash.debounce';
-import addCommentToTree from '../../utils/obj-to-list';
+import addCommentToTree from '../../utils/obj-to-tree';
 
 function CommentList(props) {
   const { comments: initialComments, commentCount, t = text => text } = props;
@@ -113,6 +113,7 @@ function CommentList(props) {
   }
 
   const cn = bem('CommentList');
+  console.log('initialComments', initialComments);
 
   return (
     <div className={cn()}>

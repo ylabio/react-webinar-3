@@ -123,7 +123,6 @@ function CommentCard(props) {
               setErrorMessage={setErrorMessage}
               handleLogin={handleLogin}
             />
-            
           ))}
         </div>
           {isAuthenticated && (replyToCommentId === comment._id) && isReplyActive && (
