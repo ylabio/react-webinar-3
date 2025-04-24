@@ -1,7 +1,7 @@
 import * as translations from './translations';
 
 /**
- * Перевод фразу по словарю
+ * Перевод фразы по словарю
  * @param lang {String} Код языка
  * @param text {String} Текст для перевода
  * @param [plural] {Number} Число для плюрализации

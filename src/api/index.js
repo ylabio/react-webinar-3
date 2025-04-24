@@ -9,6 +9,14 @@ class APIService {
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     };
+    
+    const i18n = this.services?.i18n;
+    if (i18n) {
+      this.setHeader('X-Lang', i18n.locale);
+      i18n.subscribe(locale => {
+        return this.setHeader('X-Lang', locale);
+      });
+    }
   }
 
   /**
@@ -40,6 +48,11 @@ class APIService {
     } else if (this.defaultHeaders[name]) {
       delete this.defaultHeaders[name];
     }
+  }
+
+  updateLanguageHeader(locale) {
+    this.languageHeader = locale;
+    this.setHeader('Accept-Language', locale);
   }
 }
 

@@ -3,7 +3,7 @@ import { ServicesContext } from '../context';
 
 /**
  * Хук для доступа к сервисам
- * @return {Services}
+ * @return {services}
  */
 export default function useServices() {
   return useContext(ServicesContext);

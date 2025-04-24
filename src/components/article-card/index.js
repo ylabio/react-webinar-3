@@ -7,7 +7,9 @@ import './style.css';
 
 function ArticleCard(props) {
   const { article, onAdd = () => {}, t = text => text } = props;
+
   const cn = bem('ArticleCard');
+
   return (
     <div className={cn()}>
       <div className={cn('description')}>{article.description}</div>
@@ -31,7 +33,7 @@ function ArticleCard(props) {
         <div className={cn('label')}>Цена:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
-      <Button style="primary" onClick={() => onAdd(article._id)} title={t('article.add')} />
+      <Button style="primary" onClick={() => onAdd(article._id)} title={t('article.add')} />      
     </div>
   );
 }
