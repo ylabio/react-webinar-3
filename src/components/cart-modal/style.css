@@ -1,0 +1,94 @@
+.CartModal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 32, 40, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: auto;
+  padding: 40px 0;
+}
+
+.CartModal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.CartModal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.CartModal-item:nth-child(odd) {
+  background-color: var(--odd-item);
+}
+
+.CartModal-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.CartModal-item-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.CartModal-amount {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.CartModal-amount span {
+  width: 105px;
+}
+
+.CartModal-price {
+  text-align: right;
+  min-width: 105px;
+}
+
+.CartModal-item button {
+  background: var(--delete);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.CartModal-item button:hover {
+  background: #e52b2b;
+}
+.CartModal-footer {
+  height: 54px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 169px;;
+  border-top: 1px solid #eee;
+  font-weight: 700;
+  font-size: 16px;
+  gap: 15px;
+}
+
+.CartModal-total-label {
+  min-width: 110px;
+}
+
+.CartModal-total-value {
+  min-width: 100px;
+  text-align: right;
+}
+
+

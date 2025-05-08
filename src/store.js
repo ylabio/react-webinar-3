@@ -5,7 +5,15 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    /**
+     * @type {{ list: Array, cart: Object }}
+     */
+    this.state = {
+      ...initState,
+      cart: [], // Заменил объект корзины на массив
+      totalCount: 0,
+      totalPrice: 0,
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,48 +49,105 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Возвращает содержимое корзины
+   * @returns {Object} Объект корзины
    */
-  addItem() {
+  getCart() {
+    return this.state.cart;
+  }
+
+  /**
+   * Добавляет товар в корзину по коду
+   * @param code {number}
+   */
+  addToCart(code) {
+    const cart = [...this.state.cart];
+    const index = cart.findIndex(i => i.code === code);
+    const product = this.state.list.find(p => p.code === code);
+    if (!product) return;
+
+    if (index === -1) {
+      cart.push({ ...product, count: 1 });
+    } else {
+      cart[index] = {
+        ...cart[index],
+        count: cart[index].count + 1,
+      };
+    }
+
+    const totalCount = cart.reduce((acc, i) => acc + i.count, 0);
+    const totalPrice = cart.reduce((acc, i) => acc + i.count * i.price, 0);
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart,
+      totalCount,
+      totalPrice,
     });
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаляет товар из корзины по коду
+   * @param code {number}
    */
-  deleteItem(code) {
+  removeFromCart(code) {
+    const cart = this.state.cart.filter(i => i.code !== code); // фильтруемс по коду т.е удаление его
+
+    const totalCount = cart.reduce((acc, i) => acc + i.count, 0);
+    const totalPrice = cart.reduce((acc, i) => acc + i.count * i.price, 0);
+
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
+      cart,
+      totalCount,
+      totalPrice,
     });
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
-  }
+  //
+  // /**
+  //  * Добавление новой записи
+  //  */
+  // addItem() {
+  //   this.setState({
+  //     ...this.state,
+  //     list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+  //   });
+  // }
+  //
+  // /**
+  //  * Удаление записи по коду
+  //  * @param code
+  //  */
+  // deleteItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     // Новый список, в котором не будет удаляемой записи
+  //     list: this.state.list.filter(item => item.code !== code),
+  //   });
+  // }
+  //
+  // /**
+  //  * Выделение записи по коду
+  //  * @param code
+  //  */
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     list: this.state.list.map(item => {
+  //       if (item.code === code) {
+  //         // Смена выделения и подсчёт
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1,
+  //         };
+  //       }
+  //       // Сброс выделения если выделена
+  //       return item.selected ? { ...item, selected: false } : item;
+  //     }),
+  //   });
+  // }
 }
 
 export default Store;

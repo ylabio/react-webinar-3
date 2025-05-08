@@ -1,0 +1,20 @@
+.CartContent-footer {
+  height: 54px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 169px;
+  border-top: 1px solid #eee;
+  font-weight: 700;
+  font-size: 16px;
+  gap: 15px;
+}
+
+.CartContent-total-label {
+  min-width: 110px;
+}
+
+.CartContent-total-value {
+  min-width: 100px;
+  text-align: right;
+}
