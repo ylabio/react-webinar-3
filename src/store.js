@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = initState.list.reduce((max, item) => Math.max(max, item.code), 0); // Запоминаем последний использованный код
   }
 
   /**
@@ -37,14 +38,14 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
   /**
-   * Добавление новой записи
+   * Добавление новой записи с уникальным кодом
    */
   addItem() {
+    this.lastCode += 1; // Увеличиваем глобальный счетчик
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.lastCode, title: 'Новая запись' }],
     });
   }
 
@@ -61,16 +62,21 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param {number} code - Код записи
+   * @param {boolean} isMultiSelect - Флаг множественного выделения (Ctrl)
    */
-  selectItem(code) {
+  selectItem(code, isMultiSelect = false) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: !item.selected,
+            selectedCount: item.selected ? item.selectedCount : (item.selectedCount || 0) + 1,
+          };
         }
-        return item;
+        return isMultiSelect ? item : { ...item, selected: false };
       }),
     });
   }
