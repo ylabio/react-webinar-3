@@ -77,7 +77,6 @@ if (process.env.NODE_ENV === 'development') {
       {
         context: '/api/**',
         target: 'http://query.rest',
-        pathRewrite: { '^/api': '/api/v1' },
         secure: false,
         changeOrigin: true,
       },

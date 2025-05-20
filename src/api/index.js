@@ -5,14 +5,7 @@ class APIService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.config = {
-      baseUrl:
-        process.env.NODE_ENV === 'development'
-          ? 'http://localhost:8010/api/v1' // для разработки
-          : 'https://query.rest',
-      apiPrefix: '/api/v1',
-      ...config,
-    };
+    this.config = config;
     this.defaultHeaders = {
       'Content-Type': 'application/json',
       'X-Lang': services.i18n.currentLang,
@@ -28,13 +21,7 @@ class APIService {
    * @returns {Promise<{}>}
    */
   async request({ url, method = 'GET', headers = {}, ...options }) {
-    if (!url.match(/^(http|\/\/)/)) {
-      // Добавляем префикс API если его нет в URL
-      if (!url.startsWith(this.config.apiPrefix)) {
-        url = `${this.config.apiPrefix}${url.startsWith('/') ? '' : '/'}${url}`;
-      }
-      url = this.config.baseUrl + url;
-    }
+    if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const finalHeaders = { ...this.defaultHeaders, ...headers };
     const res = await fetch(url, {
       method,
