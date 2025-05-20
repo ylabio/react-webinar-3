@@ -16,7 +16,7 @@ const config = {
     },
   },
   api: {
-    baseUrl: isProduction ? 'http://query.rest' : '',
+    baseUrl: isProduction === 'development' ? '' : 'https://query.rest',
   },
   i18n: {
     defaultLang: 'ru',
