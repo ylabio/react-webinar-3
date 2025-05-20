@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
@@ -44,7 +45,11 @@ let config = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'public/_redirects', to: '.' }, // Копирует файл в корень `dist`
+        {
+          from: 'public/_redirects',
+          to: '.',
+          noErrorOnMissing: true,
+        },
       ],
     }),
     new MiniCssExtractPlugin(), // Плагин для вытаскивания собранных стилей в отдельный файл
