@@ -16,7 +16,7 @@ const config = {
     },
   },
   api: {
-    baseUrl: '',
+    baseUrl: isProduction ? 'https://nimble-sunflower-ebf1d2.netlify.app' : '',
   },
   i18n: {
     defaultLang: 'ru',
