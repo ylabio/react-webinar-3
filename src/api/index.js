@@ -8,8 +8,8 @@ class APIService {
     this.config = {
       baseUrl:
         process.env.NODE_ENV === 'development'
-          ? 'http://localhost:3000/api/v1' // для разработки
-          : 'https://ваш-настоящий-api.com/api/v1', // для production
+          ? 'http://localhost:8010/api/v1' // для разработки
+          : 'https://query.rest/api/v1', // для production
       ...config,
     };
     this.defaultHeaders = {
