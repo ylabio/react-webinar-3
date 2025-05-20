@@ -5,7 +5,13 @@ class APIService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.config = config;
+    this.config = {
+      baseUrl:
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000/api/v1' // для разработки
+          : 'https://ваш-настоящий-api.com/api/v1', // для production
+      ...config,
+    };
     this.defaultHeaders = {
       'Content-Type': 'application/json',
       'X-Lang': services.i18n.currentLang,
