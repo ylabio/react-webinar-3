@@ -11,6 +11,7 @@ let config = {
     path: path.join(__dirname, 'dist'), // Куда делать оброку
     filename: '[name].js', // Шаблон для названия файлов
     clean: true, // Очистить ./dist перед сборкой
+    publicPath: '/',
   },
   mode: process.env.NODE_ENV,
   resolve: {
@@ -41,6 +42,11 @@ let config = {
     ],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/_redirects', to: '.' }, // Копирует файл в корень `dist`
+      ],
+    }),
     new MiniCssExtractPlugin(), // Плагин для вытаскивания собранных стилей в отдельный файл
     new HtmlWebPackPlugin({
       template: './index.html',
