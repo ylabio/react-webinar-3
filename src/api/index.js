@@ -9,7 +9,8 @@ class APIService {
       baseUrl:
         process.env.NODE_ENV === 'development'
           ? 'http://localhost:8010/api/v1' // для разработки
-          : 'https://query.rest/api/v1', // для production
+          : 'https://query.rest',
+      apiPrefix: '/api/v1',
       ...config,
     };
     this.defaultHeaders = {
@@ -27,7 +28,13 @@ class APIService {
    * @returns {Promise<{}>}
    */
   async request({ url, method = 'GET', headers = {}, ...options }) {
-    if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
+    if (!url.match(/^(http|\/\/)/)) {
+      // Добавляем префикс API если его нет в URL
+      if (!url.startsWith(this.config.apiPrefix)) {
+        url = `${this.config.apiPrefix}${url.startsWith('/') ? '' : '/'}${url}`;
+      }
+      url = this.config.baseUrl + url;
+    }
     const finalHeaders = { ...this.defaultHeaders, ...headers };
     const res = await fetch(url, {
       method,

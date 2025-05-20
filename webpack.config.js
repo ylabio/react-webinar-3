@@ -76,7 +76,8 @@ if (process.env.NODE_ENV === 'development') {
     proxy: [
       {
         context: '/api/**',
-        target: 'https://query.rest',
+        target: 'http://query.rest',
+        pathRewrite: { '^/api': '/api/v1' },
         secure: false,
         changeOrigin: true,
       },
