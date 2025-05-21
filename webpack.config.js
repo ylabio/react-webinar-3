@@ -1,7 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 const path = require('path');
 
 let config = {
@@ -14,7 +13,7 @@ let config = {
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', '.jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', '.jsx', '.json'], // расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -34,6 +33,11 @@ let config = {
         ],
       },
       {
+        test: /\.json$/,
+        type: 'javascript/auto',
+        use: ['json-loader']
+      },
+      {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
@@ -47,11 +51,6 @@ let config = {
       filename: './index.html',
       title: 'Simple SPA',
       base: '/',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
     }),
   ],
 };

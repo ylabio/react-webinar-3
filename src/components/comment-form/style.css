@@ -1,0 +1,37 @@
+.CommentForm {
+  width: 100%;
+  margin: 24px 0;
+}
+
+.CommentForm h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.CommentForm-area {
+  padding: 10px 0;
+  font-family: var(--font-family);
+}
+
+.CommentForm-area textarea {
+  width: 100%;
+  height: 88px;
+  padding: 8px;
+  resize: none;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  font-family: inherit;
+  font-family: var(--font-family);
+}
+
+.CommentForm-area textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.CommentForm-actions {
+  display: flex;
+  gap: 8px;
+}
