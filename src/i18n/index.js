@@ -1,3 +1,5 @@
+import * as translations from './translations';
+
 class I18nService {
   constructor(services, config = {}) {
     this.services = services;
@@ -13,9 +15,35 @@ class I18nService {
     return this._currentLang;
   }
 
-  translate(key, lang = this._currentLang) {
-    const translations = require(`./translations/${lang}.json`);
-    return translations[key] || key;
+  translate(key, count, lang = this._currentLang) {
+    const translation = translations[lang]?.[key];
+    
+    if (typeof translation === 'object') {
+      // Handle pluralization for Russian
+      if (lang === 'ru') {
+        const absCount = Math.abs(count);
+        const lastDigit = absCount % 10;
+        const lastTwoDigits = absCount % 100;
+
+        if (lastDigit === 1 && lastTwoDigits !== 11) {
+          return translation.one;
+        } else if (
+          lastDigit >= 2 &&
+          lastDigit <= 4 &&
+          (lastTwoDigits < 10 || lastTwoDigits >= 20)
+        ) {
+          return translation.few;
+        } else {
+          return translation.many;
+        }
+      }
+      // Handle pluralization for English
+      else {
+        return count === 1 ? translation.one : translation.other;
+      }
+    }
+    
+    return translation || key;
   }
 
   setLang(lang) {

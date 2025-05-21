@@ -1,9 +1,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let config = {
   context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
@@ -12,11 +10,10 @@ let config = {
     path: path.join(__dirname, 'dist'), // Куда делать оброку
     filename: '[name].js', // Шаблон для названия файлов
     clean: true, // Очистить ./dist перед сборкой
-    publicPath: '/',
   },
   mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.js', '.jsx'], // расширения по умолчанию если не указаны в import
+    extensions: ['.js', '.jsx', '.json'], // расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
   },
   module: {
@@ -36,6 +33,11 @@ let config = {
         ],
       },
       {
+        test: /\.json$/,
+        type: 'javascript/auto',
+        use: ['json-loader']
+      },
+      {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
@@ -43,26 +45,12 @@ let config = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'public/_redirects',
-          to: '.',
-          noErrorOnMissing: true,
-        },
-      ],
-    }),
     new MiniCssExtractPlugin(), // Плагин для вытаскивания собранных стилей в отдельный файл
     new HtmlWebPackPlugin({
       template: './index.html',
       filename: './index.html',
       title: 'Simple SPA',
       base: '/',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
     }),
   ],
 };
