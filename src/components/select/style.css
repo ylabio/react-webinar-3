@@ -13,10 +13,13 @@
   outline: none;
 }
 
-.Select option:checked,
 .Select option:hover {
-  background-color: var(--primary);
+  background: var(--primary);
   color: var(--second-text);
+}
+.Select option:checked {
+  background: none;
+  color: var(--primary);
 }
 
 .Select_size_small {

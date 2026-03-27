@@ -11,25 +11,27 @@ function Select(props) {
   };
 
   return (
-    <select className={cn({ size, text: !!text })} value={value} onChange={onSelect}>
-      {options.map(item => (
-        <option key={item.value} value={item.value}>
-          {item.title}
-        </option>
-      ))}
-    </select>
+    <div className="Select-wrapper">
+      <select className={cn({ size, text: !!text })} value={value} onChange={onSelect}>
+        {options.map(item => (
+          <option key={item.value} value={item.value}>
+            {item.title}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
 Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      title: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      title: PropTypes.string.isRequired,
     }),
   ).isRequired,
   value: PropTypes.any,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   size: PropTypes.oneOf(['small', 'medium']),
   text: PropTypes.bool,
 };

@@ -7,18 +7,15 @@ import './style.css';
 
 function BasketTool({ sum, amount, onOpen, t }) {
   const cn = bem('BasketTool');
+  
   return (
     <div className={cn()}>
       <button className={cn('action')} onClick={onOpen}>
         <Cart className={cn('icon')} />
         <span className={cn('total')}>
           {amount
-            ? `${amount} ${plural(amount, {
-                one: 'товар',
-                few: 'товара',
-                many: 'товаров',
-              })} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            ? `${amount} ${plural(amount, t('basket.articles', { returnObjects: true }))} / ${numberFormat(sum, undefined, { maximumFractionDigits: 0 })} ₽`
+            : t('basket.empty')}
         </span>
       </button>
     </div>
@@ -27,16 +24,9 @@ function BasketTool({ sum, amount, onOpen, t }) {
 
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
-  sum: PropTypes.number,
-  amount: PropTypes.number,
-  t: PropTypes.func,
-};
-
-BasketTool.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0,
-  t: text => text,
+  sum: PropTypes.number.isRequired,
+  amount: PropTypes.number.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 export default memo(BasketTool);

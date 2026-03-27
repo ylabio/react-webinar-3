@@ -14,8 +14,7 @@ function Head({ title, children }) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
-  children: PropTypes.node,
+  title: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
-
 export default memo(Head);

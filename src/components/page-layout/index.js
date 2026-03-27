@@ -16,7 +16,9 @@ function PageLayout({ head, footer, children }) {
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node,
+  head: PropTypes.node, 
+  footer: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default memo(PageLayout);

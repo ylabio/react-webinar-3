@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,7 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>
-          {numberFormat(props.item.price)} {props.labelCurr}
+          {numberFormat(props.item.price, undefined, { maximumFractionDigits: 0 })} ₽
         </div>
         <Button style="primary" onClick={callbacks.onAdd} title={props.labelAdd} />
       </div>
@@ -31,20 +31,14 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
-    price: PropTypes.number,
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
   }).isRequired,
-  link: PropTypes.string,
-  onAdd: PropTypes.func,
+  link: PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired,
   labelCurr: PropTypes.string,
   labelAdd: PropTypes.string,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
-  labelCurr: '₽',
-  labelAdd: 'Добавить',
 };
 
 export default memo(Item);
